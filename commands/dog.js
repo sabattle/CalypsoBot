@@ -7,7 +7,7 @@ module.exports = {
   description: "Calypso will find a random pup for your viewing pleasure.",
   tag: "fun",
   run: async (bot, message, args) => {
-    let img = (await snekfetch.get("https://random.dog/woof.json")).body.url;
+    let img = (await snekfetch.get("https://dog.ceo/api/breeds/image/random")).body.message;
     if (!img) return message.channel.send("Yikes, I think the puppies are on the fritz! Try again in a few seconds.")
     let embed = new Discord.RichEmbed()
       .setAuthor("Woof!")
