@@ -1,4 +1,5 @@
-*.json
 *.sqlite
 *.png
-lore.js
+node_modules
+config.json
+package-lock.json
