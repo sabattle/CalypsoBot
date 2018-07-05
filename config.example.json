@@ -2,5 +2,6 @@
   "token": "your_token_here",
   "prefix": "!",
   "ownerID": "",
-  "defaultChannelID": ""
+  "defaultChannelID": "",
+  "color": "#FFFFFF"
 }
