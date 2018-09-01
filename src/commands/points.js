@@ -7,8 +7,8 @@ module.exports = {
   tag: 'admin',
   run: async (message, args) => {
     if (message.member.roles.find('name', 'Admin')) {
-      let target =  message.mentions.members.first() || message.member;
-      let row = await sqlite.get(`SELECT * FROM score WHERE userId ='${target.id}'`);
+      let target = message.mentions.members.first() || message.member;
+      let row = await sqlite.get(`SELECT * FROM ${message.guild} WHERE userId ='${target.id}'`);
       if (!row) message.channel.send(`${target.displayName} has **0** points!`);
       else message.channel.send(`${target.displayName} has **${row.points}** points!`);
     }
