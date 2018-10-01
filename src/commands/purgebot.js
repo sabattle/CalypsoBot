@@ -8,7 +8,7 @@ module.exports = {
       let amount = args.join();
       if (isNaN(amount) === true) return message.channel.send('Please enter a number between 1 and 100.');
       if (!amount || amount > 100) amount = 100;
-      let messages = await message.channel.fetchMessages({limit: amount});
+      let messages = await message.channel.fetchMessages({limit: amount + 1});
       messages = messages.array().filter(m => {
         let command = message.client.commands.get(m.content.trim().split(/ +/g).shift().slice(message.client.prefix.length).toLowerCase());
         if (m.author.client || command) return true;
