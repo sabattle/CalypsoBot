@@ -12,4 +12,4 @@ module.exports = (client) => {
       client.commands.set(command.name, command);
     });
   });
-}
+};
