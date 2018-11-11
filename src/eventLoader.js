@@ -14,4 +14,4 @@ module.exports = (client) => {
       console.log(`Loading event: ${eventName}.`);
     });
   });
-}
+};

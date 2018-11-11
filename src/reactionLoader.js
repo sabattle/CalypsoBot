@@ -12,4 +12,4 @@ module.exports = (client) => {
       client.reactions.set(reaction.name, reaction);
     });
   });
-}
+};

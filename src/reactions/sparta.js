@@ -1,7 +1,7 @@
 module.exports = {
-  name: "sparta",
-  prompt: "THIS IS",
+  name: 'sparta',
+  prompt: 'THIS IS',
   run: (message) => {
-    message.channel.send("SPARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!");
+    message.channel.send('SPARTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA!');
   }
-}
+};

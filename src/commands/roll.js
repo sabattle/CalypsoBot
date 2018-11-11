@@ -6,8 +6,8 @@ module.exports = {
   run: (message, args) => {
     let limit = args.join();
     if (!limit) limit = 6;
-    n = Math.floor(Math.random() * limit + 1);
+    let n = Math.floor(Math.random() * limit + 1);
     if (!n || limit <= 0) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that number.`);
     message.channel.send(`${message.member.displayName}, you rolled a **${n}**.`);
   }
-}
+};
