@@ -13,4 +13,4 @@ module.exports = {
     }
     else message.channel.send(`${message.member.displayName}, you do not have permission to use this command!`);
   }
-}
+};

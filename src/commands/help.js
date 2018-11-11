@@ -3,7 +3,7 @@ module.exports = {
   usage: '',
   description: 'Displays a list of all current commands.',
   tag: 'general',
-  run: (message, args) => {
+  run: (message) => {
     let general = ['**General Commands**'];
     let fun = ['**Fun Commands**'];
     let admin = ['**Admin Commands**'];
@@ -18,4 +18,4 @@ module.exports = {
     message.channel.send(`:mailbox_with_mail: ${message.member}, I messaged you a list of commands.`);
     message.member.send(general.join('\n') + '\n\n' + fun.join('\n') + '\n\n' + admin.join('\n'));
   }
-}
+};

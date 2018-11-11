@@ -5,7 +5,7 @@ module.exports = {
   usage: '',
   description: 'Displays a list of all current emojis.',
   tag: 'general',
-  run: (message, args) => {
+  run: (message) => {
     let emojis = message.guild.emojis;
     let emojiList = '';
     emojis.forEach(e => emojiList = emojiList + `${e} :${e.name}: \n`);
@@ -15,4 +15,4 @@ module.exports = {
       .setColor(message.client.color);
     message.channel.send(embed);
   }
-}
+};

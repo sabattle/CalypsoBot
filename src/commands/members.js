@@ -5,7 +5,7 @@ module.exports = {
   usage: '',
   description: 'Displays a list of all current members.',
   tag: 'general',
-  run: (message, args) => {
+  run: (message) => {
     let members = message.guild.members.filter(m => {
       if (m.roles.find('name', 'Member')) return true;
     });
@@ -18,4 +18,4 @@ module.exports = {
       .setColor(message.client.color);
     message.channel.send(embed);
   }
-}
+};

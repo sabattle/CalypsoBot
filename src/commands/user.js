@@ -6,7 +6,7 @@ module.exports = {
   usage: '<USER MENTION>',
   description: 'Fetches a user\'s information (or your own, if no user was mentioned).',
   tag: 'general',
-  run: (message, args) => {
+  run: (message) => {
     let target =  message.mentions.members.first() || message.member;
     let embed = new Discord.RichEmbed()
       .setAuthor(target.displayName, target.user.displayAvatarURL)
@@ -19,4 +19,4 @@ module.exports = {
       .setColor(target.displayHexColor);
     message.channel.send(embed);
   }
-}
+};

@@ -6,7 +6,7 @@ module.exports = {
   usage: '',
   description: 'Fetches information and statistics about the server.',
   tag: 'general',
-  run: (message, args) => {
+  run: (message) => {
     let embed = new Discord.RichEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL)
       .setThumbnail(message.guild.iconURL)
@@ -21,4 +21,4 @@ module.exports = {
       .setColor(message.client.color);
     message.channel.send(embed);
   }
-}
+};
