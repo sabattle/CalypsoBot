@@ -2,8 +2,8 @@ module.exports = (client, member) => {
 	try {
 		client.channels.first.send(`Welcome to ${member.guild.name}, ${member}! Here's what you need to know:
     » '${client.prefix}' is the prefix for my commands.
-    » Type \`${client.prefix}help\` to get a list of everything I can do!
-    » Commands don't work in DM. Sorry :cold_sweat:
+    » Type \`${client.prefix}help\` to get a list of everything I can do.
+    » Commands don't work in DM.
     » Have fun!`);
 	}
 	catch (err) {

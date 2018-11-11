@@ -3,7 +3,7 @@ module.exports = {
   usage: '',
   description: 'NOT IMPLEMENTED YET',
   tag: 'admin',
-  run: (message, args) => {
+  run: (message) => {
 
   }
-}
+};

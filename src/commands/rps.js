@@ -13,9 +13,9 @@ module.exports = {
     uChoice = rpsList.indexOf(uChoice);
     let bChoice = Math.floor(Math.random()*3);
     let result;
-    if (uChoice === bChoice) result = 'It\'s a draw!'
-    else if (bChoice > uChoice || bChoice === 0 && uChoice === 2) result = '**Calypso** wins!'
-    else result = `**${message.member.displayName}** wins!`
+    if (uChoice === bChoice) result = 'It\'s a draw!';
+    else if (bChoice > uChoice || bChoice === 0 && uChoice === 2) result = '**Calypso** wins!';
+    else result = `**${message.member.displayName}** wins!`;
     let embed = new Discord.RichEmbed()
       .setAuthor(`${message.member.displayName} vs. Calypso`)
       .addField('Your Choice:', resList[uChoice], true)
@@ -23,6 +23,5 @@ module.exports = {
       .addField('Result', result, true)
       .setColor(message.client.color);
     message.channel.send(embed);
-
   }
-}
+};
