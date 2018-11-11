@@ -14,7 +14,7 @@ module.exports = async (client, message) => {
 	}
 
 	// points
-	let id = message.author.id, guild = message.guild.name;
+	let id = message.author.id, user = message.member.displayName, guild = message.guild.name;
 	let updatePoints = require('../updatePoints.js');
 	if (message.channel.id != client.devChannelID && !command) {
 		if (message.content.includes('http')) updatePoints(client, id, guild, 10); // more points for link
