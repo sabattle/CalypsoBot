@@ -12,6 +12,8 @@ module.exports = (client) => {
   // prepare statements
   client.getScore = db.prepare('SELECT * FROM scores WHERE id = ? AND guild = ?');
   client.setScore = db.prepare('INSERT OR REPLACE INTO scores (id, guild, points) VALUES (@id, @guild, @points);');
+  client.getTop10 = db.prepare('SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;');
+  client.getScoreboard = db.prepare('SELECT * FROM scores WHERE guild = ? ORDER BY points DESC;');
 
   console.log('Booted up successfully. Calypso is now online.');
   console.log(`Calypso is running on ${client.guilds.size} server(s).`);

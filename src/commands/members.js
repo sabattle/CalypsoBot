@@ -3,9 +3,10 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'members',
   usage: '',
-  description: 'Displays a list of all current members.',
+  description: 'Displays a list of all current members (Atlas only).',
   tag: 'general',
   run: (message) => {
+    if (message.guild.name != 'Atlas') return message.channel.send('This command can only be used on the **Atlas** Discord server.');
     let members = message.guild.members.filter(m => {
       if (m.roles.find('name', 'Member')) return true;
     });
