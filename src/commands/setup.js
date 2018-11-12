@@ -11,7 +11,7 @@ module.exports = {
       let welcome = '', member = '', mod = '', crown = '';
       let prompt = 0;
       message.channel.send(`Hello ${message.member.displayName}, welcome to my setup process! This won't take long. Please respond with only one message and wait until prompted.`);
-      message.channel.send('First, please enter the ID of your **Welcome** channel. You can get the ID by running the ``!findid`` command, or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages and stream alerts will be sent here. If you do not have one, please type **none**.');
+      message.channel.send('First, please enter the ID of your **Welcome** channel. You can get the ID by running the ``!findid`` command or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages and stream alerts will be sent here. If you do not have one, please type **none**.');
       const collector = new Discord.MessageCollector(message.channel, m => {
         if (m.author == message.author) return true;
       }, { maxMatches: 4 });
