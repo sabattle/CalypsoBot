@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const snekfetch = require('snekfetch');
 
 module.exports = {
@@ -7,8 +8,12 @@ module.exports = {
   tag: 'fun',
   run: async (message) => {
     try {
-      const res = (await snekfetch.get('http://yesno.wtf/api/')).body.image;
-      message.channel.send(res);
+      const res = (await snekfetch.get('http://yesno.wtf/api/')).body;
+      const embed = new Discord.RichEmbed()
+        .setAuthor(res.answer)
+        .setImage(res.image)
+        .setColor(message.client.color);
+      message.channel.send(embed);
     }
     catch (err) {
       return message.channel.send('Something went wrong, please try again in a few seconds.');
