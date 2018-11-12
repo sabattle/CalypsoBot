@@ -9,16 +9,16 @@ module.exports = {
     let row;
     try {
       row = message.client.fetchRow.get(message.guild.id);
+      if (row.mod === 'none') return message.channel.send('There is currently no moderator role on this server.');
     }
     catch (err) {
       return message.channel.send('Sorry, I don\'t know the name of your mod role. Have you ran ``!setup``?');
     }
-    if (row.mod === 'none') return message.channel.send('There is currently no moderator role on this server.');
     let mods = message.guild.members.filter(m => {
       if (m.roles.find('name', row.mod)) return true;
     });
     let modList = '';
-    mods.forEach(a => modList = modList + `${a.displayName}\n`);
+    mods.forEach(m => modList = modList + `${m.displayName}\n`);
     let embed = new Discord.RichEmbed()
       .setAuthor('Mod List', message.guild.iconURL)
       .setDescription(modList)
