@@ -9,11 +9,11 @@ module.exports = {
     let row;
     try {
       row = message.client.fetchRow.get(message.guild.id);
+      if (row.member === 'none') return message.channel.send('There is currently no member role on this server.');
     }
     catch (err) {
       return message.channel.send('Sorry, I don\'t know the name of your member role. Have you ran ``!setup``?');
     }
-    if (row.member === 'none') return message.channel.send('There is currently no member role on this server.');
     let members = message.guild.members.filter(m => {
       if (m.roles.find('name', row.member)) return true;
     });
