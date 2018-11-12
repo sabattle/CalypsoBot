@@ -14,7 +14,7 @@ module.exports = {
       .addField('Current Version', pkg.version, true)
       .addField('Detected Users', message.client.users.size - 1, true)
       .addField('Uptime', `${moment.duration(message.client.uptime).hours()} hours`, true)
-      .addField('Library/Environment', 'Discord.js 11.3.0 | Node.js 8.9.4', true)
+      .addField('Library/Environment', 'Discord.js 11.3.2 | Node.js 8.9.4', true)
       .setFooter('Have Suggestions? DM Nettles#8880 or Mitchelson#0129!')
       .setTimestamp()
       .setColor(message.client.color);
