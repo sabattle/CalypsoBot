@@ -5,10 +5,10 @@ module.exports = {
   tag: 'admin',
   run: async (message, args) => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) {
-      let amount = parseInt(args.join());
+      const amount = parseInt(args.join());
       if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) return message.channel.send('Please enter a number between 1 and 50.');
       await message.delete(); // delete command message
-      let messages = await message.channel.fetchMessages({limit: amount});
+      const messages = await message.channel.fetchMessages({limit: amount});
       messages.forEach(async msg => {
         await msg.delete();
       });

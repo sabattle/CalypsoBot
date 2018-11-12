@@ -6,8 +6,8 @@ module.exports = {
   description: 'Fetches a user\'s avatar (or your own, if no user is mentioned).',
   tag: 'general',
   run: (message) => {
-    let target =  message.mentions.members.first() || message.member;
-    let embed = new Discord.RichEmbed()
+    const target =  message.mentions.members.first() || message.member;
+    const embed = new Discord.RichEmbed()
       .setAuthor(`${target.displayName}'s Avatar`)
       .setImage(target.user.displayAvatarURL)
       .setColor(target.displayHexColor);

@@ -7,7 +7,7 @@ module.exports = (client) => {
     if (files.length === 0) return console.log('No reactions found.');
     console.log(`${files.length} reaction(s) found...`);
     files.forEach(f => {
-      let reaction = require(`./reactions/${f}`);
+      const reaction = require(`./reactions/${f}`);
       console.log(`Loading reaction: ${reaction.name}.`);
       client.reactions.set(reaction.name, reaction);
     });

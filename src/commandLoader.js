@@ -7,7 +7,7 @@ module.exports = (client) => {
     if (files.length === 0) return console.log('No commands found.');
     console.log(`${files.length} command(s) found...`);
     files.forEach(f => {
-      let command = require(`./commands/${f}`);
+      const command = require(`./commands/${f}`);
       console.log(`Loading command: ${command.name}.`);
       client.commands.set(command.name, command);
     });

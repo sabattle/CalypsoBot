@@ -4,9 +4,9 @@ module.exports = {
   description: 'Changes your current color to the one specified.',
   tag: 'general',
   run: async (message, args) => {
-    let colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
-    let target = args.join(' ').toLowerCase();
-    let color = colors.find(c => target.startsWith(c.name.slice(1).toLowerCase()) || target.startsWith(c.name.toLowerCase()));
+    const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
+    const target = args.join(' ').toLowerCase();
+    const color = colors.find(c => target.startsWith(c.name.slice(1).toLowerCase()) || target.startsWith(c.name.toLowerCase()));
     //args check
     if (!color) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that color. Type \`!colors\` for a list.`);
     else if (message.member.roles.has(color.id)) return message.channel.send(`${message.member.displayName}, you are already ${color}!`);

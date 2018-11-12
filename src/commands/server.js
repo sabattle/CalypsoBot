@@ -7,7 +7,7 @@ module.exports = {
   description: 'Fetches information and statistics about the server.',
   tag: 'general',
   run: (message) => {
-    let embed = new Discord.RichEmbed()
+    const embed = new Discord.RichEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL)
       .setThumbnail(message.guild.iconURL)
       .addField('Users', message.guild.members.size, true)

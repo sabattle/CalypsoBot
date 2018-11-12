@@ -13,8 +13,8 @@ module.exports = {
       return message.channel.send('Sorry, I don\'t know the name of your member role. Have you ran ``!setup``?');
     }
     if (message.member.roles.find('name', row.member)){ //role check
-      let target = message.mentions.members.first();
-      let role = message.guild.roles.find('name', row.member);
+      const target = message.mentions.members.first();
+      const role = message.guild.roles.find('name', row.member);
       if (target.roles.has(role.id)) message.channel.send(`${target.displayName} is already a member!`);
       else {
         try {

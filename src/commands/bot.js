@@ -8,7 +8,7 @@ module.exports = {
   description: 'Fetches Calypso\'s information and statistics.',
   tag: 'general',
   run: (message) => {
-    let embed = new Discord.RichEmbed()
+    const embed = new Discord.RichEmbed()
       .setAuthor('Calypso\'s Information', message.client.user.avatarURL)
       .setDescription('Calypso is a multi-purpose Discord bot coded by Nettles and designed by Nettles and Mitchelson. She first went live on February 22nd, 2018. In greek mythology, Calypso is said to be the daughter of Atlas.')
       .addField('Current Version', pkg.version, true)
