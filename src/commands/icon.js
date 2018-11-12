@@ -6,7 +6,7 @@ module.exports = {
   description: 'Displays the server\'s icon.',
   tag: 'general',
   run: (message) => {
-    let embed = new Discord.RichEmbed()
+    const embed = new Discord.RichEmbed()
       .setAuthor(`${message.guild.name}'s Icon`)
       .setImage(message.guild.iconURL)
       .setColor(message.client.color);

@@ -5,12 +5,12 @@ module.exports = {
   tag: 'admin',
   run: async (message, args) => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) {
-      let amount = parseInt(args.join());
+      const amount = parseInt(args.join());
       if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) return message.channel.send('Please enter a number between 1 and 50.');
       await message.delete();
       let messages = await message.channel.fetchMessages({limit: amount});
       messages = messages.array().filter(msg => { // filter for commands or bot messages
-        let command = message.client.commands.get(msg.content.trim().split(/ +/g).shift().slice(message.client.prefix.length).toLowerCase());
+        const command = message.client.commands.get(msg.content.trim().split(/ +/g).shift().slice(message.client.prefix.length).toLowerCase());
         if (msg.author.bot || command) return true;
       });
       messages.forEach(async msg => {

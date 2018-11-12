@@ -10,9 +10,10 @@ module.exports = {
     let amount = parseInt(args[1]);
     let id = message.author.id, guild = message.guild.name;
     let score = message.client.getScore.get(id, guild);
-    if (isNaN(amount) === true || !amount || amount <= 0 || amount > score.points) return message.channel.send(`Please enter a positive integer less than **${score.points}** (your total points).`);
+    if (!score) message.channel.send(`${message.member.displayName}, you have **0** points! Try earning some points first.`);
+    if (isNaN(amount) === true || !amount || amount <= 0 || amount > score.points) return message.channel.send(`Please enter a positive integer less than or equal to **${score.points}** (your total points).`);
     updatePoints(message.client, id, guild, -amount);
     updatePoints(message.client, target, guild, amount);
-    message.channel.send(`I transfered **${amount}** points to ${message.mentions.members.first().displayName}.`);
+    message.channel.send(`I transfered **${amount}** point(s) to ${message.mentions.members.first().displayName}.`);
   }
 };

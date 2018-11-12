@@ -14,12 +14,12 @@ module.exports = {
     catch (err) {
       return message.channel.send('Sorry, I don\'t know the name of your mod role. Have you ran ``!setup``?');
     }
-    let mods = message.guild.members.filter(m => {
+    const mods = message.guild.members.filter(m => {
       if (m.roles.find('name', row.mod)) return true;
     });
     let modList = '';
     mods.forEach(m => modList = modList + `${m.displayName}\n`);
-    let embed = new Discord.RichEmbed()
+    const embed = new Discord.RichEmbed()
       .setAuthor('Mod List', message.guild.iconURL)
       .setDescription(modList)
       .setFooter(`${mods.size} out of ${message.guild.members.size} accounts`)

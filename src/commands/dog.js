@@ -7,12 +7,16 @@ module.exports = {
   description: 'Finds a random dog for your viewing pleasure.',
   tag: 'fun',
   run: async (message) => {
-    let img = (await snekfetch.get('https://dog.ceo/api/breeds/image/random')).body.message;
-    if (!img) return message.channel.send('I think the puppies need a break. Please try again in a few seconds.');
-    let embed = new Discord.RichEmbed()
-      .setAuthor('Woof!')
-      .setImage(img)
-      .setColor(message.client.color);
-    message.channel.send(embed);
+    try {
+      const img = (await snekfetch.get('https://dog.ceo/api/breeds/image/random')).body.message;
+      const embed = new Discord.RichEmbed()
+        .setAuthor('Woof!')
+        .setImage(img)
+        .setColor(message.client.color);
+      message.channel.send(embed);
+    }
+    catch (err) {
+      return message.channel.send('I think the puppies need a break. Please try again in a few seconds.');
+    }
   }
 };
