@@ -5,7 +5,4 @@ config.json
 package-lock.json
 to-do.txt
 .directory
-admins.js
-verify.js
-members.js
 lore.js
