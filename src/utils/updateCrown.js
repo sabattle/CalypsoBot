@@ -9,7 +9,7 @@ module.exports = (client) => {
     const winner = guild.members.get(scoreboard[0].id);
     const crownRole = guild.roles.find('name', crown);
     guild.members.forEach(async member => {
-      if (member.roles.find('name', crown)) await member.removeRoles(crownRole);
+      if (member.roles.has(crownRole.id)) await member.removeRoles(crownRole);
     });
     await winner.addRole(crownRole);
     if (row.welcome === 'none') return;

@@ -19,7 +19,7 @@ function init() {
 	require('./src/loaders/commandLoader.js')(client);
 	require('./src/loaders/reactionLoader.js')(client);
 	client.login(client.token);
-	schedule.scheduleJob('52 * * * *', () => {
+	schedule.scheduleJob('0 19 * * 5', () => { // 7:00 Friday
 		require('./src/utils/updateCrown.js')(client);
 	});
 }
