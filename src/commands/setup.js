@@ -28,7 +28,7 @@ module.exports = {
             prompt++;
             break;
           case 2:
-            message.channel.send(`You entered **${msg.content}**. Lastly, please enter the name of your **Crown** role. If you do not have one, please type **none**.`);
+            message.channel.send(`You entered **${msg.content}**. Lastly, please enter the name of your **Crown** role. This role will be awarded to whoever has the most points per week (for more details, use \`\`!explainpoints\`\` after setup is finished). If you do not have one, please type **none**.`);
             mod = msg.content;
             prompt++;
             break;
