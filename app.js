@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const config = require('./config.json');
+const schedule = require('node-schedule');
 global.__basedir = __dirname;
 
 // setup
@@ -14,10 +15,13 @@ client.reactions = new Discord.Collection();
 
 // initialize client
 function init() {
-	require('./src/eventLoader.js')(client);
-	require('./src/commandLoader.js')(client);
-	require('./src/reactionLoader.js')(client);
+	require('./src/loaders/eventLoader.js')(client);
+	require('./src/loaders/commandLoader.js')(client);
+	require('./src/loaders/reactionLoader.js')(client);
 	client.login(client.token);
+	schedule.scheduleJob('52 * * * *', () => {
+		require('./src/utils/updateCrown.js')(client);
+	});
 }
 
 init();

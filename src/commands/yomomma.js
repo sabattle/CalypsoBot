@@ -3,7 +3,7 @@ const snekfetch = require('snekfetch');
 module.exports = {
   name: 'yomomma',
   usage: '',
-  description: 'Calypso will say a random yo momma joke.',
+  description: 'Says a random yo momma joke.',
   tag: 'fun',
   run: async (message) => {
     try {

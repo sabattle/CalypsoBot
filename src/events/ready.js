@@ -13,9 +13,10 @@ module.exports = (client) => {
   // prepare statements
   client.getScore = db.prepare('SELECT * FROM scores WHERE id = ? AND guild = ?');
   client.setScore = db.prepare('INSERT OR REPLACE INTO scores (id, guild, points) VALUES (@id, @guild, @points);');
+  client.clearScore = db.prepare('UPDATE scores SET points = 0');
   client.getTop10 = db.prepare('SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;');
   client.getScoreboard = db.prepare('SELECT * FROM scores WHERE guild = ? ORDER BY points DESC;');
-  client.fetchRow = db.prepare('SELECT * FROM info WHERE guild = ?');
+  client.getRow = db.prepare('SELECT * FROM info WHERE guild = ?');
   client.setRow = db.prepare('INSERT OR REPLACE INTO info (guild, welcome, member, mod, crown) VALUES (@guild, @welcome, @member, @mod, @crown);');
 
   console.log('Booted up successfully. Calypso is now online.');

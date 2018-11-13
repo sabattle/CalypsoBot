@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 module.exports = {
   name: 'setup',
   usage: '',
-  description: 'Sets up Calypso for your server.',
+  description: 'Sets up Calypso for your server (server administrators only).',
   tag: 'admin',
   run: (message) => {
     if (message.member.hasPermission('ADMINISTRATOR')){

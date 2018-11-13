@@ -24,7 +24,7 @@ const answers = [
 module.exports = {
   name: '8ball',
   usage: '',
-  description: 'Ask the Magic 8-Ball for some psychic wisdom.',
+  description: 'Asks the Magic 8-Ball for some psychic wisdom.',
   tag: 'fun',
   run: (message) => {
     message.channel.send(`The Magic 8-Ball says: **${answers[Math.floor(Math.random() * answers.length)]}**`);
