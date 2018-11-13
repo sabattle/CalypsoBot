@@ -8,7 +8,7 @@ module.exports = {
   run: (message) => {
     let row;
     try {
-      row = message.client.fetchRow.get(message.guild.id);
+      row = message.client.getRow.get(message.guild.id);
       if (row.member === 'none') return message.channel.send('There is currently no member role on this server.');
     }
     catch (err) {
