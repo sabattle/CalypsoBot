@@ -3,7 +3,7 @@ const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
 module.exports = {
   name: 'givepoints',
   usage: '<USER MENTION> <POINT COUNT>',
-  description: 'Give the specified amount of your own points to the mentioned user.',
+  description: 'Gives the specified amount of your own points to the mentioned user.',
   tag: 'fun',
   run: (message, args) => {
     const target = message.mentions.members.first().id;
