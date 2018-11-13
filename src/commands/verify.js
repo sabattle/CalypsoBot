@@ -10,7 +10,7 @@ module.exports = {
       if (row.member === 'none') return message.channel.send('There is currently no member role on this server.');
     }
     catch (err) {
-      return message.channel.send('Sorry, I don\'t know the name of your member role. Have you ran ``!setup``?');
+      return message.channel.send('Sorry, I don\'t know the name of this server\'s member role. Has a server administrator ran ``!setup``?');
     }
     if (message.member.roles.find('name', row.member)){ //role check
       const target = message.mentions.members.first();

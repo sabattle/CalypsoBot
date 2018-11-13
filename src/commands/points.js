@@ -7,6 +7,7 @@ module.exports = {
     const target = message.mentions.members.first() || message.member;
     const score = message.client.getScore.get(target.id, message.guild.name);
     if (!score) message.channel.send(`${target.displayName} has **0** point(s)!`);
-    else message.channel.send(`${target.displayName} has **${score.points}** point(s)!`);
+    else if (score.points === 1) message.channel.send(`${target.displayName} has **${score.points}** point!`);
+    else message.channel.send(`${target.displayName} has **${score.points}** points!`);
   }
 };
