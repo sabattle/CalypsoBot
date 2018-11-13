@@ -12,7 +12,7 @@ module.exports = {
       if (row.mod === 'none') return message.channel.send('There is currently no moderator role on this server.');
     }
     catch (err) {
-      return message.channel.send('Sorry, I don\'t know the name of your mod role. Have you ran ``!setup``?');
+      return message.channel.send('Sorry, I don\'t know the name of this server\'s moderator role. Has a server administrator ran ``!setup``?');
     }
     const mods = message.guild.members.filter(m => {
       if (m.roles.find('name', row.mod)) return true;
