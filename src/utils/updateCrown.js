@@ -8,13 +8,12 @@ module.exports = (client) => {
     const scoreboard = client.getScoreboard.all(guild.name);
     const winner = guild.members.get(scoreboard[0].id);
     const crownRole = guild.roles.find('name', crown);
-    guild.members.forEach(async member => {
-      if (member.roles.has(crownRole.id)) await member.removeRoles(crownRole);
+    await guild.members.forEach(async member => {
+      if (member.roles.has(crownRole.id)) await member.removeRole(crownRole);
     });
     await winner.addRole(crownRole);
     if (row.welcome === 'none') return;
-    guild.channels.get(row.welcome).send(`Hello ${guild.defaultRole}!
-      Congratulations to ${winner} for being first this week! They now have the ${crownRole} role! Points have been cleared for this week, best of luck next time!`);
+    guild.channels.get(row.welcome).send(`Hello ${guild.defaultRole}! Congratulations to ${winner} for being first this week! They now have the ${crownRole} role! Points have been cleared for this week, best of luck next time!`);
   });
   client.clearScore.run();
   console.log('Sucessfully updated crown owner and cleared points.');
