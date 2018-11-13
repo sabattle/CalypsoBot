@@ -12,7 +12,7 @@ module.exports = {
       messages.forEach(async msg => {
         await msg.delete();
       });
-      console.log(`${message.member.displayName} used purge in ${message.channel.name}`);
+      console.log(`${message.member.displayName} used purge in ${message.channel.name}.`);
     }
     else message.channel.send(`${message.member.displayName}, you do not have permission to use this command.`);
   }
