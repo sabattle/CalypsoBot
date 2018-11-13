@@ -8,10 +8,11 @@ const client = new Discord.Client();
 client.token = config.token;
 client.prefix = config.prefix;
 client.ownerID = config.ownerID;
-client.devChannelID = config.devChannelID; // dev channel id
+client.devChannelID = config.devChannelID; // dev channel ID
 client.color = config.color;
 client.commands = new Discord.Collection();
 client.reactions = new Discord.Collection();
+client.startTimes = new Discord.Collection(); // for voiceStateUpdate
 
 // initialize client
 function init() {

@@ -1,10 +1,11 @@
+const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
+
 module.exports = {
   name: 'givepoints',
   usage: '<USER MENTION> <POINT COUNT>',
   description: 'Give the specified amount of your own points to the mentioned user.',
   tag: 'fun',
   run: (message, args) => {
-    const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
     let target = message.mentions.members.first().id;
     if (!target) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that user.`);
     let amount = parseInt(args[1]);
