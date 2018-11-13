@@ -2,7 +2,7 @@ module.exports = {
   name: 'unblacklist',
   usage: '',
   description: 'NOT IMPLEMENTED YET',
-  tag: 'admin',
+  tag: 'mod',
   run: (message) => {
 
   }

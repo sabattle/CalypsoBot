@@ -2,7 +2,7 @@ module.exports = {
   name: 'purgebot',
   usage: '<MESSAGE COUNT>',
   description: 'Sifts through the specified amount of messages and deletes any commands or messages from Calypso (limit is 50 at a time).',
-  tag: 'admin',
+  tag: 'mod',
   run: async (message, args) => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) {
       const amount = parseInt(args.join());

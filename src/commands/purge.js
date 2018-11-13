@@ -2,7 +2,7 @@ module.exports = {
   name: 'purge',
   usage: '<MESSAGE COUNT>',
   description: 'Deletes the specified amount of messages from a channel (limit is 50 at a time).',
-  tag: 'admin',
+  tag: 'mod',
   run: async (message, args) => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) {
       const amount = parseInt(args.join());

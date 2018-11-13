@@ -4,7 +4,7 @@ module.exports = {
   name: 'setup',
   usage: '',
   description: 'Sets up Calypso for your server (server administrators only).',
-  tag: 'admin',
+  tag: 'mod',
   run: (message) => {
     if (message.member.hasPermission('ADMINISTRATOR')){
       const guild = message.guild.id;
