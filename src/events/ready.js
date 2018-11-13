@@ -4,8 +4,8 @@ const db = new Database(__basedir + '/data/db.sqlite');
 module.exports = (client) => {
 
   // create table
-  db.prepare('CREATE TABLE IF NOT EXISTS scores (id TEXT PRIMARY KEY, guild TEXT, points INTEGER);').run();
-  db.prepare('CREATE UNIQUE INDEX IF NOT EXISTS idx ON scores (id);').run();
+  db.prepare('CREATE TABLE IF NOT EXISTS scores (id TEXT, guild TEXT, points INTEGER);').run();
+  db.prepare('CREATE UNIQUE INDEX IF NOT EXISTS idx ON scores (id, guild);').run();
   db.prepare('CREATE TABLE IF NOT EXISTS config (guild TEXT PRIMARY KEY, welcome TEXT, member TEXT, mod TEXT, crown TEXT);').run();
   db.pragma('synchronous = 1');
   db.pragma('journal_mode = wal');
