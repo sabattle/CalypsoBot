@@ -19,5 +19,8 @@
             "always"
         ],
         "no-console": 0
+    },
+    "globals": {
+      "__basedir": false
     }
 }

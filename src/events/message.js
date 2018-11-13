@@ -15,7 +15,7 @@ module.exports = async (client, message) => {
 
 	// points
 	const id = message.author.id, guild = message.guild.name;
-	const updatePoints = require('../updatePoints.js');
+	const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
 	if (message.channel.id != client.devChannelID && !command) {
 		if (message.content.includes('http')) updatePoints(client, id, guild, 10); // more points for link
 		else if (message.attachments.size > 0) updatePoints(client, id, guild, 20); // even more points for file
