@@ -2,7 +2,6 @@
 *.png
 node_modules
 config.json
-package-lock.json
 to-do.txt
 .directory
 lore.js
