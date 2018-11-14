@@ -13,6 +13,7 @@ module.exports = {
     const score = message.client.getScore.get(id, guild);
     if (!score || score.points <= 0) return message.channel.send(`${message.member.displayName}, you have **0** points! Try earning some points first.`);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > score.points) return message.channel.send(`The amount of points to give must be a positive integer equal to or less than **${score.points}** (your total points).`);
+    if (target === message.client.user.id) return message.channel.send('Thank you, you\'re too kind! But I must decline. I prefer not to take handouts.');
     updatePoints(message.client, id, guild, -amount);
     updatePoints(message.client, target, guild, amount);
     if (amount === 1) message.channel.send(`I transfered **${amount}** point to ${message.mentions.members.first().displayName}.`);
