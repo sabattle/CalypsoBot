@@ -1,7 +1,7 @@
 module.exports = (client, oldMember, newMember) => {
   let row;
   try {
-    row = client.fetchRow.get(newMember.guild.id);
+    row = client.getRow.get(newMember.guild.id);
   }
   catch (err) {
     return;
