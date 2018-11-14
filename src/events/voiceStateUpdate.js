@@ -1,4 +1,3 @@
-
 const moment = require('moment');
 const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
 

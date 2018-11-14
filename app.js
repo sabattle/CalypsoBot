@@ -12,6 +12,7 @@ client.devChannelID = config.devChannelID; // dev channel ID
 client.color = config.color;
 client.commands = new Discord.Collection();
 client.reactions = new Discord.Collection();
+client.topics = []; // for trivia
 client.startTimes = new Discord.Collection(); // for voiceStateUpdate
 
 // initialize client
@@ -19,6 +20,7 @@ function init() {
 	require('./src/loaders/eventLoader.js')(client);
 	require('./src/loaders/commandLoader.js')(client);
 	require('./src/loaders/reactionLoader.js')(client);
+	require('./src/loaders/topicLoader.js')(client);
 	client.login(client.token);
 	schedule.scheduleJob('0 19 * * 5', () => { // 7:00 Friday
 		require('./src/utils/updateCrown.js')(client);
