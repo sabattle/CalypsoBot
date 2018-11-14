@@ -15,10 +15,13 @@ module.exports = {
     const n = Math.floor(Math.random() * count);
     const question = topics[n].split('`').shift();
     let answers = topics[n].split('`');
+    let realAnswers = '';
     answers.shift();
     for (let i = 0; i < answers.length; i++){
+      realAnswers = realAnswers + ' | ' + answers[i];
       answers[i] = answers[i].toLowerCase();
     }
+    realAnswers = '**' + realAnswers.slice(2) + '**';
     message.channel.send(question);
     let winner;
     const collector = new Discord.MessageCollector(message.channel, m => {
@@ -32,7 +35,7 @@ module.exports = {
     });
     collector.on('end', () => {
       if (winner) message.channel.send(`Congratulations ${winner}, you gave the correct answer!`);
-      else message.channel.send('Time\'s up! Better luck next time!');
+      else message.channel.send('Time\'s up! Better luck next time!\nCorrect answers: ' + realAnswers);
     });
   }
 };
