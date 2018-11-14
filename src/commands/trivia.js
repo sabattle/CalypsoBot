@@ -19,7 +19,7 @@ module.exports = {
     answers.shift();
     for (let i = 0; i < answers.length; i++){
       realAnswers = realAnswers + ' | ' + answers[i];
-      answers[i] = answers[i].toLowerCase();
+      answers[i] = answers[i].trim().toLowerCase();
     }
     realAnswers = '**' + realAnswers.slice(2) + '**';
     message.channel.send(question);
