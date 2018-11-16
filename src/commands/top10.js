@@ -15,7 +15,7 @@ module.exports = {
       .setThumbnail(message.guild.iconURL)
       .setDescription('The top 10!')
       .setColor(message.client.color)
-      .setFooter(`Your position is: ${position + 1}`);
+      .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
     for(const score of top10) {
       embed.addField(`${count}: ${await message.guild.members.get(score.id).displayName}`, `${score.points} points`);
       count++;

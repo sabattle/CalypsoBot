@@ -1,7 +1,4 @@
 {
   "token": "your_token_here",
-  "prefix": "!",
-  "ownerID": "",
-  "devChannelID": "",
-  "color": "#FFFFFF"
+  "prefix": "!"
 }

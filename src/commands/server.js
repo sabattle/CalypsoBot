@@ -6,7 +6,7 @@ module.exports = {
   usage: '',
   description: 'Fetches information and statistics about the server.',
   tag: 'general',
-  run: (message) => {
+  run: async (message) => {
     const embed = new Discord.RichEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL)
       .setThumbnail(message.guild.iconURL)
@@ -18,7 +18,7 @@ module.exports = {
       .addField('Text Channels', message.guild.channels.array().filter(c => c.type === 'text').join(' '))
       .setFooter(`Server ID: ${message.guild.id}`)
       .setTimestamp()
-      .setColor(message.client.color);
+      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
     message.channel.send(embed);
   }
 };

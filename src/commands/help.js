@@ -10,7 +10,7 @@ module.exports = {
     message.client.commands.forEach(c => {
       if (c.tag === 'general') general.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
       else if (c.tag === 'fun') fun.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
-      else mod.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      else if (c.tag === 'mod') mod.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
     });
     general[0] = general[0] + ` **(${general.length - 1})**`;
     fun[0] = fun[0] + ` **(${fun.length - 1})**`;
