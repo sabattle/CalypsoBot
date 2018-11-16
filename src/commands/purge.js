@@ -6,7 +6,7 @@ module.exports = {
   run: async (message, args) => {
     if (message.member.hasPermission('MANAGE_MESSAGES')) {
       const amount = parseInt(args.join());
-      if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) return message.channel.send('Please enter a number between 1 and 50.');
+      if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) return message.channel.send(`${message.member.displayName}, please enter a number between 1 and 50.`);
       await message.delete(); // delete command message
       const messages = await message.channel.fetchMessages({limit: amount});
       messages.forEach(async msg => {
