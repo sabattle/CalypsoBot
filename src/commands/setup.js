@@ -7,8 +7,8 @@ module.exports = {
   tag: 'mod',
   run: (message) => {
     if (message.member.hasPermission('ADMINISTRATOR')){
-      const guild = message.guild.id;
-      let defaultChannel = '', memberRole = '', modRole = '', crownRole = '';
+      const guildID = message.guild.id;
+      let defaultChannelID = '', memberRole = '', modRole = '', crownRole = '';
       let prompt = 0;
       message.channel.send(`Hello ${message.member.displayName}, welcome to my setup process! This won't take long. Please respond with only one message and wait until prompted.`);
       message.channel.send('First, please enter the ID of your **Default** channel. You can get the ID by running the ``!findid`` command or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages and stream alerts will be sent here. If you do not have one, please type **none**.');
@@ -19,7 +19,7 @@ module.exports = {
         switch(prompt){
           case 0:
             message.channel.send(`You entered **${msg.content}**. Next, please enter the name of your **Member** role. If you do not have one, please type **none**.`);
-            defaultChannel = msg.content;
+            defaultChannelID = msg.content;
             prompt++;
             break;
           case 1:
@@ -41,8 +41,8 @@ module.exports = {
       });
       collector.on('end', () => {
         let row = { // row object
-          guild: guild,
-          defaultChannel: defaultChannel,
+          guildID: guildID,
+          defaultChannelID: defaultChannelID,
           memberRole: memberRole,
           modRole: modRole,
           crownRole: crownRole

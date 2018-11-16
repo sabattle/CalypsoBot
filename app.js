@@ -7,6 +7,7 @@ global.__basedir = __dirname;
 const client = new Discord.Client();
 client.token = config.token;
 client.prefix = config.prefix;
+client.ownerID = config.ownerID;
 client.commands = new Discord.Collection();
 client.reactions = new Discord.Collection();
 client.topics = []; // for trivia
