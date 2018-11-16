@@ -7,9 +7,18 @@ module.exports = {
   description: 'Test your knowledge in a game of trivia! You have 10 seconds to answer.',
   tag: 'fun',
   run: (message, args) => {
-    const topic = args[0];
+
+    let topic = args[0];
+    let randomPick = false;
+
+    if (!topic){
+      topic = message.client.topics[Math.floor(Math.random() * message.client.topics.length)];
+      randomPick = true;
+    }
+    else if (!message.client.topics.includes(topic))
+      return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that topic. Please use \`\`!topics\`\` to see a list.`);
+
     const path = __basedir + '/data/trivia/' + topic + '.txt';
-    if (!message.client.topics.includes(topic)) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that topic. Please use \`\`!topics\`\` to see a list.`);
     const topics = fs.readFileSync(path).toString().split('\n');
     let count = topics.length;
     const n = Math.floor(Math.random() * count);
@@ -22,13 +31,23 @@ module.exports = {
       answers[i] = answers[i].trim().toLowerCase();
     }
     realAnswers = '**' + realAnswers.slice(2) + '**';
-    message.channel.send(question);
+
+    if (randomPick)
+      message.channel.send('From **'+topic+'**: '+question);
+    else
+      message.channel.send(question);
+
+    let noSpaceAnsws = [];
+    for (let i = 0; i < answers.length; i++)
+      noSpaceAnsws.push(answers[i].replace(' ', '').toLowerCase());
+
     let winner;
     const collector = new Discord.MessageCollector(message.channel, m => {
       if (!m.author.bot) return true;
     }, { time: 10000 });
     collector.on('collect', msg => {
-      if (answers.includes(msg.content.toLowerCase())) {
+
+      if (noSpaceAnsws.includes(msg.content.toLowerCase().replace(' ', ''))) {
         winner = msg.author;
         collector.stop();
       }
