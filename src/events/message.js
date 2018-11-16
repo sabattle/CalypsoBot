@@ -16,9 +16,9 @@ module.exports = (client, message) => {
 	}
 
 	// points
-	const id = message.author.id, guild = message.guild.name;
+	const userID = message.author.id, guildID = message.guild.id;
 	if (!command) {
-		if (message.content.includes('http') || message.attachments.size > 0) updatePoints(client, id, guild, 15); // link or file
-		else updatePoints(client, id, guild);
+		if (message.content.includes('http') || message.attachments.size > 0) updatePoints(client, userID, guildID, 10); // link or file
+		else updatePoints(client, userID, guildID);
 	}
 };

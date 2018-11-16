@@ -2,11 +2,10 @@ module.exports = {
   name: 'crown',
   usage: '',
   description: 'Fetches the name of your server\'s crown role.',
-  tag: 'general',
+  tag: 'fun',
   run: (message) => {
-    let row;
     try {
-      row = message.client.getRow.get(message.guild.id);
+      const row = message.client.getRow.get(message.guild.id);
       if (row.crownRole === 'none') message.channel.send('There is currently no crown role on this server.');
       else message.channel.send(`The name of this server's crown role is: **${row.crownRole}**`);
     }

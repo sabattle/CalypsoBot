@@ -5,8 +5,8 @@ module.exports = {
   tag: 'fun',
   run: async (message) => {
     const target =  message.mentions.members.first() || message.member;
-    const scoreboard = message.client.getScoreboard.all(message.guild.name);
-    const position = scoreboard.map(e => e.id).indexOf(target.id);
+    const scoreboard = message.client.getScoreboard.all(message.guild.id);
+    const position = scoreboard.map(u => u.userID).indexOf(target.id);
     message.channel.send(`${target.displayName}'s position: **${position + 1}**`);
   }
 };

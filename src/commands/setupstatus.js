@@ -8,7 +8,7 @@ module.exports = {
       try {
         const row = message.client.getRow.get(message.guild.id);
         message.channel.send(`__**Setup Status:**__
-        **Default Channel ID:** \`\`${row.defaultChannel}\`\`
+        **Default Channel ID:** \`\`${row.defaultChannelID}\`\`
         **Member Role:** \`\`${row.memberRole}\`\`
         **Moderator Role:** \`\`${row.modRole}\`\`
         **Crown Role:** \`\`${row.crownRole}\`\``);

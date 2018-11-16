@@ -1,7 +1,7 @@
 module.exports = {
   name: 'findid',
   usage: '<USER MENTION | TEXT CHANNEL>',
-  description: 'Finds the ID of the mentioned user or text channel',
+  description: 'Finds the ID of the mentioned user or text channel.',
   tag: 'general',
   run: (message) => {
     const target = message.mentions.members.first() || message.mentions.channels.first();

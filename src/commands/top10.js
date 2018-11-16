@@ -6,9 +6,9 @@ module.exports = {
   description: 'Lists the top 10 members with the most points on your server.',
   tag: 'fun',
   run: async (message) => {
-    const top10 = message.client.getTop10.all(message.guild.name);
-    const scoreboard = message.client.getScoreboard.all(message.guild.name);
-    const position = scoreboard.map(e => e.id).indexOf(message.author.id);
+    const top10 = message.client.getTop10.all(message.guild.id);
+    const scoreboard = message.client.getScoreboard.all(message.guild.id);
+    const position = scoreboard.map(u => u.userID).indexOf(message.author.id);
     let count = 1;
     const embed = new Discord.RichEmbed()
       .setAuthor(message.guild.name + ' Leaderboard', message.guild.iconURL)
@@ -17,7 +17,7 @@ module.exports = {
       .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor)
       .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
     for(const score of top10) {
-      embed.addField(`${count}: ${await message.guild.members.get(score.id).displayName}`, `${score.points} points`);
+      embed.addField(`${count}: ${await message.guild.members.get(score.userID).displayName}`, `${score.points} points`);
       count++;
     }
     return message.channel.send({embed});

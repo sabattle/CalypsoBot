@@ -12,7 +12,6 @@ Who is the main character from Final Fantasy IX?`Zidane Tribal
 In what series of video games did Master Chief appear?`Halo
 What video game made the Golden Gun famous?`Goldeneye
 Gran Turismo is exclusive to 1 console, what is it?`Sony Playstation`Playstation
-Who is Harry Potter's best friend in the game "Harry Potter and the Chamber of Secrets"?`Ron Weasley
 What role do you play in the game "Pacific Strike"?`American pilot
 What famous monkey had a considerable role in turning Nintendo into the company they are today?`Donkey Kong
 IN the "Final Fantasy X", where is blitzball played?`Underwater
@@ -100,17 +99,8 @@ What PopCap game required you to swap adjacent gems to form chains of three or m
 How much time does Link have to defeat Skull Kid in Majora's Mask?`3 days
 The barrel roll from Star Fox 64 isn’t actually a barrel roll but what?`Aileron roll
 What was the first name of the game developing company Atari?`Syzygy
-What year did Facebook debut?`2004
-By what name was Netscape known officially before it became Netscape?`Mosaic
-Founded by Paypal employees, what site was bought by Google for $1.65 billion?`YouTube
-Pescadero, Oceano and Indio are codenames of earlier version of which popular software?`Firefox
-Which American Vice President referred to the Internet as an "Information Super Highway"?`Al Gore
-"Relationship Matter" is the slogan of which social networking site?`Linked In`Linkedin
 What year was the Nintendo Game Boy released in the US?`1989
-In what year was the compact disk invented?`1965
-What was the "beta version" of the Internet called?`ARPAnet
-How is binary digit more commonly known?`Bit
-Which company developed the famous first person shooter game 'Quake'?`id Software
+Which company developed the famous first person shooter game 'Quake'?`id Software`id
 Advertised briefly as the bloodiest video game in existence`mortal kombat
 How many buttons (excluding the control pad) did the original NES controller have?`Four`4
 How many fighters are playable in 'Street Fighter II'?`Eight`8
