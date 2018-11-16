@@ -15,7 +15,7 @@ module.exports = {
     if (message.member.roles.find(r => r.name === row.memberRole)){ // role check
       const target = message.mentions.members.first();
       const role = message.guild.roles.find(r => r.name === row.memberRole);
-      if (!target) return message.channel.send('Please mention the user you would like to verify.');
+      if (!target) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that user.`);
       if (target.roles.has(role.id)) message.channel.send(`${target.displayName} is already a ${row.memberRole}!`);
       else {
         try {

@@ -14,7 +14,7 @@ module.exports = {
       .setAuthor(message.guild.name + ' Leaderboard', message.guild.iconURL)
       .setThumbnail(message.guild.iconURL)
       .setDescription('The top 10!')
-      .setColor(message.client.color)
+      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor)
       .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
     for(const score of top10) {
       embed.addField(`${count}: ${await message.guild.members.get(score.id).displayName}`, `${score.points} points`);
