@@ -8,10 +8,10 @@ module.exports = {
       try {
         const row = message.client.getRow.get(message.guild.id);
         message.channel.send(`__**Setup Status:**__
-        **Welcome Channel ID:** \`\`${row.welcome}\`\`
-        **Member Role:** \`\`${row.member}\`\`
-        **Moderator Role:** \`\`${row.mod}\`\`
-        **Crown Role:** \`\`${row.crown}\`\``);
+        **Default Channel ID:** \`\`${row.defaultChannel}\`\`
+        **Member Role:** \`\`${row.memberRole}\`\`
+        **Moderator Role:** \`\`${row.modRole}\`\`
+        **Crown Role:** \`\`${row.crownRole}\`\``);
       }
       catch (err) {
         return message.channel.send('Unable to fetch server information. Please run ``!setup``.');

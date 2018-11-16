@@ -1,17 +1,16 @@
 module.exports = (client, oldMember, newMember) => {
-  let row;
   try {
-    row = client.getRow.get(newMember.guild.id);
+    const row = client.getRow.get(newMember.guild.id);
+    if (newMember.presence.game && oldMember.presence.game){
+      if (newMember.presence.game.streaming === true && oldMember.presence.game.streaming === false)
+        client.channels.get(row.defaultChannel).send(`${newMember.displayName} is now streaming! Here's a link: <${newMember.presence.game.url}>`);
+    }
+    else if (newMember.presence.game){
+      if (newMember.presence.game.streaming)
+        client.channels.get(row.defaultChannel).send(`${newMember.displayName} is now streaming! Here's a link: <${newMember.presence.game.url}>`);
+    }
   }
   catch (err) {
-    return;
-  }
-  if (newMember.presence.game && oldMember.presence.game){
-    if (newMember.presence.game.streaming === true && oldMember.presence.game.streaming === false)
-      client.channels.get(row.welcome).send(`${newMember.displayName} is now streaming! Here's a link: <${newMember.presence.game.url}>`);
-  }
-  else if (newMember.presence.game){
-    if (newMember.presence.game.streaming)
-      client.channels.get(row.welcome).send(`${newMember.displayName} is now streaming! Here's a link: <${newMember.presence.game.url}>`);
+    console.log(`Stream alert not sent because default channel is not set in ${oldMember.guild.name}.`);
   }
 };

@@ -1,7 +1,7 @@
 module.exports = {
   name: 'topics',
   usage: '',
-  description: 'Fetches the list of available trivia topics.',
+  description: 'Displays the list of all available trivia topics.',
   tag: 'fun',
   run: (message) => {
     let topics;

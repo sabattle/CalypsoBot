@@ -407,8 +407,7 @@ Whose name is a marine species of cephalopod?`Nautilus
 Who has an idle animation where they do the Captain Morgan (rum) pose?`Nautilus
 Who says "Mmm, the taste of coward." in game?`Nidalee
 Who has an ability called "Takedown"?`Nidalee
-Whose hidden passive gives nearby lower-leveled allied champions 5 experience every 5 seconds?`Nidalee
-Who has a Pharoah skin?`Nidalee
+Who has a Pharaoh skin?`Nidalee`Nasus
 Who has a Challenger skin made to celebrate the start of the 2016 season?`Nidalee
 Who has a Haunting skin?`Nocturne
 Who is also known as the "Eternal Nightmare"?`Nocturne
@@ -535,7 +534,7 @@ Who has a skin that is a reference to Wonder Woman?`Sivir
 Who has the Victorious skin from Season 5?`Sivir
 Who is also known as the "Battle Mistress"?`Sivir
 Who is the Heir of Shurima?`Sivir
-Who has a skill called "Ricochet"?Sivir
+Who has a skill called "Ricochet"?`Sivir
 Who is also known as "The Crystal Vanguard"?`Skarner
 Who emerged from the Crystal Scar (Dominion map)?`Skarner
 Which champion is a member of the Brackern species?`Skarner
@@ -667,7 +666,7 @@ Who is also known as the "Machine Herald"?`Viktor
 Who is the leader of The Evolution?`Viktor
 Who has a skill called "Chaos Storm"?`Viktor
 Who has a Nosferatu skin?`Vladimir
-Who is also known as the "Crimison Reaper"?`Vladimir
+Who is also known as the "Crimson Reaper"?`Vladimir
 What is Vladimir's blood type?`AB+`AB positive`AB`AB +
 Who is a Hemomancer?`Vladimir
 Who says "The rivers will run red." when picked in champion select?`Vladimir

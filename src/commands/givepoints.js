@@ -16,7 +16,7 @@ module.exports = {
     if (target === message.client.user.id) return message.channel.send('Thank you, you\'re too kind! But I must decline. I prefer not to take handouts.');
     updatePoints(message.client, id, guild, -amount);
     updatePoints(message.client, target, guild, amount);
-    if (amount === 1) message.channel.send(`I transfered **${amount}** point to ${message.mentions.members.first().displayName}.`);
-    else message.channel.send(`I transfered **${amount}** points to ${message.mentions.members.first().displayName}.`);
+    if (amount === 1) message.channel.send(`I transferred **${amount}** point to ${message.mentions.members.first().displayName}.`);
+    else message.channel.send(`I transferred **${amount}** points to ${message.mentions.members.first().displayName}.`);
   }
 };

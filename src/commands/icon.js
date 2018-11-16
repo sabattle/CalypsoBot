@@ -5,11 +5,11 @@ module.exports = {
   usage: '',
   description: 'Displays the server\'s icon.',
   tag: 'general',
-  run: (message) => {
+  run: async (message) => {
     const embed = new Discord.RichEmbed()
       .setAuthor(`${message.guild.name}'s Icon`)
       .setImage(message.guild.iconURL)
-      .setColor(message.client.color);
+      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
     message.channel.send(embed);
   }
 };

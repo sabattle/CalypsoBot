@@ -1,6 +1,6 @@
 const updatePoints = require(__basedir + '/src/utils/updatePoints.js');
 
-module.exports = async (client, message) => {
+module.exports = (client, message) => {
 	if (message.channel.type === 'dm' || message.author.bot) return;
 
 	// command handler
@@ -11,13 +11,13 @@ module.exports = async (client, message) => {
 		if (command) command.run(message, args);
 	}
 	else {
-		const reaction = client.reactions.find('prompt', message.content);
+		const reaction = client.reactions.find(r => r.prompt === message.content);
 		if (reaction) reaction.run(message);
 	}
 
 	// points
 	const id = message.author.id, guild = message.guild.name;
-	if (message.channel.id != client.devChannelID && !command) {
+	if (!command) {
 		if (message.content.includes('http') || message.attachments.size > 0) updatePoints(client, id, guild, 15); // link or file
 		else updatePoints(client, id, guild);
 	}

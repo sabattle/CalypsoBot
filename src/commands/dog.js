@@ -12,7 +12,7 @@ module.exports = {
       const embed = new Discord.RichEmbed()
         .setAuthor('Woof!')
         .setImage(img)
-        .setColor(message.client.color);
+        .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
       message.channel.send(embed);
     }
     catch (err) {
