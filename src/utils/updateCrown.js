@@ -17,12 +17,12 @@ module.exports = (client) => {
     const scoreboard = client.getScoreboard.all(guild.id);
     const winner = guild.members.get(scoreboard[0].userID);
     const crownRole = guild.roles.find(r => r.name === row.crownRole);
-    await guild.members.forEach(async member => {
+    await Promise.all(guild.members.map(async member => { // good alternative to handling async forEach
       if (member.roles.has(crownRole.id)) await member.removeRole(crownRole);
-    });
+    }));
     await winner.addRole(crownRole);
-    if (row.defaultChannelID === 'none') return false;
-    guild.channels.get(row.defaultChannelID).send(`Hello ${guild.defaultRole}! Congratulations to ${winner} for being first this week! They have now claimed the role: **${crownRole.name}**! Points have been cleared, best of luck next time!`);
+    if (row.defaultChannelID === 'none') return true;
+    guild.channels.get(row.defaultChannelID).send(`Hello ${guild.defaultRole}!\nCongratulations to ${winner} for placing in first this week! They have claimed the **${crownRole.name}**!\nPoints have been cleared, best of luck next time!`);
   });
   if (stop === true) return;
   client.clearScore.run();
