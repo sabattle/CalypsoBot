@@ -9,7 +9,7 @@ module.exports = {
     const embed = new Discord.RichEmbed()
       .setAuthor(`${message.guild.name}'s Icon`)
       .setImage(message.guild.iconURL)
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

@@ -21,7 +21,7 @@ module.exports = {
       .addField('Your Choice:', resList[uChoice], true)
       .addField('Calypso\'s Choice', resList[bChoice], true)
       .addField('Result', result, true)
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

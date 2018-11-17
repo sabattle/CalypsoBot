@@ -17,7 +17,7 @@ module.exports = {
       .addField('Library/Environment', 'Discord.js 11.3.2 | Node.js 8.9.4', true)
       .setFooter('Have Suggestions? DM Nettles#8880 or Mitchelson#0129!')
       .setTimestamp()
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

@@ -11,11 +11,14 @@ module.exports = {
         **Default Channel ID:** \`\`${row.defaultChannelID}\`\`
         **Member Role:** \`\`${row.memberRole}\`\`
         **Moderator Role:** \`\`${row.modRole}\`\`
-        **Crown Role:** \`\`${row.crownRole}\`\``);
+        **Administrator Role:** \`\`${row.adminRole}\`\`
+        **Crown Role:** \`\`${row.crownRole}\`\`
+        **Auto Role:** \`\`${row.autoRole}\`\``);
       }
       catch (err) {
         return message.channel.send('Unable to fetch server information. Please run ``!setup``.');
       }
     }
+    else message.channel.send(`${message.member.displayName}, you need the **Administrator** permission to use this command.`);
   }
 };

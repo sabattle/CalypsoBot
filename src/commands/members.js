@@ -23,7 +23,7 @@ module.exports = {
       .setAuthor('Member List', message.guild.iconURL)
       .setDescription(memberList)
       .setFooter(`${members.size} out of ${message.guild.members.size} accounts`)
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };
