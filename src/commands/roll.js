@@ -1,7 +1,7 @@
 module.exports = {
   name: 'roll',
   usage: '<POSITIVE INTEGER>',
-  description: 'Roll a random number between 1 and the number specified (or 6, if no number is given).',
+  description: 'Rolls a random number between 1 and the number specified (or 6, if no number is given).',
   tag: 'fun',
   run: (message, args) => {
     let limit = args.join();

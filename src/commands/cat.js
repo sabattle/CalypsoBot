@@ -12,11 +12,11 @@ module.exports = {
       const embed = new Discord.RichEmbed()
         .setAuthor('Meow!')
         .setImage(img)
-        .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+        .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
     }
     catch (err) {
-      return message.channel.send('I think the kittens need a break. Please try again in a few seconds.');
+      return message.channel.send('Something went wrong, please try again in a few seconds.');
     }
   }
 };

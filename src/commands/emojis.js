@@ -12,7 +12,7 @@ module.exports = {
     const embed = new Discord.RichEmbed()
       .setAuthor('Emoji List', message.guild.iconURL)
       .setDescription(emojiList)
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

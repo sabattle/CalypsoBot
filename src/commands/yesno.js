@@ -10,9 +10,9 @@ module.exports = {
     try {
       const res = (await snekfetch.get('http://yesno.wtf/api/')).body;
       const embed = new Discord.RichEmbed()
-        .setAuthor(res.answer)
+        .setAuthor(res.answer + '!')
         .setImage(res.image)
-        .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+        .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
     }
     catch (err) {

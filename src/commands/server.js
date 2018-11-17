@@ -18,7 +18,7 @@ module.exports = {
       .addField('Text Channels', message.guild.channels.array().filter(c => c.type === 'text').join(' '))
       .setFooter(`Server ID: ${message.guild.id}`)
       .setTimestamp()
-      .setColor((await message.guild.fetchMember(message.client.user)).displayHexColor);
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };
