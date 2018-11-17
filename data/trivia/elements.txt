@@ -130,7 +130,7 @@ What element is found in diamonds?`Carbon
 What element is named after Copenhagen, Denmark?`Hafnium
 Which element has close to 10,000,000 known compounds?`Carbon
 The most abundant element in the human body (by weight) is`Oxygen
-Mendeleev's periodic table organized the elements in order of`increasing atomic weight
+Mendeleev's periodic table organized the elements in order of`Increasing Atomic Weight`Increasing Atomic Mass`Atomic Mass`Atomic Weight
 Although heavier elements exist in stars, the heaviest element that may be produced by fusion in a star is`Iron
 The color of molten sulfur is`Red
 What color does white phosphorus glow when oxidizing in air?`Green

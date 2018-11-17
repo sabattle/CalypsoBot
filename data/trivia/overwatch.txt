@@ -1,24 +1,24 @@
-In which month and year was Overwatch released?`May 2016
+﻿In which month and year was Overwatch released?`May 2016
 On what map is the attacking team tasked with escorting an EMP device?`King's Row
 What was the first map the Overwatch team developed for the game?`King's Row
 What country is the practice range supposedly located in?`Russia
 What country is Oasis located in?`Iraq
 What was the name of the war between humans and omnics`Omnic Crisis`The Omnic Crisis
 What does D.Va say when she self destructs her mech?`Nerf this
-Who has the most expensive/rarest emote in the game?`D.Va
+Name the champion with the most rarest emote in the game?`Lucio
 Who killed Mondatta?`Widowmaker
-How old is Zenyatta?`20`twenty
+How old is Zenyatta?`20`Twenty
 What is D.Va's real name?`Hana Song
 What is Tracer's real name?`Lena Oxton
 Who has the lowest health in the game?`Zenyatta
-Which character class has the most heroes?`Offense
+Which character class has the most heroes?`Damage`DPS
 Which character says "It's high noon" when his/her ultimate is used?`McCree
-What was Tracer's fighter jet called?`the Slipstream`slipstream
+What was Tracer's fighter jet called?`The Slipstream`Slipstream
 Who helped Tracer with her chronal disassociation?`Winston
 Who has an ability named Fire Strike?`Reinhardt
-What was the name of the Lunar base that Winston lived at?`Horizan Lunar Colony
+What was the name of the Lunar base that Winston lived at?`Horizan Lunar Colony`Horizon
 Who says "How Embarrassing!"`Winston
-How many competitive points does it cost for golden weapons?`3000`three thousand
+How many competitive points does it cost for golden weapons?`3000`Three Thousand
 Whose ultimate is called Whole Hog?`Roadhog
 What is a factory designed to manufacture Omnics called?`Omnium
 What is the name of the rebel group Roadhog joined?`Australian Liberation Front
@@ -36,7 +36,7 @@ Who has an ability named Sentry Turret?`Symmetra
 Who has an achievement named The Car Wash?`Symmetra
 What is Symmetra obssessed with?`Order
 How many seconds does Ana's sleep dart last?`5.5
-Which terrorist organization does Widowmaker and Reaper work for?`Talon
+Which terrorist organization do Widowmaker and Reaper work for?`Talon
 Which character has the quote "What's An Aimbot?"?`Widowmaker
 Who has an achievement named "Did That Sting?"?`Widowmaker
 What was Widowmaker afraid of as a girl?`Spiders
@@ -70,11 +70,9 @@ Who has an achievement named "Group Health Plan"?`Mercy
 Where was Mercy at the time of the Overwatch recall?`Iraq
 In the Summer Games, what is Mercy's signature sport?`Badminton
 What is the name of the Covert operations arm of Overwatch?`Blackwatch
-Who was in charge of training Blackwatch agents?`Reaper
-What is McCree's ultimate called?`Deadeye
+Who was in charge of training Blackwatch agents?`Reaper`Reyes
 Which hero has the achievement "Whoa There!"?`McCree
 Where was McCree captured by Overwatch?`Route 66
-What is Reapers ultimate called?`Death Blossom
 Which hero has a skin named "Nevermore"?`Reaper
 Which hero says "Haven't I killed you somewhere before?"`Reaper
 Which hero has the achievement "Waste Not, Want Not"?`Reaper
@@ -92,7 +90,6 @@ What is the name of the Bastion skin gotten with the origins edition?`Overgrown
 What is the name of the 4th web comic?`A Better World
 Which hero has the achievement "Triple Threat"?`Bastion
 What is the name of Bastion's bird companion?`Ganymede
-What is Bastion's full model ID?`SST Laboratories Siege Automaton E54
 How old is D.Va?`19`nineteen
 How much health does D.Va have when she is not in her mech?`150
 What is the model name of D.Va's mech?`MEKA
@@ -100,19 +97,19 @@ What does D.Va say when she uses her ultimate?`MEKA activated
 In the first web comic who was blamed for the robbery?`McCree
 What is the lowest competitive rank?`Bronze
 What is the highest competitive rank?`Grandmaster
-What damaged the watchpoint in Antarctica?`A Blizzard`blizzard
+What damaged the watchpoint in Antarctica?`A Blizzard`Blizzard
 Who was the only survivor after the watchpoint in Antarctica was damaged?`Mei
 How many competitive skill tiers are there?`Seven`7
 How many competitive points are gained for wining a match?`Ten`10
 How many competitive points are gained for a match that ended in a draw?`Three`3
 What is the name of the music shop in Eichenwalde?`Die Zaubertröte`die zaubertrote
 What is the name of the general that fought at Eichenwalde against the omnics?`Balderich von Adler
-What is the payload in Eichenwalde?`A Battering Ram`battering ram
+What is the payload in Eichenwalde?`A Battering Ram`Battering Ram`Ram
 Who is in the limousine that the attacking team escorts in Hollywood?`HAL-Fred Glitchbot
 What game can be seen on the monitor in the security room of Hollywood?`Hearthstone
 What word is displayed during the Hollywood photo finish?`Fin
 Do omnics and humans live as equals in Numbani?`Yes
-In Numbani where must the attacking team escort Doomfist's gauntlet?`The Numbani Heritage Museum`Numbani Heritage Museum
+In Numbani where must the attacking team escort Doomfist's gauntlet?`The Numbani Heritage Museum`Numbani Heritage Museum`Heritage Museum
 The founding of Numbani is celebrated with which event?`Unity Day
 In which country is Numbani?`Nigeria
 Which hero is Ana's daughter?`Pharah
@@ -125,18 +122,17 @@ What company does Pharah work for?`Helix Security International
 What is the name of the omnic mercenary that appears in the comic "Mission Statement"?`Okoro
 How old is Ana?`60`sixty
 What is the name of Ana's ultimate?`Nano Boost
-What does Ana say when she uses her ultimate?`You are powered up get in there
+What does Ana say when she uses her ultimate?`"You are powered up, get in there!"`You are powered up get in there
 Which hero has a skin called Wasteland?`Ana
 Which hero has the achievement "Enabler"?`Ana
 What is the name of Ana's "Pixel Spray" achivement?`Naptime
-What is the payload for Watchpoint: Gibraltar?`A Satellite Drone`satellite drone
+What is the payload for Watchpoint: Gibraltar?`A Satellite Drone`Satellite Drone
 Who is the reporter for Atlas News?`Olympia Shaw
 What is the name of the language used by omnics?`Omnicode
 In what year did the Omnic Crisis start?`2046
 Which country was the first to be affected by the Omnic Crisis?`Russia
-What is Lucio's full name?`Lúcio Correia dos Santos`Lucio Correia dos Santos
 What is Lucio's ultimate called?`Sound Barrier
-What does Lucio say when using his ultimate?`Oh Let's Break It Down`oh lets break it down
+What does Lucio say when using his ultimate?`Oh Let's Break It Down`Oh Lets Break It Down
 Which hero has a skin called "Breakaway"?`Lucio
 Which hero says "Why Are You So Angry?"`Lucio
 Which hero has an achievement called "The Floor is Lava"?`Lucio
@@ -144,7 +140,6 @@ What is Lucio's "Cute Spray" achievement called?`Supersonic
 What was Lucio's first album called?`Synaesthesia Auditiva
 What is the name of the 6th track on Lucio's album?`Maximum Tempo
 What is the name of the law that deems any Overwatch activity illegal?`The Petras Act`Petras Act
-What is the name of Soldier: 76's ultimate?`Tactical Visor
 Which Overwatch hero used to be part of the "Deadlock Gang"?`McCree
 In the comic Going Legit what was the name of the company that hired the heros?`Hyde Global
 What is Widowmaker's real name?`Amélie Lacroix`Amelie Lacroix
@@ -152,41 +147,39 @@ What is the name of Widowmaker's "Cute Spray" achievement?`Smooth as silk
 Which hero has the skins Odette and Odile?`Widowmaker
 What is the name of the games narrator?`Athena
 What is the name of D.Va's "Cute Spray" achievement?`Game over
-What is the name of Ana's default voice line?`Justice delivered
+What is the name of Ana's default voice line?`Justice Delivered
 What is the name of Bastion's default voice line?`Doo-woo`doowoo`doo woo
-What is the name of D.Va's default voice line?`Love, D.Va`love d.va`
+What is the name of D.Va's default voice line?`Love, D.Va`Love D.Va`
 What is the name of Genji's default voice line?`A Steady blade
-What is the name of Hanzo's default voice line?`Expect nothing less
+What is the name of Hanzo's default voice line?`Expect Nothing Less
 What is the name of Junkrat's default voice line?`tick-tock-tick-tock`tick tock tick tock`ticktockticktock
-What is the name of Lucio's default voice line?`To the rhythm
-What is the name of McCree's default voice line?`Watch and learn
-What is the name of Mei's default voice line?`Hang in there
-What is the name of Mercy's default voice line?`I have my eye on you
-What is the name of Pharah's default voice line?`Security in my hands
-What is the name of Reaper's default voice line?`What are you looking at
-What is the name of Reinhardt's default voice line?`I salute you
-What is the name of Roadhog's default voice line?`The apocalypse
-What is the name of Soldier: 76's default voice line?`I've still got it
-What is the name of Sombra's default voice line?`Playing fair
-What is the name of Symmetra's default voice line?`Such a lack of imagination
-What is the name of Torbjorn's default voice line?`Hard work pays off
-What is the name of Tracer's default voice line?`You got it
-What is the name of Widowmaker's default voice line?`A single death
+What is the name of Lucio's default voice line?`To the Rhythm
+What is the name of McCree's default voice line?`Watch and Learn
+What is the name of Mei's default voice line?`Hang in There
+What is the name of Mercy's default voice line?`I Have My Eye On You
+What is the name of Pharah's default voice line?`Security In my Hands
+What is the name of Reaper's default voice line?`What are You Looking At?`What are You Looking At
+What is the name of Reinhardt's default voice line?`I Salute You
+What is the name of Roadhog's default voice line?`The Apocalypse
+What is the name of Soldier: 76's default voice line?`I've still got it`Ive still got it
+What is the name of Sombra's default voice line?`Playing Fair
+What is the name of Symmetra's default voice line?`Such a Lack of Imagination
+What is the name of Torbjorn's default voice line?`Hard Work Pays Off
+What is the name of Tracer's default voice line?`You Got It
+What is the name of Widowmaker's default voice line?`A Single Death
 What is the name of Winston's default voice line?`Curious
-What is the name of Zarya's default voice line?`Strong as the mountain
-What is the name of Zenyatta's default voice line?`We are in harmony
+What is the name of Zarya's default voice line?`Strong as the Mountain
+What is the name of Zenyatta's default voice line?`We are in Harmony
 How many glowing dots does Zenyatta have on his head?`9`nine
-Which hero has a skin named "Sparrow?"`Genji
-On which date did the Closed Beta for Overwatch start?`27 october`october 27
-What is the name of Tracer's ultimate?`Pulse bomb
-What does Tracer say when using her ultimate?`Time's up`times up
+Which hero has a skin named "Sparrow?"`Genj
+What does Tracer say when using her ultimate?`Time's Up`Times Up
 What is Tracer's real name?`Lena Oxton
 What is Torbjorn's full name?`Torbjorn Lindholm
 What is Soldier: 76's real name?`Jack Morrison
 What is McCree's full name?`Jesse McCree
 What is Ana's full name`Ana Amari
 What is Reinhardt's full name?`Reinhardt Wilhelm
-What is Mei's full name?`Mei-Ling Zhou
+What is Mei's full name?`Mei-Ling Zhou`MeiLing Zhou
 What is Mercy's real name?`Angela Ziegler
 What is Genji's full name?`Genji Shimada
 What is Widowmaker's real name?`Amelie Lacroix
@@ -201,11 +194,11 @@ What is D.VA's real name?`Hana Song
 What is Zarya's real name?`Aleksandra Zaryanova
 Which character's ultimate has the highest DPS`Roadhog
 In the Beta, Junkrat's ultimate was adapted from one designed for another character. Who was that?`Bastion
-How much health per second does Zenyatta's ultimate heal?`300`three hundred
-What is the cooldown in seconds for Genji's Dash?`8`eight
-What is the cooldown in seconds for Mcree's Roll?`8`eight
-What is the cooldown in seconds for Hanzo's Sonic Arrow?`20`twenty
-What is the cooldown in seconds for Orisa's Fortify?`12`Twelve
+How much health per second does Zenyatta's ultimate heal?`300`Three Hundred
+What is the cooldown in seconds for Genji's Dash?`8`Eight
+What is the cooldown in seconds for Mcree's Roll?`6`Six
+What is the cooldown in seconds for Hanzo's Sonic Arrow?`12`Twelve
+What is the cooldown in seconds for Orisa's Fortify?`10`Ten
 What is the cooldown in seconds for Sombra's Translocator?`4`Four
 What is the cooldown in seconds for Reapers Shadow Step?` 10`Ten
 What is the cooldown in seconds for Tracer's Recall?`12`twelve
@@ -214,7 +207,6 @@ What is Genji's Ultimate called?`Dragonblade
 What is McCree's Ultimate called?`Deadeye
 What is Reaper's Ultimate called?`Death Blossom
 What is Soldier: 76's Ultimate called?`Tactical Visor
-What is Sombra's Ultimate called?`EMP
 What is Tracer's Ultimate called?`Pulse Bomb
 What is Bastion's Ultimate called?`Configuration: Tank`Configuration:Tank`Configuration Tank
 What is Hanzo's Ultimate called?`Dragonstrike
@@ -230,8 +222,8 @@ What is Winston's Ultimate called?`Primal Rage
 What is Zarya's Ultimate called?`Graviton Surge
 What is Ana's Ultimate called?`Nano Boost
 What is Lúcio's Ultimate called?`Sound Barrier
-What is Mercy's Ultimate called?`Resurrect
-What are Symmetra's Ultimates called?`Teleporter and Shield Generator`Teleporter & Shield Generator`Teleporter Shield Generator`Shield Generator Teleporter`Shield Generator & Teleporter`Shield Generator and Teleporter 
+What is Mercy's Ultimate called?`Valkyrie
+What is Symmetra's Ultimate called?`Photon Barrier
 What is Zenyatta's Ultimate called?`Transcendence
 How much Total health does Genji have?`200
 How much Total health does McCree have?`200
@@ -257,6 +249,9 @@ How much Total health does Ana have?`200
 How much Total health does Lúcio have?`200
 How much Total health does Mercy have?`200
 How much Total health does Zenyatta have?`200
+How much Total health does Brigitte have?`250
+How much Total health does Ashe have?`200
+How much Total health does B.O.B. have?`1200
 What is the name of Bastion's bird?`Ganymede
 What is the name of the gang based in Dorado?`Los Muertos
 What is Mei's robot called?`Snowball
@@ -265,9 +260,10 @@ What is Punch kid's older brother's name?`Brian
 How much health does a small health pack heal?`75
 How much health does a large health pack heal?`250
 How many Heroes were available to play at launch?`21
-Which Omnic Organization were Zenyatta and Mondatta formerly a part of?`Shambali`the Shambali
-Orignally when Overwatch was released players could choose to stack multiples of any hero on any team,it was later limited to 1 of each hero per team, and an arcade mode where heros tacking was again possble was added, what is this mode called?`No Limits
-Which of these does the most damage? Genji's shuriken, Winstons leap, Ana's Rifle or Junkrats Grenade?`Ana's Rifle`ana`rifle`anas rifle
+How many Heroes are currently available to play?`29
+Which Omnic Organization were Zenyatta and Mondatta formerly a part of?`The Shambali`Shambali
+Upon release players could choose multiples of any hero on any team, it was later limited to 1 per hero per team, and an arcade mode with stacking was added, what is this mode called?`No Limits
+Which of the following does the most damage? Genji's shuriken, Winstons leap, Ana's Rifle or Junkrats Grenade?`Ana's Rifle`ana`rifle`anas rifle
 On which map was this screenshot taken? http://i.imgur.com/d02tYI5.jpg`Dorado
 On which map was this screenshot taken? http://i.imgur.com/VFDOLXR.jpg`Dorado
 On which map was this screenshot taken? http://i.imgur.com/XLgLEdh.jpg`Kings Row`King's Row
@@ -283,11 +279,11 @@ On which map was this screenshot taken? http://i.imgur.com/KXLulKa.jpg`Oasis
 On which map was this screenshot taken? http://i.imgur.com/cNjKeE3.jpg`Oasis
 On which map was this screenshot taken? http://i.imgur.com/2qrMC16.jpg`Volskaya Industries`Volskaya
 On which map was this screenshot taken? http://i.imgur.com/xuO8PDw.jpg`Volskaya Industries`Volskaya
-On which map was this screenshot taken? http://i.imgur.com/qgyW1LF.jpg`Volskaya Industries`Volskaya
+On which map was thais screenshot taken? http://i.imgur.com/qgyW1LF.jpg`Volskaya Industries`Volskaya
 On which map was this screenshot taken? http://i.imgur.com/h8zqtSf.jpg`Oasis
 On which map was this screenshot taken? http://i.imgur.com/YlMy2iE.jpg`Lijiang Tower
 On which map was this screenshot taken? http://i.imgur.com/5bXsDP1.jpg`Lijiang Tower
-Over the design period for Overwatch, Bastion had several different ults before he got Tank mode how many including his current one did he have?`4: a mine, bouncing grenades, shooting though walls and tank mode`4
+Over the design period for Overwatch, Bastion had several different ults before he got Tank mode. How many, including his current one, did he have?`4: A Mine, Bouncing Grenades, Shooting Though Walls, and Tank Mode`Four`4
 What was the first seasonal event in Overwatch called?`The Summer Games`Summer Games
 What name was given to the Halloween event in Overwatch?`Halloween Terror
 What name was given to the Halloween themed Brawl, which featured waves of Zombie Omnics?`Junkenstein's Revenge`Junkensteins Revenge
@@ -300,3 +296,15 @@ The Overwatch short Infiltration, featuring Sombra, Widomaker and Reaper, was se
 The Overwatch short Recall, featuring Winston and Reaper, was set on which map?`Watchpoint Gibraltar`Watchpoint: Gibraltar`Gibraltar
 The Overwatch short Hero, featuring Soldier 76, was set on which map?`Dorado
 What is the Undercover section of Overwatch called?`Blackwatch
+How much health does Symmetra's ultimate 'Photon Barrier' have?`5000
+What does B.O.B. stand for?`Big Omnic Butler
+What is Ashe's full name?`Elizabeth Ashe
+How much damage does a fully-charged headshot deal from either Widowmaker or Hanzo?`300
+What is the name of Ashe's faimily heirloom gun?`The Viper
+What is the name of Brigitte's ultimate ability?`Rally
+What is Brigitte's favorite drink?`Beer
+What is Brigitte's favorite ride at Blizzard World?`Flight to Duskwood
+What is the cooldown in seconds of Brigitte's "Shield Bash" ability?`7`Seven
+What is the cooldown in seconds of Brigitte's "Whip Shot" ability?`4`Four
+What is Ashe's nickname?`Calamity
+Who is the leader of the "Deadlock Gang"?`Ashe
