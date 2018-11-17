@@ -8,13 +8,13 @@ module.exports = {
   run: (message) => {
     if (message.member.hasPermission('ADMINISTRATOR')){
       const guildID = message.guild.id;
-      let defaultChannelID = '', memberRole = '', modRole = '', crownRole = '';
+      let defaultChannelID = '', memberRole = '', modRole = '', adminRole = '', crownRole = '';
       let prompt = 0;
       message.channel.send(`Hello ${message.member.displayName}, welcome to my setup process! This won't take long. Please respond with only one message and wait until prompted.`);
-      message.channel.send('First, please enter the ID of your **Default** channel. You can get the ID by running the ``!findid`` command or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages and stream alerts will be sent here. If you do not have one, please type **none**.');
+      message.channel.send('First, please enter the ID of your **Default** channel. You can get the ID by running the ``!findid`` command or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages, stream alerts, and announcements will be sent here. If you do not have one, please type **none**.');
       const collector = new Discord.MessageCollector(message.channel, m => {
         if (m.author == message.author) return true;
-      }, { maxMatches: 4 });
+      }, { maxMatches: 5 });
       collector.on('collect', msg => {
         switch(prompt){
           case 0:
@@ -28,11 +28,16 @@ module.exports = {
             prompt++;
             break;
           case 2:
-            message.channel.send(`You entered **${msg.content}**. Lastly, please enter the name of your **Crown** role. This role will be awarded to whoever has the most points per week (for more details, use \`\`!explainpoints\`\` after setup is finished). If you do not have one, please type **none**.`);
+            message.channel.send(`You entered **${msg.content}**. Lastly, please enter the name of your **Administrator** role. If you do not have one, please type **none**.`);
             modRole = msg.content;
             prompt++;
             break;
           case 3:
+            message.channel.send(`You entered **${msg.content}**. Lastly, please enter the name of your **Crown** role. This role will be awarded to whoever has the most points per week (for more details, use \`\`!explainpoints\`\` after setup is finished). If you do not have one, please type **none**.`);
+            adminRole = msg.content;
+            prompt++;
+            break;
+          case 4:
             message.channel.send(`You entered **${msg.content}**. If anything was entered incorrectly, please run \`\`!setup\`\` again. You're all finished!`);
             crownRole = msg.content;
             collector.stop();
@@ -40,16 +45,17 @@ module.exports = {
         }
       });
       collector.on('end', () => {
-        let row = { // row object
+        const row = { // row object
           guildID: guildID,
           defaultChannelID: defaultChannelID,
           memberRole: memberRole,
           modRole: modRole,
+          adminRole: adminRole,
           crownRole: crownRole
         };
         message.client.setRow.run(row);
       });
     }
-    else message.channel.send(`${message.member.displayName}, you need administrator privileges to run this command.`);
+    else message.channel.send(`${message.member.displayName}, you need administrator permissions to run this command.`);
   }
 };
