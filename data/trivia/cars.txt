@@ -6,10 +6,13 @@ What car is this? http://i.imgur.com/XDczAbn.jpg`Audi R8`R8
 What car is this? http://i.imgur.com/PVzrXHm.jpg`Ferrari 458 Italia`458 Italia`458
 What car is this? http://i.imgur.com/YYmMMp6.jpg`BMW M3`M3
 What car is this? http://i.imgur.com/bCq4ePD.jpg`McLaren P1`P1
+What car is this? http://i.imgur.com/bCq4ePD.jpg`McLaren P1LM`P1LM
 What car is this? http://i.imgur.com/gYw9ANl.jpg`McLaren 600LT`McLaren 600`600`600LT
 What car is this? http://i.imgur.com/RRZiDq0.jpg`McLaren 720S`McLaren 720`720S`720
 What car is this? http://i.imgur.com/NvqhQqC.jpg`McLaren Senna`Senna
-What car is this? http://i.imgur.com/KGCsWGo.jpg`Lamborghini Aventador`Avendator
+What car is this? http://i.imgur.com/KGCsWGo.jpg`Lamborghini Aventador`Aventador
+What car is this? http://i.imgur.com/BpKrROZ.jpg`Lamborghini Countach`Countach
+What car is this? http://i.imgur.com/inkXwim.jpg`Lamborghini Diablo`Diablo
 What car is this? http://i.imgur.com/KGCsWGo.jpg`Lamborghini Huracan Super Trofeo`Lamborghini Huracan`Huracan Super Trofeo`Huracan`
 What car is this? http://i.imgur.com/KGCsWGo.jpg`Lamborghini Veneno`Veneno
 What car is this? http://i.imgur.com/gXQBNUu.jpg`Lamborghini Centenario`Centenario
@@ -69,6 +72,7 @@ What car is this? http://i.imgur.com/ze0s5Kl.jpg`Nissan 350Z`Nissan 350 Z`350Z`3
 What car is this? http://i.imgur.com/GdfZKwg.jpg`Pagani Zonda R`Pagani Zonda`Zonda R`Zonda
 What car is this? http://i.imgur.com/AYuDnqh.jpg`Pagani Huayra`Huayra
 What car is this? http://i.imgur.com/xODGOOa.jpg`BMW M1 Procar`M1 Procar`M1
+What car is this? http://i.imgur.com/bwj3UBZ.jpg`BMW M8`M8
 What car is this? http://i.imgur.com/3h3Gj0G.jpg`BMW i8`i8
 What car is this? http://i.imgur.com/2RloUuq.jpg`Alfa Romeo Spider`Spider
 What car is this? http://i.imgur.com/drWpps4.jpg`Aston Martin DBS`DBS
