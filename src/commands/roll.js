@@ -7,7 +7,7 @@ module.exports = {
     let limit = args.join();
     if (!limit) limit = 6;
     const n = Math.floor(Math.random() * limit + 1);
-    if (!n || limit <= 0) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that. Please enter a positive integer.`);
-    message.channel.send(`${message.member.displayName}, you rolled a **${n}**.`);
+    if (!n || limit <= 0) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please enter a positive integer.`);
+    message.channel.send(`${message.member}, you rolled a **${n}**.`);
   }
 };

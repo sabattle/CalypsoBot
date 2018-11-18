@@ -12,10 +12,10 @@ module.exports = (client, oldMember, newMember) => {
       const startTime = client.startTimes.get(oldMember.id);
       const endTime = moment();
       const diff = startTime.diff(endTime, 'minutes') * -1;
-      updatePoints(client, oldMember.id, oldMember.guild.name, diff);
+      updatePoints(client, oldMember.id, oldMember.guild.id, diff);
     }
     catch (err){
-      console.log('Unable to add points from voice time.');
+      console.log('Unable to add points from voice time');
     }
   }
   else if (!oldMember.voiceChannelID && newMember.voiceChannelID) { // join channel
@@ -26,10 +26,10 @@ module.exports = (client, oldMember, newMember) => {
       const startTime = client.startTimes.get(oldMember.id);
       const endTime = moment();
       const diff = startTime.diff(endTime, 'minutes') * -1;
-      updatePoints(client, oldMember.id, oldMember.guild.name, diff);
+      updatePoints(client, oldMember.id, oldMember.guild.id, diff);
     }
     catch (err){
-      console.log('Unable to add points from voice time.');
+      console.log('Unable to add points from voice time');
     }
   }
 };

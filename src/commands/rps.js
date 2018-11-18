@@ -9,7 +9,7 @@ module.exports = {
   tag: 'fun',
   run: async (message, args) => {
     let uChoice = args.join().toLowerCase();
-    if (!rpsList.includes(uChoice)) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that. Please enter \`rock\`, \`paper\`, or \`scissors\`.`);
+    if (!rpsList.includes(uChoice)) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please enter \`rock\`, \`paper\`, or \`scissors\`.`);
     uChoice = rpsList.indexOf(uChoice);
     const bChoice = Math.floor(Math.random()*3);
     let result;

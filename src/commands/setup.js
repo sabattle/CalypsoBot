@@ -10,7 +10,7 @@ module.exports = {
       const guildID = message.guild.id;
       let defaultChannelID = '', memberRole = '', modRole = '', adminRole = '', crownRole = '', autoRole = '';
       let prompt = 0;
-      message.channel.send(`Hello ${message.member.displayName}, welcome to my setup process! This won't take long. Please respond with only one message and wait until prompted (bot commands are ignored). Also please note that **I must be at the top of the role hierarchy for my features to work correctly.**`);
+      message.channel.send(`Hello ${message.member}, welcome to my setup process! This won't take long. Please respond with only one message and wait until prompted (bot commands are ignored). Also please note that **I must be at the top of the role hierarchy for my features to work correctly**.`);
       message.channel.send('First, please enter the ID of your **Default** channel. You can get the ID by running the ``!findid`` command or by right clicking the channel and choosing "Copy ID" (developer mode must be enabled). Welcome messages, stream alerts, and announcements will be sent here. If you do not have one, please type **none**.');
       const collector = new Discord.MessageCollector(message.channel, m => {
         const args = m.content.trim().split(/ +/g);
@@ -52,7 +52,7 @@ module.exports = {
         }
       });
       collector.on('end', () => {
-        const row = { // row object
+        const config = { // config object
           guildID: guildID,
           defaultChannelID: defaultChannelID,
           memberRole: memberRole,
@@ -61,9 +61,10 @@ module.exports = {
           crownRole: crownRole,
           autoRole: autoRole
         };
-        message.client.setRow.run(row);
+        message.client.setConfig.run(config);
+        console.log(`${message.member.displayName} used setup in ${message.guild.name}`);
       });
     }
-    else message.channel.send(`${message.member.displayName}, you need the **Administrator** permission to use this command.`);
+    else message.channel.send(`${message.member}, you need the **Administrator** permission to use this command.`);
   }
 };

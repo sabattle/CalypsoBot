@@ -6,19 +6,19 @@ module.exports = {
   run: (message) => {
     if (message.member.hasPermission('ADMINISTRATOR')){
       try {
-        const row = message.client.getRow.get(message.guild.id);
+        const config = message.client.getConfig.get(message.guild.id);
         message.channel.send(`__**Setup Status:**__
-        **Default Channel ID:** \`\`${row.defaultChannelID}\`\`
-        **Member Role:** \`\`${row.memberRole}\`\`
-        **Moderator Role:** \`\`${row.modRole}\`\`
-        **Administrator Role:** \`\`${row.adminRole}\`\`
-        **Crown Role:** \`\`${row.crownRole}\`\`
-        **Auto Role:** \`\`${row.autoRole}\`\``);
+        **Default Channel ID:** \`\`${config.defaultChannelID}\`\`
+        **Member Role:** \`\`${config.memberRole}\`\`
+        **Moderator Role:** \`\`${config.modRole}\`\`
+        **Administrator Role:** \`\`${config.adminRole}\`\`
+        **Crown Role:** \`\`${config.crownRole}\`\`
+        **Auto Role:** \`\`${config.autoRole}\`\``);
       }
       catch (err) {
         return message.channel.send('Unable to fetch server information. Please run ``!setup``.');
       }
     }
-    else message.channel.send(`${message.member.displayName}, you need the **Administrator** permission to use this command.`);
+    else message.channel.send(`${message.member}, you need the **Administrator** permission to use this command.`);
   }
 };

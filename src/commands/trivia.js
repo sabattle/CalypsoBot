@@ -14,7 +14,7 @@ module.exports = {
       randomPick = true;
     }
     else if (!message.client.topics.includes(topic))
-      return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that topic. Please use \`\`!topics\`\` to see a list.`);
+      return message.channel.send(`Sorry ${message.member}, I don't recognize that topic. Please use \`\`!topics\`\` to see a list.`);
     const path = __basedir + '/data/trivia/' + topic + '.txt';
     const topics = fs.readFileSync(path).toString().split('\n');
     let count = topics.length;
@@ -35,14 +35,14 @@ module.exports = {
       if (!m.author.bot) return true;
     }, { time: 10000 });
     collector.on('collect', msg => {
-      if (answers.includes(msg.content.toLowerCase().replace(/\s/g, ''))) {
+      if (answers.includes(msg.content.toLowerCase().replace(/\s/g, ''))){
         winner = msg.author;
         collector.stop();
       }
     });
     collector.on('end', () => {
       if (winner) message.channel.send(`Congratulations ${winner}, you gave the correct answer!`);
-      else message.channel.send('Time\'s up! Better luck next time!\nCorrect answers: ' + realAnswers);
+      else message.channel.send(`Sorry ${message.member}, time's up! Better luck next time!\nCorrect answers: ${realAnswers}`);
     });
   }
 };

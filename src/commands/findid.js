@@ -5,7 +5,7 @@ module.exports = {
   tag: 'general',
   run: (message) => {
     const target = message.mentions.members.first() || message.mentions.channels.first();
-    if (!target) return message.channel.send(`Sorry ${message.member.displayName}, I don't recognize that. Please mention a user or a text channel.`);
+    if (!target) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user or a text channel.`);
     const id = target.id;
     message.channel.send(`The ID for ${target} is **${id}**.`);
   }
