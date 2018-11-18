@@ -15,7 +15,7 @@ Calypso is Discord bot built with [discord.js](https://github.com/discordjs/disc
 
 ## Getting Started
 
-You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=1513483350) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
+You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=2146958679) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
 ```
 git clone https://github.com/sabattle/Calypso
 ```
@@ -36,11 +36,9 @@ You have to create a ``config.json`` file in order to run the bot (you can use t
   "token": "",
   "prefix": "",
   "ownerID": "",
-  "devChannelID": "",
-  "color": ""
 }
 ```
-Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option. ``ownerID`` and ``devChannelID`` are your ID and your server's development text channel, respectively. ``prefix`` should be a character you want to come before any commands, and ``color`` should be a hex of a color you want to show up on certain responses.
+Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option. ``ownerID`` is your ID and ``prefix`` should be a character you want to come before any commands.
 
 ### Colors
 
@@ -58,4 +56,4 @@ MIT
 ## To-Do
 
 * Music/DJ functionality
-* Trivia
+* Twitch Integration

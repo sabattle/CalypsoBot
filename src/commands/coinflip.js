@@ -8,6 +8,6 @@ module.exports = {
     let result;
     if (n === 1) result = 'heads';
     else result = 'tails';
-    return message.channel.send(`I flipped a coin for you, ${message.member.displayName}. It was **${result}**!`);
+    return message.channel.send(`I flipped a coin for you, ${message.member}. It was **${result}**!`);
   }
 };

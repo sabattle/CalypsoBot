@@ -6,8 +6,8 @@ module.exports = {
   run: async (message) => {
     const target = message.mentions.members.first() || message.member;
     const score = message.client.getScore.get(target.id, message.guild.id);
-    if (!score) message.channel.send(`${target.displayName} has **0** points!`);
-    else if (score.points === 1) message.channel.send(`${target.displayName} has **${score.points}** point!`);
-    else message.channel.send(`${target.displayName} has **${score.points}** points!`);
+    if (!score) message.channel.send(`${target} has **0** points!`);
+    else if (score.points === 1) message.channel.send(`${target} has **${score.points}** point!`);
+    else message.channel.send(`${target} has **${score.points}** points!`);
   }
 };

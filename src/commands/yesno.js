@@ -16,7 +16,7 @@ module.exports = {
       message.channel.send(embed);
     }
     catch (err) {
-      return message.channel.send('Something went wrong, please try again in a few seconds.');
+      return message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }
   }
 };

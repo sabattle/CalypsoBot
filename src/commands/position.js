@@ -7,6 +7,6 @@ module.exports = {
     const target =  message.mentions.members.first() || message.member;
     const scoreboard = message.client.getScoreboard.all(message.guild.id);
     const position = scoreboard.map(u => u.userID).indexOf(target.id);
-    message.channel.send(`${target.displayName}'s position: **${position + 1}**`);
+    message.channel.send(`${target}'s position: **${position + 1}**`);
   }
 };

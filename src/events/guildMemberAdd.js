@@ -1,8 +1,8 @@
 module.exports = async (client, member) => {
 	try {
-		const row = client.getRow.get(member.guild.id);
-		if (row.autoRole != 'none'){
-			const autoRole = member.guild.roles.find(r => r.name === row.autoRole);
+		const config = client.getConfig.get(member.guild.id);
+		if (config.autoRole != 'none'){
+			const autoRole = member.guild.roles.find(r => r.name === config.autoRole);
 			try {
 				await member.addRole(autoRole);
 			}
@@ -10,8 +10,8 @@ module.exports = async (client, member) => {
 				console.log(err.message);
 			}
 		}
-		if (row.defaultChannelID === 'none') return;
-		client.channels.get(row.defaultChannelID).send(`Welcome to ${member.guild.name}, ${member}! Here's what you need to know:
+		if (config.defaultChannelID === 'none') return;
+		client.channels.get(config.defaultChannelID).send(`Welcome to ${member.guild.name}, ${member}! Here's what you need to know:
     » '${client.prefix}' is the prefix for my commands.
     » Type \`${client.prefix}help\` to get a list of everything I can do.
     » Commands don't work in DM.
