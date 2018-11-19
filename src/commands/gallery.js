@@ -18,7 +18,7 @@ module.exports = {
     const next = '➡';
     let embed = new Discord.RichEmbed()
       .setAuthor('Gallery', message.client.user.displayAvatarURL)
-      .setDescription(art[n])
+      .setImage(art[n])
       .setFooter('All art courtesy of CommradeFido#5286.')
       .setColor(message.guild.me.displayHexColor);
     const msg = await message.channel.send(embed);
@@ -37,7 +37,7 @@ module.exports = {
         n++;
         if (n > art.length - 1) n = 0;
       }
-      await embed.setDescription(art[n]);
+      await embed.setImage(art[n]);
       await msg.edit(embed);
     });
   }
