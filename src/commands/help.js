@@ -6,7 +6,7 @@ module.exports = {
   run: (message) => {
     let general = ['**General Commands**'];
     let fun = ['**Fun Commands**'];
-    let mod = ['**Moderator Commands**'];
+    let mod = ['**Moderation Commands**'];
     message.client.commands.forEach(c => {
       if (c.tag === 'general') general.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
       else if (c.tag === 'fun') fun.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);

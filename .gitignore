@@ -1,5 +1,4 @@
 *.sqlite*
-*.png
 node_modules
 config.json
 to-do.txt
