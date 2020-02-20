@@ -1,6 +1,11 @@
+# ignore
 *.sqlite*
 node_modules
+logs/*
+.vscode
+.directory
 config.json
 to-do.txt
-.directory
-lore.js
+
+# do not ignore
+!.gitkeep

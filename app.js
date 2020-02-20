@@ -1,28 +1,15 @@
-const Discord = require('discord.js');
 const config = require('./config.json');
-const schedule = require('node-schedule');
+const Client = require('./src/Client.js');
 global.__basedir = __dirname;
 
 // setup
-const client = new Discord.Client();
-client.token = config.token;
-client.prefix = config.prefix;
-client.ownerID = config.ownerID;
-client.commands = new Discord.Collection();
-client.reactions = new Discord.Collection();
-client.topics = []; // for trivia
-client.startTimes = new Discord.Collection(); // for voiceStateUpdate
+const client = new Client(config);
 
 // initialize client
 function init() {
-	require('./src/loaders/eventLoader.js')(client);
-	require('./src/loaders/commandLoader.js')(client);
-	require('./src/loaders/reactionLoader.js')(client);
-	require('./src/loaders/topicLoader.js')(client);
-	client.login(client.token);
-	schedule.scheduleJob('0 22 * * 5', () => { // 10:00 PM Friday
-		require('./src/utils/updateCrown.js')(client);
-	});
+  client.loadEvents('./src/events');
+  client.loadCommands('./src/commands');
+  client.login(client.token);
 }
 
 init();

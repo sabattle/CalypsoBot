@@ -1,5 +1,5 @@
 {
   "token": "your_token_here",
   "prefix": "!",
-  "ownerID": "your_ID_here"
+  "ownerId": "your_ID_here"
 }

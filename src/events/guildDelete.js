@@ -1,3 +1,3 @@
 module.exports = (client, guild) => {
-	console.log(`Calypso has left ${guild.name}`);
+  client.logger.info(`Calypso has left ${guild.name}`);
 };

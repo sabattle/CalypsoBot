@@ -1,3 +1,3 @@
 module.exports = (client, guild) => {
-  console.log(`Calypso has joined ${guild.name}`);
+  client.logger.info(`Calypso has joined ${guild.name}`);
 };

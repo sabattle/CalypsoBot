@@ -35,10 +35,10 @@ You have to create a ``config.json`` file in order to run the bot (you can use t
 {
   "token": "",
   "prefix": "",
-  "ownerID": ""
+  "ownerId": ""
 }
 ```
-Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option. ``ownerID`` is your ID and ``prefix`` should be a character you want to come before any commands.
+Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option. ``ownerId`` is your ID and ``prefix`` should be a character you want to come before any commands.
 
 ### Colors
 
