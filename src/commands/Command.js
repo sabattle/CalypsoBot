@@ -95,6 +95,7 @@ class Command {
 
   /**
    * Checks the user permissions
+   * Code modified from: https://github.com/discordjs/Commando/blob/master/src/commands/base.js
    * @param {Message} message 
    * @param {boolean} ownerOverride 
    */
@@ -137,6 +138,7 @@ class Command {
 
   /**
    * Validates all options provided
+   * Code modified from: https://github.com/discordjs/Commando/blob/master/src/commands/base.js
    * @param {Client} client 
    * @param {Object} options 
    */
