@@ -19,7 +19,7 @@ module.exports = class HelpCommand extends Command {
       if (c.type === 'general') general.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
       else if (c.type === 'fun') fun.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
       else if (c.type === 'mod') mod.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
-      else if (c.type === 'admin') mod.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      else if (c.type === 'admin') admin.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
     });
     general[0] = general[0] + ` **(${general.length - 1})**`;
     fun[0] = fun[0] + ` **(${fun.length - 1})**`;
