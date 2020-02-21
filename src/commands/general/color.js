@@ -12,6 +12,7 @@ module.exports = class ColorCommand extends Command {
     });
   }
   async run(message, args) {
+    // Check permissions
     const permission = this.checkPermissions(message);
     if (permission !== true) return message.channel.send(permission);
     const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);

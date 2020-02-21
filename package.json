@@ -10,6 +10,7 @@
     "discord.js": "^11.5.1",
     "moment": "^2.22.2",
     "node-pre-gyp": "^0.11.0",
+    "nodemon": "^2.0.2",
     "snekfetch": "^4.0.4",
     "winston": "^3.2.1"
   },

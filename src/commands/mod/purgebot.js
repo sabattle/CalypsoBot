@@ -16,7 +16,7 @@ module.exports = class PurgeBotCommand extends Command {
     });
   }
   async run(message, args) {   
-    // Permissions check
+    // Check permissions
     const permissions = this.checkPermissions(message);
     if (permissions !== true) return message.channel.send(permissions);
 
