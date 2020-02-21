@@ -12,6 +12,7 @@ module.exports = class UseLeaveMessageCommand extends Command {
     });
   }
   run(message, args) {
+    // Check permissions
     const permission = this.checkPermissions(message);
     if (permission !== true) return message.channel.send(permission);
     args = args[0].toLowerCase();
@@ -25,7 +26,7 @@ module.exports = class UseLeaveMessageCommand extends Command {
       let val;
       if (args == 1) val = 'enabled';
       else val = 'disabled'; 
-      message.channel.send(`Sucessfully **${val}** leave messages.`);
+      message.channel.send(`Successfully **${val}** leave messages.`);
     }
     else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).

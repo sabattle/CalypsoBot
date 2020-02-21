@@ -33,8 +33,8 @@ const guildSettings = {
       guild_name, 
       default_channel_id, 
       use_welcome_message, 
-      use_leave_message)
-    VALUES (?, ?, ?, 0, 0);
+      use_leave_message
+    ) VALUES (?, ?, ?, 0, 0);
   `),
   updateDefaultChannelId: db.prepare('UPDATE guild_settings SET default_channel_id = ? WHERE guild_id = ?;'),
   updateAdminRoleId: db.prepare('UPDATE guild_settings SET admin_role_id = ? WHERE guild_id = ?;'),
