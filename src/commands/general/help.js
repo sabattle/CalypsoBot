@@ -11,15 +11,16 @@ module.exports = class HelpCommand extends Command {
     });
   }
   run(message) {
+    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let general = ['**General Commands**'];
     let fun = ['**Fun Commands**'];
     let mod = ['**Moderation Commands**'];
     let admin = ['**Admin Commands**'];
     message.client.commands.forEach(c => {
-      if (c.type === 'general') general.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
-      else if (c.type === 'fun') fun.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
-      else if (c.type === 'mod') mod.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
-      else if (c.type === 'admin') admin.push(`\`${message.client.prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      if (c.type === 'general') general.push(`\`${prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      else if (c.type === 'fun') fun.push(`\`${prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      else if (c.type === 'mod') mod.push(`\`${prefix}${c.name} ${c.usage}\` - *${c.description}*`);
+      else if (c.type === 'admin') admin.push(`\`${prefix}${c.name} ${c.usage}\` - *${c.description}*`);
     });
     general[0] = general[0] + ` **(${general.length - 1})**`;
     fun[0] = fun[0] + ` **(${fun.length - 1})**`;

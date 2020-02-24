@@ -5,7 +5,7 @@ module.exports = class SendWelcomeMessageCommand extends Command {
     super(client, {
       name: 'sendwelcomemessage',
       usage: '<TEXT CHANNEL>',
-      decription: 'Sends the welcome message to the specified channel (or the default channel, if none is specified).',
+      description: 'Sends the welcome message to the specified channel (or the default channel, if none is specified).',
       type: 'owner',
       ownerOnly: true
     });
