@@ -22,7 +22,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.awaitMessages(m => {
       let command, alias;
-      if (m.content.charAt(0) === prefix){
+      if (m.content.startsWith(prefix)){
         const args = m.content.trim().split(/ +/g);
         const cmd = args.shift().slice(prefix.length).toLowerCase();
         command = message.client.commands.get(cmd);

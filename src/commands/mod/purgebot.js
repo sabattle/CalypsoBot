@@ -15,10 +15,11 @@ module.exports = class PurgeBotCommand extends Command {
       userPermissions: ['MANAGE_MESSAGES']
     });
   }
-  async run(message, args) {   
+  async run(message, args) {
     // Check permissions
     const permissions = this.checkPermissions(message);
     if (permissions !== true) return message.channel.send(permissions);
+    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const amount = parseInt(args.join());
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
       return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
@@ -26,7 +27,7 @@ module.exports = class PurgeBotCommand extends Command {
     let messages = await message.channel.fetchMessages({limit: amount});
     messages = messages.array().filter(msg => { // Filter for commands or bot messages
       const command = message.client.commands.get(msg.content
-        .trim().split(/ +/g).shift().slice(message.client.prefix.length).toLowerCase());
+        .trim().split(/ +/g).shift().slice(prefix.length).toLowerCase());
       if (msg.author.bot || command) return true;
     });
     messages.forEach(async msg => {

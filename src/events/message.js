@@ -4,7 +4,7 @@ module.exports = (client, message) => {
   // Command handler
   let command;
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
-  if (message.content.charAt(0) === prefix){
+  if (message.content.startsWith(prefix)){
     const args = message.content.trim().split(/ +/g);
     const cmd = args.shift().slice(prefix.length).toLowerCase();
     command = client.commands.get(cmd);
