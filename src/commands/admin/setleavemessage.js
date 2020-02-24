@@ -17,7 +17,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     if (permission !== true) return message.channel.send(permission);
     message.channel.send(oneLine`
       ${message.author}, I am now waiting for the new leave message. Your next message will be saved exactly as
-      written. You may use \`?user\` to substitute for a user mention. This will timeout after 1 minute.
+      written. You may use \`?member\` to substitute for a user mention. This will timeout after 1 minute.
     `);
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.awaitMessages(m => {
