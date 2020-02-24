@@ -53,6 +53,12 @@ class Client extends Discord.Client {
     this.token = config.token;
 
     /** 
+     * API keys
+     * @type {Object}
+     */
+    this.apiKeys = config.apiKeys;
+
+    /** 
      * Calypso's owner ID
      * @type {string}
      */

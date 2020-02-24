@@ -12,8 +12,11 @@ module.exports = class CatCommand extends Command {
     });
   }
   async run(message) {
+    const apiKey = message.client.apiKeys.catApi;
     try {
-      const img = (await snekfetch.get('http://aws.random.cat/meow')).body.file; // Need to change api
+      const img = (await snekfetch.get('https://api.thecatapi.com/v1/images/search', {
+        headers: { 'x-api-key': apiKey }
+      })).body[0].url;
       const embed = new Discord.RichEmbed()
         .setAuthor('Meow!')
         .setImage(img)
