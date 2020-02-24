@@ -19,7 +19,6 @@ module.exports = class PurgeBotCommand extends Command {
     // Check permissions
     const permissions = this.checkPermissions(message);
     if (permissions !== true) return message.channel.send(permissions);
-
     const amount = parseInt(args.join());
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
       return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
@@ -33,11 +32,8 @@ module.exports = class PurgeBotCommand extends Command {
     messages.forEach(async msg => {
       await msg.delete();
     });
-    message.channel.send(oneLine`
-      I found **${messages.length}** messages (this message will be removed after 5 seconds).
-    `).then(msg => {
-      msg.delete(5000);
-    });
+    message.channel.send(`I found **${messages.length}** messages (this message will be removed after 5 seconds).`)
+      .then(msg => msg.delete(5000));
     message.client.logger.info(`${message.member.displayName} used purgebot in ${message.channel.name}`);
   }
 };

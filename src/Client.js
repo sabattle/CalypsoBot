@@ -53,12 +53,6 @@ class Client extends Discord.Client {
     this.token = config.token;
 
     /** 
-     * Default prefix for commands
-     * @type {string}
-     */
-    this.prefix = config.prefix;
-
-    /** 
      * Calypso's owner ID
      * @type {string}
      */

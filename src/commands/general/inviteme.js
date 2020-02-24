@@ -4,7 +4,7 @@ module.exports = class InviteMeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'inviteme',
-      aliases: ['invme'],
+      aliases: ['invme', 'im'],
       usage: '',
       description: 'Generates a link you can use to invite Calypso to your own server.',
       type: 'general'
