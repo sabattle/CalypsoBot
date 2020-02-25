@@ -46,7 +46,7 @@ module.exports = class GalleryCommand extends Command {
       await embed.setImage(art[n]);
       await msg.edit(embed);
     });
-    collector.on('end', async reactions => {
+    collector.on('end', async () => {
       await msg.delete();
     });
   }

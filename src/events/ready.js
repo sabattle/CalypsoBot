@@ -1,4 +1,5 @@
 module.exports = (client) => {
+  
   // Update db with new servers
   client.logger.info('Updating database...');
   client.guilds.forEach(guild => {

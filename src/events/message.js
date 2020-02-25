@@ -3,9 +3,10 @@ module.exports = (client, message) => {
 
   // Command handler
   let command;
-  if (message.content.charAt(0) === client.prefix){
+  const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+  if (message.content.startsWith(prefix)){
     const args = message.content.trim().split(/ +/g);
-    const cmd = args.shift().slice(client.prefix.length).toLowerCase();
+    const cmd = args.shift().slice(prefix.length).toLowerCase();
     command = client.commands.get(cmd);
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
     if (command) command.run(message, args);
