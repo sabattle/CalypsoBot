@@ -47,10 +47,13 @@ const guildSettings = {
   updateAdminRoleId: db.prepare('UPDATE guild_settings SET admin_role_id = ? WHERE guild_id = ?;'),
   selectModRoleId: db.prepare('SELECT mod_role_id FROM guild_settings WHERE guild_id = ?;'),
   updateModRoleId: db.prepare('UPDATE guild_settings SET mod_role_id = ? WHERE guild_id = ?;'),
+  selectAutoRoleId: db.prepare('SELECT auto_role_id FROM guild_settings WHERE guild_id = ?;'),
   updateAutoRoleId: db.prepare('UPDATE guild_settings SET auto_role_id = ? WHERE guild_id = ?;'),
+  selectUseWelcomeMessage: db.prepare('SELECT use_welcome_message FROM guild_settings WHERE guild_id = ?;'),
   updateUseWelcomeMessage: db.prepare('UPDATE guild_settings SET use_welcome_message = ? WHERE guild_id = ?;'),
   selectWelcomeMessage: db.prepare('SELECT welcome_message FROM guild_settings WHERE guild_id = ?;'),
   updateWelcomeMessage: db.prepare('UPDATE guild_settings SET welcome_message = ? WHERE guild_id = ?;'),
+  selectUseLeaveMessage: db.prepare('SELECT use_leave_message FROM guild_settings WHERE guild_id = ?;'),
   updateUseLeaveMessage: db.prepare('UPDATE guild_settings SET use_leave_message = ? WHERE guild_id = ?;'),
   selectLeaveMessage: db.prepare('SELECT leave_message FROM guild_settings WHERE guild_id = ?;'),
   updateLeaveMessage: db.prepare('UPDATE guild_settings SET leave_message = ? WHERE guild_id = ?;')
