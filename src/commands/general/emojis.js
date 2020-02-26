@@ -15,7 +15,7 @@ module.exports = class EmojisCommand extends Command {
     let emojiList = '';
     emojis.forEach(e => { emojiList = emojiList + `${e} :${e.name}: \n`; });
     const embed = new Discord.RichEmbed()
-      .setAuthor('Emoji List', message.guild.iconURL)
+      .setTitle('Emoji List')
       .setColor(message.guild.me.displayHexColor);
     while (emojiList.length > 2048) { // Description is capped at 2048 chars
       emojiList = emojiList.substring(0, emojiList.lastIndexOf('\n') -2);

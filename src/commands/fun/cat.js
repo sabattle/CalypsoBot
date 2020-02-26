@@ -18,7 +18,7 @@ module.exports = class CatCommand extends Command {
         headers: { 'x-api-key': apiKey }
       })).body[0].url;
       const embed = new Discord.RichEmbed()
-        .setAuthor('Meow!')
+        .setTitle('Meow!')
         .setImage(img)
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);

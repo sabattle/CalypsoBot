@@ -15,7 +15,7 @@ module.exports = class YesNoCommand extends Command {
     try {
       const res = (await snekfetch.get('http://yesno.wtf/api/')).body;
       const embed = new Discord.RichEmbed()
-        .setAuthor(res.answer + '!')
+        .setTitle(res.answer + '!')
         .setImage(res.image)
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);

@@ -26,7 +26,7 @@ module.exports = class RockPaperScissorsCommand extends Command {
     else if (botChoice > userChoice || botChoice === 0 && userChoice === 2) result = '**Calypso** wins!';
     else result = `**${message.member.displayName}** wins!`;
     const embed = new Discord.RichEmbed()
-      .setAuthor(`${message.member.displayName} vs. Calypso`)
+      .setTitle(`${message.member.displayName} vs. Calypso`)
       .addField('Your Choice:', res[userChoice], true)
       .addField('Calypso\'s Choice', res[botChoice], true)
       .addField('Result', result, true)

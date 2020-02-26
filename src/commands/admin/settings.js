@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 const { stripIndent } = require('common-tags');
 
 module.exports = class SettingsCommand extends Command {
@@ -24,7 +25,7 @@ module.exports = class SettingsCommand extends Command {
     if (row.use_welcome_message) useWelcomeMessage = 'true';
     let useLeaveMessage = 'false';
     if (row.use_leave_message) useLeaveMessage = 'true'; 
-    message.channel.send(stripIndent`
+    const settings = stripIndent`
       **Prefix**: \`${row.prefix}\`
       **Default Channel**: ${defaultChannel}
       **Admin Role**: ${adminRole}
@@ -32,6 +33,12 @@ module.exports = class SettingsCommand extends Command {
       **Auto Role**: ${autoRole}
       **Use Welcome Message**: \`${useWelcomeMessage}\`
       **Use Leave Message**: \`${useLeaveMessage}\`
-    `);
+    `;
+    const embed = new Discord.RichEmbed()
+      .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL)
+      .setColor(message.guild.me.displayHexColor)
+      .setDescription(settings);
+    message.channel.send(embed);
   }
 };

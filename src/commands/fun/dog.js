@@ -15,7 +15,7 @@ module.exports = class DogCommand extends Command {
     try {
       const img = (await snekfetch.get('https://dog.ceo/api/breeds/image/random')).body.message;
       const embed = new Discord.RichEmbed()
-        .setAuthor('Woof!')
+        .setTitle('Woof!')
         .setImage(img)
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);

@@ -14,10 +14,11 @@ module.exports = class AliasesCommand extends Command {
   run(message) {
     let aliases = '';
     message.client.commands.forEach(command => {
-      if (command.aliases) aliases = aliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
+      if (command.aliases && command.type != 'owner') 
+        aliases = aliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
     });
     const embed = new Discord.RichEmbed()
-      .setAuthor('Alias List', message.client.user.avatarURL)
+      .setTitle('Alias List')
       .setColor(message.guild.me.displayHexColor)
       .setDescription(aliases);
     message.channel.send(embed);
