@@ -101,7 +101,11 @@ const guildPoints = {
     UPDATE guild_points 
     SET points = points + 1, total_points = total_points + 1
     WHERE user_id = ? AND guild_id = ?;
-  `)
+  `),
+  selectTotalPoints: db.prepare('SELECT total_points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
+  clearPoints: db.prepare('UPDATE guild_points SET points = 0;'),
+  wipePoints: db.prepare('UPDATE guild_points SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
+  wipeAllPoints: db.prepare('UPDATE guild_points SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;')
 };
 
 module.exports = {
