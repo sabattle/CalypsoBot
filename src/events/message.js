@@ -1,6 +1,10 @@
 module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
+  // Points
+  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
+  if (enabled) client.db.guildPoints.updatePoints.run({ points: 1 }, message.author.id, message.guild.id);
+
   // Command handler
   let command;
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
@@ -11,8 +15,4 @@ module.exports = (client, message) => {
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
     if (command) command.run(message, args);
   }
-
-  // Points
-  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-  if (enabled) client.db.guildPoints.updatePoints.run(message.author.id, message.guild.id);
 };

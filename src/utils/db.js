@@ -10,7 +10,10 @@ db.pragma('synchronous = 1');
  */
 // db.pragma('journal_mode = wal');
 
-// Create guild settings table
+/** ------------------------------------------------------------------------------------------------
+ * TABLES
+ * ------------------------------------------------------------------------------------------------ */
+// GUILD SETTINGS
 db.prepare(`
   CREATE TABLE IF NOT EXISTS guild_settings (
     guild_id TEXT PRIMARY KEY,
@@ -30,7 +33,7 @@ db.prepare(`
     crown_schedule TEXT
 );`).run();
 
-// Create guild points table
+// GUILD POINTS
 db.prepare(`
   CREATE TABLE IF NOT EXISTS guild_points (
     user_id TEXT,
@@ -42,6 +45,10 @@ db.prepare(`
     PRIMARY KEY (user_id, guild_id)
 );`).run();
 
+/** ------------------------------------------------------------------------------------------------
+ * PREPARED STATEMENTS
+ * ------------------------------------------------------------------------------------------------ */
+// GUILD SETTINGS
 const guildSettings = {
   insertRow: db.prepare(`
     INSERT OR IGNORE INTO guild_settings (
@@ -84,6 +91,7 @@ const guildSettings = {
   updateCrownSchedule: db.prepare('UPDATE guild_settings SET crown_schedule = ? WHERE guild_id = ?;')
 };
 
+// GUILD POINTS
 const guildPoints = {
   insertRow: db.prepare(`
     INSERT OR IGNORE INTO guild_points (
@@ -96,10 +104,11 @@ const guildPoints = {
     ) VALUES (?, ?, ?, ?, 0, 0);
   `),
   selectRow: db.prepare('SELECT * FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
+  selectLeaderboard: db.prepare('SELECT * FROM guild_points WHERE guild_id = ? ORDER BY points DESC;'),
   selectPoints: db.prepare('SELECT points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
   updatePoints: db.prepare(`
     UPDATE guild_points 
-    SET points = points + 1, total_points = total_points + 1
+    SET points = points + @points, total_points = total_points + @points
     WHERE user_id = ? AND guild_id = ?;
   `),
   selectTotalPoints: db.prepare('SELECT total_points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),

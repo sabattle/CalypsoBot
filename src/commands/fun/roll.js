@@ -10,7 +10,7 @@ module.exports = class RollCommand extends Command {
     });
   }
   run(message, args) {
-    let limit = args.join();
+    let limit = args[0];
     if (!limit) limit = 6;
     const n = Math.floor(Math.random() * limit + 1);
     if (!n || limit <= 0) 

@@ -15,7 +15,7 @@ module.exports = class PurgeCommand extends Command {
     // Check permissions
     const permissions = this.checkPermissions(message);
     if (permissions !== true) return message.channel.send(permissions);
-    const amount = parseInt(args.join());
+    const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
       return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
     await message.delete(); // delete command message
