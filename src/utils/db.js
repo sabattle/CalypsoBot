@@ -13,18 +13,33 @@ db.pragma('synchronous = 1');
 // Create guild settings table
 db.prepare(`
   CREATE TABLE IF NOT EXISTS guild_settings (
-  guild_id TEXT PRIMARY KEY,
-  guild_name TEXT,
-  prefix TEXT,
-  default_channel_id TEXT, 
-  admin_role_id TEXT,
-  mod_role_id TEXT,
-  auto_role_id TEXT,
-  use_welcome_message INTEGER,
-  welcome_message TEXT,
-  use_leave_message INTEGER,
-  leave_message TEXT,
-  UNIQUE(guild_id)
+    guild_id TEXT PRIMARY KEY,
+    guild_name TEXT,
+    prefix TEXT NOT NULL,
+    default_channel_id TEXT, 
+    admin_role_id TEXT,
+    mod_role_id TEXT,
+    auto_role_id TEXT,
+    crown_role_id TEXT,
+    use_welcome_message INTEGER NOT NULL,
+    welcome_message TEXT,
+    use_leave_message INTEGER NOT NULL,
+    leave_message TEXT,
+    use_points INTEGER NOT NULL,
+    use_crown INTEGER NOT NULL,
+    crown_schedule TEXT
+);`).run();
+
+// Create guild points table
+db.prepare(`
+  CREATE TABLE IF NOT EXISTS guild_points (
+    user_id TEXT
+    user_name TEXT,
+    guild_id TEXT,
+    guild_name TEXT,
+    points INTEGER NOT NULL,
+    total_points INTEGER NOT NULL,
+    PRIMARY KEY (user_id, guild_id)
 );`).run();
 
 const guildSettings = {
@@ -35,8 +50,10 @@ const guildSettings = {
       prefix, 
       default_channel_id, 
       use_welcome_message, 
-      use_leave_message
-    ) VALUES (?, ?, '!', ?, 0, 0);
+      use_leave_message,
+      use_points,
+      use_crown
+    ) VALUES (?, ?, '!', ?, 0, 0, 1, 0);
   `),
   selectRow: db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM guild_settings WHERE guild_id = ?;'),
@@ -49,6 +66,8 @@ const guildSettings = {
   updateModRoleId: db.prepare('UPDATE guild_settings SET mod_role_id = ? WHERE guild_id = ?;'),
   selectAutoRoleId: db.prepare('SELECT auto_role_id FROM guild_settings WHERE guild_id = ?;'),
   updateAutoRoleId: db.prepare('UPDATE guild_settings SET auto_role_id = ? WHERE guild_id = ?;'),
+  selectCrownRoleId: db.prepare('SELECT crown_role_id FROM guild_settings WHERE guild_id = ?;'),
+  updateCrownRoleId: db.prepare('UPDATE guild_settings SET crown_role_id = ? WHERE guild_id = ?;'),
   selectUseWelcomeMessage: db.prepare('SELECT use_welcome_message FROM guild_settings WHERE guild_id = ?;'),
   updateUseWelcomeMessage: db.prepare('UPDATE guild_settings SET use_welcome_message = ? WHERE guild_id = ?;'),
   selectWelcomeMessage: db.prepare('SELECT welcome_message FROM guild_settings WHERE guild_id = ?;'),
@@ -56,7 +75,13 @@ const guildSettings = {
   selectUseLeaveMessage: db.prepare('SELECT use_leave_message FROM guild_settings WHERE guild_id = ?;'),
   updateUseLeaveMessage: db.prepare('UPDATE guild_settings SET use_leave_message = ? WHERE guild_id = ?;'),
   selectLeaveMessage: db.prepare('SELECT leave_message FROM guild_settings WHERE guild_id = ?;'),
-  updateLeaveMessage: db.prepare('UPDATE guild_settings SET leave_message = ? WHERE guild_id = ?;')
+  updateLeaveMessage: db.prepare('UPDATE guild_settings SET leave_message = ? WHERE guild_id = ?;'),
+  selectUsePoints: db.prepare('SELECT use_points FROM guild_settings WHERE guild_id = ?;'),
+  updateUsePoints: db.prepare('UPDATE guild_settings SET use_points = ? WHERE guild_id = ?;'),
+  selectUseCrown: db.prepare('SELECT use_crown FROM guild_settings WHERE guild_id = ?;'),
+  updateUseCrown: db.prepare('UPDATE guild_settings SET use_crown = ? WHERE guild_id = ?;'),
+  selectCrownSchedule: db.prepare('SELECT crown_schedule FROM guild_settings WHERE guild_id = ?;'),
+  updateCrownSchedule: db.prepare('UPDATE guild_settings SET crown_schedule = ? WHERE guild_id = ?;')
 };
 
 module.exports = {
