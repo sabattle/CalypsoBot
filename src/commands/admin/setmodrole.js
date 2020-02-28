@@ -22,6 +22,6 @@ module.exports = class SetModRoleCommand extends Command {
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
     `);
     message.client.db.guildSettings.updateModRoleId.run(target.id, message.guild.id);
-    message.channel.send(`Successfully updated the mod role to ${target}.`);
+    message.channel.send(`Successfully updated the \`mod role\` to ${target}.`);
   }
 };

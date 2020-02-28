@@ -14,7 +14,7 @@ module.exports = class ModsCommand extends Command {
     const id = message.client.db.guildSettings.selectModRoleId.pluck().get(message.guild.id);
     let modRole;
     if (id) modRole = message.guild.roles.get(id);
-    else return message.channel.send('There is currently no mod role on this server.');
+    else return message.channel.send('There is currently no `mod role` on this server.');
     const mods = message.guild.members.filter(m => {
       if (m.roles.find(r => r === modRole)) return true;
     });

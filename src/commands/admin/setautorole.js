@@ -22,6 +22,6 @@ module.exports = class SetAutoRoleCommand extends Command {
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
     `);
     message.client.db.guildSettings.updateAutoRoleId.run(target.id, message.guild.id);
-    message.channel.send(`Successfully updated the auto role to ${target}.`);
+    message.channel.send(`Successfully updated the \`auto role\` to ${target}.`);
   }
 };

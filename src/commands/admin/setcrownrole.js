@@ -1,12 +1,12 @@
 const Command = require('../Command.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class SetAdminRoleCommand extends Command {
+module.exports = class SetCrownRoleCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'setadminrole',
+      name: 'setcrownrole',
       usage: '<ROLE | ROLE NAME>',
-      description: 'Sets the admin role for your server.',
+      description: 'Sets the role Calypso will give members with the most points.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -21,7 +21,7 @@ module.exports = class SetAdminRoleCommand extends Command {
     if (!target) return message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
     `);
-    message.client.db.guildSettings.updateAdminRoleId.run(target.id, message.guild.id);
-    message.channel.send(`Successfully updated the \`admin role\` to ${target}.`);
+    message.client.db.guildSettings.updateCrownRoleId.run(target.id, message.guild.id);
+    message.channel.send(`Successfully updated the \`crown role\` to ${target}.`);
   }
 };
