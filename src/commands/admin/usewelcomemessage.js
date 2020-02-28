@@ -15,18 +15,20 @@ module.exports = class UseWelcomeMessageCommand extends Command {
     // Check permissions
     const permission = this.checkPermissions(message);
     if (permission !== true) return message.channel.send(permission);
-    args = args[0].toLowerCase();
+    args = args.join().toLowerCase();
     // Convert to 0 or 1
     if (args ==  'true' || args == 'false') {
       args = (args == 'true');
-      args = +args;
+      args = (+args).toString();
     }
-    if (args == 0 || args == 1) {
+    if (args === '0' || args === '1') {
       message.client.db.guildSettings.updateUseWelcomeMessage.run(args, message.guild.id);
       let val;
       if (args == 1) val = 'enabled';
       else val = 'disabled'; 
-      message.channel.send(`Successfully **${val}** welcome messages.`);
+      message.channel.send(oneLine`
+        Successfully **${val}** welcome messages. Please note that a \`welcome message\` must also be set.
+      `);
     }
     else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).

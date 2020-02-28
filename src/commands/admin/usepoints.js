@@ -1,12 +1,12 @@
 const Command = require('../Command.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class UseLeaveMessageCommand extends Command {
+module.exports = class UsePointsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'useleavemessage',
+      name: 'usepoints',
       usage: '<BOOLEAN>',
-      description: 'Enables or disables Calypso\'s leave messages.',
+      description: 'Enables or disables Calypso\'s point tracking.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -22,12 +22,11 @@ module.exports = class UseLeaveMessageCommand extends Command {
       args = (+args).toString();
     }
     if (args === '0' || args === '1') {
-      message.client.db.guildSettings.updateUseLeaveMessage.run(args, message.guild.id);
+      message.client.db.guildSettings.updateUsePoints.run(args, message.guild.id);
       let val;
       if (args == 1) val = 'enabled';
       else val = 'disabled'; 
-      message.channel.send(oneLine`
-        Successfully **${val}** leave messages. Please note that a \`leave message\` must also be set.`);
+      message.channel.send(`Successfully **${val}** point tracking.`);
     }
     else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).

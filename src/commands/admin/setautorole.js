@@ -6,7 +6,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     super(client, {
       name: 'setautorole',
       usage: '<ROLE | ROLE NAME>',
-      description: 'Sets the auto role for your server.',
+      description: 'Sets the role all new members will receive upon joining your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });

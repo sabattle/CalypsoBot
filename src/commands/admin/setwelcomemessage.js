@@ -6,7 +6,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     super(client, {
       name: 'setwelcomemessage',
       usage: '',
-      description: 'Set the welcome message that Calypso will say when someone joins your server.',
+      description: 'Sets the message that Calypso will say when someone joins your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });

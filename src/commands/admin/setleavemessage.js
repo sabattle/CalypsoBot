@@ -6,7 +6,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     super(client, {
       name: 'setleavemessage',
       usage: '',
-      description: 'Set the leave message that Calypso will say when someone leaves your server.',
+      description: 'Sets the message that Calypso will say when someone leaves your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
