@@ -21,18 +21,26 @@ module.exports = class SettingsCommand extends Command {
     const adminRole = message.guild.roles.get(row.admin_role_id) || '';
     const modRole = message.guild.roles.get(row.mod_role_id) || '';
     const autoRole = message.guild.roles.get(row.auto_role_id) || '';
+    const crownRole = message.guild.roles.get(row.crown_role_id) || '';
     let useWelcomeMessage = 'false';
     if (row.use_welcome_message) useWelcomeMessage = 'true';
     let useLeaveMessage = 'false';
-    if (row.use_leave_message) useLeaveMessage = 'true'; 
+    if (row.use_leave_message) useLeaveMessage = 'true';
+    let usePoints = 'false';
+    if (row.use_points) usePoints = 'true';
+    let useCrown = 'false';
+    if (row.use_crown) useCrown = 'true'; 
     const settings = stripIndent`
       **Prefix**: \`${row.prefix}\`
       **Default Channel**: ${defaultChannel}
       **Admin Role**: ${adminRole}
       **Mod Role**: ${modRole}
       **Auto Role**: ${autoRole}
+      **Crown Role**: ${crownRole}
       **Use Welcome Message**: \`${useWelcomeMessage}\`
       **Use Leave Message**: \`${useLeaveMessage}\`
+      **Use Points**: \`${usePoints}\`
+      **Use Crown**: \`${useCrown}\`
     `;
     const embed = new Discord.RichEmbed()
       .setTitle('Server Settings')

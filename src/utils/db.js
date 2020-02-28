@@ -33,7 +33,7 @@ db.prepare(`
 // Create guild points table
 db.prepare(`
   CREATE TABLE IF NOT EXISTS guild_points (
-    user_id TEXT
+    user_id TEXT,
     user_name TEXT,
     guild_id TEXT,
     guild_name TEXT,
@@ -84,6 +84,27 @@ const guildSettings = {
   updateCrownSchedule: db.prepare('UPDATE guild_settings SET crown_schedule = ? WHERE guild_id = ?;')
 };
 
+const guildPoints = {
+  insertRow: db.prepare(`
+    INSERT OR IGNORE INTO guild_points (
+      user_id, 
+      user_name,
+      guild_id, 
+      guild_name, 
+      points,
+      total_points
+    ) VALUES (?, ?, ?, ?, 0, 0);
+  `),
+  selectRow: db.prepare('SELECT * FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
+  selectPoints: db.prepare('SELECT points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
+  updatePoints: db.prepare(`
+    UPDATE guild_points 
+    SET points = points + 1, total_points = total_points + 1
+    WHERE user_id = ? AND guild_id = ?;
+  `)
+};
+
 module.exports = {
-  guildSettings
+  guildSettings,
+  guildPoints
 };
