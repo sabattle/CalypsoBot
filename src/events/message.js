@@ -11,4 +11,8 @@ module.exports = (client, message) => {
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
     if (command) command.run(message, args);
   }
+
+  // Points
+  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
+  if (enabled) client.db.guildPoints.updatePoints.run(message.author.id, message.guild.id);
 };

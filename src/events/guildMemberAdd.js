@@ -16,5 +16,8 @@ module.exports = async (client, member) => {
   if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);
   if (enabled && welcomeMessage && defaultChannel) defaultChannel.send(welcomeMessage);
 
+  // Update points db
+  client.db.guildPoints.insertRow.run(member.id, member.user.username, member.guild.id, member.guild.name);
+
   client.logger.info(`${member.user.username} has joined ${member.guild.name}`);
 };

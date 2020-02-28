@@ -29,7 +29,9 @@ module.exports = class SettingsCommand extends Command {
     let usePoints = 'false';
     if (row.use_points) usePoints = 'true';
     let useCrown = 'false';
-    if (row.use_crown) useCrown = 'true'; 
+    if (row.use_crown) useCrown = 'true';
+    let crownSchedule = '';
+    if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
     const settings = stripIndent`
       **Prefix**: \`${row.prefix}\`
       **Default Channel**: ${defaultChannel}
@@ -41,6 +43,7 @@ module.exports = class SettingsCommand extends Command {
       **Use Leave Message**: \`${useLeaveMessage}\`
       **Use Points**: \`${usePoints}\`
       **Use Crown**: \`${useCrown}\`
+      **Crown Schedule**: ${crownSchedule}
     `;
     const embed = new Discord.RichEmbed()
       .setTitle('Server Settings')
