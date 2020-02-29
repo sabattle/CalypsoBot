@@ -23,12 +23,11 @@ module.exports = class UseWelcomeMessageCommand extends Command {
     }
     if (args === '0' || args === '1') {
       message.client.db.guildSettings.updateUseWelcomeMessage.run(args, message.guild.id);
-      let val;
-      if (args == 1) val = 'enabled';
-      else val = 'disabled'; 
-      message.channel.send(oneLine`
-        Successfully **${val}** welcome messages. Please note that a \`welcome message\` must also be set.
-      `);
+      if (args == 1)
+        message.channel.send(oneLine`
+          Successfully **enabled** welcome messages. Please note that a \`welcome message\` must also be set.
+        `);
+      else message.channel.send('Successfully **disabled** welcome messages.');
     }
     else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).

@@ -2,7 +2,8 @@ module.exports = (client, oldMember, newMember) => {
   
   // Check if points enabled
   const enabled = client.db.guildSettings.selectUsePoints.pluck().get(newMember.guild.id);
-  if (!enabled) return;
+  const voiceEnabled = client.db.guildSettings.selectUseVoicePoints.pluck().get(newMember.guild.id);
+  if (!enabled || !voiceEnabled) return;
 
   // Set IDs
   const oldId = oldMember.voiceChannelID;

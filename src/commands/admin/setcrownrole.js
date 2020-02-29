@@ -22,6 +22,9 @@ module.exports = class SetCrownRoleCommand extends Command {
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
     `);
     message.client.db.guildSettings.updateCrownRoleId.run(target.id, message.guild.id);
-    message.channel.send(`Successfully updated the \`crown role\` to ${target}.`);
+    message.channel.send(oneLine`
+      Successfully updated the \`crown role\` to ${target}. Please note that a \`crown schedule\` must be set and
+      \`use crown\` must be enabled. 
+    `);
   }
 };

@@ -28,6 +28,8 @@ module.exports = class SettingsCommand extends Command {
     if (row.use_leave_message) useLeaveMessage = 'true';
     let usePoints = 'false';
     if (row.use_points) usePoints = 'true';
+    let useVoicePoints = 'false';
+    if (row.use_voice_points) useVoicePoints = 'true';
     let useCrown = 'false';
     if (row.use_crown) useCrown = 'true';
     let crownSchedule = '';
@@ -42,6 +44,7 @@ module.exports = class SettingsCommand extends Command {
       **Use Welcome Message**: \`${useWelcomeMessage}\`
       **Use Leave Message**: \`${useLeaveMessage}\`
       **Use Points**: \`${usePoints}\`
+      **Use Voice Points**: \`${useVoicePoints}\`
       **Use Crown**: \`${useCrown}\`
       **Crown Schedule**: ${crownSchedule}
     `;

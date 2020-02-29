@@ -17,6 +17,6 @@ module.exports = class SendWelcomeMessageCommand extends Command {
     const target = message.mentions.channels.first() || defaultChannel;
     const msg = message.client.db.guildSettings.selectWelcomeMessage.pluck().get(message.guild.id);
     if (msg) target.send(msg);
-    else message.channel.send('There is no `welcome message` set on this server.');
+    else message.channel.send('There is currently no `welcome message` set on this server.');
   } 
 };

@@ -23,10 +23,8 @@ module.exports = class UsePointsCommand extends Command {
     }
     if (args === '0' || args === '1') {
       message.client.db.guildSettings.updateUsePoints.run(args, message.guild.id);
-      let val;
-      if (args == 1) val = 'enabled';
-      else val = 'disabled'; 
-      message.channel.send(`Successfully **${val}** point tracking.`);
+      if (args == 1) message.channel.send('Successfully **enabled** point tracking.');
+      else message.channel.send('Successfully **disabled** point tracking.');
     }
     else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).

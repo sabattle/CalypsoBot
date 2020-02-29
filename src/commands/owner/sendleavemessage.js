@@ -17,6 +17,6 @@ module.exports = class SendLeaveMessageCommand extends Command {
     const target = message.mentions.channels.first() || defaultChannel;
     const msg = message.client.db.guildSettings.selectLeaveMessage.pluck().get(message.guild.id);
     if (msg) target.send(msg);
-    else message.channel.send('There is no `leave message` set on this server.');
+    else message.channel.send('There is currently no `leave message` set on this server.');
   } 
 };

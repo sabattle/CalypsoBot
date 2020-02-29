@@ -14,7 +14,7 @@ module.exports = class CrownCommand extends Command {
     const id = message.client.db.guildSettings.selectCrownRoleId.pluck().get(message.guild.id);
     let crownRole;
     if (id) crownRole = message.guild.roles.get(id);
-    else return message.channel.send('There is currently no `crown role` on this server.');
+    else return message.channel.send('There is currently no `crown role` set on this server.');
     const crownSchedule = message.client.db.guildSettings.selectCrownSchedule.pluck().get(message.guild.id);
     const crowned = message.guild.members.filter(m => {
       if (m.roles.find(r => r === crownRole)) return true;
