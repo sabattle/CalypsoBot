@@ -1,11 +1,11 @@
 const Command = require('../Command.js');
 
-module.exports = class PointsCommand extends Command {
+module.exports = class PositionCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'points',
+      name: 'position',
       usage: '<USER MENTION>',
-      description: 'Fetches a user\'s current points (or your own, if no user is mentioned).',
+      description: 'Fetches a user\'s current scoreboard position (or your own, if no user is mentioned).',
       type: 'point'
     });
   }
@@ -13,8 +13,8 @@ module.exports = class PointsCommand extends Command {
     const enabled = message.client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
     if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
     const target = message.mentions.members.first() || message.member;
-    const points = message.client.db.guildPoints.selectPoints.pluck().get(target.id, message.guild.id);
-    if (points === 1) message.channel.send(`${target} has **${points}** point!`);
-    else message.channel.send(`${target} has **${points}** points!`);
+    const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
+    const position = leaderboard.map(row => row.user_id).indexOf(target.id);
+    message.channel.send(`${target}'s position: **${position + 1}**`);
   }
 };

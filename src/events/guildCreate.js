@@ -1,4 +1,5 @@
 module.exports = (client, guild) => {
+  
   // Update db
   client.db.guildSettings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
   guild.members.forEach(member => {
