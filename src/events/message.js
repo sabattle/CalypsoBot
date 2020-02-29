@@ -13,6 +13,10 @@ module.exports = (client, message) => {
     const cmd = args.shift().slice(prefix.length).toLowerCase();
     command = client.commands.get(cmd);
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
-    if (command) command.run(message, args);
+    if (command) {
+      // Check permissions
+      const permission = command.checkPermissions(message);
+      if (permission) command.run(message, args);
+    }
   }
 };

@@ -4,7 +4,7 @@ module.exports = class GitHubCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'github',
-      aliases: ['gh'],
+      aliases: ['gh', 'repo'],
       usage: '',
       description: 'Posts the link to Calypso\'s GitHub repository.',
       type: 'general'

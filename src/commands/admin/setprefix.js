@@ -12,9 +12,6 @@ module.exports = class SetPrefixCommand extends Command {
     });
   }
   run(message, args) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     const prefix = args[0];
     if (!prefix || prefix.length > 3) return message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please ensure the prefix is no larger than 3 characters.

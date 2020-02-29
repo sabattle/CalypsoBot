@@ -7,14 +7,11 @@ module.exports = class UnmuteCommand extends Command {
       usage: '<USER MENTION>',
       description: 'Unmutes the specified user.',
       type: 'mod',
-      clientPermissions: ['MUTE_MEMBERS', 'MANAGE_ROLES'],
+      clientPermissions: ['SEND_MESSAGES', 'MUTE_MEMBERS', 'MANAGE_ROLES'],
       userPermissions: ['MUTE_MEMBERS']
     });
   }
   async run(message) {
-    // Check permissions
-    const permissions = this.checkPermissions(message);
-    if (permissions !== true) return message.channel.send(permissions);
     const id = message.client.db.guildSettings.selectMuteRoleId.pluck().get(message.guild.id);
     let muteRole;
     if (id) muteRole = message.guild.roles.get(id);

@@ -8,13 +8,10 @@ module.exports = class ColorCommand extends Command {
       usage: '<COLOR NAME>',
       description: 'Changes your current color to the one specified.',
       type: 'general',
-      clientPermissions: ['MANAGE_ROLES']    
+      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']    
     });
   }
   async run(message, args) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
     const target = args.join(' ').toLowerCase();
     const color = colors.find(c => {

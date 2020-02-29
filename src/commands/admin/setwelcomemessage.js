@@ -12,9 +12,6 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     });
   }
   run(message) {
-    // Check permissions 
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     message.channel.send(oneLine`
       ${message.author}, I am now waiting for the new welcome message. Your next message will be saved exactly as
       written. You may use \`?member\` to substitute for a user mention. This will timeout after 1 minute.

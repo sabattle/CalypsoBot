@@ -12,9 +12,6 @@ module.exports = class UseVoicePointsCommand extends Command {
     });
   }
   run(message, args) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     if (args.length !== 0) args = args[0].toLowerCase();
     // Convert to 0 or 1
     if (args ==  'true' || args == 'false') {

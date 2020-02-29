@@ -13,9 +13,6 @@ module.exports = class SettingsCommand extends Command {
     });
   }
   run(message) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     const row = message.client.db.guildSettings.selectRow.get(message.guild.id);
     const defaultChannel = message.guild.channels.get(row.default_channel_id) || '';
     const adminRole = message.guild.roles.get(row.admin_role_id) || '';

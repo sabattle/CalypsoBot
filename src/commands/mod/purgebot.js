@@ -11,14 +11,11 @@ module.exports = class PurgeBotCommand extends Command {
         (limit is 50 at a time).
       `,
       type: 'mod',
-      clientPermissions: ['MANAGE_MESSAGES'],
+      clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES']
     });
   }
   async run(message, args) {
-    // Check permissions
-    const permissions = this.checkPermissions(message);
-    if (permissions !== true) return message.channel.send(permissions);
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 

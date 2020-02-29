@@ -12,9 +12,6 @@ module.exports = class SetDefaultChannelCommand extends Command {
     });
   }
   run(message) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     const target = message.mentions.channels.first();
     if (!target) return message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please mention a text channel.

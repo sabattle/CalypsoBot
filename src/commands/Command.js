@@ -86,11 +86,10 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkPermissions(message, ownerOverride = true) {
-    // First check user permissions
-    let result = this.checkUserPermissions(message, ownerOverride);
-    if (result !== true) return result;
-    // If passed, then check client permissions
-    else return this.checkClientPermissions(message);
+    const clientPermission = this.checkClientPermissions(message);
+    const userPermission = this.checkUserPermissions(message, ownerOverride);
+    if (clientPermission && userPermission) return true;
+    else return false;
   }
 
   /**
@@ -102,17 +101,21 @@ class Command {
   checkUserPermissions(message, ownerOverride = true) {
     if (!this.ownerOnly && !this.userPermssions) return true;
     if (ownerOverride && this.client.isOwner(message.author)) return true;
-    if (this.ownerOnly && !this.client.isOwner(message.author))
-      return `The \`${this.name}\` command can only be used by my owner.`;
+    if (this.ownerOnly && !this.client.isOwner(message.author)) {
+      message.channel.send(`The \`${this.name}\` command can only be used by my owner.`);
+      return false;
+    }
     
     let missingPermissions=  [];
     if (this.userPermssions) {
       missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermssions);
-      if (missingPermissions.length !== 0) 
-        return oneLine`
+      if (missingPermissions.length !== 0) {
+        message.channel.send(oneLine`
           The \`${this.name}\` command requires you to have the following permissions: 
           \`${missingPermissions.join(', ')}\`.
-        `;
+        `);
+        return false;
+      }
     }
     return true;
   }
@@ -128,11 +131,13 @@ class Command {
       if (message.guild.me.hasPermission(perm)) return true;
       else missingPermissions.push(perm);
     });
-    if (missingPermissions.length !== 0) 
-      return oneLine`
+    if (missingPermissions.length !== 0) {
+      message.channel.send(oneLine`
         The \`${this.name}\` command requires me to have the following permissions: 
         \`${missingPermissions.join(', ')}\`.
-      `;
+      `);
+      return false;
+    }
     else return true;
   }
 

@@ -12,9 +12,6 @@ module.exports = class SetModRoleCommand extends Command {
     });
   }
   run(message, args) {
-    // Check permissions
-    const permission = this.checkPermissions(message);
-    if (permission !== true) return message.channel.send(permission);
     args = args.join(' ').toLowerCase();
     const role = message.guild.roles.find(r => r.name.toLowerCase() === args);
     const target = message.mentions.roles.first() || role;
