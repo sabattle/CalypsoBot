@@ -20,6 +20,7 @@ module.exports = class SettingsCommand extends Command {
     const defaultChannel = message.guild.channels.get(row.default_channel_id) || '';
     const adminRole = message.guild.roles.get(row.admin_role_id) || '';
     const modRole = message.guild.roles.get(row.mod_role_id) || '';
+    const muteRole = message.guild.roles.get(row.mute_role_id) || '';
     const autoRole = message.guild.roles.get(row.auto_role_id) || '';
     const crownRole = message.guild.roles.get(row.crown_role_id) || '';
     let useWelcomeMessage = 'false';
@@ -39,6 +40,7 @@ module.exports = class SettingsCommand extends Command {
       **Default Channel**: ${defaultChannel}
       **Admin Role**: ${adminRole}
       **Mod Role**: ${modRole}
+      **Mute Role**: ${muteRole}
       **Auto Role**: ${autoRole}
       **Crown Role**: ${crownRole}
       **Use Welcome Message**: \`${useWelcomeMessage}\`

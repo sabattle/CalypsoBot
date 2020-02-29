@@ -74,7 +74,7 @@ class Client extends Discord.Client {
    */
   loadEvents(path) {
     readdir(path, (err, files) => {
-      if (err) console.error(err);
+      if (err) this.logger.error(err);
       files = files.filter(f => f.split('.').pop() === 'js');
       if (files.length === 0) return this.logger.warn('No events found');
       this.logger.info(`${files.length} event(s) found...`);
