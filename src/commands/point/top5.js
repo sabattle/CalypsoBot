@@ -12,8 +12,6 @@ module.exports = class TopFiveCommand extends Command {
     });
   }
   async run(message) {
-    const enabled = message.client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-    if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
     const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
     const top10 = leaderboard.slice(0, 5);

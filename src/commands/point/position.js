@@ -10,8 +10,6 @@ module.exports = class PositionCommand extends Command {
     });
   }
   run(message) {
-    const enabled = message.client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-    if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
     const target = message.mentions.members.first() || message.member;
     const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(target.id);

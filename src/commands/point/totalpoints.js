@@ -10,8 +10,6 @@ module.exports = class TotalPointsCommand extends Command {
     });
   }
   run(message) {
-    const enabled = message.client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-    if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
     const target = message.mentions.members.first() || message.member;
     const points = message.client.db.guildPoints.selectTotalPoints.pluck().get(target.id, message.guild.id);
     if (points === 1) message.channel.send(`${target} has **${points}** total point!`);

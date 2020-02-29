@@ -11,8 +11,6 @@ module.exports = class GivePointsCommand extends Command {
     });
   }
   run(message, args) {
-    const enabled = message.client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-    if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
     const target = message.mentions.members.first();
     const amount = parseInt(args[1]);
     if (!target) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);

@@ -16,7 +16,13 @@ module.exports = (client, message) => {
     if (command) {
       // Check permissions
       const permission = command.checkPermissions(message);
-      if (permission) command.run(message, args);
+      if (permission) {
+        // Check command type     
+        if (command.type === 'point') {
+          if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
+        }
+        command.run(message, args);
+      }
     }
   }
 };
