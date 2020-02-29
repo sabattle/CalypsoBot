@@ -14,7 +14,7 @@ module.exports = class ServersCommand extends Command {
   run(message) {
     let serverList = '';
     message.client.guilds.forEach(guild => {
-      serverList = serverList + `${guild.name} | \`${message.guild.members.array().length}\` members\n`;
+      serverList = serverList + `${guild.name} | \`${guild.members.array().length}\` members\n`;
     });
     const embed = new Discord.RichEmbed()
       .setTitle('Server List')
