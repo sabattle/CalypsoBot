@@ -3,7 +3,7 @@ module.exports = (client, member) => {
   // Send leave message
   const enabled = client.db.guildSettings.selectUseLeaveMessage.pluck().get(member.guild.id);
   let leaveMessage = client.db.guildSettings.selectLeaveMessage.pluck().get(member.guild.id);
-  leaveMessage = leaveMessage.replace('?member', member); // Member substituion
+  if (leaveMessage) leaveMessage = leaveMessage.replace('?member', member); // Member substituion
   const defaultChannelId = client.db.guildSettings.selectDefaultChannelId.pluck().get(member.guild.id);
   let defaultChannel;
   if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);

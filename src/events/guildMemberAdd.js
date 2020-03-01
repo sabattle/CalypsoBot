@@ -10,7 +10,7 @@ module.exports = async (client, member) => {
   // Send welcome message
   const enabled = client.db.guildSettings.selectUseWelcomeMessage.pluck().get(member.guild.id);
   let welcomeMessage = client.db.guildSettings.selectWelcomeMessage.pluck().get(member.guild.id);
-  welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
+  if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
   const defaultChannelId = client.db.guildSettings.selectDefaultChannelId.pluck().get(member.guild.id);
   let defaultChannel;
   if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);
