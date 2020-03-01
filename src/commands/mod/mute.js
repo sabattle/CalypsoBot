@@ -28,7 +28,12 @@ module.exports = class MuteCommand extends Command {
         ${message.member}, please enter a length of time of 10 days or less (\`1s\`/\`m\`/\`h\`/\`d\`).
       `);
     if (member.roles.has(id)) return message.channel.send(`${member} is already muted!`);
-    await member.addRole(muteRole);
+    try {
+      await member.addRole(muteRole);
+    } catch (err) {
+      message.client.logger.error(err.message);
+      return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
+    }
     message.channel.send(`${member} has now been muted for **${ms(time, { long: true })}**.`);
     member.timeout = message.client.setTimeout(async () => {
       try {
@@ -36,6 +41,7 @@ module.exports = class MuteCommand extends Command {
         message.channel.send(`${member} has been unmuted.`);
       } catch (err) {
         message.client.logger.error(err.message);
+        return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }, time);
     message.client.logger.info(`${message.member.displayName} muted ${member.displayName}`);

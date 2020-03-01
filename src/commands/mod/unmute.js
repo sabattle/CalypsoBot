@@ -22,8 +22,13 @@ module.exports = class UnmuteCommand extends Command {
       return message.channel.send(`${message.member}, you cannot unmute someone who has an equal or higher role.`);
     if (member.roles.has(id)) {
       message.client.clearTimeout(member.timeout);
-      await member.removeRole(muteRole);
-      message.channel.send(`${member} has been unmuted.`);
+      try {
+        await member.removeRole(muteRole);
+        message.channel.send(`${member} has been unmuted.`);
+      } catch (err) {
+        message.client.logger.error(err.message);
+        return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
+      }
     } 
     else return message.channel.send(`${member} is not muted!`);
     message.client.logger.info(`${message.member.displayName} unmuted ${member.displayName}`);

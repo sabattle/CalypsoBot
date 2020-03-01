@@ -38,9 +38,7 @@ module.exports = class ColorCommand extends Command {
       }
       catch (err) {
         message.client.logger.error(err.message);
-        message.channel.send(oneLine`
-          Sorry ${message.member}, something went wrong. Please confirm that I am at the top of the role hierarchy.
-        `);
+        message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }
   }
