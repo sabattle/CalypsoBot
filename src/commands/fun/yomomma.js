@@ -5,7 +5,7 @@ module.exports = class YoMommaCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'yomomma',
-      aliases: ['yomom'],
+      aliases: ['yourmom'],
       usage: '',
       description: 'Says a random yo momma joke.',
       type: 'fun',

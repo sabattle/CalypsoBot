@@ -12,17 +12,17 @@ module.exports = class UserInfoCommand extends Command {
       type: 'general'
     });
   }
-  run(message) {
-    const target =  message.mentions.members.first() || message.member;
+  run(message, args) {
+    const member =  this.getMemberFromMention(message, args[0]) || message.member;
     const embed = new Discord.RichEmbed()
-      .setAuthor(target.displayName, target.user.displayAvatarURL)
-      .setDescription(`Current status is **${target.presence.status}**.`)
-      .setThumbnail(target.user.displayAvatarURL)
-      .setFooter(`${target.user.username}#${target.user.discriminator} | User ID: ${target.id}`)
+      .setAuthor(member.displayName, member.user.displayAvatarURL)
+      .setDescription(`Current status is **${member.presence.status}**.`)
+      .setThumbnail(member.user.displayAvatarURL)
+      .setFooter(`${member.user.username}#${member.user.discriminator} | User ID: ${member.id}`)
       .setTimestamp()
-      .addField('Joined server on', moment(target.joinedAt).format('MMM DD YYYY'), true)
-      .addField('Joined Discord on', moment(target.user.createdAt).format('MMM DD YYYY'), true)
-      .setColor(target.displayHexColor);
+      .addField('Joined server on', moment(member.joinedAt).format('MMM DD YYYY'), true)
+      .addField('Joined Discord on', moment(member.user.createdAt).format('MMM DD YYYY'), true)
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

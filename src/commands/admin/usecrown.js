@@ -12,7 +12,7 @@ module.exports = class UseCrownCommand extends Command {
     });
   }
   run(message, args) {
-    if (args.length !== 0) args = args[0].toLowerCase();
+    if (args.length) args = args[0].toLowerCase();
     // Convert to 0 or 1
     if (args ==  'true' || args == 'false') {
       args = (args == 'true');

@@ -81,6 +81,45 @@ class Command {
   }
 
   /**
+   * Gets member from mention
+   * @param {Message} message 
+   * @param {string} mention 
+   */
+  getMemberFromMention(message, mention) {
+    if (!mention) return;
+    const matches = mention.match(/^<@!?(\d+)>$/);
+    if (!matches) return;
+    const id = matches[1];
+    return message.guild.members.get(id);
+  }
+
+  /**
+   * Gets role from mention
+   * @param {Message} message 
+   * @param {string} mention 
+   */
+  getRoleFromMention(message, mention) {
+    if (!mention) return;
+    const matches = mention.match(/^<@&(\d+)>$/);
+    if (!matches) return;
+    const id = matches[1];
+    return message.guild.roles.get(id);
+  }
+
+  /**
+   * Gets channel from mention
+   * @param {Message} message 
+   * @param {string} mention 
+   */
+  getChannelFromMention(message, mention) {
+    if (!mention) return;
+    const matches = mention.match(/^<#(\d+)>$/);
+    if (!matches) return;
+    const id = matches[1];
+    return message.guild.channels.get(id);
+  }
+
+  /**
    * Helper method to check permissions
    * @param {Message} message 
    * @param {boolean} ownerOverride 
@@ -106,9 +145,10 @@ class Command {
       return false;
     }
     
-    let missingPermissions=  [];
+    let missingPermissions = [];
     if (this.userPermssions) {
       missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermssions);
+      missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
         message.channel.send(oneLine`
           The \`${this.name}\` command requires you to have the following permissions: 
@@ -131,6 +171,7 @@ class Command {
       if (message.guild.me.hasPermission(perm)) return true;
       else missingPermissions.push(perm);
     });
+    missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
     if (missingPermissions.length !== 0) {
       message.channel.send(oneLine`
         The \`${this.name}\` command requires me to have the following permissions: 
@@ -140,7 +181,7 @@ class Command {
     }
     else return true;
   }
-
+  
   /**
    * Validates all options provided
    * Code modified from: https://github.com/discordjs/Commando/blob/master/src/commands/base.js

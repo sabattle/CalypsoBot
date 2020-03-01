@@ -15,7 +15,7 @@ module.exports = class RockPaperScissorsCommand extends Command {
   }
   run(message, args) {
     let userChoice;
-    if (args.length !== 0) userChoice = args[0].toLowerCase();
+    if (args.length) userChoice = args[0].toLowerCase();
     if (!rps.includes(userChoice)) 
       return message.channel.send(oneLine`
         Sorry ${message.member}, I don't recognize that. Please enter \`rock\`, \`paper\`, or \`scissors\`.

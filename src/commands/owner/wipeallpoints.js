@@ -10,9 +10,9 @@ module.exports = class WipeAllPointsCommand extends Command {
       ownerOnly: true
     });
   }
-  run(message) {
-    const target =  message.mentions.members.first() || message.member;
-    message.client.db.guildPoints.wipeAllPoints.run(target.id, message.guild.id);
-    message.channel.send(`Successfully wiped ${target}'s points and total points.`);
+  run(message, args) {
+    const member =  this.getMemberFromMention(message, args[0]) || message.member;
+    message.client.db.guildPoints.wipeAllPoints.run(member.id, message.guild.id);
+    message.channel.send(`Successfully wiped ${member}'s points and total points.`);
   } 
 };

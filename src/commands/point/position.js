@@ -9,10 +9,10 @@ module.exports = class PositionCommand extends Command {
       type: 'point'
     });
   }
-  run(message) {
-    const target = message.mentions.members.first() || message.member;
+  run(message, args) {
+    const member = this.getMemberFromMention(message, args[0]) || message.member;
     const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
-    const position = leaderboard.map(row => row.user_id).indexOf(target.id);
-    message.channel.send(`${target}'s position: **${position + 1}**`);
+    const position = leaderboard.map(row => row.user_id).indexOf(member.id);
+    message.channel.send(`${member}'s position: **${position + 1}**`);
   }
 };

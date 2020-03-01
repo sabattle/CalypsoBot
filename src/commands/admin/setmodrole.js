@@ -5,20 +5,20 @@ module.exports = class SetModRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmodrole',
-      usage: '<ROLE | ROLE NAME>',
+      usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the mod role for your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
   }
   run(message, args) {
-    args = args.join(' ').toLowerCase();
-    const role = message.guild.roles.find(r => r.name.toLowerCase() === args);
-    const target = message.mentions.roles.first() || role;
-    if (!target) return message.channel.send(oneLine`
+    const roleName = args.join(' ').toLowerCase();
+    let role = message.guild.roles.find(r => r.name.toLowerCase() === roleName);
+    role = this.getRoleFromMention(message, args[0]) || role;
+    if (!role) return message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
     `);
-    message.client.db.guildSettings.updateModRoleId.run(target.id, message.guild.id);
-    message.channel.send(`Successfully updated the \`mod role\` to ${target}.`);
+    message.client.db.guildSettings.updateModRoleId.run(role.id, message.guild.id);
+    message.channel.send(`Successfully updated the \`mod role\` to ${role}.`);
   }
 };

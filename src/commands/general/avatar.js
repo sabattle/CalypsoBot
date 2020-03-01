@@ -10,12 +10,12 @@ module.exports = class AvatarCommand extends Command {
       type: 'general'
     });
   }
-  run(message) {
-    const target =  message.mentions.members.first() || message.member;
+  run(message, args) {
+    const member =  this.getMemberFromMention(message, args[0]) || message.member;
     const embed = new Discord.RichEmbed()
-      .setAuthor(`${target.displayName}'s Avatar`)
-      .setImage(target.user.displayAvatarURL)
-      .setColor(target.displayHexColor);
+      .setAuthor(`${member.displayName}'s Avatar`)
+      .setImage(member.user.displayAvatarURL)
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

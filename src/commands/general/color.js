@@ -5,7 +5,7 @@ module.exports = class ColorCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'color',
-      usage: '<COLOR NAME>',
+      usage: '<ROLE MENTION | COLOR NAME>',
       description: 'Changes your current color to the one specified.',
       type: 'general',
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']    
@@ -13,15 +13,18 @@ module.exports = class ColorCommand extends Command {
   }
   async run(message, args) {
     const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
-    const target = args.join(' ').toLowerCase();
-    const color = colors.find(c => {
-      return target.startsWith(c.name.slice(1).toLowerCase()) || 
-             target.startsWith(c.name.toLowerCase()) || 
-             message.mentions.roles.first();
-    });
+    const colorName = args.join(' ').toLowerCase();
+    const role = this.getRoleFromMention(message, args[0]);
+    let color;
+    if (role && colors.get(role.id)) color = role;
+    if (!color) {
+      color = colors.find(c => {
+        return colorName.startsWith(c.name.slice(1).toLowerCase()) || colorName.startsWith(c.name.toLowerCase());
+      });
+    }
     // Color does not exist
     if (!color) return message.channel.send(oneLine`
-      Sorry ${message.member}, I don't recognize that color. Type \`!colors\` for a list.
+      Sorry ${message.member}, I don't recognize that color. Use \`!colors\` for a list.
     `);
     // Color exists but member already has color
     else if (message.member.roles.has(color.id)) 

@@ -9,10 +9,10 @@ module.exports = class PointsCommand extends Command {
       type: 'point'
     });
   }
-  run(message) {
-    const target = message.mentions.members.first() || message.member;
-    const points = message.client.db.guildPoints.selectPoints.pluck().get(target.id, message.guild.id);
-    if (points === 1) message.channel.send(`${target} has **${points}** point!`);
-    else message.channel.send(`${target} has **${points}** points!`);
+  run(message, args) {
+    const member = this.getMemberFromMention(message, args[0]) || message.member;
+    const points = message.client.db.guildPoints.selectPoints.pluck().get(member.id, message.guild.id);
+    if (points === 1) message.channel.send(`${member} has **${points}** point!`);
+    else message.channel.send(`${member} has **${points}** points!`);
   }
 };

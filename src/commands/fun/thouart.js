@@ -1,11 +1,11 @@
 const Command = require('../Command.js');
 const snekfetch = require('snekfetch');
 
-module.exports = class ElizabethanCommand extends Command {
+module.exports = class ThouArtCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'elizabethan',
-      aliases: ['thouart'],
+      name: 'thouart',
+      aliases: ['elizabethan'],
       usage: '',
       description: 'Says a random Elizabethan insult.',
       type: 'fun'

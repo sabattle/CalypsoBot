@@ -4,8 +4,8 @@ module.exports = class RollCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'roll',
-      usage: '<POSITIVE INTEGER>',
-      description: 'Rolls a random number between 1 and the number specified (or 6, if no number is given).',
+      usage: '<DICE SIDES>',
+      description: 'Rolls a dice with the specified number of sides (or 6 sides, if no number is given).',
       type: 'fun'
     });
   }
