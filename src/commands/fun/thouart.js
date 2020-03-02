@@ -15,8 +15,7 @@ module.exports = class ThouArtCommand extends Command {
     try {
       const res = (await snekfetch.get('http://quandyfactory.com/insult/json/')).body.insult;
       message.channel.send(res);
-    }
-    catch (err) {
+    } catch (err) {
       message.client.logger.error(err.message);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }

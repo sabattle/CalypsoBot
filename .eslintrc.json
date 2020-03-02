@@ -22,6 +22,7 @@
       "error",
       2
     ],
+    "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "require-await": 2,
     "space-before-function-paren": ["error", {
       "anonymous": "never",

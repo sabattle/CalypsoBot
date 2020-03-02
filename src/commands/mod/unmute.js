@@ -29,8 +29,7 @@ module.exports = class UnmuteCommand extends Command {
         message.client.logger.error(err.message);
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
-    } 
-    else return message.channel.send(`${member} is not muted!`);
+    } else return message.channel.send(`${member} is not muted!`);
     message.client.logger.info(`${message.member.displayName} unmuted ${member.displayName}`);
   }
 };

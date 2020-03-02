@@ -24,8 +24,7 @@ module.exports = class UseVoicePointsCommand extends Command {
         Successfully **enabled** voice point tracking. Please note that \`use points\` must be enabled.
       `);
       else message.channel.send('Successfully **disabled** voice point tracking.');
-    }
-    else message.channel.send(oneLine`
+    } else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).
     `);
   }

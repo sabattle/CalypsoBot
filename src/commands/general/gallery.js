@@ -38,12 +38,11 @@ module.exports = class GalleryCommand extends Command {
       if (reaction.emoji.name === back){
         n--;
         if (n < 0) n = art.length - 1;
-      }
-      else if (reaction.emoji.name === next){
+      } else if (reaction.emoji.name === next){
         n++;
         if (n > art.length - 1) n = 0;
       }
-      await embed.setImage(art[n]);
+      embed.setImage(art[n]);
       await msg.edit(embed);
     });
     collector.on('end', async () => {

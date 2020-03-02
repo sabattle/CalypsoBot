@@ -25,8 +25,7 @@ module.exports = class UseLeaveMessageCommand extends Command {
           Successfully **enabled** leave messages. Please note that a \`leave message\` must also be set.
         `);
       else message.channel.send('Successfully **disabled** leave messages.');
-    }
-    else message.channel.send(oneLine`
+    } else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).
     `);
   }

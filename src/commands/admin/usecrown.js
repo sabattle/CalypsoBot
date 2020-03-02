@@ -1,4 +1,6 @@
 const Command = require('../Command.js');
+const schedule = require('node-schedule');
+const rotateCrown = require('../../utils/rotateCrown.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class UseCrownCommand extends Command {
@@ -20,14 +22,25 @@ module.exports = class UseCrownCommand extends Command {
     }
     if (args === '0' || args === '1') {
       message.client.db.guildSettings.updateUseCrown.run(args, message.guild.id);
-      if (args == 1)
+      if (args == 1) {
         message.channel.send(oneLine`
-          Successfully **enabled** crown role rotating. Please note that a \`crown schedule\` and \`crown role\` must 
+          Successfully **enabled** crown role rotating. Please note that a \`crown role\` and a \`crown schedule\` must
           be set.
         `);
-      else message.channel.send('Successfully **disabled** crown role rotating.');
-    }
-    else message.channel.send(oneLine`
+
+        //Schedule crown role rotation
+        const id = message.client.db.guildSettings.selectCrownRoleId.pluck().get(message.guild.id);
+        let crownRole;
+        if (id) crownRole = message.guild.roles.get(id);
+        const cron = message.client.db.guildSettings.selectCrownSchedule.pluck().get(message.guild.id);
+        if (crownRole && cron) {
+          message.guild.job = schedule.scheduleJob(cron, rotateCrown(message.guild));
+        }
+      } else {
+        if (message.guild.job) message.guild.job.cancel(); // Cancel old job
+        message.channel.send('Successfully **disabled** crown role rotating.');
+      }
+    } else message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please enter a boolean value (\`true\`, \`false\`, \`1\`, \`0\`).
     `);
   }

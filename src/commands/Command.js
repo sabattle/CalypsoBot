@@ -178,8 +178,7 @@ class Command {
         \`${missingPermissions.join(', ')}\`.
       `);
       return false;
-    }
-    else return true;
+    } else return true;
   }
   
   /**

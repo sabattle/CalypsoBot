@@ -16,8 +16,7 @@ module.exports = class YoMommaCommand extends Command {
       const res = (await snekfetch.get('https://api.yomomma.info'));
       const joke = JSON.parse(res.text);
       message.channel.send(joke.joke);
-    }
-    catch (err) {
+    } catch (err) {
       message.client.logger.error(err.message);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }

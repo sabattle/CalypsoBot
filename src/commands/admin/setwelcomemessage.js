@@ -30,7 +30,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       .then(messages => {
         const content = messages.first().content;
         message.client.db.guildSettings.updateWelcomeMessage.run(content, message.guild.id);
-        message.channel.send(`${message.author}, I have updated the new welcome message to:`);
+        message.channel.send(`${message.author}, I have updated the welcome message to:`);
         message.channel.send(content);
       })
       .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));

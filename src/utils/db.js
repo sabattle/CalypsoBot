@@ -25,13 +25,15 @@ db.prepare(`
     mute_role_id TEXT,
     auto_role_id TEXT,
     crown_role_id TEXT,
+    use_points INTEGER NOT NULL,
+    use_voice_points INTEGER NOT NULL,
+    use_crown INTEGER NOT NULL,
     use_welcome_message INTEGER NOT NULL,
     welcome_message TEXT,
     use_leave_message INTEGER NOT NULL,
     leave_message TEXT,
-    use_points INTEGER NOT NULL,
-    use_voice_points INTEGER NOT NULL,
-    use_crown INTEGER NOT NULL,
+    use_crown_message INTEGER NOT NULL,
+    crown_message TEXT,
     crown_schedule TEXT
 );`).run();
 
@@ -58,12 +60,13 @@ const guildSettings = {
       guild_name,
       prefix, 
       default_channel_id, 
-      use_welcome_message, 
-      use_leave_message,
       use_points,
       use_voice_points,
-      use_crown
-    ) VALUES (?, ?, '!', ?, 0, 0, 1, 1, 0);
+      use_crown,
+      use_welcome_message, 
+      use_leave_message,
+      use_crown_message
+    ) VALUES (?, ?, '!', ?, 1, 1, 0, 0, 0, 0);
   `),
   selectRow: db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM guild_settings WHERE guild_id = ?;'),
@@ -80,6 +83,12 @@ const guildSettings = {
   updateAutoRoleId: db.prepare('UPDATE guild_settings SET auto_role_id = ? WHERE guild_id = ?;'),
   selectCrownRoleId: db.prepare('SELECT crown_role_id FROM guild_settings WHERE guild_id = ?;'),
   updateCrownRoleId: db.prepare('UPDATE guild_settings SET crown_role_id = ? WHERE guild_id = ?;'),
+  selectUsePoints: db.prepare('SELECT use_points FROM guild_settings WHERE guild_id = ?;'),
+  updateUsePoints: db.prepare('UPDATE guild_settings SET use_points = ? WHERE guild_id = ?;'),
+  selectUseVoicePoints: db.prepare('SELECT use_voice_points FROM guild_settings WHERE guild_id = ?;'),
+  updateUseVoicePoints: db.prepare('UPDATE guild_settings SET use_voice_points = ? WHERE guild_id = ?;'),
+  selectUseCrown: db.prepare('SELECT use_crown FROM guild_settings WHERE guild_id = ?;'),
+  updateUseCrown: db.prepare('UPDATE guild_settings SET use_crown = ? WHERE guild_id = ?;'),
   selectUseWelcomeMessage: db.prepare('SELECT use_welcome_message FROM guild_settings WHERE guild_id = ?;'),
   updateUseWelcomeMessage: db.prepare('UPDATE guild_settings SET use_welcome_message = ? WHERE guild_id = ?;'),
   selectWelcomeMessage: db.prepare('SELECT welcome_message FROM guild_settings WHERE guild_id = ?;'),
@@ -88,12 +97,10 @@ const guildSettings = {
   updateUseLeaveMessage: db.prepare('UPDATE guild_settings SET use_leave_message = ? WHERE guild_id = ?;'),
   selectLeaveMessage: db.prepare('SELECT leave_message FROM guild_settings WHERE guild_id = ?;'),
   updateLeaveMessage: db.prepare('UPDATE guild_settings SET leave_message = ? WHERE guild_id = ?;'),
-  selectUsePoints: db.prepare('SELECT use_points FROM guild_settings WHERE guild_id = ?;'),
-  updateUsePoints: db.prepare('UPDATE guild_settings SET use_points = ? WHERE guild_id = ?;'),
-  selectUseVoicePoints: db.prepare('SELECT use_voice_points FROM guild_settings WHERE guild_id = ?;'),
-  updateUseVoicePoints: db.prepare('UPDATE guild_settings SET use_voice_points = ? WHERE guild_id = ?;'),
-  selectUseCrown: db.prepare('SELECT use_crown FROM guild_settings WHERE guild_id = ?;'),
-  updateUseCrown: db.prepare('UPDATE guild_settings SET use_crown = ? WHERE guild_id = ?;'),
+  selectUseCrownMessage: db.prepare('SELECT use_crown_message FROM guild_settings WHERE guild_id = ?;'),
+  updateUseCrownMessage: db.prepare('UPDATE guild_settings SET use_crown_message = ? WHERE guild_id = ?;'),
+  selectCrownMessage: db.prepare('SELECT crown_message FROM guild_settings WHERE guild_id = ?;'),
+  updateCrownMessage: db.prepare('UPDATE guild_settings SET crown_message = ? WHERE guild_id = ?;'),
   selectCrownSchedule: db.prepare('SELECT crown_schedule FROM guild_settings WHERE guild_id = ?;'),
   updateCrownSchedule: db.prepare('UPDATE guild_settings SET crown_schedule = ? WHERE guild_id = ?;')
 };

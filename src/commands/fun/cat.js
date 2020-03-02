@@ -22,8 +22,7 @@ module.exports = class CatCommand extends Command {
         .setImage(img)
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
-    }
-    catch (err) {
+    } catch (err) {
       message.client.logger.error(err.message);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }

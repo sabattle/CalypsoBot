@@ -35,8 +35,7 @@ module.exports = class ColorCommand extends Command {
         await message.member.removeRoles(colors);
         await message.member.addRole(color);
         message.channel.send(`${message.member}, you now have the color ${color}.`);
-      }
-      catch (err) {
+      } catch (err) {
         message.client.logger.error(err.message);
         message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
