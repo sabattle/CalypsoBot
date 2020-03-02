@@ -1,6 +1,5 @@
 const Command = require('../Command.js');
-const schedule = require('node-schedule');
-const rotateCrown = require('../../utils/rotateCrown.js');
+const scheduleCrown = require('../../utils/scheduleCrown.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetCrownRoleCommand extends Command {
@@ -22,15 +21,11 @@ module.exports = class SetCrownRoleCommand extends Command {
     `);
     message.client.db.guildSettings.updateCrownRoleId.run(role.id, message.guild.id);
     message.channel.send(oneLine`
-      Successfully updated the \`crown role\` to ${role}. Please note that \`use crown\` must be enabled and a
-      \`crown schedule\` must be set. 
+      Successfully updated the \`crown role\` to ${role}. Please note that \`use points\` and \`use crown\` must be
+      enabled and a \`crown schedule\` must be set. 
     `);
 
-    //Schedule crown role rotation
-    const enabled = message.client.db.guildSettings.selectUseCrown.pluck().get(message.guild.id);
-    const cron = message.client.db.guildSettings.selectCrownSchedule.pluck().get(message.guild.id);
-    if (enabled && cron) {
-      message.guild.job = schedule.scheduleJob(cron, rotateCrown(message.guild));
-    }
+    // Schedule crown role rotation
+    scheduleCrown(message.client, message.guild);
   }
 };
