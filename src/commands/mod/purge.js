@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { oneLine } = require('common-tags');
 
 module.exports = class PurgeCommand extends Command {
   constructor(client) {
@@ -20,6 +21,8 @@ module.exports = class PurgeCommand extends Command {
     messages.forEach(async msg => {
       await msg.delete();
     });
-    message.client.logger.info(`${message.member.displayName} used purge in ${message.channel.name}`);
+    message.client.logger.info(oneLine`
+      ${message.guild.name}: ${message.member.displayName} used purge in ${message.channel.name}
+    `);
   }
 };

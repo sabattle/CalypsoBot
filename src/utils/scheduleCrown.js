@@ -14,6 +14,9 @@ module.exports = function scheduleCrown(client, guild) {
   if (id) crownRole = guild.roles.get(id);
   const cron = client.db.guildSettings.selectCrownSchedule.pluck().get(guild.id);
   if (pointsEnabled && crownEnabled && crownRole && cron) {
-    guild.job = schedule.scheduleJob(cron, rotateCrown(guild));
+    guild.job = schedule.scheduleJob(cron, () => {
+      rotateCrown(client, guild, crownRole);
+    });
   }
+  client.logger.info(`${guild.name}: Successfully scheduled job`);
 };

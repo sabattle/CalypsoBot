@@ -32,6 +32,8 @@ module.exports = class PurgeBotCommand extends Command {
     });
     message.channel.send(`I found **${messages.length}** messages (this message will be removed after 5 seconds).`)
       .then(msg => msg.delete(5000));
-    message.client.logger.info(`${message.member.displayName} used purgebot in ${message.channel.name}`);
+    message.client.logger.info(oneLine`
+      ${message.guild.name}: ${message.member.displayName} used purgebot in ${message.channel.name}
+    `);
   }
 };

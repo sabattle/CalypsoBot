@@ -126,7 +126,7 @@ const guildPoints = {
     WHERE user_id = ? AND guild_id = ?;
   `),
   selectTotalPoints: db.prepare('SELECT total_points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
-  clearPoints: db.prepare('UPDATE guild_points SET points = 0;'),
+  clearPoints: db.prepare('UPDATE guild_points SET points = 0 WHERE guild_id = ?;'),
   wipePoints: db.prepare('UPDATE guild_points SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
   wipeAllPoints: db.prepare('UPDATE guild_points SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;')
 };

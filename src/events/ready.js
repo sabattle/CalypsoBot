@@ -1,4 +1,4 @@
-const scheduleCrown = require('../utils/rotateCrown.js');
+const scheduleCrown = require('../utils/scheduleCrown.js');
 
 module.exports = (client) => {
   

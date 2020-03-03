@@ -30,7 +30,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
       .then(messages => {
         const content = messages.first().content;
         message.client.db.guildSettings.updateLeaveMessage.run(content, message.guild.id);
-        message.channel.send(`${message.author}, I have updated the leave message to:`);
+        message.channel.send(`${message.author}, I have updated the \`leave message\` to:`);
         message.channel.send(content);
       })
       .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));

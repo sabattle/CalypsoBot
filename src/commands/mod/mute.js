@@ -44,6 +44,6 @@ module.exports = class MuteCommand extends Command {
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }, time);
-    message.client.logger.info(`${message.member.displayName} muted ${member.displayName}`);
+    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} muted ${member.displayName}`);
   }
 };
