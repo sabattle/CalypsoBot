@@ -29,7 +29,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
       If you wish to use multiple values for any of the categories, please seperate them with a \`,\`.
       Step syntax is also supported, for example: \`*/5 * * * *\` (every 5 minutes).
       If you need help building your cron, check out this site: <https://crontab.guru/#>
-      **Please note**: Not all months have the same amount of days. This will timeout after 3 minutes.
+      **Please note**: Not all months have the same amount of days.
+      You may enter \`clear\` to clear the current schedule. This will timeout after 3 minutes.
     `);
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.awaitMessages(m => {
@@ -44,6 +45,11 @@ module.exports = class SetCrownScheduleCommand extends Command {
     }, { maxMatches: 1, time: 180000 }) // Three minute timer
       .then(messages => {
         const cron = messages.first().content;
+        // Clear message
+        if (cron === 'clear') {
+          message.client.db.guildSettings.updateCrownSchedule.run(null, message.guild.id);
+          return message.channel.send('Successfully **cleared** the `crown schedule`.');
+        }
         try {
           parser.parseExpression(cron);
         } catch (err) {

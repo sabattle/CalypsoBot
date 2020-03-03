@@ -15,7 +15,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     message.channel.send(oneLine`
       ${message.author}, I am now waiting for the new crown message. Your next message will be saved exactly as
       written. You may use \`?member\` to substitute for a user mention and \`?role\` to substitute for the crown role.
-      This will timeout after 1 minute.
+      You may enter \`clear\` to clear the current message. This will timeout after 1 minute.
     `);
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.awaitMessages(m => {
@@ -30,6 +30,11 @@ module.exports = class SetCrownMessageCommand extends Command {
     }, { maxMatches: 1, time: 60000 }) // One minute timer
       .then(messages => {
         const content = messages.first().content;
+        // Clear message
+        if (content === 'clear') {
+          message.client.db.guildSettings.updateCrownMessage.run(null, message.guild.id);
+          return message.channel.send('Successfully **cleared** the `crown message`.');
+        }
         message.client.db.guildSettings.updateCrownMessage.run(content, message.guild.id);
         message.channel.send(`${message.author}, I have updated the crown message to:`);
         message.channel.send(content);

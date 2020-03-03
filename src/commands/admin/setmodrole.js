@@ -6,12 +6,17 @@ module.exports = class SetModRoleCommand extends Command {
     super(client, {
       name: 'setmodrole',
       usage: '<ROLE MENTION | ROLE NAME>',
-      description: 'Sets the mod role for your server.',
+      description: 'Sets the mod role for your server (provide no role to clear).',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
   }
   run(message, args) {
+    // Clear if no args provided
+    if (args.length === 0) {
+      message.client.db.guildSettings.updateModRoleId.run(null, message.guild.id);
+      return message.channel.send('Successfully **cleared** the `mod role`.');
+    } 
     const roleName = args.join(' ').toLowerCase();
     let role = message.guild.roles.find(r => r.name.toLowerCase() === roleName);
     role = this.getRoleFromMention(message, args[0]) || role;

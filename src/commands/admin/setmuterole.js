@@ -6,12 +6,17 @@ module.exports = class SetMuteRoleCommand extends Command {
     super(client, {
       name: 'setmuterole',
       usage: '<ROLE MENTION | ROLE NAME>',
-      description: 'Sets the mute role your server.',
+      description: 'Sets the mute role your server (provide no role to clear).',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
   }
   run(message, args) {
+    // Clear if no args provided
+    if (args.length === 0) {
+      message.client.db.guildSettings.updateMuteRoleId.run(null, message.guild.id);
+      return message.channel.send('Successfully **cleared** the `mute role`.');
+    } 
     const roleName = args.join(' ').toLowerCase();
     let role = message.guild.roles.find(r => r.name.toLowerCase() === roleName);
     role = this.getRoleFromMention(message, args[0]) || role;

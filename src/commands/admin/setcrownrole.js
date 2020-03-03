@@ -7,12 +7,17 @@ module.exports = class SetCrownRoleCommand extends Command {
     super(client, {
       name: 'setcrownrole',
       usage: '<ROLE MENTION | ROLE NAME>',
-      description: 'Sets the role Calypso will give members with the most points.',
+      description: 'Sets the role Calypso will give members with the most points (provide no role to clear).',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
   }
   run(message, args) {
+    // Clear if no args provided
+    if (args.length === 0) {
+      message.client.db.guildSettings.updateCrownRoleId.run(null, message.guild.id);
+      return message.channel.send('Successfully **cleared** the `crown role`.');
+    } 
     const roleName = args.join(' ').toLowerCase();
     let role = message.guild.roles.find(r => r.name.toLowerCase() === roleName);
     role = this.getRoleFromMention(message, args[0]) || role;
