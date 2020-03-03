@@ -26,12 +26,12 @@ module.exports = class SettingsCommand extends Command {
     if (row.use_voice_points) useVoicePoints = 'true';
     let useCrown = 'false';
     if (row.use_crown) useCrown = 'true';
-    let useWelcomeMessage = 'false';
-    if (row.use_welcome_message) useWelcomeMessage = 'true';
-    let useLeaveMessage = 'false';
-    if (row.use_leave_message) useLeaveMessage = 'true';
-    let useCrownMessage = 'false';
-    if (row.use_crown_message) useCrownMessage = 'true';
+    let welcomeMessage = 'false';
+    if (row.welcome_message) welcomeMessage = 'true';
+    let leaveMessage = 'false';
+    if (row.leave_message) leaveMessage = 'true';
+    let crownMessage = 'false';
+    if (row.crown_message) crownMessage = 'true';
     let crownSchedule = '';
     if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
     const settings = stripIndent`
@@ -45,9 +45,9 @@ module.exports = class SettingsCommand extends Command {
       **Use Points**: \`${usePoints}\`
       **Use Voice Points**: \`${useVoicePoints}\`
       **Use Crown**: \`${useCrown}\`
-      **Use Welcome Message**: \`${useWelcomeMessage}\`
-      **Use Leave Message**: \`${useLeaveMessage}\`
-      **Use Crown Message**: \`${useCrownMessage}\`
+      **Welcome Message**: \`${welcomeMessage}\`
+      **Leave Message**: \`${leaveMessage}\`
+      **Crown Message**: \`${crownMessage}\`
       **Crown Schedule**: ${crownSchedule}
     `;
     const embed = new Discord.RichEmbed()

@@ -6,7 +6,7 @@ module.exports = class UseVoicePointsCommand extends Command {
     super(client, {
       name: 'usevoicepoints',
       usage: '<BOOLEAN>',
-      description: 'Enables or disables Calypso\'s voice point tracking.',
+      description: 'Enables or disables Calypso\'s voice point tracking (1 point per minute).',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });

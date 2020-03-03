@@ -6,7 +6,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     super(client, {
       name: 'setwelcomemessage',
       usage: '',
-      description: 'Sets the message that Calypso will say when someone joins your server.',
+      description: 'Sets the message Calypso will say when someone joins your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -36,7 +36,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
           return message.channel.send('Successfully **cleared** the `welcome message`.');
         }
         message.client.db.guildSettings.updateWelcomeMessage.run(content, message.guild.id);
-        message.channel.send(`${message.author}, I have updated the \`welcome message\` to:`);
+        message.channel.send('Successfully updated the `welcome message` to:');
         message.channel.send(content);
       })
       .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));

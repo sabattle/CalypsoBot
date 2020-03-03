@@ -1,10 +1,12 @@
 const { oneLine } = require('common-tags');
 
 module.exports = async function rotateCrown(client, guild, crownRole) {
-  const enabled = client.db.guildSettings.selectUseCrownMessage.pluck().get(guild.id);
+
+  // Get default channel
   const id = client.db.guildSettings.selectDefaultChannelId.pluck().get(guild.id);
   let defaultChannel;
   if (id) defaultChannel = guild.channels.get(id);
+  
   const leaderboard = client.db.guildPoints.selectLeaderboard.all(guild.id);
   const winner = guild.members.get(leaderboard[0].user_id);
   let quit = false;
@@ -45,7 +47,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
   }
 
   // Send crown message
-  if (enabled && defaultChannel && crownMessage) defaultChannel.send(crownMessage);
+  if (defaultChannel && crownMessage) defaultChannel.send(crownMessage);
 
   client.logger.info(`${guild.name}: Successfully transferred crown role to ${winner.displayName} and cleared points`);
 };

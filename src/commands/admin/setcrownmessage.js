@@ -6,7 +6,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     super(client, {
       name: 'setcrownmessage',
       usage: '',
-      description: 'Sets the message that Calypso will say during the crown role rotation.',
+      description: 'Sets the message Calypso will say during the crown role rotation.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -36,7 +36,7 @@ module.exports = class SetCrownMessageCommand extends Command {
           return message.channel.send('Successfully **cleared** the `crown message`.');
         }
         message.client.db.guildSettings.updateCrownMessage.run(content, message.guild.id);
-        message.channel.send(`${message.author}, I have updated the crown message to:`);
+        message.channel.send('Successfully updated the `crown message` to:');
         message.channel.send(content);
       })
       .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));

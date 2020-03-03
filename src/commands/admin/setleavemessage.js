@@ -6,7 +6,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     super(client, {
       name: 'setleavemessage',
       usage: '',
-      description: 'Sets the message that Calypso will say when someone leaves your server.',
+      description: 'Sets the message Calypso will say when someone leaves your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -36,7 +36,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
           return message.channel.send('Successfully **cleared** the `leave message`.');
         }
         message.client.db.guildSettings.updateLeaveMessage.run(content, message.guild.id);
-        message.channel.send(`${message.author}, I have updated the \`leave message\` to:`);
+        message.channel.send('Successfully updated the `leave message` to:');
         message.channel.send(content);
       })
       .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));
