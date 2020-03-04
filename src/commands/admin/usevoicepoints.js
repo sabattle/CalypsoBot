@@ -5,6 +5,7 @@ module.exports = class UseVoicePointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'usevoicepoints',
+      aliases: ['usevp', 'uvp'],
       usage: '<BOOLEAN>',
       description: 'Enables or disables Calypso\'s voice point tracking (1 point per minute).',
       type: 'admin',

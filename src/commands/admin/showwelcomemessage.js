@@ -4,6 +4,7 @@ module.exports = class ShowWelcomeMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'showwelcomemessage',
+      aliases: ['showwm', 'shwm'],
       usage: '',
       description: 'Shows the welcome message for your server.',
       type: 'admin'

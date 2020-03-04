@@ -5,6 +5,7 @@ module.exports = class SetAutoRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setautorole',
+      aliases: ['setaur', 'saur'],
       usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the role all new members will receive upon joining your server (provide no role to clear).',
       type: 'admin',

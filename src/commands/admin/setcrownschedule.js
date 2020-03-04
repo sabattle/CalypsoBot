@@ -7,7 +7,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setcrownschedule',
-      aliases: ['scs'],
+      aliases: ['setcs', 'scs'],
       usage: '',
       description: 'Sets the schedule for Calypso\'s crown role rotation.',
       type: 'admin',

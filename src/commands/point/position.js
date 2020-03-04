@@ -4,6 +4,7 @@ module.exports = class PositionCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'position',
+      aliases: ['pos'],
       usage: '<USER MENTION>',
       description: 'Fetches a user\'s current scoreboard position (or your own, if no user is mentioned).',
       type: 'point'

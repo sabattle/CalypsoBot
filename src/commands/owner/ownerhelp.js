@@ -4,7 +4,7 @@ module.exports = class OwnerHelpCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'ownerhelp',
-      aliases: ['ownercommands'],
+      aliases: ['ownercommands', 'oh'],
       usage: '',
       description: 'Displays a list of all current owner commands.',
       type: 'owner',

@@ -6,6 +6,7 @@ module.exports = class YesNoCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'yesno',
+      aliases: ['yn'],
       usage: '',
       description: 'Fetches a gif of a yes or a no.',
       type: 'fun'

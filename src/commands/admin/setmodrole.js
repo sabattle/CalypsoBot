@@ -5,6 +5,7 @@ module.exports = class SetModRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmodrole',
+      aliases: ['setmr', 'smr'],
       usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the mod role for your server (provide no role to clear).',
       type: 'admin',

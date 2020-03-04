@@ -4,6 +4,7 @@ module.exports = class SendLeaveMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'sendleavemessage',
+      aliases: ['sendlm'],
       usage: '<CHANNEL MENTION>',
       description: 'Sends the leave message to the specified channel (or the default channel, if none is specified).',
       type: 'owner',

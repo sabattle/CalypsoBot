@@ -5,7 +5,7 @@ module.exports = class ServerIconCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'servericon',
-      aliases: ['icon'],
+      aliases: ['icon', 'i'],
       usage: '',
       description: 'Displays the server\'s icon.',
       type: 'general'

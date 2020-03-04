@@ -5,6 +5,7 @@ module.exports = class PurgeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'purge',
+      aliases: ['clear'],
       usage: '<MESSAGE COUNT>',
       description: 'Deletes the specified amount of messages from a channel (limit is 50 at a time).',
       type: 'mod',

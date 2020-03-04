@@ -4,6 +4,7 @@ module.exports = class SendWelcomeMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'sendwelcomemessage',
+      aliases: ['sendwm'],
       usage: '<CHANNEL MENTION>',
       description: 'Sends the welcome message to the specified channel (or the default channel, if none is specified).',
       type: 'owner',

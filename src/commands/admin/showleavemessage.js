@@ -4,6 +4,7 @@ module.exports = class ShowLeaveMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'showleavemessage',
+      aliases: ['showlm', 'shlm'],
       usage: '',
       description: 'Shows the leave message for your server.',
       type: 'admin'

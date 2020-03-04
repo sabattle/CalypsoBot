@@ -6,6 +6,7 @@ module.exports = class SetCrownRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setcrownrole',
+      aliases: ['setcr', 'scr'],
       usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the role Calypso will give members with the most points (provide no role to clear).',
       type: 'admin',

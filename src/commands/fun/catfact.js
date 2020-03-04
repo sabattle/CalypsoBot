@@ -5,6 +5,7 @@ module.exports = class CatFactCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'catfact',
+      aliases: ['cf'],
       usage: '',
       description: 'Says a random cat fact.',
       type: 'fun'

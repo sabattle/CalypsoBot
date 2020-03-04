@@ -5,6 +5,7 @@ module.exports = class SetAdminRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setadminrole',
+      aliases: ['setar', 'sar'],
       usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the admin role for your server (provide no role to clear).',
       type: 'admin',

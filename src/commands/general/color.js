@@ -5,6 +5,7 @@ module.exports = class ColorCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'color',
+      aliases: ['col', 'c'],
       usage: '<ROLE MENTION | COLOR NAME>',
       description: 'Changes your current color to the one specified.',
       type: 'general',

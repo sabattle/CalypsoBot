@@ -4,6 +4,7 @@ module.exports = class PointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'points',
+      aliases: ['p'],
       usage: '<USER MENTION>',
       description: 'Fetches a user\'s current points (or your own, if no user is mentioned).',
       type: 'point'

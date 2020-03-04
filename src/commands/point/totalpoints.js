@@ -4,6 +4,7 @@ module.exports = class TotalPointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'totalpoints',
+      aliases: ['tp'],
       usage: '<USER MENTION>',
       description: 'Fetches a user\'s total points (or your own, if no user is mentioned).',
       type: 'point'

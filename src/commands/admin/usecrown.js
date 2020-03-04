@@ -6,6 +6,7 @@ module.exports = class UseCrownCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'usecrown',
+      aliases: ['usec', 'uc'],
       usage: '<BOOLEAN>',
       description: 'Enables or disables Calypso\'s crown role rotation.',
       type: 'admin',

@@ -5,6 +5,7 @@ module.exports = class AvatarCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'avatar',
+      aliases: ['profilepic', 'pic'],
       usage: '<USER MENTION>',
       description: 'Displays a user\'s avatar (or your own, if no user is mentioned).',
       type: 'general'

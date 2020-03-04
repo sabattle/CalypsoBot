@@ -5,7 +5,7 @@ module.exports = class ThouArtCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'thouart',
-      aliases: ['elizabethan'],
+      aliases: ['elizabethan', 'ta'],
       usage: '',
       description: 'Says a random Elizabethan insult.',
       type: 'fun'

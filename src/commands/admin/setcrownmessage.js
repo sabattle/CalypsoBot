@@ -5,6 +5,7 @@ module.exports = class SetCrownMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setcrownmessage',
+      aliases: ['setcm', 'scm'],
       usage: '',
       description: 'Sets the message Calypso will say during the crown role rotation.',
       type: 'admin',

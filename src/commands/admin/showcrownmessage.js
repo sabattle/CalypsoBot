@@ -4,6 +4,7 @@ module.exports = class ShowCrownMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'showcrownmessage',
+      aliases: ['showcm', 'shcm'],
       usage: '',
       description: 'Shows the crown message for your server.',
       type: 'admin'

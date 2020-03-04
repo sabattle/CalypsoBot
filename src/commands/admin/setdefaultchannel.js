@@ -5,6 +5,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setdefaultchannel',
+      aliases: ['setdc', 'sdc'],
       usage: '<CHANNEL MENTION>',
       description: 'Sets the default text channel for your server (provide no channel to clear).',
       type: 'admin',

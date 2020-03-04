@@ -5,6 +5,7 @@ module.exports = class SetPrefixCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setprefix',
+      aliases: ['setp', 'sp'],
       usage: '<PREFIX>',
       description: 'Sets the command prefix for your server (max length of 3 characters).',
       type: 'admin',

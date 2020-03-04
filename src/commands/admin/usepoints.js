@@ -5,6 +5,7 @@ module.exports = class UsePointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'usepoints',
+      aliases: ['usep', 'up'],
       usage: '<BOOLEAN>',
       description: 'Enables or disables Calypso\'s point tracking (1 point per message).',
       type: 'admin',

@@ -5,6 +5,7 @@ module.exports = class SetMuteRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmuterole',
+      aliases: ['setmur', 'smur'],
       usage: '<ROLE MENTION | ROLE NAME>',
       description: 'Sets the mute role your server (provide no role to clear).',
       type: 'admin',
