@@ -4,7 +4,7 @@ module.exports = class SendLeaveMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'sendleavemessage',
-      aliases: ['sendlm'],
+      aliases: ['sendlm', 'selm'],
       usage: '<CHANNEL MENTION>',
       description: 'Sends the leave message to the specified channel (or the default channel, if none is specified).',
       type: 'owner',
@@ -16,6 +16,8 @@ module.exports = class SendLeaveMessageCommand extends Command {
     let defaultChannel;
     if (id) defaultChannel = message.guild.channels.get(id);
     const channel = this.getChannelFromMention(message, args[0]) || defaultChannel;
+    if (!channel) 
+      return message.channel.send('No text channel was mentioned and no `default channel` is set on this server.');
     const msg = message.client.db.guildSettings.selectLeaveMessage.pluck().get(message.guild.id);
     if (msg) channel.send(msg);
     else message.channel.send('There is currently no `leave message` set on this server.');

@@ -27,7 +27,6 @@ db.prepare(`
     crown_role_id TEXT,
     use_points INTEGER NOT NULL,
     use_voice_points INTEGER NOT NULL,
-    use_crown INTEGER NOT NULL,
     welcome_message TEXT,
     leave_message TEXT,
     crown_message TEXT,
@@ -58,9 +57,8 @@ const guildSettings = {
       prefix, 
       default_channel_id, 
       use_points,
-      use_voice_points,
-      use_crown
-    ) VALUES (?, ?, '!', ?, 1, 1, 0);
+      use_voice_points
+    ) VALUES (?, ?, '!', ?, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM guild_settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM guild_settings WHERE guild_id = ?;'),
@@ -81,8 +79,6 @@ const guildSettings = {
   updateUsePoints: db.prepare('UPDATE guild_settings SET use_points = ? WHERE guild_id = ?;'),
   selectUseVoicePoints: db.prepare('SELECT use_voice_points FROM guild_settings WHERE guild_id = ?;'),
   updateUseVoicePoints: db.prepare('UPDATE guild_settings SET use_voice_points = ? WHERE guild_id = ?;'),
-  selectUseCrown: db.prepare('SELECT use_crown FROM guild_settings WHERE guild_id = ?;'),
-  updateUseCrown: db.prepare('UPDATE guild_settings SET use_crown = ? WHERE guild_id = ?;'),
   selectWelcomeMessage: db.prepare('SELECT welcome_message FROM guild_settings WHERE guild_id = ?;'),
   updateWelcomeMessage: db.prepare('UPDATE guild_settings SET welcome_message = ? WHERE guild_id = ?;'),
   selectLeaveMessage: db.prepare('SELECT leave_message FROM guild_settings WHERE guild_id = ?;'),

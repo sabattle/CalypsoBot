@@ -26,7 +26,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
       │    │    └─────────────── hour (0 - 23)
       │    └──────────────────── minute (0 - 59)
       └───────────────────────── second (0 - 59, OPTIONAL)\`\`\`
-      If you wish to use multiple values for any of the categories, please seperate them with a \`,\`.
+      If you wish to use multiple values for any of the categories, please separate them with a \`,\`.
       Step syntax is also supported, for example: \`*/5 * * * *\` (every 5 minutes).
       If you need help building your cron, check out this site: <https://crontab.guru/#>
       **Please note**: Not all months have the same amount of days.
@@ -59,8 +59,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
         }
         message.client.db.guildSettings.updateCrownSchedule.run(cron, message.guild.id);
         message.channel.send(oneLine`
-          Successfully updated the \`crown schedule\` to \`${cron}\`. Please note that \`use points\` and \`use crown\`
-          must be enabled and a \`crown role\` must be set.
+          Successfully updated the \`crown schedule\` to \`${cron}\`. Please note that \`use points\` must be enabled
+          and a \`crown role\` must be set.
         `);
         if (message.guild.job) message.guild.job.cancel(); // Cancel old job
 

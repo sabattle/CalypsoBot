@@ -5,7 +5,7 @@ module.exports = class RollCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'roll',
-      aliases: ['r'],
+      aliases: ['dice', 'r'],
       usage: '<DICE SIDES>',
       description: 'Rolls a dice with the specified number of sides (or 6 sides, if no number is given).',
       type: 'fun'

@@ -27,8 +27,8 @@ module.exports = class SetCrownRoleCommand extends Command {
     `);
     message.client.db.guildSettings.updateCrownRoleId.run(role.id, message.guild.id);
     message.channel.send(oneLine`
-      Successfully updated the \`crown role\` to ${role}. Please note that \`use points\` and \`use crown\` must be
-      enabled and a \`crown schedule\` must be set. 
+      Successfully updated the \`crown role\` to ${role}. Please note that \`use points\` must be enabled and a
+      \`crown schedule\` must be set. 
     `);
 
     // Schedule crown role rotation

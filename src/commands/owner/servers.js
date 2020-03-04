@@ -5,6 +5,7 @@ module.exports = class ServersCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'servers',
+      aliases: ['servs'],
       usage: '',
       description: 'Displays a list of Calypso\'s joined servers.',
       type: 'owner',

@@ -26,6 +26,7 @@ module.exports = class EightBallCommand extends Command {
   constructor(client) {
     super(client, {
       name: '8ball',
+      aliases: ['fortune'],
       usage: '',
       description: 'Asks the Magic 8-Ball for some psychic wisdom.',
       type: 'fun'

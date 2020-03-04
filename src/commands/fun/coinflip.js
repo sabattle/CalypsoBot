@@ -4,7 +4,7 @@ module.exports = class CoinFlipCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'coinflip',
-      aliases: ['cointoss', 'flip', 'ct'],
+      aliases: ['cointoss', 'coin', 'flip'],
       usage: '',
       description: 'Flips a coin.',
       type: 'fun'
