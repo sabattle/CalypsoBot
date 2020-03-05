@@ -23,9 +23,14 @@ module.exports = class CrownCommand extends Command {
     crowned.forEach(m => crownList = crownList + `${m.displayName}\n`);
     const embed = new Discord.RichEmbed()
       .setTitle(':crown: Crowned Members :crown:')
-      .setDescription(crownList)
       .addField('Crown Role', crownRole)
       .setColor(message.guild.me.displayHexColor);
+    while (crownList.length > 2048) { // Description is capped at 2048 chars
+      crownList = crownList.substring(0, crownList.lastIndexOf('\n') -2);
+      const count = crownList.split('\n').length;
+      embed.setFooter(`Only ${count} of ${crowned.size} members could be displayed`);
+    }
+    embed.setDescription(crownList);
     if (crownSchedule) embed.addField('Crown Schedule', crownSchedule);
     message.channel.send(embed);
   }

@@ -19,8 +19,12 @@ module.exports = class ColorsCommand extends Command {
     );
     colors = colors.array()
       .sort((r1, r2) => (r1.position !== r2.position) ? r1.position - r2.position : r1.id - r2.id).reverse().join(' ');
-    message.channel.send(`
+    try {
+      message.channel.send(`
       Here are all of the colors I found:\n\n${colors}\n\nType \`!color <COLOR NAME>\` to choose one.
     `);
+    } catch (err) {
+      message.channel.send(`Sorry ${message.member}, something went wrong. There may be too many colors to display.`);
+    }
   }
 };

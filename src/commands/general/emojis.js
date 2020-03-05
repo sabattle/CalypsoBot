@@ -19,7 +19,8 @@ module.exports = class EmojisCommand extends Command {
       .setColor(message.guild.me.displayHexColor);
     while (emojiList.length > 2048) { // Description is capped at 2048 chars
       emojiList = emojiList.substring(0, emojiList.lastIndexOf('\n') -2);
-      embed.setFooter('Capped at 2048 characters');
+      const count = emojiList.split('\n').length;
+      embed.setFooter(`Only ${count} of ${emojis.size} emojis could be displayed`);
     }
     embed.setDescription(emojiList);
     message.channel.send(embed);

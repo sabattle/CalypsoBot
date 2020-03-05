@@ -22,9 +22,17 @@ module.exports = class ModsCommand extends Command {
     mods.forEach(m => modList = modList + `${m.displayName}\n`);
     const embed = new Discord.RichEmbed()
       .setTitle('Mod List')
-      .setDescription(modList)
       .setFooter(`${mods.size} out of ${message.guild.members.size} accounts`)
       .setColor(message.guild.me.displayHexColor);
+    while (modList.length > 2048) { // Description is capped at 2048 chars
+      modList = modList.substring(0, modList.lastIndexOf('\n') -2);
+      const count = modList.split('\n').length;
+      embed.setFooter(`
+        ${mods.size} out of ${message.guild.members.size} accounts
+        Only ${count} of ${mods.size} mods could be displayed
+      `);
+    }
+    embed.setDescription(modList);
     message.channel.send(embed);
   }
 };

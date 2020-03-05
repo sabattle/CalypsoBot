@@ -22,9 +22,17 @@ module.exports = class AdminsCommand extends Command {
     admins.forEach(m => adminList = adminList + `${m.displayName}\n`);
     const embed = new Discord.RichEmbed()
       .setTitle('Admin List')
-      .setDescription(adminList)
       .setFooter(`${admins.size} out of ${message.guild.members.size} accounts`)
       .setColor(message.guild.me.displayHexColor);
+    while (adminList.length > 2048) { // Description is capped at 2048 chars
+      adminList = adminList.substring(0, adminList.lastIndexOf('\n') -2);
+      const count = adminList.split('\n').length;
+      embed.setFooter(`
+        ${admins.size} out of ${message.guild.members.size} accounts
+        Only ${count} of ${admins.size} admins could be displayed
+      `);
+    }
+    embed.setDescription(adminList);
     message.channel.send(embed);
   }
 };
