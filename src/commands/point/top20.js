@@ -6,6 +6,7 @@ module.exports = class TopTwentyCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'top20',
+      aliases: ['t20'],
       usage: '',
       description: 'Lists the top 20 members with the most points on your server.',
       type: 'point'

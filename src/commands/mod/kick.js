@@ -14,7 +14,7 @@ module.exports = class KickCommand extends Command {
   async run(message, args) {
     const member = this.getMemberFromMention(message, args[0]);
     if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
-    if (member === message.author) return message.channel.send('You cannot kick yourself.'); 
+    if (member === message.member) return message.channel.send('You cannot kick yourself.'); 
     if (member.highestRole.position >= message.member.highestRole.position)
       return message.channel.send(`${message.member}, you cannot kick someone who has an equal or higher role.`);
     if (!member.kickable) return message.channel.send(`I am unable to kick ${member}.`);
