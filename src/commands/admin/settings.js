@@ -16,6 +16,7 @@ module.exports = class SettingsCommand extends Command {
   run(message) {
     const row = message.client.db.guildSettings.selectRow.get(message.guild.id);
     const defaultChannel = message.guild.channels.get(row.default_channel_id) || '';
+    const modlogChannel = message.guild.channels.get(row.modlog_channel_id) || '';
     const adminRole = message.guild.roles.get(row.admin_role_id) || '';
     const modRole = message.guild.roles.get(row.mod_role_id) || '';
     const muteRole = message.guild.roles.get(row.mute_role_id) || '';
@@ -36,6 +37,7 @@ module.exports = class SettingsCommand extends Command {
     const settings = stripIndent`
       **Prefix**: \`${row.prefix}\`
       **Default Channel**: ${defaultChannel}
+      **Modlog Channel**: ${modlogChannel}
       **Admin Role**: ${adminRole}
       **Mod Role**: ${modRole}
       **Mute Role**: ${muteRole}
