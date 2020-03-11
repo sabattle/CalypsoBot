@@ -7,7 +7,7 @@ module.exports = class ColorCommand extends Command {
       name: 'color',
       aliases: ['col', 'c'],
       usage: '<ROLE MENTION | COLOR NAME>',
-      description: 'Changes your current color to the one specified.',
+      description: 'Changes your current color to the one specified (provide no color to clear).',
       type: 'general',
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']    
     });
@@ -15,6 +15,16 @@ module.exports = class ColorCommand extends Command {
   async run(message, args) {
     const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
     const colorName = args.join(' ').toLowerCase();
+    // Clear if no color provided
+    if (!colorName) {
+      try {
+        await message.member.removeRoles(colors);
+        return message.channel.send(`${message.member}, I successfully **cleared** your color.`);
+      } catch (err) {
+        message.client.logger.error(err.message);
+        message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
+      }
+    }
     const role = this.getRoleFromMention(message, args[0]);
     let color;
     if (role && colors.get(role.id)) color = role;
