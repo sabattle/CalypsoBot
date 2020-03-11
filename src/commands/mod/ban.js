@@ -22,5 +22,6 @@ module.exports = class BanCommand extends Command {
     if(!reason) reason = 'No reason provided';
     await member.ban(reason);
     message.channel.send(`I have successfully banned ${member}.`);
+    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${member.displayName}`);
   }
 };

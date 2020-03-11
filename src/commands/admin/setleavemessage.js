@@ -14,7 +14,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
   }
   run(message) {
     message.channel.send(oneLine`
-      ${message.author}, I am now waiting for the new leave message. Your next message will be saved exactly as
+      ${message.member}, I am now waiting for the new leave message. Your next message will be saved exactly as
       written. You may use \`?member\` to substitute for a user mention. You may enter \`clear\` to clear the current 
       message. This will timeout after 1 minute.
     `);
@@ -40,6 +40,6 @@ module.exports = class SetLeaveMessageCommand extends Command {
         message.channel.send('Successfully updated the `leave message` to:');
         message.channel.send(content);
       })
-      .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));
+      .catch(() => message.channel.send(`${message.member}, operation has timed out. Please try again.`));
   }
 };

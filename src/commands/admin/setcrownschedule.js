@@ -16,7 +16,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
   }
   run(message) {
     message.channel.send(stripIndent`
-      ${message.author}, I am now waiting for the new crown schedule. The format is cron-style:
+      ${message.member}, I am now waiting for the new crown schedule. The format is cron-style:
       \`\`\`*    *    *    *    *    *
       ┬    ┬    ┬    ┬    ┬    ┬
       │    │    │    │    │    │
@@ -54,7 +54,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
           parser.parseExpression(cron);
         } catch (err) {
           return message.channel.send(oneLine`
-            Sorry ${message.author}, I don't recognize that. Please try again with a valid cron expression.
+            Sorry ${message.member}, I don't recognize that. Please try again with a valid cron expression.
           `);
         }
         message.client.db.guildSettings.updateCrownSchedule.run(cron, message.guild.id);
@@ -68,6 +68,6 @@ module.exports = class SetCrownScheduleCommand extends Command {
         scheduleCrown(message.client, message.guild);
 
       })
-      .catch(() => message.channel.send(`${message.author}, operation has timed out. Please try again.`));
+      .catch(() => message.channel.send(`${message.member}, operation has timed out. Please try again.`));
   }
 };

@@ -22,5 +22,6 @@ module.exports = class KickCommand extends Command {
     if(!reason) reason = 'No reason provided';
     await member.kick(reason);
     message.channel.send(`I have successfully kicked ${member}.`);
+    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} kicked ${member.displayName}`);
   }
 };
