@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 
 const rgx = /^(?:<@!?)?(\d+)>?$/;
 
@@ -25,6 +26,20 @@ module.exports = class UnbanCommand extends Command {
     if(!reason) reason = 'No reason provided';
     await message.guild.unban(user, reason);
     message.channel.send(`I have successfully unbanned ${user.username}.`);
-    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${user.username}`);
+    
+    // Update modlog
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('Action: `Unban`')
+        .addField('Executor', message.member, true)
+        .addField('Member', user.username, true)
+        .addField('Reason', reason)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+    }
   }
 };

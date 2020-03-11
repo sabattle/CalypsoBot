@@ -1,5 +1,4 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
 const Discord = require('discord.js');
 
 module.exports = class PurgeCommand extends Command {
@@ -23,9 +22,6 @@ module.exports = class PurgeCommand extends Command {
     messages.forEach(async msg => {
       await msg.delete();
     });
-    message.client.logger.info(oneLine`
-      ${message.guild.name}: ${message.member.displayName} used purge in ${message.channel.name}
-    `);
 
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);

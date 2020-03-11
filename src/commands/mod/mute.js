@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 const ms = require('ms');
 const { oneLine } = require('common-tags');
 
@@ -44,6 +45,20 @@ module.exports = class MuteCommand extends Command {
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }, time);
-    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} muted ${member.displayName}`);
+
+    // Update modlog
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('Action: `Mute`')
+        .addField('Executor', message.member, true)
+        .addField('Member', member, true)
+        .addField('Time', ms(time), true)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+    }  
   }
 };

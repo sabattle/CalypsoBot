@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class PurgeBotCommand extends Command {
@@ -33,8 +34,20 @@ module.exports = class PurgeBotCommand extends Command {
     });
     message.channel.send(`I found **${messages.length}** messages (this message will be removed after 5 seconds).`)
       .then(msg => msg.delete(5000));
-    message.client.logger.info(oneLine`
-      ${message.guild.name}: ${message.member.displayName} used purgebot in ${message.channel.name}
-    `);
+
+    // Update modlog
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('Action: `Purgebot`')
+        .addField('Executor', message.member, true)
+        .addField('Channel', message.channel, true)
+        .addField('Message Count', amount, true)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+    }
   }
 };

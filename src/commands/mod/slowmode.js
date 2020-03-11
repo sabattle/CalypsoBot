@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 
 module.exports = class SlowmodeCommand extends Command {
   constructor(client) {
@@ -22,11 +23,29 @@ module.exports = class SlowmodeCommand extends Command {
     let reason = args.slice(2).join(' ');
     if(!reason) reason = 'No reason provided';
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
+
     // Slowmode disabled
     if (rate === '0') {
       return message.channel.send(`Slowmode in ${channel} has been **disabled**.`);
-    // Slowmode enabled
+    
+      // Slowmode enabled
     } else {
+
+      // Update modlog
+      const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+      let modlogChannel;
+      if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+      if (modlogChannel) {
+        const embed = new Discord.RichEmbed()
+          .setTitle('Action: `Slowmode`')
+          .addField('Executor', message.member, true)
+          .addField('Channel', channel, true)
+          .addField('Rate', rate, true)
+          .addField('Reason', reason)
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+      }   
       return message.channel.send(`Slowmode in ${channel} has been **enabled** with a rate of **${rate}s**.`);
     }
   }

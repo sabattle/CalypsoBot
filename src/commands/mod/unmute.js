@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 
 module.exports = class UnmuteCommand extends Command {
   constructor(client) {
@@ -30,6 +31,19 @@ module.exports = class UnmuteCommand extends Command {
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     } else return message.channel.send(`${member} is not muted!`);
-    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} unmuted ${member.displayName}`);
+    
+    // Update modlog
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('Action: `Unmute`')
+        .addField('Executor', message.member, true)
+        .addField('Member', member, true)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+    }  
   }
 };
