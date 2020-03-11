@@ -30,7 +30,7 @@ module.exports = class ColorCommand extends Command {
     if (role && colors.get(role.id)) color = role;
     if (!color) {
       color = colors.find(c => {
-        return colorName.startsWith(c.name.slice(1).toLowerCase()) || colorName.startsWith(c.name.toLowerCase());
+        return colorName == c.name.slice(1).toLowerCase() || colorName == c.name.toLowerCase();
       });
     }
     // Color does not exist
