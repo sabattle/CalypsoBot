@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { oneLine } = require('common-tags');
+const Discord = require('discord.js');
 
 module.exports = class PurgeCommand extends Command {
   constructor(client) {
@@ -25,5 +26,20 @@ module.exports = class PurgeCommand extends Command {
     message.client.logger.info(oneLine`
       ${message.guild.name}: ${message.member.displayName} used purge in ${message.channel.name}
     `);
+
+    // Update modlog
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new Discord.RichEmbed()
+        .setTitle('Action: `Purge`')
+        .addField('Executor', message.member, true)
+        .addField('Channel', message.channel, true)
+        .addField('Message Count', amount, true)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+    }
   }
 };
