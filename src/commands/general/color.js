@@ -13,6 +13,7 @@ module.exports = class ColorCommand extends Command {
     });
   }
   async run(message, args) {
+    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
     const colorName = args.join(' ').toLowerCase();
     // Clear if no color provided
@@ -35,7 +36,7 @@ module.exports = class ColorCommand extends Command {
     }
     // Color does not exist
     if (!color) return message.channel.send(oneLine`
-      Sorry ${message.member}, I don't recognize that color. Use \`!colors\` for a list.
+      Sorry ${message.member}, I don't recognize that color. Use \`${prefix}colors\` for a list.
     `);
     // Color exists but member already has color
     else if (message.member.roles.has(color.id)) 

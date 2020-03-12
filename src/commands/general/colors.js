@@ -1,5 +1,4 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
 
 module.exports = class ColorsCommand extends Command {
   constructor(client) {
@@ -12,16 +11,14 @@ module.exports = class ColorsCommand extends Command {
     });
   }
   run(message) {
+    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
-    if (colors.size === 0) return message.channel.send(oneLine`
-      There are currently no colors set on this server. Colors can be set up by creating roles beginning with \`#\` 
-      that have various color hexes. These roles should be at the bottom of the role hierarchy.`
-    );
+    if (colors.size === 0) return message.channel.send('There are currently no colors set on this server');
     colors = colors.array()
       .sort((r1, r2) => (r1.position !== r2.position) ? r1.position - r2.position : r1.id - r2.id).reverse().join(' ');
     try {
       message.channel.send(`
-      Here are all of the colors I found:\n\n${colors}\n\nType \`!color <COLOR NAME>\` to choose one.
+      Here are all of the colors I found:\n\n${colors}\n\nType \`${prefix}color <COLOR NAME>\` to choose one.
     `);
     } catch (err) {
       message.channel.send(`Sorry ${message.member}, something went wrong. There may be too many colors to display.`);
