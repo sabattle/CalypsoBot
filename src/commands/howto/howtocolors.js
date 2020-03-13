@@ -13,15 +13,12 @@ module.exports = class HowToColorsCommand extends Command {
   }
   run(message) {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const part1 = oneLine`
-      Colors can be set up by creating roles beginning with \`#\` that have specific color hexes. For example, **#Red**
-      or **#Blue**. These roles should have cleared permissions and be at the bottom of the role hierarchy.
-    `;
-    const part2 = `Once set, server members can see all available colors by using the command \`${prefix}colors\`.`;
-    const part3 = oneLine`
-      To choose a specific color, members can use the \`${prefix}color\` command followed by a specific color name or a
-      role mention. For example, \`${prefix}color Red\`.
-  `;
-    message.channel.send(part1 + '\n\n' + part2 + '\n\n' + part3);
+    message.channel.send(
+      'Colors can be set up by creating roles beginning with `#` that have specific color hexes. For example, ' +
+      '**#Red** or **#Blue**. These roles should have cleared permissions and be at the bottom of the role hierarchy.' +
+      `\n\nOnce set, server members can see all available colors by using the command \`${prefix}colors\`.\n\n` +
+      oneLine`To choose a specific color, members can use the \`${prefix}color\` command followed by a specific color 
+      name or a role mention. For example, \`${prefix}color Red\`.
+    `);
   }
 };
