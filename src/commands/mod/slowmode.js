@@ -14,13 +14,16 @@ module.exports = class SlowmodeCommand extends Command {
     });
   }
   async run(message, args) {
+    let offset = 1;
     let channel = this.getChannelFromMention(message, args[0]);
-    if (!channel)
-      return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a text channel.`);
-    const rate = args[1];
+    if (!channel) {
+      channel = message.channel;
+      offset--;
+    }
+    const rate = args[offset];
     if (!rate || rate < 0 || rate > 59) 
       return message.channel.send(`${message.member}, please provide a rate limit between 0 and 59 seconds.`);
-    let reason = args.slice(2).join(' ');
+    let reason = args.slice(offset + 1).join(' ');
     if(!reason) reason = 'No reason provided';
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
 
