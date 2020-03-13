@@ -18,7 +18,7 @@ module.exports = class HowToColorsCommand extends Command {
       '**#Red** or **#Blue**. These roles should have cleared permissions and be at the bottom of the role hierarchy.' +
       `\n\nOnce set, server members can see all available colors by using the command \`${prefix}colors\`.\n\n` +
       oneLine`To choose a specific color, members can use the \`${prefix}color\` command followed by a specific color 
-      name or a role mention. For example, \`${prefix}color Red\`.
-    `);
+      name or a role mention. For example, \`${prefix}color Red\`.`
+    );
   }
 };
