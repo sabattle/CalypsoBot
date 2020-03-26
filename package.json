@@ -8,6 +8,7 @@
     "better-sqlite3": "^5.0.1",
     "common-tags": "^1.8.0",
     "discord.js": "^11.5.1",
+    "minimist": ">=1.2.2",
     "moment": "^2.22.2",
     "ms": "^2.1.2",
     "node-pre-gyp": "^0.11.0",
@@ -15,7 +16,7 @@
     "nodemon": "^2.0.2",
     "snekfetch": "^4.0.4",
     "winston": "^3.2.1",
-    "minimist": ">=1.2.2"
+    "yaml": "^1.8.3"
   },
   "devDependencies": {},
   "scripts": {
