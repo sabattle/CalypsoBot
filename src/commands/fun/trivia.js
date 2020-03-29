@@ -16,31 +16,30 @@ module.exports = class TriviaCommand extends Command {
   }
   run(message, args) {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    let topicName = args[0];
+    let topic = args[0];
     let randomTopic = false;
-    if (!topicName) { // Pick a random topic if none given
-      topicName = message.client.topics[Math.floor(Math.random() * message.client.topics.length)];
+    if (!topic) { // Pick a random topic if none given
+      topic = message.client.topics[Math.floor(Math.random() * message.client.topics.length)];
       randomTopic = true;
-    } else if (!message.client.topics.includes(topicName))
+    } else if (!message.client.topics.includes(topic))
       return message.channel.send(oneLine`
         Sorry ${message.member}, I don't recognize that topic. Please use \`\`${prefix}topics\`\` to see a list.
       `);
     
     // Get question and answers
-    const path = __basedir + '/data/trivia/' + topicName + '.yml';
-    const topic = YAML.parse(fs.readFileSync(path, 'utf-8'));
-    const questions = Object.keys(topic); // Get list of questions
+    const path = __basedir + '/data/trivia/' + topic + '.yml';
+    const questions = YAML.parse(fs.readFileSync(path, 'utf-8')).questions;
     const n = Math.floor(Math.random() * questions.length);
-    const question = questions[n];
-    const answers = topic[question];
+    const question = questions[n].question;
+    const answers = questions[n].answers;
     const origAnswers = [...answers];
     // Clean answers
     for (let i = 0; i < answers.length; i++) {
-      answers[i] = answers[i].trim().toLowerCase().replace(/\s/g, '');
+      answers[i] = answers[i].trim().toLowerCase().replace('-', '').replace(/\s/g, '');
     }
 
     // Get user answer
-    if (randomTopic) message.channel.send(`From \`${topicName}\`: ${question}`);
+    if (randomTopic) message.channel.send(`From \`${topic}\`: ${question}`);
     else message.channel.send(question);
     let winner;
     const collector = new Discord.MessageCollector(message.channel, m => {
