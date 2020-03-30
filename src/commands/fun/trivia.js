@@ -35,7 +35,7 @@ module.exports = class TriviaCommand extends Command {
     const origAnswers = [...answers];
     // Clean answers
     for (let i = 0; i < answers.length; i++) {
-      answers[i] = answers[i].trim().toLowerCase().replace('-', '').replace(/\s/g, '');
+      answers[i] = answers[i].trim().toLowerCase().replace(/\.|-|\s/g, '');
     }
 
     // Get user answer
@@ -46,7 +46,7 @@ module.exports = class TriviaCommand extends Command {
       if (!m.author.bot) return true;
     }, { time: 10000 }); // Wait 10 seconds
     collector.on('collect', msg => {
-      if (answers.includes(msg.content.toLowerCase().replace(/\s/g, ''))){
+      if (answers.includes(msg.content.toLowerCase().replace(/\.|-|\s/g, ''))){
         winner = msg.author;
         collector.stop();
       }
