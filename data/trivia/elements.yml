@@ -213,7 +213,7 @@ questions:
   - 'N'
 - question: What is the element symbol of "Nobelium"?
   answers:
-  - "No"
+  - 'No'
 - question: What is the element symbol of "Oganesson"?
   answers:
   - Og
@@ -348,7 +348,7 @@ questions:
   - Yb
 - question: What is the element symbol of "Yttrium"?
   answers:
-  - Y
+  - 'Y'
 - question: What is the element symbol of "Zinc"?
   answers:
   - Zn
