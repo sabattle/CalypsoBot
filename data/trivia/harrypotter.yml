@@ -1,0 +1,766 @@
+# Written by JennJenn and Nettles
+# Original file from: https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/redbot/cogs/trivia/data/lists/harrypotter.yaml
+questions:
+- question: A bezoar is a stone taken from the stomach of what?
+  answers:
+  - Goat
+  - A goat
+- question: A wizard who can transform himself into an animal at will is called what?
+  answers:
+  - Animagus
+  - An Animagus
+- question: According to "The Life and Lies of Albus Dumbledore", What was Doge's nickname?
+  answers:
+  - Dogbreath
+- question: Educational Decree No. 30 declared that what wasn't allowed in the corridors?
+  answers:
+  - Music
+- question: From who does Hagrid borrow the flying motorbike he uses to deliver Harry to the Dursleys?
+  answers:
+  - Sirius Black
+  - Sirius
+  - Black
+- question: Hermione hides what artifact through most of the 3rd book/film?
+  answers:
+  - Time-Turner
+  - The Time-Turner
+  - A Time-Turner
+- question: How does one put Fluffy to sleep?
+  answers:
+  - Music
+- question: How many Chocolate Frog cards does Ron estimate he has in "Harry Potter and the Philosopher's Stone"?
+  answers:
+  - '500'
+  - Five Hundred
+- question: How many Horcruxes of Voldemort's are there?
+  answers:
+  - '7'
+  - Seven
+- question: How many Sickles are in a Galleon?
+  answers:
+  - '17'
+  - Seventeen
+- question: How many Unforgivable curses are there?
+  answers:
+  - '3'
+  - Three
+- question: How many brothers does Ron have?
+  answers:
+  - '5'
+  - Five
+- question: How many goal posts are there on a Quidditch pitch?
+  answers:
+  - Six
+  - '6'
+- question: How many muggles see the flying car in "Harry Potter and the Chamber of Secrets" on Ron and Harry's way to Hogwarts?
+  answers:
+  - '7'
+  - Seven
+- question: How many players are on a Quidditch pitch at one time in a match?
+  answers:
+  - '14'
+  - Fourteen
+- question: How many points is the Golden Snitch worth?
+  answers:
+  - '150'
+  - One Hundred and Fifty
+  - One Hundred Fifty
+- question: How many students are picked to become prefects from each of the house's fifth years?
+  answers:
+  - '2'
+  - Two
+- question: How much Veela does Fleur DeLacour have in her?
+  answers:
+  - 1/4
+  - Quarter
+  - 1/4th
+- question: How much was Dobby paid a month in the Hogwarts kitchen?
+  answers:
+  - One Galleon
+  - 1 Galleon
+- question: In "Harry Potter and the Philosopher's Stone", which Gringotts vault was the Philosopher's Stone kept in?
+  answers:
+  - '713'
+  - Seven Hundred and Thirteen
+  - Vault 713
+  - Vault Seven Hundred and Thirteen
+- question: In "Harry Potter and the Prisoner of Azkaban", who orders a cherry syrup and soda with ice and umbrella from the Three Broomsticks?
+  answers:
+  - Professor Flitwick
+  - Flitwick
+  - Filius Flitwick
+- question: Who killed Cedric Diggory?
+  answers:
+  - Peter Pettigrew
+- question: In the epilogue of "Harry Potter and the Deathly Hallows", what job does Harry have?
+  answers:
+  - Auror
+- question: In the movies Neville gives Harry Gillyweed before the Second Task. However, who gives it to him in the books?
+  answers:
+  - Dobby
+- question: In what country is Voldemort said to be hiding in during books 2-4?
+  answers:
+  - Albania
+- question: During which month of the year is Harry Potter's birthday?
+  answers:
+  - July
+- question: Into how many pieces did Ron tear Percy's letter of congratulations on becoming a prefect before throwing it into the fire?
+  answers:
+  - '8'
+  - Eight
+- question: Which Hogwarts founder was highly talented in food-related charms?
+  answers:
+  - Helga Hufflepuff
+  - Hufflepuff
+- question: On which O.W.L. exam did Harry Potter get his worst score?
+  answers:
+  - History of Magic
+- question: Sirius Black sends Harry what type of broom?
+  answers:
+  - Firebolt
+  - A Firebolt
+- question: The Fat Friar was the Ghost of which house?
+  answers:
+  - Hufflepuff
+- question: The Hogwarts Express leaves which London station?
+  answers:
+  - King’s Cross
+- question: The Slytherin common room is located where?
+  answers:
+  - Dungeons
+  - The Dungeons
+- question: To get into the Ministry of Magic via the visitor’s entrance, what number must be dialed?
+  answers:
+  - '62442'
+- question: What Animagus form is taken by Sirius Black?
+  answers:
+  - Dog
+  - A dog
+- question: What animal's tail hair is the Elder Wand made of?
+  answers:
+  - Thestral
+  - A Thestral
+- question: What are Draco's parents' names?
+  answers:
+  - Lucious and Narcissa
+  - Narcissa and Lucious
+- question: What book does Hermione insist Ron and Harry read?
+  answers:
+  - Hogwarts, A History
+- question: What breed was Hagrid's pet dragon?
+  answers:
+  - Norwegian Ridgeback
+- question: What color are unicorn foals?
+  answers:
+  - Pale Gold
+  - Gold
+- question: What color bubbles does Professor Flitwick make for Christmas in the first book?
+  answers:
+  - Gold
+- question: What color is Tonks's hair when Harry first meets her?
+  answers:
+  - Purple
+- question: What color were the flames that came out of the Goblet of Fire?
+  answers:
+  - Blue
+- question: What creature is hatched by putting a toad over a chicken's egg?
+  answers:
+  - Basilisk
+  - A Basilisk
+- question: What creature is known to become violent when insulted?
+  answers:
+  - Hippogriff
+  - A Hippogriff
+- question: What creatures stopped Fleur from finishing the second challenge in the tri-wizard tournament?
+  answers:
+  - Grindylow
+  - Grindylows
+- question: What creatures does Charlie Weasley work with in Romania?
+  answers:
+  - Dragons
+  - Dragon
+- question: What creatures feed on positive human emotions?
+  answers:
+  - Dementors
+  - Dementor
+- question: What did Dumbledore leave in his will for Ron?
+  answers:
+  - Deluminator
+- question: What did Dumbledore teach before he was Headmaster?
+  answers:
+  - Transfiguration
+- question: What did Hermione squeeze in Fred and George's room that punched her?
+  answers:
+  - Telescope
+- question: What did Katie Bell touch that put her in Saint Mungos in year 6?
+  answers:
+  - Opal Necklace
+- question: What did Lavender Brown call Ron?
+  answers:
+  - Won-Won
+- question: What do Hermione’s parents do for a living?
+  answers:
+  - Dentists
+  - Dentist
+- question: What do Ron and Hermione use to destroy Helga Hufflepuff's cup?
+  answers:
+  - Basilisk Fang
+  - A Basilisk Fang
+- question: What does N.E.W.T stand for in examinations at Hogwarts School?
+  answers:
+  - Nastily Exhausting Wizarding Test
+- question: What does O.W.L. stand for?
+  answers:
+  - Ordinary Wizarding Level
+- question: What does Professor Lupin give Harry to eat after his encounter with a Dementor?
+  answers:
+  - Chocolate
+- question: What does the sign on Weasley's Wizard Wheezes say?
+  answers:
+  - You-Know-Poo
+- question: What flavor of ice cream does Hagrid buy Harry?
+  answers:
+  - Chocolate And Raspberry
+  - Raspberry And Chocolate
+- question: What form does the boggart take in the presence of Seamus Finnigan?
+  answers:
+  - Banshee
+- question: What fruit must you tickle to get into the Hogwarts kitchen?
+  answers:
+  - Pear
+- question: What gift does Hagrid give Harry in Diagon Alley?
+  answers:
+  - Hedwig
+  - An Owl
+  - Owl
+- question: What house did the Sorting Hat suggest to Harry?
+  answers:
+  - Slytherin
+- question: What house was Tonks in?
+  answers:
+  - Hufflepuff
+- question: What is  the symbol for Slytherin house?
+  answers:
+  - Snake
+  - A Snake
+- question: What is Buckbeak's alias?
+  answers:
+  - Witherwings
+- question: What is Cho Chang's Patronus?
+  answers:
+  - Swan
+  - A Swan
+- question: What is Dumbeldore's patronus?
+  answers:
+  - Phoenix
+  - A Phoenix
+- question: What is Dumbledore's sister's name?
+  answers:
+  - Ariana
+- question: What is Harry's youngest son's name?
+  answers:
+  - Albus
+- question: What is Hermione's middle name?
+  answers:
+  - Jean
+- question: What is Luna Lovegood's fathers name?
+  answers:
+  - Xenophilius Lovegood
+  - Xenophilius
+- question: What is Mr. Malfoy's first name?
+  answers:
+  - Lucius
+- question: What is Padma Patil's Boggart?
+  answers:
+  - Cobra
+- question: What is Professor Mcgonagall's transfiguraton form?
+  answers:
+  - Cat
+  - A Cat
+- question: What is Ron Weasley's middle name?
+  answers:
+  - Billius
+- question: What is Rowena Ravenclaw's daughter's name?
+  answers:
+  - Helena
+- question: What is Severus Snape's mother's first name?
+  answers:
+  - Eileen
+- question: What is Tonks's first name?
+  answers:
+  - Nymphadora
+- question: What is considered Harry's "trademark spell"?
+  answers:
+  - Expelliarmus
+- question: What is the Hogwarts School motto in English?
+  answers:
+  - Never Tickle a Sleeping Dragon
+- question: What is the age requirement for an Apparation License?
+  answers:
+  - '17'
+  - Seventeen
+- question: What is the core of Cedric's wand?
+  answers:
+  - Unicorn Tail Hair
+- question: What is the core of Krum's wand?
+  answers:
+  - Dragon Heartstring
+- question: What is the form of Hermione's patronus?
+  answers:
+  - Otter
+  - An Otter
+- question: What is the incantation for the spell that stuns people?
+  answers:
+  - Stupefy
+- question: What is the incantation that makes the dark mark appear?
+  answers:
+  - Morsmorde
+- question: What is the last name of the three brothers who origanally owned the Deathly Hallows?
+  answers:
+  - Peverell
+- question: What is the name for the Hogwarts lake?
+  answers:
+  - Black Lake
+  - The Black Lake
+- question: What is the name for the house for people who didn't fit in any of the other houses?
+  answers:
+  - Hufflepuff
+- question: What is the name of Draco's son?
+  answers:
+  - Scorpius
+- question: What is the name of Dumbledore's phoenix?
+  answers:
+  - Fawkes
+- question: What is the name of Filch's cat?
+  answers:
+  - Mrs. Norris
+- question: What is the name of Harry Potter’s pet owl?
+  answers:
+  - Hedwig
+- question: What is the name of Harry's aunt?
+  answers:
+  - Petunia Dursley
+  - Petunia
+- question: What is the name of Harry's uncle?
+  answers:
+  - Vernon Dursley
+  - Vernon
+- question: What is the name of Hermione's cat?
+  answers:
+  - Crookshanks
+- question: What is the name of Neville's grandmother?
+  answers:
+  - Augusta
+  - Augusta Longbottom
+- question: What is the name of Ron's brother who works for Gringotts?
+  answers:
+  - Bill Weasley
+  - Bill
+- question: What is the name of Ron's father?
+  answers:
+  - Arthur
+  - Arthur Weasley
+- question: What is the name of Voldemort's prized snake?
+  answers:
+  - Nagini
+- question: What is the name of the Charms Master at Hogwarts School?
+  answers:
+  - Filius Flitwick
+  - Flitwick
+  - Professor Flitwick
+- question: What is the name of the School of Witchcraft that Fleur Delacour attended?
+  answers:
+  - Beauxbatons
+- question: What is the name of the Weasley that (from book four until his apology in book seven) follows the ministry like a prat?
+  answers:
+  - Percy Weasley
+  - Percy
+- question: What is the name of the Weasley that works with dragons?
+  answers:
+  - Charlie Weasley
+  - Charlie
+- question: What is the name of the actor who plays Harry Potter in all the films?
+  answers:
+  - Daniel Radcliffe
+- question: What is the name of the bookstore where students buy their books?
+  answers:
+  - Florish and Blotts
+- question: What is the name of the dragon that Hagrid had?
+  answers:
+  - Norbert
+- question: What is the name of the driver of the Knight Bus?
+  answers:
+  - Ernie Prang
+- question: What are the names of the goons that follow Malfoy around as bodyguards?
+  answers:
+  - Crabbe and Goyle
+  - Goyle and Crabbe
+- question: What is the name of the house that Luna Lovegood is in?
+  answers:
+  - Ravenclaw
+- question: What is the name of the landlord of the Leaky Cauldrons?
+  answers:
+  - Tom
+- question: What is the name of the place filled with witches and wizards that can only be entered through the Leaky Cauldron?
+  answers:
+  - Diagon Alley
+- question: What is the name of the school Victor Krum attended?
+  answers:
+  - Durmstrang
+- question: What is the name of the school that all witches and wizards attended in Britan?
+  answers:
+  - Hogwarts
+- question: What is the name of the sweet that makes you spew?
+  answers:
+  - Puking Pastils
+- question: What is the name of the team sport, played by seven players on broomsticks on each team?
+  answers:
+  - Quidditch
+- question: What is the name of the three-headed dog?
+  answers:
+  - Fluffy
+- question: What is the name of the twin that dies in the last book?
+  answers:
+  - Fred Weasley
+  - Fred
+- question: What is the name of the twin that loses his ear in the last book?
+  answers:
+  - George Weasley
+  - George
+- question: What is the name of the vicious tree that Harry and Ron drove into in "Harry Potter and the Chamber of Secrets"?
+  answers:
+  - The Whomping Willow
+- question: What is the name of the werewolf who bit Lupin?
+  answers:
+  - Fenrir Greyback
+- question: What is the name of the wizarding pub in London in the Harry Potter novels?
+  answers:
+  - The Leaky Cauldron
+- question: What is the name of the wizards prison?
+  answers:
+  - Azkaban
+- question: What is the only antidote to Basilisk venom?
+  answers:
+  - Phoenix Tears
+- question: What is the proper name for the potion "Liquid Luck"?
+  answers:
+  - Felix Felicis
+- question: What is the symbol for Gryffindor house?
+  answers:
+  - Lion
+  - A Lion
+- question: What is the symbol for Hufflepuff house?
+  answers:
+  - Badger
+  - A Badger
+- question: What is the symbol for Ravenclaw house?
+  answers:
+  - Eagle
+  - An Eagle
+- question: What is the term used for bodies bewitched to do as a Dark Wizard bids?
+  answers:
+  - Inferi
+- question: What is the theme of the tapestry near the Room of Requirement?
+  answers:
+  - Trolls
+- question: What is the title of the third Harry Potter book?
+  answers:
+  - The Prisoner of Azkaban
+  - Harry Potter and the Prisoner of Azkaban
+- question: What is voldemort's real full name?
+  answers:
+  - Tom Marvolo Riddle
+- question: What kind of creature is Buckbeak?
+  answers:
+  - Hippogriff
+- question: What kind of ice cream treat did Harry Get at the zoo in the 1st book?
+  answers:
+  - Lemon Ice Pop
+- question: What magical plant does Harry use to breathe underwater in the 4th book?
+  answers:
+  - Gillyweed
+- question: What make and model is the Weasley family’s flying car?
+  answers:
+  - Ford Anglia
+- question: What month is Ron's birthday?
+  answers:
+  - March
+- question: What page does Snape tell Harry's Defense Against the Dark Arts Class to turn to?
+  answers:
+  - '394'
+  - Three Hundred and Ninety-Four
+  - Three Hundred Ninety-Four
+- question: What patronus does Luna Lovegood have?
+  answers:
+  - Rabbit
+- question: What position does Harry play in Quidditch?
+  answers:
+  - Seeker
+- question: What secret name do Harry, Ron and Hermione use to refer to Sirius Black?
+  answers:
+  - Snuffles
+- question: What spell removes your memory?
+  answers:
+  - Obliviate
+- question: What subject does Professor McGonagall teach?
+  answers:
+  - Transfiguration
+- question: What was Harry's first broomstick?
+  answers:
+  - Nimbus 2000
+  - A Nimbus 2000
+  - The Nimbus 2000
+- question: What was James Potter's school nickname?
+  answers:
+  - Prongs
+- question: What was Tom Riddle's mother's maiden name?
+  answers:
+  - Gaunt
+- question: What was the name of Hagrid's half-giant brother?
+  answers:
+  - Grawp
+- question: What was the name of the charming young witch who was friends with Snape?
+  answers:
+  - Lily Evans
+- question: What was the name of the female elf Dobby liked?
+  answers:
+  - Winky
+- question: What was the name of the owl Percy got for becoming a prefect?
+  answers:
+  - Hermes
+- question: When Harry attended his hearing at the Ministry of Magic, what colour paper airplanes flew into the lift at Level Four?
+  answers:
+  - Pale Violet
+  - Violet
+- question: Where does Hagrid take Harry to buy his school supplies?
+  answers:
+  - Diagon Alley
+- question: Where is the Hufflepuff common room?
+  answers:
+  - Kitchen
+- question: Where was the Voldemort's horcrux ring hidden?
+  answers:
+  - Gaunt Shack
+- question: Which Quidditch team does Cho Chang support?
+  answers:
+  - Tutshill Tornadoes
+- question: Which animal is Hagrid allergic to?
+  answers:
+  - Cats
+- question: Which animal is James Potter's 'Patronus'?
+  answers:
+  - Stag
+  - A Stag
+- question: Which arm is the Dark Mark on?
+  answers:
+  - Left
+- question: Which house was Umbridge in?
+  answers:
+  - Ravenclaw
+- question: Which late actor played Albus Dumbledore in the first two Harry potter films?
+  answers:
+  - Richard Harris
+- question: Which of Ron's brothers is a Gryffindor prefect in Harry's first year?
+  answers:
+  - Percy
+  - Percy Weasley
+- question: Which of the Hogwarts founders created the Chamber of Secrets?
+  answers:
+  - Salazar Slytherin
+  - Slytherin
+- question: Which one of the following subjects does Professor Vector teach?
+  answers:
+  - Arithmancy
+- question: Which shop sells candy?
+  answers:
+  - Honeydukes
+- question: Which spell can levitate objects?
+  answers:
+  - Wingardium Leviosa
+- question: Which spell is used to unlock doors?
+  answers:
+  - Alohomora
+- question: Which type of dragon did Fleur Delacour have to face in the first atsk of the Tri-Wizard Tournament?
+  answers:
+  - Common Welsh Green
+- question: Which unforgivable curse causes pain to the victim?
+  answers:
+  - Crucio
+- question: Which unforgivable curse kills the victim?
+  answers:
+  - Avada Kedavra
+- question: Who became Seeker when Harry was banned from Quidditch?
+  answers:
+  - Ginny Weasley
+  - Ginny
+- question: Who became the head of Slytherin house in the seventh book after Snape ran away (in the sixth book)?
+  answers:
+  - Horace Slughorn
+  - Professor Slughorn
+  - Slughorn
+- question: Who bows to Harry before he knows that he is a wizard?
+  answers:
+  - Dedalus Diggle
+- question: Who destroyed the last remaining Horcrux?
+  answers:
+  - Neville
+  - Neville Longbottom
+- question: Who did Harry take to the Yule Ball?
+  answers:
+  - Parvati Patil
+- question: Who did Ron suddenly have an infatuation for, after accidentally eating some love potion meant for Harry?
+  answers:
+  - Romilda Vane
+- question: Who does Hermione go to the Yule Ball with?
+  answers:
+  - Viktor Krum
+  - Krum
+- question: Who does Hermione try to turn into when using the Polyjuice Potion?
+  answers:
+  - Pansy Parkinson
+- question: Who does Ginny go to the Yule Ball with?
+  answers:
+  - Neville Longbottom
+  - Neville
+- question: Who found Harry under his cloak on the train in "Harry Potter and the Half-Blood Prince"?
+  answers:
+  - Tonks
+- question: Who gave Harry his first broom?
+  answers:
+  - Professor McGonagall
+  - McGonagall
+  - Minerva McGonagall
+- question: Who gave Hermione her Time-Turner?
+  answers:
+  - Minerva McGonagall
+  - McGonagall
+  - Professor McGonagall
+- question: Who has a famous acid-green Quik-Quotes Quill?
+  answers:
+  - Rita Skeeter
+- question: Who in the 3rd year class wrote an essay on werewolves?
+  answers:
+  - Hermione
+  - Hermione Granger
+- question: Who is Harry's cousin?
+  answers:
+  - Dudley Dursley
+  - Dudley
+- question: Who is Voldemort's servant?
+  answers:
+  - Peter Pettigrew
+  - Pettigrew
+- question: Who is also known as Padfoot?
+  answers:
+  - Sirius Black
+  - Sirius
+  - Black
+- question: Who is the caretaker of Hogwarts?
+  answers:
+  - Filch
+  - Argus Filch
+- question: Who is the Deputy Headmisstress of Hogwarts?
+  answers:
+  - Professor McGonagall
+  - McGonagall
+  - Minerva McGonagall
+- question: Who is the "Keeper of Keys and Grounds" at Hogwarts?
+  answers:
+  - Hagrid
+- question: Who is the "Defense Against the Dark Arts" teacher during Harry's 5th year?
+  answers:
+  - Dolores Umbridge
+  - Professor Umbridge
+- question: Who is the Blacks' house elf?
+  answers:
+  - Kreacher
+- question: Who is the Head of Hufflepuff?
+  answers:
+  - Professor Sprout
+  - Sprout
+- question: Who is the Head of Ravenclaw?
+  answers:
+  - Professor Flitwick
+  - Flitwick
+  - Filius Flitwick
+- question: Who is the Hufflepuff ghost?
+  answers:
+  - The Fat Friar
+- question: Who is the headmaster of Durmstrang?
+  answers:
+  - Igor Karkaroff
+  - Karkaroff
+- question: Who is the only one Peeves is afraid of?
+  answers:
+  - The Bloody Baron
+- question: Who is the poltergist at Hogwarts?
+  answers:
+  - Peeves
+- question: Who is unanimously elected leader of Dumbledore's Army?
+  answers:
+  - Harry Potter
+  - Harry
+- question: Who killed Alastor Moody?
+  answers:
+  - Voldemort
+  - Lord Voldemort
+- question: Who killed Bellatrix Lestrange?
+  answers:
+  - Molly Weasley
+- question: Who kills Dumbledore?
+  answers:
+  - Snape
+  - Severus Snape
+- question: Who put Harry's name in the Goblet of Fire?
+  answers:
+  - Barty Crouch Jr.
+- question: Who said "We did it, we bashed them!"?
+  answers:
+  - Peeves
+- question: Who tells Harry and Ron that people can be a 'bit stupid' about their pets?
+  answers:
+  - Hagrid
+- question: Who was Dumbledore's predecessor as headmaster of Hogwarts?
+  answers:
+  - Armando Dippet
+- question: Who was Harry's first crush?
+  answers:
+  - Cho Chang
+- question: Who was a werewolf also known as Mooney?
+  answers:
+  - Remus Lupin
+- question: Who was an animagus known as Prongs?
+  answers:
+  - James Potter
+- question: Who was nicknamed Wormtail, but Ron knew him as Scabbers?
+  answers:
+  - Peter Pettigrew
+- question: Who was petrified in book 2 and died in book 7?
+  answers:
+  - Colin Creevey
+- question: Who was the Whomping Willow planted for?
+  answers:
+  - Remus Lupin
+  - Lupin
+- question: Who was the only Death Eater that was sorted into Gryffindor?
+  answers:
+  - Peter Pettigrew
+  - Pettigrew
+- question: Who wrote "A History of Magic"?
+  answers:
+  - Bathilda Bagshot
+- question: Whose patronus is a goat?
+  answers:
+  - Aberforth Dumbledore
+  - Aberforth
+- question: Why did the Ministry stop using owls for interroffice memos?
+  answers:
+  - Droppings
+  - Owl Droppings
+  - The Droppings
+- question: Name one of the Hogwarts' founders.
+  answers:
+  - Godric Gryffindor
+  - Rowena Ravenclaw
+  - Helga Hufflepuff
+  - Salazar Slytherin

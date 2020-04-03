@@ -374,8 +374,10 @@ questions:
   - F50
 - question: What car is this? http://i.imgur.com/40a8gKf.jpg
   answers:
+  - Ferrari LaFerrari
   - LaFerrari
-  - LaF
+  - Ferrari F150
+  - F150
 - question: What car is this? http://i.imgur.com/scUSw8k.jpg
   answers:
   - Ferrari Enzo
