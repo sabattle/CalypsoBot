@@ -1,7 +1,7 @@
 # Written by Mahlss and Fjall
 # Original file from: https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/redbot/cogs/trivia/data/lists/starwars.yaml
 questions:
-- question: According to C-3PO, Why wouldn't Han recognize him in The Force Awakens?
+- question: According to C-3PO, why wouldn't Han recognize him in The Force Awakens?
   answers:
   - Red Arm
   - The Red Arm
@@ -81,7 +81,7 @@ questions:
   answers:
   - '2'
   - Two
-- question: How many sith lords could there be at one time?
+- question: How many Sith Lords could there be at one time?
   answers:
   - Two
   - '2'
@@ -283,7 +283,7 @@ questions:
   answers:
   - CT-7567
   - '7567'
-- question: What is Emperor Palpatine's sith name?
+- question: What is Emperor Palpatine's Sith name?
   answers:
   - Darth Sidious
   - Sidious

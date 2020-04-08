@@ -6,6 +6,7 @@ module.exports = class SayCommand extends Command {
       name: 'say',
       usage: '<CHANNEL MENTION> <MESSAGE>',
       description: 'Sends a message to the specified channel (or the current channel, if none is specified).',
+      type: 'general'
     });
   }
   run(message, args) {

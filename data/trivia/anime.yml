@@ -1,4 +1,4 @@
-# Written by JennJenn
+# Written by JennJenn and RikaruAniki
 # Original file from: https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/redbot/cogs/trivia/data/lists/anime.yaml
 questions:
 - question: (Angel Sanctuary) Which angel is assigned to serve as Setsuna's guardian angel?
@@ -1152,11 +1152,11 @@ questions:
 - question: (One Piece) Whitebeard was stabbed by his own ally. Who was it?
   answers:
   - Squard
-- question: (One Piece) Who calls himself the lover of gossip?
+- question: (One Piece) Who calls himself the "lover of gossip"?
   answers:
   - Fukurou
   - Fukuro
-- question: (One Piece) Who did Luffy fight before them joining the crew?
+- question: (One Piece) Who did Luffy fight before they joined his crew?
   answers:
   - Franky
 - question: (One Piece) Who gave Shanks his straw hat?
@@ -1198,29 +1198,29 @@ questions:
 - question: (One Piece) Who is the navigator of the Straw Hat Pirates?
   answers:
   - Nami
-- question: (One Piece) Who is the oldest person of the crew?
+- question: (One Piece) Who is the oldest member of the Straw Hats?
   answers:
   - Brook
-- question: (One Piece) Who is the only known fishman devilfruit eater?
+- question: (One Piece) Who is the only known Fishman Devil Fruit eater?
   answers:
   - Vander Decken
 - question: (One Piece) Who is the only named camel in the series?
   answers:
   - Eyelashes
-- question: (One Piece) Who is the user of Hana hana nomi?
+- question: (One Piece) Who is the user of Hana Hana no Mi?
   answers:
   - Nico Robin
   - Robin
-- question: (One Piece) Who is the vice captain(fuku-senchou) of Buggys crew?
+- question: (One Piece) Who is the Vice Captain of Buggy's crew?
   answers:
   - Mohji
-- question: (One Piece) Who is the youngest shichibukai?
+- question: (One Piece) Who is the youngest Shichibukai?
   answers:
   - Law
-- question: (One Piece) Who said this? "Miracles only happen to those who give up"
+- question: (One Piece) Who said "Miracles only happen to those who give up"?
   answers:
   - Ivankov
-- question: (One Piece) Who uses the move "Out-of-the-bag"?
+- question: (One Piece) Who uses the move "Out-of-the-Bag"?
   answers:
   - Captain Kuro
   - Kuro
@@ -1230,16 +1230,24 @@ questions:
 - question: (One Piece) Who was the first Corazon?
   answers:
   - Vergo
-- question: (One Piece) Who was the first zoan type user to appear in the series?
+- question: (One Piece) Who was the first Zoan type user to appear in the series?
   answers:
   - Dalton
-- question: (One Piece) Who was the fleet admiral before sengoku?
+- question: (One Piece) Who was the Fleet Admiral before Sengoku?
   answers:
   - Kong
 - question: (One Piece) Whose crew did Nami work for before joining Luffy's crew?
   answers:
   - Arlong
   - Arlong's
+- question: (One Piece) What is the title of the iconic opening song?
+  answers:
+  - We Are
+- question: (One Piece) Which filler arc is the most highly regarded in the whole series?
+  answers:
+  - The G-8 Arc
+  - G-8 Arc
+  - G-8
 - question: (One Punch Man) Bang is also known as ____?
   answers:
   - Silver Fang
@@ -1366,58 +1374,61 @@ questions:
 - question: (Ouran High School Host Club) Who is mistaken for a boy in the anime?
   answers:
   - Haruhi
-- question: (Pokemon) In the original Japanese version, what is Ash Ketchum's name?
+- question: (Pokémon) In the original Japanese version, what is Ash Ketchum's name?
   answers:
   - Satoshi
-- question: (Pokemon) Pokemon was created by Stoshi Tajiri in which year?
+- question: (Pokémon) Pokémon was created by Stoshi Tajiri in which year?
   answers:
   - '1996'
-- question: (Pokemon) What Pokemon is Todd Snap trying to take a picture of?
+- question: (Pokémon) What Pokémon is Todd Snap trying to take a picture of?
   answers:
   - Articuno
-- question: (Pokemon) What building in Lavender Town is filled with graves?
+- question: (Pokémon) What building in Lavender Town is filled with graves?
   answers:
+  - Pokémon Tower
   - Pokemon Tower
-- question: (Pokemon) What did May enjoy competing in?
+- question: (Pokémon) What did May enjoy competing in?
   answers:
+  - Pokémon Contests
+  - Pokémon Contest
   - Pokemon Contests
   - Pokemon Contest
-- question: (Pokemon) What is the name of Brock's father?
+- question: (Pokémon) What is the name of Brock's father?
   answers:
   - Flint
-- question: (Pokemon) What is the name of May's younger brother?
+- question: (Pokémon) What is the name of May's younger brother?
   answers:
   - Max
-- question: (Pokemon) What is the name of Ritchie's Pikachu?
+- question: (Pokémon) What is the name of Ritchie's Pikachu?
   answers:
   - Sparky
-- question: (Pokemon) What is the name of the friend who travels with Ash during only the Orange Islands arc?
+- question: (Pokémon) What is the name of the friend who travels with Ash during only the Orange Islands arc?
   answers:
   - Tracey Sketchit
   - Tracey
-- question: (Pokemon) What region is Ash from?
+- question: (Pokémon) What region is Ash from?
   answers:
   - Kanto
-- question: (Pokemon) What region is Dawn from?
+- question: (Pokémon) What region is Dawn from?
   answers:
   - Sinnoh
-- question: (Pokemon) What starter pokemon did Ash Ketchum originally intend to choose?
+- question: (Pokémon) What starter Pokémon did Ash Ketchum originally intend to choose?
   answers:
   - Squirtle
-- question: (Pokemon) Who aspires to be a Pokemon Watcher?
+- question: (Pokémon) Who aspires to be a Pokémon Watcher?
   answers:
   - Tracey Sketchit
   - Tracey
-- question: (Pokemon) Who did Brock leave Ash to work for?
+- question: (Pokémon) Who did Brock leave Ash to work for?
   answers:
   - Professor Ivy
-- question: (Pokemon) Who is a Pokemon Connoisseur?
+- question: (Pokémon) Who is a Pokémon Connoisseur?
   answers:
   - Cilan
-- question: (Pokemon) Who is the Professor of the Hoenn region?
+- question: (Pokémon) Who is the Professor of the Hoenn region?
   answers:
   - Professor Birch
-- question: (Pokemon) Who is trying to become a Pokemon Performer?
+- question: (Pokémon) Who is trying to become a Pokémon Performer?
   answers:
   - Serena
 - question: (Ranma 1/2) What does Ryouga turn into when he gets doused with cold water?
@@ -1640,6 +1651,18 @@ questions:
   answers:
   - Alfheim Online
   - Alfheim
+- question: (Tengen Toppa Gurren Lagann) What is the name of the pig-mole that accompanies the crew?
+  answers:
+  - Boota
+- question: (Tengen Toppa Gurren Lagann) What powers the mechs?
+  answers:
+  - Spiral Energy
+  - Manliness
+- question: (Tengen Toppa Gurren Lagann) What is the phrase Kamina seems to say a lot?
+  answers:
+  - Just who the hell do you think I am?!
+  - Just who the hell do you think I am?
+  - Just who the hell do you think I am
 - question: (The Last Airbender) What is the name of Aang's flying bison?
   answers:
   - Appa
