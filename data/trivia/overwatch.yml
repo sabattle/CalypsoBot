@@ -218,7 +218,7 @@ questions:
   - Hyde Global
 - question: In the first web comic, who was blamed for the robbery?
   answers:
-  - Mccree
+  - McCree
 - question: In what year did the Omnic Crisis start?
   answers:
   - '2046'
@@ -427,7 +427,7 @@ questions:
   - Deadeye
 - question: What is McCree's full name?
   answers:
-  - Jesse Mccree
+  - Jesse McCree
 - question: What is McCree's ultimate called?
   answers:
   - Deadeye
@@ -777,17 +777,17 @@ questions:
   - The Shambali
 - question: Which Overwatch hero used to be part of the "Deadlock Gang"?
   answers:
-  - Mccree
+  - McCree
 - question: Which character class has the most heroes?
   answers:
   - Offense
 - question: Which character has the quote "What's An Aimbot?"?
   answers:
   - Widowmaker
-- question: Which character says "It's high noon" when his/her ultimate is used?
+- question: Which character says "It's high noon" when their ultimate is used?
   answers:
-  - Mccree
-- question: Which character's ultimate has the highest DPS
+  - McCree
+- question: Which character's ultimate has the highest DPS?
   answers:
   - Roadhog
 - question: Which country was the first to be affected by the Omnic Crisis?
@@ -796,17 +796,17 @@ questions:
 - question: "Which gang did Soldier: 76 fight in \"Hero\"?"
   answers:
   - Los Muertos
-- question: Which hero has a skin called "Breakaway"?
+- question: Which hero has a skin named "Breakaway"?
   answers:
   - Lúcio
   - Lucio
-- question: Which hero has a skin called Jailbird?
+- question: Which hero has a skin named "Jailbird"?
   answers:
   - Junkrat
-- question: Which hero has a skin called Raptorion?
+- question: Which hero has a skin named "Raptorion"?
   answers:
   - Pharah
-- question: Which hero has a skin called Wasteland?
+- question: Which hero has a skin named "Wasteland"?
   answers:
   - Ana
 - question: Which hero has a skin named "Nevermore"?
@@ -845,14 +845,14 @@ questions:
   - Reaper
 - question: Which hero has the achievement "Whoa There!"?
   answers:
-  - Mccree
-- question: Which hero has the skin Augmented?
+  - McCree
+- question: Which hero has a skin named "Augmented"?
   answers:
   - Sombra
-- question: Which hero has the skins Odette and Odile?
+- question: Which hero has skins named "Odette" and "Odile"?
   answers:
   - Widowmaker
-- question: Which hero has the voice line "You're taking this very seriously."?
+- question: Which hero has the voice line "You're taking this very seriously"?
   answers:
   - Sombra
 - question: Which hero has the voiceline "Young punks, get off my lawn"?
@@ -864,7 +864,7 @@ questions:
 - question: Which hero is Reinhardt a fan of?
   answers:
   - D.Va
-- question: Which hero is a fan of D.va?
+- question: Which hero is a fan of D.Va?
   answers:
   - Lúcio
   - Lucio
@@ -877,10 +877,10 @@ questions:
 - question: Which hero says "Haven't I killed you somewhere before?"
   answers:
   - Reaper
-- question: Which hero says "In Russia, Game Plays You"?
+- question: Which hero says "In Russia, game plays you"?
   answers:
   - Zarya
-- question: Which hero says "Why Are You So Angry?"
+- question: Which hero says "Why are you ao angry?"
   answers:
   - Lúcio
   - Lucio
