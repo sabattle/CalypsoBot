@@ -24,8 +24,6 @@ module.exports = class SettingsCommand extends Command {
     const crownRole = message.guild.roles.get(row.crown_role_id) || '';
     let usePoints = 'false';
     if (row.use_points) usePoints = 'true';
-    let useVoicePoints = 'false';
-    if (row.use_voice_points) useVoicePoints = 'true';
     let welcomeMessage = 'false';
     if (row.welcome_message) welcomeMessage = 'true';
     let leaveMessage = 'false';
@@ -44,7 +42,9 @@ module.exports = class SettingsCommand extends Command {
       **Auto Role**: ${autoRole}
       **Crown Role**: ${crownRole}
       **Use Points**: \`${usePoints}\`
-      **Use Voice Points**: \`${useVoicePoints}\`
+      **Message Points**: \`${row.message_points}\`
+      **Command Points**: \`${row.command_points}\`
+      **Voice Points**: \`${row.voice_points}\`
       **Welcome Message**: \`${welcomeMessage}\`
       **Leave Message**: \`${leaveMessage}\`
       **Crown Message**: \`${crownMessage}\`
