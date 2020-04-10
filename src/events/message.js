@@ -1,9 +1,8 @@
 module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
-  // Points
-  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
-  if (enabled) client.db.guildPoints.updatePoints.run({ points: 1 }, message.author.id, message.guild.id);
+  // Check if points enabled
+  const pointsEnabled = client.db.guildSettings.selectUsePoints.pluck().get(message.guild.id);
 
   // Command handler
   let command;
@@ -14,15 +13,29 @@ module.exports = (client, message) => {
     command = client.commands.get(cmd);
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
     if (command) {
+
       // Check permissions
       const permission = command.checkPermissions(message);
       if (permission) {
+
         // Check command type     
-        if (command.type === 'point') {
-          if (!enabled) return message.channel.send('Points are currently **disabled** on this server.');
+        if (command.type === 'point' && !pointsEnabled) {
+          return message.channel.send('Points are currently **disabled** on this server.');
+
+        // Update points with commandPoints value  
+        } else if (pointsEnabled) {
+          const commandPoints = client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
+          client.db.guildPoints.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
         }
-        command.run(message, args);
+        return command.run(message, args); // Run command
       }
-    }
+    } 
+  }
+
+  // Update points with messagePoints value
+  if (pointsEnabled) {  
+    const messagePoints = client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
+    client.db.guildPoints.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
   }
 };
+
