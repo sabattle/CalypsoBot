@@ -12,9 +12,10 @@ module.exports = class SetMessagePointsCommand extends Command {
     });
   }
   run(message, args) {
-    if (args.length === 0 || !Number.isInteger(Number(args[0])) || args[0] < 0) 
+    const amount = args[0];
+    if (!amount || !Number.isInteger(Number(amount)) || amount < 0) 
       return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please enter a positive integer.`);
-    message.client.db.guildSettings.updateMessagePoints.run(args[0], message.guild.id);
-    message.channel.send(`Successfully updated \`message points\` to \`${args[0]}\`.`);
+    message.client.db.guildSettings.updateMessagePoints.run(amount, message.guild.id);
+    message.channel.send(`Successfully updated \`message points\` to \`${amount}\`.`);
   }
 };
