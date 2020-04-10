@@ -18,6 +18,6 @@ module.exports = class SetPrefixCommand extends Command {
       Sorry ${message.member}, I don't recognize that. Please ensure the prefix is no larger than 3 characters.
     `);
     message.client.db.guildSettings.updatePrefix.run(prefix, message.guild.id);
-    message.channel.send(`Successfully updated the prefix to \`${prefix}\`.`);
+    message.channel.send(`Successfully updated the \`prefix\` to \`${prefix}\`.`);
   }
 };
