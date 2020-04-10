@@ -25,7 +25,7 @@ module.exports = class WipeServerPointsCommand extends Command {
       return message.channel.send(oneLine`
         Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
       `);
-    message.client.db.guildPoints.clearPoints.run(id);
+    message.client.db.guildPoints.wipeServerPoints.run(id);
     message.channel.send(`Successfully wiped all members' points in **${guild.name}**.`);
   } 
 };
