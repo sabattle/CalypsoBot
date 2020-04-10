@@ -8,6 +8,7 @@
     "better-sqlite3": "^5.0.1",
     "common-tags": "^1.8.0",
     "discord.js": "^11.5.1",
+    "he": "^1.2.0",
     "minimist": ">=1.2.2",
     "moment": "^2.22.2",
     "ms": "^2.1.2",

@@ -1,6 +1,7 @@
 const Command = require('../Command.js');
 const Discord = require('discord.js');
 const search = require('youtube-search');
+const he = require('he');
 
 module.exports = class YoutubeCommand extends Command {
   constructor(client) {
@@ -19,11 +20,12 @@ module.exports = class YoutubeCommand extends Command {
     let result = await search(videoName, { maxResults: 1, key: apiKey, type: 'video' })
       .catch(err => message.client.logger.error(err));
     result = result.results[0];
+    const decodedTitle = he.decode(result.title);
     const embed = new Discord.RichEmbed()
-      .setTitle(`${result.title}`)
-      .setURL(`${result.link}`)
-      .setDescription(`${result.description}`)
-      .setThumbnail(`${result.thumbnails.default.url}`);
+      .setTitle(decodedTitle)
+      .setURL(result.link)
+      .setDescription(result.description)
+      .setThumbnail(result.thumbnails.default.url);
     message.channel.send(embed);
   }
 };
