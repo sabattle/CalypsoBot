@@ -3,14 +3,15 @@ const { oneLine } = require('common-tags');
 
 const rgx = /^(?:<@!?)?(\d+)>?$/;
 
-module.exports = class ClearPointsCommand extends Command {
+module.exports = class ClearAllPointsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'clearpoints',
-      aliases: ['clearp', 'cp'],
+      name: 'clearallpoints',
+      aliases: ['clearap', 'cap'],
       usage: '<SERVER ID>',
       description: oneLine`
-        Clears all members' points in the server with the provided ID (or the current server, if no ID is given).
+        Clears all members' points and total points in the server with the provided ID (or the current server, if no ID 
+        is given).
       `,
       type: 'owner',
       ownerOnly: true
@@ -26,6 +27,6 @@ module.exports = class ClearPointsCommand extends Command {
         Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
       `);
     message.client.db.guildPoints.clearPoints.run(id);
-    message.channel.send(`Successfully cleared all members' points in ${guild.name}.`);
+    message.channel.send(`Successfully cleared all members' points and total points in ${guild.name}.`);
   } 
 };
