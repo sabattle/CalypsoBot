@@ -4,14 +4,14 @@ const fs = require('fs');
 const YAML = require('yaml');
 const { oneLine } = require('common-tags');
 
-module.exports = class TriviaCommand extends Command {
+module.exports = class SoloTriviaCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'trivia',
-      aliases: ['triv'],
+      name: 'solotrivia',
+      aliases: ['solotriv', 'striv'],
       usage: '<TOPIC>',
       description: oneLine`
-        Compete against your friends in a game of trivia (anyone can answer).
+        Test your knowledge in a game of trivia (only you can answer).
         If no topic is given, a random one will be chosen.
       `,
       type: 'fun'
@@ -46,7 +46,7 @@ module.exports = class TriviaCommand extends Command {
     else await message.channel.send(question);
     let winner;
     const collector = new Discord.MessageCollector(message.channel, msg => {
-      if (!msg.author.bot) return true;
+      if (!msg.author.bot && msg.author == message.author) return true;
     }, { time: 10000 }); // Wait 10 seconds
     collector.on('collect', msg => {
       if (answers.includes(msg.content.trim().toLowerCase().replace(/\.|'|-|\s/g, ''))){
