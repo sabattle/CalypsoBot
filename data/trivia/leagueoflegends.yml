@@ -86,7 +86,6 @@ questions:
   answers:
   - Bard
   - Rek'Sai
-  - Rek Sai
 - question: Name a champion with a non-ultimate ability that cannot be taken at level 1.
   answers:
   - Azir
@@ -123,7 +122,6 @@ questions:
 - question: Name one of the two female champions without a humanoid form.
   answers:
   - Rek'Sai
-  - Rek Sai
   - Anivia
 - question: Name one of the two melee champions with the highest range?
   answers:
@@ -214,7 +212,6 @@ questions:
 - question: What in-game item is Sejuani wearing in her classic splash art?
   answers:
   - Seeker's Armguard
-  - Seekers Armguard
 - question: What is Annie's last name?
   answers:
   - Hastur
@@ -447,7 +444,7 @@ questions:
 - question: What species is Kayn?
   answers:
   - Human
-- question: What species is Kha'zix?
+- question: What species is Kha'Zix?
   answers:
   - Voidborn
 - question: What species is Lissandra?
@@ -459,7 +456,6 @@ questions:
 - question: What species is Rek'sai?
   answers:
   - Xer'Sai
-  - Xer Sai
 - question: What species is Trundle?
   answers:
   - Troll
@@ -479,7 +475,6 @@ questions:
 - question: What type of weapon does Yorick weild?
   answers:
   - Monk's Spade
-  - Monks Spade
   - Spade
   - A Spade
 - question: What was Fiddlesticks' original occupation?
@@ -520,7 +515,6 @@ questions:
 - question: Which Voidborn has dwelt the longest in Runeterra?
   answers:
   - Rek'Sai
-  - Rek Sai
 - question: Which champion has 3 legendary skins?
   answers:
   - Corki
@@ -579,6 +573,7 @@ questions:
   answers:
   - Bonus Attack Speed
   - Attack Speed
+  - Bonus AS
   - AS
 - question: Which summoner spell has a 240 second cooldown?
   answers:
@@ -665,7 +660,6 @@ questions:
 - question: Who did Malzahar lure into Runeterra?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Who did Professor Stanwick steal credit for creating Blitzcrank's sentience from?
   answers:
   - Viktor
@@ -678,7 +672,6 @@ questions:
 - question: Who did Rengar lose an eye to?
   answers:
   - Kha'Zix
-  - Kha Zix
 - question: Who does Captain Gangplank say "Prepare to be boarded" to?
   answers:
   - Miss Fortune
@@ -754,7 +747,6 @@ questions:
 - question: Who gains 3.141592 (pi) AD per level?
   answers:
   - Vel'Koz
-  - Vel Koz
 - question: Who gave Yasuo the thread he uses to tie up his hair?
   answers:
   - Taliyah
@@ -831,7 +823,6 @@ questions:
 - question: Who has a Loch Ness skin?
   answers:
   - Cho'Gath
-  - Cho Gath
 - question: Who has a Lunar Goddess skin?
   answers:
   - Diana
@@ -877,7 +868,6 @@ questions:
 - question: Who has a Reindeer skin?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Who has a Runeborn skin?
   answers:
   - Xerath
@@ -1013,7 +1003,6 @@ questions:
 - question: Who has a skill called "Leap"?
   answers:
   - Kha'Zix
-  - Kha Zix
 - question: Who has a skill called "Majestic Roar"?
   answers:
   - Volibear
@@ -1038,7 +1027,6 @@ questions:
 - question: Who has a skill called "Prey Seeker"?
   answers:
   - Rek'Sai
-  - Rek Sai
 - question: Who has a skill called "Renewal"?
   answers:
   - Karma
@@ -1145,7 +1133,6 @@ questions:
 - question: Who has an ability called "Icathian Surprise"?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Who has an ability called "Pale Cascade"?
   answers:
   - Diana
@@ -1284,7 +1271,6 @@ questions:
 - question: Who is "the Terror of the Void"?
   answers:
   - Cho'Gath
-  - Cho Gath
 - question: Who is Ashe married to?
   answers:
   - Tryndamere
@@ -1318,14 +1304,13 @@ questions:
 - question: Who is Kassadin's daughter?
   answers:
   - Kai'Sa
-  - Kai Sa
 - question: Who is Katarina's younger sister?
   answers:
   - Cassiopeia
 - question: Who is Kayle's sister?
   answers:
   - Morgana
-- question: Who is Kha'zix's rival?
+- question: Who is Kha'Zix's rival?
   answers:
   - Rengar
 - question: Who is Lucian's enemy?
@@ -1485,7 +1470,6 @@ questions:
 - question: Who is also known as the "Void Burrower"?
   answers:
   - Rek'Sai
-  - Rek Sai
 - question: Who is also known as the "Walking National Monument"?
   answers:
   - Galio
@@ -1544,7 +1528,6 @@ questions:
 - question: Who is known as the "Voidreaver"?
   answers:
   - Kha'Zix
-  - Kha Zix
 - question: Who is part of the Spirits species?
   answers:
   - Kindred
@@ -1578,7 +1561,6 @@ questions:
 - question: Who is the "Mouth of the Abyss"?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Who is the Aspect of Twilight?
   answers:
   - Zoe
@@ -1660,13 +1642,9 @@ questions:
 - question: Who is the only champion from the Void with more than 6 letters in their name?
   answers:
   - Cho'Gath
-  - Cho Gath
 - question: Who is the only champion in game to have a target skill that can be self-cast but not ally-cast?
   answers:
   - Lissandra
-- question: Who is the only champion that can C.C. Baron and Dragon?
-  answers:
-  - Bard
 - question: Who is the only champion that can shield turrets?
   answers:
   - Janna
@@ -1691,11 +1669,9 @@ questions:
 - question: Who is the only champion with two Legendary skins available for purchase in the store on a regular basis?
   answers:
   - Cho'Gath
-  - Cho Gath
 - question: Who is the only female Voidborn?
   answers:
   - Rek'Sai
-  - Rek Sai
 - question: Who is the only female champion with a Riot skin?
   answers:
   - Kayle
@@ -1744,7 +1720,6 @@ questions:
 - question: Who learns about Valoran by disintegrating subjects?
   answers:
   - Vel'Koz
-  - Vel Koz
 - question: Who lit themselves on fire to protest Noxus?
   answers:
   - Lee Sin
@@ -1797,16 +1772,16 @@ questions:
 - question: Who runs a dating service in the league?
   answers:
   - Blitzcrank
-- question: Who says "A demonstration of superior judgement." when picked in champion select?
+- question: Who says "A demonstration of superior judgement" when picked in champion select?
   answers:
   - Shen
-- question: Who says "A whole world to toy with."?
+- question: Who says "A whole world to toy with"?
   answers:
   - Syndra
-- question: Who says "Accelerated movement, I concur." in game?
+- question: Who says "Accelerated movement, I concur" in game?
   answers:
   - Sona
-- question: Who says "Another unworthy opponent." while attacking?
+- question: Who says "Another unworthy opponent" while attacking?
   answers:
   - Akali
 - question: Who says "Are you my nightmare, or am I yours?"?
@@ -1818,55 +1793,55 @@ questions:
 - question: Who says "As I live, all will die!"?
   answers:
   - Renekton
-- question: Who says "Bring down the sun."?
+- question: Who says "Bring down the sun"?
   answers:
   - Diana
 - question: Who says "Don't you trust me?" when picked in champion select?
   answers:
   - Ahri
-- question: Who says "Embrace the darkness." when picked in champion select?
+- question: Who says "Embrace the darkness" when picked in champion select?
   answers:
   - Nocturne
-- question: Who says "Everybody dies. Some just need a little help." when picked in champion select?
+- question: Who says "Everybody dies. Some just need a little help" when picked in champion select?
   answers:
   - Lucian
-- question: Who says "Exterminate. Exterminate." while attacking?
+- question: Who says "Exterminate. Exterminate" while attacking?
   answers:
   - Blitzcrank
 - question: Who says "Fight or be forgotten" when attacking?
   answers:
   - Aatrox
-- question: Who says "Focus on the battle."?
+- question: Who says "Focus on the battle"?
   answers:
   - Lux
-- question: Who says "For tranquility."?
+- question: Who says "For tranquility"?
   answers:
   - Janna
 - question: Who says "Here comes the boom!" in game?
   answers:
   - Tristana
-- question: Who says "I accidentally did that on purpose."?
+- question: Who says "I accidentally did that on purpose"?
   answers:
   - Jinx
-- question: Who says "I ain't got time to bleed."?
+- question: Who says "I ain't got time to bleed"?
   answers:
   - Graves
 - question: Who says "I am forsaken" in game?
   answers:
   - Varus
-- question: Who says "I am the blade in the darkness."?
+- question: Who says "I am the blade in the darkness"?
   answers:
   - Zed
 - question: Who says "I am the thing under the bed"?
   answers:
   - Thresh
-- question: Who says "I do not tolerate cowardice."?
+- question: Who says "I do not tolerate cowardice"?
   answers:
   - Darius
-- question: Who says "I have sharp things."?
+- question: Who says "I have sharp things"?
   answers:
   - Orianna
-- question: Who says "I live for the applause, you will die for it." as a direct reference to Lady Gaga?
+- question: Who says "I live for the applause, you will die for it" as a direct reference to Lady Gaga?
   answers:
   - Jhin
 - question: Who says "I only need one shot!" while attacking?
@@ -1875,78 +1850,74 @@ questions:
 - question: Who says "I seek only the strongest" while in game?
   answers:
   - Rengar
-- question: Who says "I shall endure." while attacking?
+- question: Who says "I shall endure" while attacking?
   answers:
   - Anivia
-- question: Who says "I will be free." when picked during champion select?
+- question: Who says "I will be free" when picked in champion select?
   answers:
   - Xerath
-- question: Who says "I will be free." when picked in champion select?
-  answers:
-  - Xerath
-- question: Who says "I will swallow your soul."?
+- question: Who says "I will swallow your soul"?
   answers:
   - Veigar
-- question: Who says "I'll be right under their noses." in game?
+- question: Who says "I'll be right under their noses" in game?
   answers:
   - Twitch
-- question: Who says "I'll show them a watery grave."?
+- question: Who says "I'll show them a watery grave"?
   answers:
   - Fizz
-- question: Who says "I'm moving as fast as I can." in game?
+- question: Who says "I'm moving as fast as I can" in game?
   answers:
   - Malphite
 - question: Who says "I'm not ugly, but they're about to be!" in game?
   answers:
   - Trundle
-- question: Who says "I'm on a short fuse." in game?
+- question: Who says "I'm on a short fuse" in game?
   answers:
   - Brand
-- question: Who says "If you're buying, I'm in!" when picked at champion select?
+- question: Who says "If you're buying, I'm in!" when picked in champion select?
   answers:
   - Gragas
 - question: Who says "Insolent peasants!"?
   answers:
   - Fiora
-- question: Who says "Knowledge through... disintegration." when picked in champion select?
+- question: Who says "Knowledge through... disintegration" when picked in champion select?
   answers:
   - Vel'Koz
-  - Vel Koz
 - question: Who says "Leave nothing behind!" when picked in champion select?
   answers:
   - Olaf
-- question: Who says "Let the storm follow in my wake." when picked in champion select?
+- question: Who says "Let the storm follow in my wake" when picked in champion select?
   answers:
   - Volibear
-- question: Who says "Let us hunt those who have fallen to darkness." when picked in champion select?
+- question: Who says "Let us hunt those who have fallen to darkness" when picked in champion select?
   answers:
   - Vayne
-- question: Who says "Let's find some friends." in game?
+- question: Who says "Let's find some friends" in game?
   answers:
   - Amumu
 - question: Who says "Let's get in the fight!" when picked in champion select?
   answers:
   - Rumble
-- question: Who says "Man, I'm good."?
+- question: Who says "Man, I'm good"?
   answers:
   - Draven
-- question: Who says "Mmm, the taste of coward." in game?
+- question: Who says "Mmm, the taste of coward" in game?
   answers:
   - Nidalee
-- question: Who says "My blade is yours." when picked in champion select?
+- question: Who says "My blade is yours" when picked in champion select?
   answers:
   - Master Yi
   - Yi
-- question: Who says "My spirit is not lost." in game?
+- question: Who says "My spirit is not lost" in game?
   answers:
   - Riven
-- question: Who says "On all legs." in game?
+- question: Who says "On all legs" in game?
   answers:
   - Skarner
-- question: Who says "Our future will be bright."?
+- question: Who says "Our future will be bright"?
   answers:
   - Jayce
-- question: Who says "Ours is but to do and die."?
+- question: Who says "Ours is but to do and die"?
   answers:
   - Jarvan IV
   - J4
@@ -1958,10 +1929,10 @@ questions:
 - question: Who says "Please to meet you!" when picked in champion select?
   answers:
   - Lulu
-- question: Who says "Precision is the difference between a butcher and a surgeon." when picked?
+- question: Who says "Precision is the difference between a butcher and a surgeon" when picked?
   answers:
   - Camille
-- question: Who says "Savor the misery."?
+- question: Who says "Savor the misery"?
   answers:
   - Tahm Kench
 - question: Who says "Swallowed you whole!" in game?
@@ -1970,27 +1941,25 @@ questions:
 - question: Who says "Terror coming...daddy coming!"?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Who says "The daylight! It burns!" in game?
   answers:
   - Cho'Gath
-  - Cho Gath
-- question: Who says "The endless march." in game?
+- question: Who says "The endless march" in game?
   answers:
   - Nautilus
-- question: Who says "The eyes never lie." when picked during champion select?
+- question: Who says "The eyes never lie" when picked in champion select?
   answers:
   - Kennen
 - question: Who says "The joke's on you!" in game?
   answers:
   - Shaco
-- question: Who says "The rivers will run red." when picked in champion select?
+- question: Who says "The rivers will run red" when picked in champion select?
   answers:
   - Vladimir
-- question: Who says "Their heartbeats quicken."?
+- question: Who says "Their heartbeats quicken"?
   answers:
   - Lee Sin
-- question: Who says "There is no antidote for me." in game?
+- question: Who says "There is no antidote for me" in game?
   answers:
   - Cassiopeia
 - question: Who says "This is my path" in game?
@@ -1999,40 +1968,40 @@ questions:
 - question: Who says "This'll be a slaughter" when picked in champion select?
   answers:
   - Tryndamere
-- question: Who says "Time for a shakedown." in game?
+- question: Who says "Time for a shakedown" in game?
   answers:
   - Caitlyn
-- question: Who says "Time to get our hands dirty."?
+- question: Who says "Time to get our hands dirty"?
   answers:
   - Ezreal
-- question: Who says "Time to make an appearance."?
+- question: Who says "Time to make an appearance"?
   answers:
   - Leblanc
-- question: Who says "Time to start some trouble."?
+- question: Who says "Time to start some trouble"?
   answers:
   - Ekko
-- question: Who says "Twilight fades."?
+- question: Who says "Twilight fades"?
   answers:
   - Leona
-- question: Who says "Violence is elegance."?
+- question: Who says "Violence is elegance"?
   answers:
   - Aatrox
-- question: Who says "We all have a place among the divine. We have only to accept it."?
+- question: Who says "We all have a place among the divine. We have only to accept it"?
   answers:
   - Karthus
-- question: Who says "We are the vanguard."?
+- question: Who says "We are the vanguard"?
   answers:
   - Garen
-- question: Who says "We demand sacrifice."?
+- question: Who says "We demand sacrifice"?
   answers:
   - Malzahar
-- question: Who says "We'll bring them pain." when picked during champion select?
+- question: Who says "We'll bring them pain" when picked during champion select?
   answers:
   - Morgana
 - question: Who says "Who's following me?" as a reference to the website twitch.tv?
   answers:
   - Twitch
-- question: Who says "You are null and void."?
+- question: Who says "You are null and void"?
   answers:
   - Kassadin
 - question: Who says "You hit like baby ram! No horns yet!" while attacking?
@@ -2047,11 +2016,10 @@ questions:
 - question: Who says "Your bidding, master" when picked during champion selection?
   answers:
   - Fiddlesticks
-- question: Who says "Change is good."?
+- question: Who says "Change is good"?
   answers:
   - Kha'Zix
-  - Kha Zix
-- question: Who says "Ok."?
+- question: Who says "Ok"?
   answers:
   - Rammus
 - question: Who spent a millennia locked up with Renekton?
@@ -2063,7 +2031,7 @@ questions:
 - question: Who supplies Gragas with brewing equipment?
   answers:
   - Singed
-- question: Who tells you to "Take this scroll and stick it somewhere safe."?
+- question: Who tells you to "Take this scroll and stick it somewhere safe"?
   answers:
   - Ryze
 - question: Who thinks Ezreal is a poser?
@@ -2157,7 +2125,6 @@ questions:
 - question: Who was the first champion to be released with Chroma variants?
   answers:
   - Kai'Sa
-  - Kai Sa
 - question: Who was the first champion to have 2 Harrowing skins?
   answers:
   - Ryze
@@ -2234,7 +2201,6 @@ questions:
 - question: Whose dance is based on the Michigan J. Frog dance?
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: Whose dance is based on the dance from Run Devil Run by Girl's Generation (SNSD)?
   answers:
   - Ahri
@@ -2321,7 +2287,6 @@ questions:
 - question: Whose occupation is "Knowledge Seeker"?
   answers:
   - Vel'Koz
-  - Vel Koz
 - question: Whose occupation is "Night Hunter"?
   answers:
   - Vayne

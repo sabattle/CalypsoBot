@@ -71,7 +71,6 @@ questions:
 - question: Betcha Can't Eat Just One
   answers:
   - Lay's
-  - Lays
 - question: Better Ingredients. Better Pizza.
   answers:
   - Papa John's
@@ -93,6 +92,7 @@ questions:
 - question: Nobody's gonna lay a finger on my Butterfinger.
   answers:
   - Nestle's Butterfinger
+  - Nestle Butterfinger
   - Butterfinger
 - question: Standard of the World
   answers:
@@ -279,7 +279,6 @@ questions:
 - question: I'm Lovin' It
   answers:
   - McDonald's
-  - McDonalds
 - question: Imagination At Work
   answers:
   - General Electric Company
@@ -294,7 +293,6 @@ questions:
 - question: Thank God It's Friday
   answers:
   - T.G.I. Friday's
-  - TGI Fridays
 - question: Ingredients for life
   answers:
   - Safeway
@@ -623,7 +621,6 @@ questions:
 - question: There's no equal
   answers:
   - Sweet 'N Low
-  - Sweet N Low
 - question: They're g-r-r-r-eat!
   answers:
   - Kellog's Frosted Flakes

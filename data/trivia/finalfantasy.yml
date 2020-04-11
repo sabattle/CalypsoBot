@@ -119,7 +119,9 @@ questions:
   - Fynn
 - question: (FFII) Name the key to Kashuan Keep.
   answers:
+  - The Goddess's Bell
   - Goddess's Bell
+  - The Goddess Bell
   - Goddess Bell
 - question: (FFII) Name the largest airship.
   answers:
@@ -130,7 +132,6 @@ questions:
 - question: (FFII) Sunfire can only be carried using?
   answers:
   - Egil's Torch
-  - Egil Torch
 - question: (FFII) What is the Emperor's name?
   answers:
   - Mateus
@@ -461,7 +462,6 @@ questions:
   - "True"
 - question: (FFIX) Vivi "expires". True/False?
   answers:
-  - True, Much To Everyone's Dismay.
   - "True"
 - question: (FFIX) What cures Blank's petrification?
   answers:
@@ -551,7 +551,7 @@ questions:
   - Dyne
 - question: (FFIX) Who adopts Eiko?
   answers:
-  - Cid And Hilda
+  - Cid and Hilda
   - Cid
   - Hilda
 - question: (FFIX) Who are known as the "Nero Brothers"?
@@ -578,7 +578,6 @@ questions:
 - question: (FFIX) Who is Garnet's tutor/mentor?
   answers:
   - Doctor Tot
-  - Dr Tot
   - Dr. Tot
 - question: (FFIX) Who is known as "Red"?
   answers:
@@ -601,7 +600,7 @@ questions:
   - Cid
 - question: (FFIX) Who turned Cid into an oglop?
   answers:
-  - His Wife
+  - His wife
   - Hilda Garde
   - Hilda
 - question: (FFIX) Who was mainly responsible for saving Blank from petrification?
@@ -610,9 +609,7 @@ questions:
 - question: (FFIX) Who was responsible for turning Cid into a frog?
   answers:
   - Doctor Tot
-  - Dr Tot
   - Dr. Tot
-  - Dr.Tot
 - question: (FFIX) Who wields a hammer in battle?
   answers:
   - Cinna
@@ -658,9 +655,9 @@ questions:
   - Death Corps
 - question: (FFT) When is Agrias's birthday?
   answers:
-  - 1St of Cancer
   - Cancer 1
   - 1 Cancer
+  - 1st of Cancer
 - question: (FFT) Where was Marquis Elmdore being held hostage/imprisoned at?
   answers:
   - Sand Rat Sietch
@@ -706,7 +703,6 @@ questions:
 - question: (FFT) Who is the founder of the Church of Glabados?
   answers:
   - Saint Ajora Glabados
-  - St Ajora
   - Saint Ajora
   - St. Ajora
   - Ajora
@@ -759,14 +755,6 @@ questions:
   answers:
   - Moogles
   - Moogle
-- question: (FFTA) In real world Ivalice, what caused Cid to fall into depression?
-  answers:
-  - The Death of His Wife
-  - Death of His Wife
-  - Passing of His Wife
-  - Death of Remedi
-  - Passing of Remedi
-  - His Wife Died
 - question: (FFTA) It is possible to recruit Judgemaster Cid to your clan. True/False?
   answers:
   - "True"
@@ -803,7 +791,6 @@ questions:
 - question: (FFTA) What is Cid's occupation/role?
   answers:
   - Judgemaster
-  - Judge Master
 - question: (FFTA) What is Ritz's natural hair color?
   answers:
   - White
@@ -814,7 +801,6 @@ questions:
 - question: (FFTA) What is the name of the strongest (highest ATK) Greatbow in the game?
   answers:
   - Max's Oathbow
-  - Max Oathbow
 - question: (FFTA) What is the name of the strongest (highest ATK) Greatsword in the game?
   answers:
   - Master Sword
@@ -834,7 +820,6 @@ questions:
 - question: (FFTA) What is the name of the strongest (highest ATK) Spear in the game?
   answers:
   - Odin's Lance
-  - Odin Lance
 - question: (FFTA) What is the name of the strongest (highest ATK) Sword in the game?
   answers:
   - Chirijaden
@@ -869,8 +854,6 @@ questions:
 - question: (FFTA) Who is the true identity of Queen Remedi?
   answers:
   - Li-Grim
-  - Li Grim
-  - Ligrim
 - question: (FFTA) Who saved Marche when he first warped to fantasy Ivalice?
   answers:
   - Montblanc
@@ -930,7 +913,6 @@ questions:
   - Mirage
 - question: (FFV) Who among the party owns a wind drake?
   answers:
-  - Lenna And Krile
   - Lenna
   - Krile
   - Reina
@@ -1071,6 +1053,7 @@ questions:
   answers:
   - The Seven Deadly Sins
   - Seven Deadly Sins
+  - The 7 Deadly Sins
   - 7 Deadly Sins
 - question: (FFVII C.C.) What's the name of Angeal's fan club?
   answers:
@@ -1136,15 +1119,6 @@ questions:
 - question: (FFVII) What is the name of Barret's level 4 Limit Break?
   answers:
   - Catastrophe
-- question: (FFVII) What is the name of Cait Sith's level 4 Limit Break?
-  answers:
-  - He Doesn'T Have One
-  - None
-  - Nil
-  - Invalid
-  - Doesn'T Have One
-  - Non-Existent
-  - Doesnt Have One
 - question: (FFVII) What is the name of Cid's level 4 Limit Break?
   answers:
   - Highwind
@@ -1242,7 +1216,6 @@ questions:
 - question: (FFVIII) What always gets sold out in Balamb Garden cafeteria?
   answers:
   - Hotdogs
-  - Hot Dogs
 - question: (FFVIII) What does GF stand for?
   answers:
   - Guardian Force
@@ -1253,11 +1226,7 @@ questions:
 - question: (FFVIII) What is General Caraway's first name?
   answers:
   - Fury
-- question: (FFVIII) What is MiniMog's role?
-  answers:
-  - A Gf
-  - Gf
-- question: (FFVIII) What is the fictional character mentioned by Seifer, 'sorceress Knight', named as?
+- question: (FFVIII) What is the fictional character mentioned by Seifer, 'sorceress' knight', named as?
   answers:
   - Zefer
 - question: (FFVIII) What is the name Rinoa's dog?
@@ -1280,7 +1249,6 @@ questions:
 - question: (FFVIII) What is the name of Squall's ultimate Limit Break?
   answers:
   - Lionheart
-  - Lion Heart
 - question: (FFVIII) What is the name of Zell's ultimate Limit Break?
   answers:
   - My Final Heaven/Armageddon Fist
@@ -1319,7 +1287,6 @@ questions:
 - question: (FFVIII) Where can Headmaster Martine be found after Galbadia Garden was overtaken?
   answers:
   - Fisherman's Horizon
-  - Fisherman Horizon
 - question: (FFVIII) Where is Edea's orphanage located?
   answers:
   - Cape of Good Hope
@@ -1460,6 +1427,7 @@ questions:
   answers:
   - 1000 Words
   - Thousand Words
+  - One Thousand Words
 - question: (FFX-2) The person Yuna thought was Tidus from a sphere recording turned out to be who?
   answers:
   - Shuyin

@@ -240,7 +240,6 @@ questions:
 - question: (Code Geass) Who had a geass which gave them the power to be loved?
   answers:
   - C.C.
-  - CC
 - question: (Code Geass) Who has the codename "Q-1"?
   answers:
   - Kallen Kozuki
@@ -598,10 +597,15 @@ questions:
   - Automail
 - question: (Fullmetal Alchemist) What did Ed give up to revive his mother?
   answers:
+  - His left leg
   - Left leg
+  - His leg
+  - Leg
 - question: (Fullmetal Alchemist) What did Ed sacrifice in order to seal his brother's soul into a suit of armour?
   answers:
+  - His right arm
   - Right arm
+  - His arm
   - Arm
 - question: (Fullmetal Alchemist) What does Edward hate to drink?
   answers:
@@ -610,7 +614,9 @@ questions:
   answers:
   - His eyesight
   - Eyesight
+  - His vision
   - Vision
+  - His sight
   - Sight
 - question: (Fullmetal Alchemist) What does Winry do for a living?
   answers:
@@ -649,7 +655,7 @@ questions:
 - question: (Fullmetal Alchemist) What room number is the Fuhrer's?
   answers:
   - '103'
-- question: (Fullmetal Alchemist) What's Hughes's daughter's name?
+- question: (Fullmetal Alchemist) What is Hughes's daughter's name?
   answers:
   - Elicia
 - question: "(Fullmetal Alchemist) When Mustang was forced to do human transmutation in fma: brotherhood what did he loose?"

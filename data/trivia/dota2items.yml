@@ -4,7 +4,7 @@ questions:
 - question: What item is this? (removed from game) https://i.imgur.com/hze6GhN.png
   answers:
   - Poor Man's Shield
-  - Pms
+  - PMS
 - question: What item is this? (removed from game) https://i.imgur.com/vXFECRh.png
   answers:
   - Iron Talon
@@ -15,10 +15,14 @@ questions:
   answers:
   - Flying Courier (Dire)
   - Flying Courier Dire
+  - Flying Courier
+  - Courier Dire
+  - Courier
 - question: What item is this? https://i.imgur.com/11IYBpl.png
   answers:
   - Power Treads (Intelligence)
   - Power Treads Intelligence
+  - Power Treads
 - question: What item is this? https://i.imgur.com/1DjDKYH.png
   answers:
   - Yasha
@@ -30,7 +34,8 @@ questions:
   - Wraith Band
 - question: What item is this? https://i.imgur.com/1dXNyaw.png
   answers:
-  - Observer And Sentry Wards
+  - Observer and Sentry Wards
+  - Ward Dispenser
 - question: What item is this? https://i.imgur.com/1eXRfIg.png
   answers:
   - Smoke of Deceit
@@ -95,6 +100,7 @@ questions:
   answers:
   - Ring of Basilius (Active)
   - Ring of Basilius Active
+  - Ring of Basilius
 - question: What item is this? https://i.imgur.com/7eicbbk.png
   answers:
   - Meteor Hammer
@@ -122,10 +128,6 @@ questions:
 - question: What item is this? https://i.imgur.com/AWxOnXw.png
   answers:
   - Solar Crest
-- question: What item is this? https://i.imgur.com/B4AJKcj.png
-  answers:
-  - Bottle (Medium)
-  - Bottle Medium
 - question: What item is this? https://i.imgur.com/BqXyEWi.png
   answers:
   - Eaglesong
@@ -168,14 +170,11 @@ questions:
 - question: What item is this? https://i.imgur.com/EuIAVjM.png
   answers:
   - Vitality Booster
-- question: What item is this? https://i.imgur.com/FBRqnb9.png
-  answers:
-  - Bottle (Arcane)
-  - Bottle Arcane
 - question: What item is this? https://i.imgur.com/FGLZkBq.png
   answers:
   - Tranquil Boots (Inactive)
   - Tranquil Boots Inactive
+  - Tranquil Boots
 - question: What item is this? https://i.imgur.com/Fk2AqPs.png
   answers:
   - Iron Branch
@@ -206,10 +205,6 @@ questions:
 - question: What item is this? https://i.imgur.com/HikbhwT.png
   answers:
   - Ethereal Blade
-- question: What item is this? https://i.imgur.com/Hm7z9Xn.png
-  answers:
-  - Bottle (Empty)
-  - Bottle Empty
 - question: What item is this? https://i.imgur.com/HrKThmN.png
   answers:
   - Orchid Malevolence
@@ -226,6 +221,7 @@ questions:
   answers:
   - Ring of Aquila (Inactive)
   - Ring of Aquila Inactive
+  - Ring of Aquila
 - question: What item is this? https://i.imgur.com/JbKeDUc.png
   answers:
   - Urn of Shadows
@@ -241,14 +237,10 @@ questions:
 - question: What item is this? https://i.imgur.com/KL6jON7.png
   answers:
   - Mask of Madness
-- question: What item is this? https://i.imgur.com/KLGzvMb.png
-  answers:
-  - Bottle (Small)
-  - Bottle Small
 - question: What item is this? https://i.imgur.com/KcW7edy.png
   answers:
   - Town Portal Scroll
-  - Tp Scroll
+  - TP Scroll
 - question: What item is this? https://i.imgur.com/LSVesWo.png
   answers:
   - Guardian Greaves
@@ -280,6 +272,9 @@ questions:
   answers:
   - Flying Courier (Radiant)
   - Flying Courier Radiant
+  - Courier Radiant
+  - Flying Courier
+  - Courier
 - question: What item is this? https://i.imgur.com/NhzX71W.png
   answers:
   - Octarine Core
@@ -303,34 +298,30 @@ questions:
 - question: What item is this? https://i.imgur.com/OzcxrY5.png
   answers:
   - Black King Bar
-  - Bkb
+  - BKB
 - question: What item is this? https://i.imgur.com/Pote0DA.png
   answers:
   - Point Booster
 - question: What item is this? https://i.imgur.com/QNFFGLh.png
   answers:
   - Silver Edge
-- question: What item is this? https://i.imgur.com/RGlRQJe.png
-  answers:
-  - Bottle (Invisibility)
-  - Bottle Invisibility
 - question: What item is this? https://i.imgur.com/RM3sSIz.png
   answers:
   - Kaya
 - question: What item is this? https://i.imgur.com/Re67cR1.png
   answers:
   - Monkey King Bar
-  - Mkb
+  - MKB
 - question: What item is this? https://i.imgur.com/TNrZvq8.png
   answers:
   - Shadow Amulet
 - question: What item is this? https://i.imgur.com/TmZVLYT.png
   answers:
   - Lotus Orb
-- question: What item is this? https://i.imgur.com/Tqg4c3O.png
+- question: What rune is this? https://i.imgur.com/Tqg4c3O.png
   answers:
-  - Bottle (Illusion)
-  - Bottle Illusion
+  - Illusion Rune
+  - Illusion
 - question: What item is this? https://i.imgur.com/U9f6T8O.png
   answers:
   - Mantle of Intelligence
@@ -352,8 +343,10 @@ questions:
 - question: What item is this? https://i.imgur.com/VtNBM6g.png
   answers:
   - Animal Courier (Radiant)
-  - Courier Radiant
   - Animal Courier Radiant
+  - Animal Courier
+  - Courier Radiant
+  - Courier
 - question: What item is this? https://i.imgur.com/Vu3eNfk.png
   answers:
   - Sentry Ward
@@ -364,19 +357,18 @@ questions:
   answers:
   - Radiance (Active)
   - Radiance Active
+  - Radiance
 - question: What item is this? https://i.imgur.com/WaKy1Pj.png
   answers:
   - Tango
 - question: What item is this? https://i.imgur.com/WwEfwWi.png
   answers:
   - Necronomicon 1
-- question: What item is this? https://i.imgur.com/XGkphzs.png
-  answers:
-  - Observer And Sentry Wards
 - question: What item is this? https://i.imgur.com/XYIEKMi.png
   answers:
   - Power Treads (Agility)
   - Power Treads Agility
+  - Power Treads
 - question: What item is this? https://i.imgur.com/YsrEZDL.png
   answers:
   - Moon Shard
@@ -399,6 +391,7 @@ questions:
   answers:
   - Ring of Aquila (Active)
   - Ring of Aquila Active
+  - Ring of Aquila
 - question: What item is this? https://i.imgur.com/cJ3dEwh.png
   answers:
   - Oblivion Staff
@@ -408,10 +401,6 @@ questions:
 - question: What item is this? https://i.imgur.com/cYj1mr0.png
   answers:
   - Talisman of Evasion
-- question: What item is this? https://i.imgur.com/cmeeK2C.png
-  answers:
-  - Bottle (Double Damage)
-  - Bottle Double Damage
 - question: What item is this? https://i.imgur.com/cpjr5Ez.png
   answers:
   - Butterfly
@@ -434,6 +423,7 @@ questions:
   answers:
   - Tranquil Boots (Active)
   - Tranquil Boots Active
+  - Tranquil Boots
 - question: What item is this? https://i.imgur.com/eOSLFWz.png
   answers:
   - Cloak
@@ -461,10 +451,6 @@ questions:
 - question: What item is this? https://i.imgur.com/haXACou.png
   answers:
   - Power Treads
-- question: What item is this? https://i.imgur.com/iYzaR71.png
-  answers:
-  - Bottle (Full)
-  - Bottle Full
 - question: What item is this? https://i.imgur.com/ibmZmvS.png
   answers:
   - Banana
@@ -477,13 +463,10 @@ questions:
 - question: What item is this? https://i.imgur.com/kMypuTg.png
   answers:
   - Ring of Regen
+  - Ring of Regeneration
 - question: What item is this? https://i.imgur.com/kW9IHvM.png
   answers:
   - Blink Dagger
-- question: What item is this? https://i.imgur.com/kWErZRY.png
-  answers:
-  - Bottle (Regeneration)
-  - Bottle Regeneration
 - question: What item is this? https://i.imgur.com/kiXFzsz.png
   answers:
   - Spirit Vessel
@@ -504,6 +487,8 @@ questions:
   - Animal Courier (Dire)
   - Courier Dire
   - Animal Courier Dire
+  - Animal Courier
+  - Courier
 - question: What item is this? https://i.imgur.com/m0U0nlL.png
   answers:
   - Platemail
@@ -511,6 +496,7 @@ questions:
   answers:
   - Radiance (Inactive)
   - Radiance Inactive
+  - Radiance
 - question: What item is this? https://i.imgur.com/mGZEMpC.png
   answers:
   - Circlet
@@ -521,6 +507,7 @@ questions:
   answers:
   - Power Treads (Strength)
   - Power Treads Strength
+  - Power Treads
 - question: What item is this? https://i.imgur.com/oKhuvbG.png
   answers:
   - Gauntlets of Strength
@@ -533,6 +520,7 @@ questions:
 - question: What item is this? https://i.imgur.com/owoQWNV.png
   answers:
   - Armlet of Mordiggian (Inactive)
+  - Armlet of Mordiggian Inactive
   - Armlet of Mordiggian
 - question: What item is this? https://i.imgur.com/pNmAlAl.png
   answers:
@@ -543,10 +531,6 @@ questions:
 - question: What item is this? https://i.imgur.com/qM0dRmS.png
   answers:
   - Dagon 5
-- question: What item is this? https://i.imgur.com/rUKqmWD.png
-  answers:
-  - Bottle (Bounty)
-  - Bottle Bounty
 - question: What item is this? https://i.imgur.com/rr3OllO.png
   answers:
   - Ghost Scepter
@@ -566,6 +550,7 @@ questions:
   answers:
   - Ring of Basilius (Inactive)
   - Ring of Basilius Inactive
+  - Ring of Basilius
 - question: What item is this? https://i.imgur.com/vAEHlcZ.png
   answers:
   - Robe of the Magi
@@ -579,6 +564,7 @@ questions:
 - question: What item is this? https://i.imgur.com/vvn8qPb.png
   answers:
   - Armlet of Mordiggian (Active)
+  - Armlet of Mordiggian Active
   - Armlet of Mordiggian
 - question: What item is this? https://i.imgur.com/w6qAscb.png
   answers:
@@ -598,7 +584,33 @@ questions:
 - question: What item is this? https://i.imgur.com/ycsTV7m.png
   answers:
   - Enchanted Mango
-- question: What item is this? https://i.imgur.com/z2OZqwa.png
+  - Mango
+- question: What item is this? https://i.imgur.com/iYzaR71.png
   answers:
-  - Bottle (Haste)
-  - Bottle Haste
+  - Bottle
+- question: What rune is this? https://i.imgur.com/z2OZqwa.png
+  answers:
+  - Haste Rune
+  - Haste
+- question: What rune is this? https://i.imgur.com/RGlRQJe.png
+  answers:
+  - Invisibility Rune
+  - Invisibility
+  - Invis
+- question: What rune is this? https://i.imgur.com/FBRqnb9.png
+  answers:
+  - Arcane Rune
+  - Arcane
+- question: What rune is this? https://i.imgur.com/kWErZRY.png
+  answers:
+  - Regeneration Rune
+  - Regeneration
+  - Regen
+- question: What rune is this? https://i.imgur.com/rUKqmWD.png
+  answers:
+  - Bounty Rune
+  - Bounty
+- question: What rune is this? https://i.imgur.com/cmeeK2C.png
+  answers:
+  - Double Damage Rune
+  - Double Damage

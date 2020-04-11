@@ -255,7 +255,6 @@ questions:
   - Dorado
 - question: On which map was this screenshot taken? http://i.imgur.com/XLgLEdh.jpg
   answers:
-  - Kings Row
   - King's Row
 - question: On which map was this screenshot taken? http://i.imgur.com/Yk8vqgn.jpg
   answers:
@@ -287,7 +286,6 @@ questions:
   - Hollywood
 - question: On which map was this screenshot taken? http://i.imgur.com/vxqkKQ0.jpg
   answers:
-  - Kings Row
   - King's Row
 - question: On which map was this screenshot taken? http://i.imgur.com/xuO8PDw.jpg
   answers:
@@ -299,7 +297,6 @@ questions:
 - question: The Overwatch short Alive, featuring Widowmaker and Tracer, was set on which map?
   answers:
   - King's Row
-  - Kings Row
 - question: The Overwatch short Dragons, featuring Genji and Hanzo, was set on which map?
   answers:
   - Hanamura
@@ -343,29 +340,6 @@ questions:
   answers:
   - A Blizzard
   - Blizzard
-- question: What does Ana say when she uses her ultimate?
-  answers:
-  - You Are Powered Up Get In There
-- question: What does D.Va say when she self destructs her mech?
-  answers:
-  - Nerf This
-- question: What does D.Va say when she uses her ultimate?
-  answers:
-  - Meka Activated
-- question: What does Lúcio say when using his ultimate?
-  answers:
-  - Oh Let's Break It Down
-  - Oh Lets Break It Down
-- question: What does Mercy say when using her ultimate?
-  answers:
-  - Heroes Never Die
-- question: What does Pharah say when she uses her ultimate?
-  answers:
-  - Justice Rains From Above
-- question: What does Tracer say when using her ultimate?
-  answers:
-  - Time's Up
-  - Times Up
 - question: What game can be seen on the monitor in the security room of Hollywood?
   answers:
   - Hearthstone
@@ -541,7 +515,7 @@ questions:
   answers:
   - '20'
   - Twenty
-- question: What is the cooldown in seconds for Mcree's Roll?
+- question: What is the cooldown in seconds for McCree's Roll?
   answers:
   - '8'
   - Eight
@@ -781,12 +755,34 @@ questions:
 - question: Which character class has the most heroes?
   answers:
   - Offense
-- question: Which character has the quote "What's An Aimbot?"?
+- question: Which character says "What's an aimbot?"?
   answers:
   - Widowmaker
 - question: Which character says "It's high noon" when their ultimate is used?
   answers:
   - McCree
+- question: What does D.Va say when she self destructs her mech?
+  answers:
+  - Nerf This
+  - Nerf This!
+  - "\"Nerf This\""
+  - "\"Nerf This!\""
+- question: Which character says "Meka Activated!" when their ultimate is used?
+  answers:
+  - D.Va
+- question: Which character say "Oh, let's break it down!" when their ultimate is used?
+  answers:
+  - Lúcio
+  - Lucio
+- question: Which character says "Heroes never die!"?
+  answers:
+  - Mercy
+- question: Which character says "Justice rains from above!" when their ultimate is used?
+  answers:
+  - Pharah
+- question: Which character says "Time's Up!" when their ultimate is used?
+  answers:
+  - Tracer
 - question: Which character's ultimate has the highest DPS?
   answers:
   - Roadhog

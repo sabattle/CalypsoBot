@@ -10,11 +10,13 @@ module.exports = class TriviaCommand extends Command {
       name: 'trivia',
       aliases: ['triv'],
       usage: '<TOPIC>',
-      description: 'Test your knowledge in a game of trivia! If no topic is given, a random one will be chosen.',
+      description: oneLine`
+        Compete against your friends in a game of trivia (anyone can answer). If no topic is given, a random one will be chosen.
+      `,
       type: 'fun'
     });
   }
-  run(message, args) {
+  async run(message, args) {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let topic = args[0];
     let randomTopic = false;
@@ -35,18 +37,18 @@ module.exports = class TriviaCommand extends Command {
     const origAnswers = [...answers];
     // Clean answers
     for (let i = 0; i < answers.length; i++) {
-      answers[i] = answers[i].trim().toLowerCase().replace(/\.|-|\s/g, '');
+      answers[i] = answers[i].trim().toLowerCase().replace(/\.|'|-|\s/g, '');
     }
 
     // Get user answer
-    if (randomTopic) message.channel.send(`From \`${topic}\`: ${question}`);
-    else message.channel.send(question);
+    if (randomTopic) await message.channel.send(`From \`${topic}\`: ${question}`);
+    else await message.channel.send(question);
     let winner;
     const collector = new Discord.MessageCollector(message.channel, m => {
       if (!m.author.bot) return true;
     }, { time: 10000 }); // Wait 10 seconds
     collector.on('collect', msg => {
-      if (answers.includes(msg.content.toLowerCase().replace(/\.|-|\s/g, ''))){
+      if (answers.includes(msg.content.trim().toLowerCase().replace(/\.|'|-|\s/g, ''))){
         winner = msg.author;
         collector.stop();
       }

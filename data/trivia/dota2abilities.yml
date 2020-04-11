@@ -85,6 +85,8 @@ questions:
 - question: What ability is this? https://i.imgur.com/1yQcHcq.png
   answers:
   - Double Damage Rune Buff
+  - Double Damage Rune
+  - Double Damage
 - question: What ability is this? https://i.imgur.com/21bnvvZ.png
   answers:
   - Launch Fire Spirit
@@ -118,6 +120,8 @@ questions:
 - question: What ability is this? https://i.imgur.com/2dq65g2.png
   answers:
   - Haste Rune Buff
+  - Haste Rune
+  - Haste
 - question: What ability is this? https://i.imgur.com/2jZ4Uf1.png
   answers:
   - Focus Fire
@@ -252,6 +256,10 @@ questions:
 - question: What ability is this? https://i.imgur.com/7dch06I.png
   answers:
   - Invisibility Rune Buff
+  - Invisibility Rune
+  - Invis Rune
+  - Invisibility
+  - Invis
 - question: What ability is this? https://i.imgur.com/7wfVN6a.png
   answers:
   - Ice Vortex
@@ -340,6 +348,8 @@ questions:
 - question: What ability is this? https://i.imgur.com/BaU4IDv.png
   answers:
   - Arcane Rune Buff
+  - Arcane Rune
+  - Arcane
 - question: What ability is this? https://i.imgur.com/Bq9M2l0.png
   answers:
   - Corrosive Skin
@@ -1363,6 +1373,10 @@ questions:
 - question: What ability is this? https://i.imgur.com/o8E0WDX.png
   answers:
   - Regeneration Rune Buff
+  - Regeneration Rune
+  - Regen Rune
+  - Regeneration
+  - Regen
 - question: What ability is this? https://i.imgur.com/o9KvFAt.png
   answers:
   - Vendetta
@@ -1459,7 +1473,7 @@ questions:
   - Magic Missile
 - question: What ability is this? https://i.imgur.com/sJn6T9V.png
   answers:
-  - Emp
+  - EMP
 - question: What ability is this? https://i.imgur.com/saKNr3L.png
   answers:
   - Frozen Sigil

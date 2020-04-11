@@ -28,9 +28,7 @@ questions:
 - question: What is the capital of Antigua and Barbuda?
   answers:
   - Saint John's
-  - Saint Johns
   - St. John's
-  - St. Johns
 - question: What is the capital of Argentina?
   answers:
   - Buenos Aires
@@ -211,7 +209,6 @@ questions:
 - question: What is the capital of Grenada?
   answers:
   - St. George's
-  - St. Georges
 - question: What is the capital of Guatemala?
   answers:
   - Guatemala City

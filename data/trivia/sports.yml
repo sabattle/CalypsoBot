@@ -50,7 +50,7 @@ questions:
   - Twenty-five Thousand
 - question: In 1998, what Major League Baseball player broke the single season home run record previously set by Roger Maris?
   answers:
-  - Mark Mcgwire
+  - Mark McGwire
 - question: In golf, what do you call a score of 4 under par on any given hole?
   answers:
   - Condor
@@ -89,7 +89,6 @@ questions:
   - Green Bay
   - Packers
   - Green Bay Packers
-  - Packers
 - question: NASCAR is an acronym for what family-owned and operated business?
   answers:
   - National Association For Stock Car Auto Racing
@@ -236,11 +235,11 @@ questions:
   - Gordie Howe
 - question: What professional sports league's MVP trophy is called the Podoloff Cup?
   answers:
-  - Nba
+  - NBA
   - National Basketball Association
 - question: What school holds the record for most consecutive NCAA Basketball Titles?
   answers:
-  - Ucla
+  - UCLA
 - question: What speed skater was the first American woman to win five gold medals in Olympic competition?
   answers:
   - Bonnie Blair

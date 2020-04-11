@@ -136,7 +136,6 @@ questions:
 - question: "Which champion's ultimate is named: Feast?"
   answers:
   - Cho'Gath
-  - Cho Gath
 - question: "Which champion's ultimate is named: Featherstorm?"
   answers:
   - Xayah
@@ -206,7 +205,6 @@ questions:
 - question: "Which champion's ultimate is named: Killer Instinct?"
   answers:
   - Kai'Sa
-  - Kai Sa
 - question: "Which champion's ultimate is named: Lamb's Respite?"
   answers:
   - Kindred
@@ -225,11 +223,9 @@ questions:
 - question: "Which champion's ultimate is named: Life Form Disintegration Ray?"
   answers:
   - Vel'Koz
-  - Vel Koz
 - question: "Which champion's ultimate is named: Living Artillery?"
   answers:
   - Kog'Maw
-  - Kog Maw
 - question: "Which champion's ultimate is named: Lunar Rush?"
   answers:
   - Diana
@@ -411,11 +407,9 @@ questions:
 - question: "Which champion's ultimate is named: Void Assault?"
   answers:
   - Kha'Zix
-  - Kha Zix
 - question: "Which champion's ultimate is named: Void Rush?"
   answers:
   - Rek'Sai
-  - Rek Sai
 - question: "Which champion's ultimate is named: Weaver's Wall?"
   answers:
   - Taliyah

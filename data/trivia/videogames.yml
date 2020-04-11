@@ -220,9 +220,12 @@ questions:
 - question: What is Mario's profession?
   answers:
   - Plumber
-- question: What is Mario's surname?
+- question: What is Mario's full name?
   answers:
-  - Mario
+  - Mario Mario
+- question: What is Luigi's full name?
+  answers:
+  - Luigi Mario
 - question: "What is the Helghast home planet in \"Killzone: Shadowfall\"?"
   answers:
   - Helghan
