@@ -11,19 +11,11 @@ module.exports = (client, oldMember, newMember) => {
   const afkId = newMember.guild.afkChannelID;
 
   if (oldId === newId) return;
-  else if (
-    oldId === afkId && newId || // Leaving AFK, joining channel
-    !oldId && newId && newId !== afkId // Joining channel that is not AFK
-  ) {
+  else if ((!oldId || oldId === afkId) && newId && newId !== afkId) { // Joining channel that is not AFK
     newMember.interval = setInterval(() => {
       client.db.guildPoints.updatePoints.run({ points: voicePoints }, newMember.id, newMember.guild.id);
-    }, 60000);
-  }
-
-  else if (
-    oldId && oldId !== afkId && !newId || // Leaving voice chat
-    oldId && newId === afkId // Leaving channel, joining AFK
-  ) {
+    }, 1000);
+  } else if (oldId && (oldId !== afkId && !newId || newId === afkId)) { // Leaving voice chat or joining AFK
     clearInterval(oldMember.interval);
   }
 };
