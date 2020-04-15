@@ -65,9 +65,6 @@ questions:
 - question: If you search for Urf in champion select, whose name pops up?
   answers:
   - Warwick
-- question: If you were to destroy this champion's blades, he/she would die (according to old lore).
-  answers:
-  - Irelia
 - question: In the Bittersweet Lulu skin, what does her Whimsy turn her enemies into?
   answers:
   - Cupcakes
@@ -119,10 +116,11 @@ questions:
   answers:
   - Poppy
   - Maokai
-- question: Name one of the two female champions without a humanoid form.
+- question: Name one of the three female champions without a humanoid form.
   answers:
   - Rek'Sai
   - Anivia
+  - Yuumi
 - question: Name one of the two melee champions with the highest range?
   answers:
   - Mordekaiser
@@ -136,7 +134,7 @@ questions:
 - question: The Mythic Cassiopeia skin was released to celebrate the release of the server for which country?
   answers:
   - Greece
-- question: Warwick betrayed Soraka to get her heart for who?
+- question: Warwick betrayed Soraka to get her heart for whom?
   answers:
   - Singed
 - question: What accessory reduces the amount of damage done by Leona's passive by 1?
@@ -159,6 +157,9 @@ questions:
 - question: Which champion has the most movement speed at level 18?
   answers:
   - Cassiopeia
+- question: Which champion has the highest base armor at level 18?
+  answers:
+  - Pyke
 - question: What color is Galio in his legendary skin?
   answers:
   - Red
@@ -826,6 +827,9 @@ questions:
 - question: Who has a Lunar Goddess skin?
   answers:
   - Diana
+- question: Who has a Lunar Empress skin?
+  answers:
+  - Lux
 - question: Who has a Magnificent skin that is both legendary and legacy?
   answers:
   - Twisted Fate
@@ -1063,7 +1067,7 @@ questions:
 - question: Who has a skill named "Relentless Assault"?
   answers:
   - Jax
-- question: "Who has a skill that says \"You have opened the box. Your prize: death.\" in the Death Recap?"
+- question: "Who has a skill that says \"You have opened the box. Your prize: death\" in the Death Recap?"
   answers:
   - Thresh
 - question: Who has a skin released to celebrate the release of the League of Legends Mac client?
@@ -1171,10 +1175,10 @@ questions:
   - Sion
 - question: Who has the highest base AD among ranged champions at level 18?
   answers:
-  - Morgana
+  - Jhin
 - question: Who has the highest base AD at level 1?
   answers:
-  - Maokai
+  - Lee Sin
 - question: Who has the highest base HP at level 18?
   answers:
   - Alistar
@@ -1187,12 +1191,13 @@ questions:
 - question: Who has the highest base mana at level 18?
   answers:
   - Kassadin
-- question: Who has the highest base mana at level 1?
+- question: Name one of the two champions with the highest base mana at level 1.
   answers:
-  - Janna
+  - Fiddlesticks
+  - Galio
 - question: Who has the least base AD at level 18?
   answers:
-  - Miss Fortune
+  - Senna
 - question: Who has the least base AD at level 1?
   answers:
   - Orianna
@@ -1204,13 +1209,13 @@ questions:
   - Caitlyn
 - question: Who has the lowest base HP at level 18?
   answers:
-  - Gnar
+  - Kled
 - question: Who has the lowest base HP at level 1?
   answers:
-  - Anivia
-- question: Who has the lowest base armor?
+  - Kled
+- question: Who has the lowest base armor at level 18?
   answers:
-  - Orianna
+  - Thresh
 - question: Who has the lowest basic attack range of all ranged champions?
   answers:
   - Rakan
@@ -2214,7 +2219,7 @@ questions:
   answers:
   - Master Yi
   - Yi
-- question: Whose family motto is "For family, I will give."?
+- question: Whose family motto is "For family, I will give"?
   answers:
   - Camille
 - question: Whose hidden passive gives nearby lower-leveled allied champions 5 experience every 5 seconds?
@@ -2335,7 +2340,7 @@ questions:
 - question: Whose species is a scarecrow?
   answers:
   - Fiddlesticks
-- question: Whose taunt is "You can't milk those."?
+- question: Whose taunt is "You can't milk those"?
   answers:
   - Alistar
 - question: Whose taunt is the "Ali Shuffle"?
