@@ -1,21 +1,21 @@
 # Calypso
 
-Calypso is Discord bot built with [discord.js](https://github.com/discordjs/discord.js) that started out as a side project, but has now morphed into something much more. She is a multi-purpose bot with commands ranging from message deletion to random dog pics! Calypso was designed with flexibility in mind, making it very easy to modify existing features or add new ones. Currently a WIP.
+Calypso is a multipurpose Discord bot built with [discord.js](https://github.com/discordjs/discord.js).
 
 ## Features
 
-  * Moderation commands
-  * Fun commands, including games
-  * Stream alerts
-  * Points system with weekly "crown"
-  * General commands
+  * Moderation commands with optional logging
+  * Fun commands, including trivia
+  * General/utility commands
+  * Points system with leaderboards and a rotating winner
   * Cat & dog pics
   * Color system
-  * Secret reactions
+  * Per server customization
+  * And much more!
 
 ## Getting Started
 
-You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=2146958679) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
+You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=281242711) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
 ```
 git clone https://github.com/sabattle/Calypso
 ```
@@ -33,16 +33,25 @@ to snag all of the dependencies. Of course, you need [node](https://nodejs.org/e
 You have to create a ``config.json`` file in order to run the bot (you can use the example file provided as a base). Your file should look something like this:
 ```
 {
-  "token": "",
-  "prefix": "",
-  "ownerId": ""
+  "token": "your_token_here",
+  "ownerId": "your_ID_here",
+  "apiKeys": {
+    "catApi": "your_API_key_here",
+    "googleApi": "your_API_key_here"
 }
 ```
-Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option. ``ownerId`` is your ID and ``prefix`` should be a character you want to come before any commands.
+Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the ``token`` option.
 
 ### Colors
 
-To have colors on your server, first create a bunch of empty roles on your server that begin with #. Then change the color of that role to the desired color. For example, ``#Red`` or ``#Blue``. The members of your server can then change their color by using Calypso's color commands! Credit to [Threebow](https://github.com/Threebow) for the idea.
+To have colors on your server, first create a bunch of empty roles at the bottom of your server's role heirarchy. The names of these roles must begin with the character ``#``, for example, ``#Red`` or ``#Blue``. Then change the color of that role to your desired hex, and that's it!  Or, use the provided ``createcolor`` command to quickly and easily create new colors. After they are set up, the members of your server can then change their color by using Calypso's color commands! Credit to [Threebow](https://github.com/Threebow) for the idea.
+
+## To-Do
+
+Calypso is in a continuous state of development. New features/updates may come at any time. Some pending ideas are:
+
+  * Stream alerts
+  * Custom tag/reaction system
 
 ## Authors
 
@@ -51,9 +60,5 @@ To have colors on your server, first create a bunch of empty roles on your serve
 
 ## License
 
-MIT
+Released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
 
-## To-Do
-
-* Music/DJ functionality
-* Twitch Integration
