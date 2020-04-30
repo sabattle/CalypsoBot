@@ -13,7 +13,7 @@ module.exports = class InviteMeCommand extends Command {
   run(message) {
     message.channel.send(`
       You can use this link to invite me to your server:
-      <https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=2146958679>
+      <https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=281242711>
     `);
   }
 };
