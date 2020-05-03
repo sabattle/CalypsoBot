@@ -20,7 +20,7 @@ module.exports = class DogCommand extends Command {
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
     } catch (err) {
-      message.client.logger.error(err.message);
+      message.client.logger.error(err.stack);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }
   }

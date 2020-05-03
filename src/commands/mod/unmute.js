@@ -27,7 +27,7 @@ module.exports = class UnmuteCommand extends Command {
         await member.removeRole(muteRole);
         message.channel.send(`${member} has been unmuted.`);
       } catch (err) {
-        message.client.logger.error(err.message);
+        message.client.logger.error(err.stack);
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     } else return message.channel.send(`${member} is not muted!`);
@@ -43,7 +43,7 @@ module.exports = class UnmuteCommand extends Command {
         .addField('Member', member, true)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
     }  
   }
 };

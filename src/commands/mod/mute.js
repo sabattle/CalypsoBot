@@ -32,7 +32,7 @@ module.exports = class MuteCommand extends Command {
     try {
       await member.addRole(muteRole);
     } catch (err) {
-      message.client.logger.error(err.message);
+      message.client.logger.error(err.stack);
       return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
     }
     message.channel.send(`${member} has now been muted for **${ms(time, { long: true })}**.`);
@@ -41,7 +41,7 @@ module.exports = class MuteCommand extends Command {
         await member.removeRole(muteRole);
         message.channel.send(`${member} has been unmuted.`);
       } catch (err) {
-        message.client.logger.error(err.message);
+        message.client.logger.error(err.stack);
         return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }, time);
@@ -58,7 +58,7 @@ module.exports = class MuteCommand extends Command {
         .addField('Time', ms(time), true)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
     }  
   }
 };

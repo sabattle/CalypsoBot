@@ -16,7 +16,7 @@ module.exports = class CatFactCommand extends Command {
       const res = (await snekfetch.get('https://catfact.ninja/fact')).body.fact;
       message.channel.send(res);
     } catch (err) {
-      message.client.logger.error(err.message);
+      message.client.logger.error(err.stack);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
     }
   }

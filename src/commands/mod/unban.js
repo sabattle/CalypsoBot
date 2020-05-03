@@ -39,7 +39,7 @@ module.exports = class UnbanCommand extends Command {
         .addField('Reason', reason)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
     }
   }
 };

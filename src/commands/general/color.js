@@ -22,7 +22,7 @@ module.exports = class ColorCommand extends Command {
         await message.member.removeRoles(colors);
         return message.channel.send(`${message.member}, I successfully **cleared** your color.`);
       } catch (err) {
-        message.client.logger.error(err.message);
+        message.client.logger.error(err.stack);
         message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }
@@ -48,7 +48,7 @@ module.exports = class ColorCommand extends Command {
         await message.member.addRole(color);
         message.channel.send(`${message.member}, you now have the color ${color}.`);
       } catch (err) {
-        message.client.logger.error(err.message);
+        message.client.logger.error(err.stack);
         message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
       }
     }

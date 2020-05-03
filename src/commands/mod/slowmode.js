@@ -47,7 +47,7 @@ module.exports = class SlowmodeCommand extends Command {
           .addField('Reason', reason)
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);
-        modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+        modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
       }   
       return message.channel.send(`Slowmode in ${channel} has been **enabled** with a rate of **${rate}s**.`);
     }

@@ -47,7 +47,7 @@ module.exports = class PurgeBotCommand extends Command {
         .addField('Message Count', amount, true)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.message));
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
     }
   }
 };
