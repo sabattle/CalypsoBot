@@ -1,4 +1,4 @@
-# Written by r3pm
+# Written by r3pm and Nettles
 questions:
 - question: (Dark Souls) What is the name of the starting zone?
   answers:
@@ -17,9 +17,11 @@ questions:
 - question: (Dark Souls) What are the names of the two Primordial Serpents?
   answers:
   - Frampt and Kaathe
+  - Kaathe and Frampt
 - question: (Dark Souls III) What are the names of the crow NPCs in Firelink Shrine?
   answers:
   - Pickle-Pee and Pump-A-Rum
+  - Pump-A-Rum and Pickle-Pee
 - question: (Dark Souls II) There has been an iteration of the NPC Patches in every single Dark Souls game, however Dark Souls II was the only game where he went by another name. What was his name?
   answers:
   - Pate
@@ -120,3 +122,22 @@ questions:
   answers:
   - Slave Knight Gael
   - Gael
+  - question: (Dark Souls II) In Dark Souls, you had humanity. In Dark Souls III, you had embers. What is the name of the equivalent item in Dark Souls II?
+  answers:
+  - Human Effigy
+- question: (Dark Souls III) What is the name of the NPC who asks you to kill Darkeater Midir?
+  answers:
+  - Shira
+  - Shira, Knight of Filianore
+- question: (Dark Souls III) The mimic beneath High Lord Wolnir in the Catacombs of Carthus drops what item?
+  answers:
+  - Black Blade
+- question: (Dark Souls) What ring allows the player to walk in water with normal movement speed?
+  answers:
+  - Rusted Iron Ring
+- question: (Dark Souls II) What spell do you recieve in exchange for the Soul of the Darklurker and 5,000 souls?
+  answers:
+  - Lifedrain Patch
+- question: (Dark Souls II) What hex causes nearby corpses to explode?
+  answers: 
+  - Dead Again
