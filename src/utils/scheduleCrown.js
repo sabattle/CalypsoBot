@@ -16,6 +16,6 @@ module.exports = function scheduleCrown(client, guild) {
     guild.job = schedule.scheduleJob(cron, () => {
       rotateCrown(client, guild, crownRole);
     });
+    client.logger.info(`${guild.name}: Successfully scheduled job`);
   }
-  client.logger.info(`${guild.name}: Successfully scheduled job`);
 };
