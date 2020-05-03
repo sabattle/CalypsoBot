@@ -59,8 +59,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
         }
         message.client.db.guildSettings.updateCrownSchedule.run(cron, message.guild.id);
         message.channel.send(oneLine`
-          Successfully updated the \`crown schedule\` to \`${cron}\`. Please note that \`use points\` must be enabled
-          and a \`crown role\` must be set.
+          Successfully updated the \`crown schedule\` to \`${cron}\`. Please note that \`enable points\` must be on and
+          a \`crown role\` must be set.
         `);
         if (message.guild.job) message.guild.job.cancel(); // Cancel old job
 

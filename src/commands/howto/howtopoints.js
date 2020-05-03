@@ -5,7 +5,7 @@ module.exports = class HowToPointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'howtopoints',
-      aliases: ['h2points'],
+      aliases: ['how2points', 'h2points'],
       usage: '',
       description: 'Explains various aspects about Calypso\'s point system.',
       type: 'howto'
@@ -13,12 +13,18 @@ module.exports = class HowToPointsCommand extends Command {
   }
   run(message) {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const messagePoints = message.client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
+    const commandPoints = message.client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
+    const voicePoints = message.client.db.guildSettings.selectVoicePoints.pluck().get(message.guild.id);
     message.channel.send(stripIndent`
-    Points can be earned in the following ways:
+    Points can be earned in a variety of ways. Here is **${message.guild.name}**'s point breakdown:
 
-      1. Each message sent in a text channel is worth **1** point.
-      2. If enabled, each minute spent in voice chat is worth **1** point.
-      3. Points can be given to others using the \`${prefix}givepoints\` command.
+      1. Each message sent in a text channel is worth **${messagePoints}** point(s).
+      2. Each Calypso command used is worth **${commandPoints}** point(s). 
+      3. Each minute spent in voice chat is worth **${voicePoints}** point(s).
+      4. Points can be given to others using the \`${prefix}givepoints\` command.
+    
+    To quickly see your server's point breakdown again, you may also use the command \`${prefix}pointbreakdown\`.
     
     To see current points, use the command \`${prefix}points\`. To see overall points, use \`${prefix}totalpoints\`.
     If a \`crown role\` and \`crown schedule\` are set, then the person with the most points that cycle will win!

@@ -1,9 +1,9 @@
 module.exports = (client, oldMember, newMember) => {
   
   // Check if points enabled
-  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(newMember.guild.id);
+  const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(newMember.guild.id);
   const voicePoints = client.db.guildSettings.selectVoicePoints.pluck().get(newMember.guild.id);
-  if (!enabled || voicePoints == 0) return;
+  if (!pointsEnabled || voicePoints == 0) return;
 
   // Set IDs
   const oldId = oldMember.voiceChannelID;
@@ -14,7 +14,7 @@ module.exports = (client, oldMember, newMember) => {
   else if ((!oldId || oldId === afkId) && newId && newId !== afkId) { // Joining channel that is not AFK
     newMember.interval = setInterval(() => {
       client.db.guildPoints.updatePoints.run({ points: voicePoints }, newMember.id, newMember.guild.id);
-    }, 1000);
+    }, 60000);
   } else if (oldId && (oldId !== afkId && !newId || newId === afkId)) { // Leaving voice chat or joining AFK
     clearInterval(oldMember.interval);
   }

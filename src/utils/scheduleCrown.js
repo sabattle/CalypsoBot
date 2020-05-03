@@ -7,12 +7,12 @@ const rotateCrown = require('./rotateCrown.js');
  * @param {Guild} guild
  */
 module.exports = function scheduleCrown(client, guild) {
-  const enabled = client.db.guildSettings.selectUsePoints.pluck().get(guild.id);
+  const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(guild.id);
   const id = client.db.guildSettings.selectCrownRoleId.pluck().get(guild.id);
   let crownRole;
   if (id) crownRole = guild.roles.get(id);
   const cron = client.db.guildSettings.selectCrownSchedule.pluck().get(guild.id);
-  if (enabled && crownRole && cron) {
+  if (pointsEnabled && crownRole && cron) {
     guild.job = schedule.scheduleJob(cron, () => {
       rotateCrown(client, guild, crownRole);
     });

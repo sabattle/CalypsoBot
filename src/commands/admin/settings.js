@@ -22,8 +22,8 @@ module.exports = class SettingsCommand extends Command {
     const muteRole = message.guild.roles.get(row.mute_role_id) || '';
     const autoRole = message.guild.roles.get(row.auto_role_id) || '';
     const crownRole = message.guild.roles.get(row.crown_role_id) || '';
-    let usePoints = 'false';
-    if (row.use_points) usePoints = 'true';
+    let pointsEnabled = 'false';
+    if (row.enable_points) pointsEnabled = 'true';
     let welcomeMessage = 'false';
     if (row.welcome_message) welcomeMessage = 'true';
     let leaveMessage = 'false';
@@ -41,7 +41,7 @@ module.exports = class SettingsCommand extends Command {
       **Mute Role**: ${muteRole}
       **Auto Role**: ${autoRole}
       **Crown Role**: ${crownRole}
-      **Use Points**: \`${usePoints}\`
+      **Points Enabled**: \`${pointsEnabled}\`
       **Message Points**: \`${row.message_points}\`
       **Command Points**: \`${row.command_points}\`
       **Voice Points**: \`${row.voice_points}\`

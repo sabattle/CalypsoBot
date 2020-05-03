@@ -5,7 +5,7 @@ module.exports = class HowToColorsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'howtocolors',
-      aliases: ['h2colors'],
+      aliases: ['how2colors', 'h2colors'],
       usage: '',
       description: 'Explains how to set up colors on your server.',
       type: 'howto'

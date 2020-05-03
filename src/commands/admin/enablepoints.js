@@ -1,13 +1,13 @@
 const Command = require('../Command.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class UsePointsCommand extends Command {
+module.exports = class EnablePointsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'usepoints',
-      aliases: ['usep', 'up'],
+      name: 'enablepoints',
+      aliases: ['enablep', 'ep'],
       usage: '<BOOLEAN>',
-      description: 'Enables or disables Calypso\'s point tracking (1 point per message).',
+      description: 'Enables or disables Calypso\'s point tracking.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
     });
@@ -20,7 +20,7 @@ module.exports = class UsePointsCommand extends Command {
       args = (+args).toString();
     }
     if (args === '0' || args === '1') {
-      message.client.db.guildSettings.updateUsePoints.run(args, message.guild.id);
+      message.client.db.guildSettings.updateEnablePoints.run(args, message.guild.id);
       if (args == 1) message.channel.send('Successfully **enabled** point tracking.');
       else message.channel.send('Successfully **disabled** point tracking.');
     } else message.channel.send(oneLine`
