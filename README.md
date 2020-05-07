@@ -11,9 +11,7 @@
 
 <div align=center>
 
-  <a href="https://github.com/discordjs">
-    <img src="https://discordapp.com/api/guilds/676596755067961372/widget.png?style=shield" alt="shield.png">
-  </a>
+  <img src="https://discordapp.com/api/guilds/676596755067961372/widget.png?style=shield" alt="shield.png">
 
   <a href="https://github.com/discordjs">
     <img src="https://img.shields.io/badge/discord.js-v11.6.4-blue.svg?logo=npm" alt="shield.png">
@@ -34,9 +32,9 @@
   •
   <a href="#colors">Colors</a>
   •
-  <a href="#authors">Authors</a>
-  •
   <a href="#license">License</a>
+  •
+  <a href="#credits">Credits</a>
 </p>
 
 ## Features
@@ -92,14 +90,14 @@ Calypso is in a continuous state of development. New features/updates may come a
   * Stream alerts
   * Custom tag/reaction system
 
+## License
+
+Released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
+
 ## Credits
 
 * **Sebastian Battle** - *Initial work* - [github](https://github.com/sabattle)
 * **Kyle Glaws** - [github](https://github.com/krglaws)
 * **CommradeFido#5286** - *All art and graphics*
 * **Red Discord Bot** - *Initial trivia* - [github](https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/README.md#join-the-community)
-
-## License
-
-Released under the [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html) license.
-
+* **Threebow** - *Ideas and tutorials* - [github](https://github.com/Threebow)
