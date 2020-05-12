@@ -27,7 +27,7 @@ module.exports = class BotInfoCommand extends Command {
       .addField('Uptime', `${moment.duration(message.client.uptime).hours()} hours`, true)
       .addField('Library/Environment', 'Discord.js 11.5.1 | Node.js 8.10.0', true)
       .addField('Database', 'SQLite', true)
-      .setFooter('Have Suggestions? DM Nettles#8880 or Mitchelson#0129!')
+      .setFooter('Have Suggestions? DM Nettles#8880!')
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

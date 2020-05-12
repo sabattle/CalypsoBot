@@ -17,6 +17,7 @@ const region = {
   'sydney': 'Sydney :flag_au:',
   'southafrica': 'South Africa :flag_za:'
 };
+const verifLevels = ['None', 'Low', 'Medium', '(╯°□°）╯︵  ┻━┻', '┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻'];
 
 module.exports = class ServerInfoCommand extends Command {
   constructor(client) {
@@ -32,9 +33,11 @@ module.exports = class ServerInfoCommand extends Command {
     const embed = new Discord.RichEmbed()
       .setAuthor(message.guild.name, message.guild.iconURL)
       .setThumbnail(message.guild.iconURL)
-      .addField('Members', message.guild.members.size, true)
       .addField('Owner', message.guild.owner.displayName, true)
       .addField('Region', region[message.guild.region], true)
+      .addField('Members', message.guild.members.size, true)
+      .addField('Bots', message.guild.members.array().filter(b => b.user.bot).length, true)
+      .addField('Verification Level', verifLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', message.guild.roles.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
       .addField('Text Channels', message.guild.channels.array().filter(c => c.type === 'text').join(' '))
