@@ -113,6 +113,8 @@ const guildPoints = {
     ) VALUES (?, ?, ?, ?, 0, 0);
   `),
   selectRow: db.prepare('SELECT * FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
+  selectUserIds: db.prepare('SELECT user_id FROM guild_points WHERE guild_id = ?;'),
+  selectUserName: db.prepare('SELECT user_name FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
   selectLeaderboard: db.prepare('SELECT * FROM guild_points WHERE guild_id = ? ORDER BY points DESC;'),
   selectPoints: db.prepare('SELECT points FROM guild_points WHERE user_id = ? AND guild_id = ?;'),
   updatePoints: db.prepare(`
@@ -124,7 +126,8 @@ const guildPoints = {
   wipeServerPoints: db.prepare('UPDATE guild_points SET points = 0 WHERE guild_id = ?;'),
   wipeAllServerPoints: db.prepare('UPDATE guild_points SET points = 0, total_points = 0 WHERE guild_id = ?;'),
   wipePoints: db.prepare('UPDATE guild_points SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
-  wipeAllPoints: db.prepare('UPDATE guild_points SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;')
+  wipeAllPoints: db.prepare('UPDATE guild_points SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;'),
+  deleteRow: db.prepare('DELETE FROM guild_points WHERE user_id = ? AND guild_id = ?;')
 };
 
 module.exports = {

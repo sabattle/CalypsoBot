@@ -11,8 +11,15 @@ module.exports = (client) => {
     scheduleCrown(client, guild);
 
     // Update points table
-    guild.members.forEach(member => {
-      client.db.guildPoints.insertRow.run(member.id, member.user.username, guild.id, guild.name);
+    const userIds = client.db.guildPoints.selectUserIds.pluck().all(guild.id);
+    userIds.forEach(userId => {
+      const member = guild.members.get(userId);
+      if (member) client.db.guildPoints.insertRow.run(userId, member.user.username, guild.id, guild.name);
+      else {
+        const name = client.db.guildPoints.selectUserName.pluck().get(userId, guild.id);
+        client.logger.info(`${guild.name}: Removing ${name} from guild_points table`);
+        client.db.guildPoints.deleteRow.run(userId, guild.id);
+      }
     });
   });
 
