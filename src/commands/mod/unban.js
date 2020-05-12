@@ -26,6 +26,7 @@ module.exports = class UnbanCommand extends Command {
     if(!reason) reason = 'No reason provided';
     await message.guild.unban(user, reason);
     message.channel.send(`I have successfully unbanned ${user.username}.`);
+    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} unbanned ${user.username}`);
     
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);

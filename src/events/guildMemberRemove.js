@@ -8,5 +8,7 @@ module.exports = (client, member) => {
   if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);
   if (leaveMessage && defaultChannel) defaultChannel.send(leaveMessage);
 
-  client.logger.info(`${member.user.username} has left ${member.guild.name}`);
+  client.logger.info(`${member.guild.name}: ${member.user.username} has left the server`);
+  client.logger.info(`${member.guild.name}: Removing ${member.user.username} from guild_points table`);
+  client.db.guildPoints.deleteRow.run(member.id, member.guild.id);
 };

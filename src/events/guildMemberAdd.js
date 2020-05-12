@@ -29,5 +29,5 @@ module.exports = async (client, member) => {
   // Update points db
   client.db.guildPoints.insertRow.run(member.id, member.user.username, member.guild.id, member.guild.name);
 
-  client.logger.info(`${member.user.username} has joined ${member.guild.name}`);
+  client.logger.info(`${member.guild.name}: ${member.user.username} has joined the server`);
 };

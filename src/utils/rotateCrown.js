@@ -49,6 +49,6 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
   // Send crown message
   if (defaultChannel && crownMessage) defaultChannel.send(crownMessage);
 
-  client.logger.info(`${guild.name}: Successfully transferred crown role to ${winner.displayName} and cleared points`);
+  client.logger.info(`${guild.name}: Successfully assigned crown role to ${winner.displayName} and reset points`);
 };
 
