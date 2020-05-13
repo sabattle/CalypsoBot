@@ -10,8 +10,8 @@ module.exports = class MuteCommand extends Command {
       usage: '<USER MENTION> <TIME>',
       description: 'Mutes a user for the specified amount of time (max is 10 days).',
       type: 'mod',
-      clientPermissions: ['SEND_MESSAGES', 'MUTE_MEMBERS', 'MANAGE_ROLES'],
-      userPermissions: ['MUTE_MEMBERS']
+      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+      userPermissions: ['MANAGE_ROLES']
     });
   }
   async run(message, args) {

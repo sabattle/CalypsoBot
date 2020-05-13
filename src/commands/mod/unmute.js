@@ -8,8 +8,8 @@ module.exports = class UnmuteCommand extends Command {
       usage: '<USER MENTION>',
       description: 'Unmutes the specified user.',
       type: 'mod',
-      clientPermissions: ['SEND_MESSAGES', 'MUTE_MEMBERS', 'MANAGE_ROLES'],
-      userPermissions: ['MUTE_MEMBERS']
+      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+      userPermissions: ['MANAGE_ROLES']
     });
   }
   async run(message, args) {

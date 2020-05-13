@@ -50,7 +50,7 @@
 
 ## Installation
 
-You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=281242711) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
+You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
 ```
 git clone https://github.com/sabattle/Calypso
 ```

@@ -25,7 +25,7 @@ module.exports = class BotInfoCommand extends Command {
       .addField('Detected Users', message.client.users.size - 1, true)
       .addField('Servers', message.client.guilds.size, true)
       .addField('Uptime', `${moment.duration(message.client.uptime).hours()} hours`, true)
-      .addField('Library/Environment', 'Discord.js 11.5.1 | Node.js 8.10.0', true)
+      .addField('Library/Environment', 'Discord.js 11.6.4 | Node.js 8.10.0', true)
       .addField('Database', 'SQLite', true)
       .setFooter('Have Suggestions? DM Nettles#8880!')
       .setTimestamp()
