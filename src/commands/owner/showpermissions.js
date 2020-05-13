@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const Discord = require('discord.js');
 
 module.exports = class ShowPermissionsCommand extends Command {
   constructor(client) {
@@ -13,8 +14,11 @@ module.exports = class ShowPermissionsCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    if (!member) 
-      return message.channel.send('No member was mentioned.');
-    message.channel.send(member.permissions.toArray().join('\n'));
+    const permissions = member.permissions.toArray().map(p => '`' + p + '`').join('\n');
+    const embed = new Discord.RichEmbed()
+      .setTitle(`${member.displayName}'s Permissions`)
+      .setDescription(permissions)
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   }
 };

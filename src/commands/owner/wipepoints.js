@@ -13,8 +13,6 @@ module.exports = class WipePointsCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    if (!member) 
-      return message.channel.send('No member was mentioned.');
     message.client.db.guildPoints.wipePoints.run(member.id, message.guild.id);
     message.channel.send(`Successfully wiped ${member}'s points.`);
   } 
