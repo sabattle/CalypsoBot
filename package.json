@@ -1,6 +1,6 @@
 {
   "name": "calypso",
-  "version": "0.9.5",
+  "version": "1.0.0",
   "description": "A multipurpose discord bot made with discord.js",
   "main": "app.js",
   "dependencies": {
@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://sabattle@github.com/sabattle/Calypso.git"
+    "url": "git+https://sabattle@github.com/sabattle/CalypsoBot.git"
   },
   "author": "Sebastian Battle",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/sabattle/Calypso/issues"
+    "url": "https://github.com/sabattle/CalypsoBot/issues"
   },
-  "homepage": "https://github.com/sabattle/Calypso#readme"
+  "homepage": "https://github.com/sabattle/CalypsoBot#readme"
 }
