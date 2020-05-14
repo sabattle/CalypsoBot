@@ -1,26 +1,3 @@
-<style>
-  .button {
-    background-color: #fafbfc;
-    border: 3px solid #c2c2c2;
-    border-radius: 8px;
-    color: black;
-    padding: 12px 22px;
-    text-align: center;
-    font-weight: 350;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 16px;
-    cursor: pointer;
-    transition-duration: 0.2s;
-  }
-
-  .button:hover {
-    background-color: #c2c2c2;
-    color: white;
-    outline: none;
-  }
-</style>
-
 <h1 align="center">
   <br>
   <a href="https://github.com/sabattle/CalypsoBot"><img src="./data/images/Calypso_Title.png"></a>
@@ -62,14 +39,9 @@
   <a href="#credits">Credits</a>
 </p>
 
-<div align="center">
-  <a href="https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727" class="button" style="text-decoration:none;color:#000000;">
-    Invite Calypso
-  </a>
-  <a href="https://discord.gg/pnYVdut" class="button" style="text-decoration:none;color:#000000;">
-    Join Support Server
-  </a>
-</div>
+Calypso is an open source, multipurpose Discord bot that is constantly growing. You can invite her to your Discord server using [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Also,  join the official [Calypso Support Server](https://discord.gg/pnYVdut) for all questions, suggestions, and assistance!
+
+If you liked or enjoyed this repository, feel free to leave a star ⭐ to help promote Calypso!
 
 ## Features
 
@@ -84,7 +56,7 @@
 
 ## Installation
 
-You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
+You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Alternatively, you can clone this repo and host the bot yourself.
 ```
 git clone https://github.com/sabattle/CalypsoBot.git
 ```
@@ -116,6 +88,8 @@ Once done, feel free to launch Calypso using the command ``node app.js`` or ``no
 ### Colors
 
 To have colors on your server, first create a bunch of empty roles at the bottom of your server's role heirarchy. The names of these roles must begin with the character ``#``, for example, ``#Red`` or ``#Blue``. Then change the color of that role to your desired hex, and that's it!  Or, use the provided ``createcolor`` command to quickly and easily create new colors. After they are set up, the members of your server can then change their color by using Calypso's color commands! Credit to [Threebow](https://github.com/Threebow) for the idea.
+
+![Alt Text](https://i.imgur.com/iMLwdMm.gif)
 
 ## To-Do
 
