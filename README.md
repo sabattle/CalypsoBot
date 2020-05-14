@@ -1,3 +1,26 @@
+<style>
+  .button {
+    background-color: #fafbfc;
+    border: 3px solid #c2c2c2;
+    border-radius: 8px;
+    color: black;
+    padding: 12px 22px;
+    text-align: center;
+    font-weight: 350;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 16px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+  }
+
+  .button:hover {
+    background-color: #c2c2c2;
+    color: white;
+    outline: none;
+  }
+</style>
+
 <h1 align="center">
   <br>
   <a href="https://github.com/sabattle/CalypsoBot"><img src="./data/images/Calypso_Title.png"></a>
@@ -11,7 +34,9 @@
 
 <div align=center>
 
-  <img src="https://discordapp.com/api/guilds/676596755067961372/widget.png?style=shield" alt="shield.png">
+  <a href="https://discord.gg/pnYVdut">
+    <img src="https://discordapp.com/api/guilds/709992782252474429/widget.png?style=shield" alt="shield.png">
+  </a>
 
   <a href="https://github.com/discordjs">
     <img src="https://img.shields.io/badge/discord.js-v11.6.4-blue.svg?logo=npm" alt="shield.png">
@@ -37,6 +62,15 @@
   <a href="#credits">Credits</a>
 </p>
 
+<div align="center">
+  <a href="https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727" class="button" style="text-decoration:none;color:#000000;">
+    Invite Calypso
+  </a>
+  <a href="https://discord.gg/pnYVdut" class="button" style="text-decoration:none;color:#000000;">
+    Join Support Server
+  </a>
+</div>
+
 ## Features
 
   * Moderation commands with optional logging
@@ -52,7 +86,7 @@
 
 You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Alternatively, you can feel free to clone this repo and host the bot yourself.
 ```
-git clone https://github.com/sabattle/Calypso
+git clone https://github.com/sabattle/CalypsoBot.git
 ```
 After cloning, run an
 ```
@@ -77,7 +111,7 @@ Visit the Discord [developer portal](https://discordapp.com/developers/applicati
   * [TheCatAPI](https://thecatapi.com/)
   * [Google APIs](https://console.developers.google.com/apis/)
 
-Once done, feel free to launch Calypso using the command ``node app.js`` or ``nodemon app.js``. If on Linux, you can also kick off using the ``start.sh`` script.
+Once done, feel free to launch Calypso using the command ``node app.js`` or ``nodemon app.js``. If on Linux, you can also kick off using the ``start.sh`` script. If you need additional help setting up, join the [Calypso Support Server](https://discord.gg/pnYVdut)!
 
 ### Colors
 
