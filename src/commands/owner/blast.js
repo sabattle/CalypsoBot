@@ -13,9 +13,9 @@ module.exports = class BlastCommand extends Command {
   run(message, args) {
     const msg = args.join(' ');
     message.client.guilds.forEach(guild => {
-      const id = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(message.guild.id);
+      const id = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(guild.id);
       let defaultChannel;
-      if (id) defaultChannel = message.guild.channels.get(id);
+      if (id) defaultChannel = guild.channels.get(id);
       if (defaultChannel) defaultChannel.send(msg);
       else message.channel.send(`Unable to send message in: ${guild.name}`);
     });
