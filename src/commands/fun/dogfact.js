@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const snekfetch = require('snekfetch');
+const fetch = require('node-fetch');
 
 module.exports = class DogFactCommand extends Command {
   constructor(client) {
@@ -13,7 +13,7 @@ module.exports = class DogFactCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await snekfetch.get('https://dog-api.kinduff.com/api/facts')).body.facts[0];
+      const res = (await fetch.get('https://dog-api.kinduff.com/api/facts')).body.facts[0];
       message.channel.send(res);
     } catch (err) {
       message.client.logger.error(err.stack);

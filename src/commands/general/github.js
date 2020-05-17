@@ -13,7 +13,7 @@ module.exports = class GitHubCommand extends Command {
   run(message) {
     message.channel.send(`
       Here's the link to my GitHub repository:
-      <https://github.com/sabattle/Calypso>
+      <https://github.com/sabattle/CalypsoBot>
 
       Please support me by starring the repo, and feel free to comment about issues or suggestions!
     `);

@@ -12,8 +12,8 @@ module.exports = class CreateColorCommand extends Command {
       usage: '<HEX> <COLOR NAME>',
       description: 'Creates a new role for the given color hex.',
       type: 'admin',
-      userPermissions: ['MANAGE_ROLES'],
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
+      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+      userPermissions: ['MANAGE_ROLES']
     });
   }
   async run(message, args) {
@@ -23,7 +23,7 @@ module.exports = class CreateColorCommand extends Command {
         Sorry ${message.member}, I don't recognize that. Please provide a color hex and a color name.
       `);
     } 
-    let colorName = args.join(' ').toLowerCase();
+    let colorName = args.join(' ');
     if (!colorName.startsWith('#')) colorName = '#' + colorName;
     try {
       const role = await message.guild.createRole({

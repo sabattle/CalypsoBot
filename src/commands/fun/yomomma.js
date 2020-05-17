@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const snekfetch = require('snekfetch');
+const fetch = require('node-fetch');
 
 module.exports = class YoMommaCommand extends Command {
   constructor(client) {
@@ -13,7 +13,7 @@ module.exports = class YoMommaCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await snekfetch.get('https://api.yomomma.info'));
+      const res = (await fetch.get('https://api.yomomma.info'));
       const joke = JSON.parse(res.text);
       message.channel.send(joke.joke);
     } catch (err) {

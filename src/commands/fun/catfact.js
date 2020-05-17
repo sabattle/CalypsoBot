@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const snekfetch = require('snekfetch');
+const fetch = require('node-fetch');
 
 module.exports = class CatFactCommand extends Command {
   constructor(client) {
@@ -13,7 +13,7 @@ module.exports = class CatFactCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await snekfetch.get('https://catfact.ninja/fact')).body.fact;
+      const res = (await fetch.get('https://catfact.ninja/fact')).body.fact;
       message.channel.send(res);
     } catch (err) {
       message.client.logger.error(err.stack);

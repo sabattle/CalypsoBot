@@ -2,9 +2,12 @@ const scheduleCrown = require('../utils/scheduleCrown.js');
 
 module.exports = (client) => {
   
+  // Update presence
+  client.user.setPresence({ status: 'online', activity: { name: 'your commands', type: 'LISTENING'} });
+
   // Update db with new servers
   client.logger.info('Updating database and scheduling jobs...');
-  client.guilds.forEach(guild => {
+  for (const guild of client.guilds.cache) {
     client.db.guildSettings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
 
     // Schedule crown role rotation
@@ -21,9 +24,8 @@ module.exports = (client) => {
         client.db.guildPoints.deleteRow.run(userId, guild.id);
       }
     });
-  });
+  }
 
   client.logger.info('Calypso is now online');
-  client.logger.info(`Calypso is running on ${client.guilds.size} server(s)`);
-  client.user.setPresence({ status: 'online', game: { name: 'your commands', type: 2 } });
+  client.logger.info(`Calypso is running on ${client.guilds.cache.size} server(s)`);
 };
