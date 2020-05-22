@@ -5,14 +5,14 @@ module.exports = async (client, member) => {
   // Get default channel
   const defaultChannelId = client.db.guildSettings.selectDefaultChannelId.pluck().get(member.guild.id);
   let defaultChannel;
-  if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);
+  if (defaultChannelId) defaultChannel = member.guild.channels.cache.get(defaultChannelId);
 
   // Set auto role
   const autoRoleId = client.db.guildSettings.selectAutoRoleId.pluck().get(member.guild.id);
   if (autoRoleId) {
-    const autoRole = member.guild.roles.get(autoRoleId);
+    const autoRole = member.guild.roles.cache.get(autoRoleId);
     try {
-      await member.addRole(autoRole);
+      await member.roles.add(autoRole);
     } catch (err) {
       if (defaultChannel) return defaultChannel.send(oneLine`
         I tried to give ${autoRole} to ${member}, but something went wrong. Please check the role hierarchy and ensure 

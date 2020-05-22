@@ -16,7 +16,7 @@ module.exports = class BanCommand extends Command {
     const member = this.getMemberFromMention(message, args[0]);
     if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
     if (member === message.member) return message.channel.send('You cannot ban yourself.'); 
-    if (member.highestRole.position >= message.member.highestRole.position)
+    if (member.roles.highest.position >= message.member.roles.highest.position)
       return message.channel.send(`${message.member}, you cannot ban someone who has an equal or higher role.`);
     if (!member.bannable) return message.channel.send(`I am unable to ban ${member}.`);
     let reason = args.slice(1).join(' ');
@@ -28,9 +28,9 @@ module.exports = class BanCommand extends Command {
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Action: `Ban`')
         .addField('Executor', message.member, true)
         .addField('Member', member, true)

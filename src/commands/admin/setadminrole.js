@@ -19,7 +19,7 @@ module.exports = class SetAdminRoleCommand extends Command {
       return message.channel.send('Successfully **cleared** the `admin role`.');
     } 
     const roleName = args.join(' ').toLowerCase();
-    let role = message.guild.roles.find(r => r.name.toLowerCase() === roleName);
+    let role = message.guild.roles.cache.find(r => r.name.toLowerCase() === roleName);
     role = this.getRoleFromMention(message, args[0]) || role;
     if (!role) return message.channel.send(oneLine`
       Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.

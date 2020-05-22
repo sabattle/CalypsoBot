@@ -17,7 +17,7 @@ module.exports = class CatCommand extends Command {
       const img = (await fetch.get('https://api.thecatapi.com/v1/images/search', {
         headers: { 'x-api-key': apiKey }
       })).body[0].url;
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Meow!')
         .setImage(img)
         .setColor(message.guild.me.displayHexColor);

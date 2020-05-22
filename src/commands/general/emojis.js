@@ -11,10 +11,10 @@ module.exports = class EmojisCommand extends Command {
     });
   }
   run(message) {
-    const emojis = message.guild.emojis;
+    const emojis = message.guild.emojis.cache;
     let emojiList = '';
     emojis.forEach(e => { emojiList = emojiList + `${e} :${e.name}: \n`; });
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle('Emoji List')
       .setColor(message.guild.me.displayHexColor);
     while (emojiList.length > 2048) { // Description is capped at 2048 chars

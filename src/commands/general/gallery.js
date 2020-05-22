@@ -1,11 +1,11 @@
 const Command = require('../Command.js');
 const Discord = require('discord.js');
 const art = [
-  'https://raw.githubusercontent.com/sabattle/Calypso/develop/data/images/Calypso_Full_Signature.png',
-  'https://raw.githubusercontent.com/sabattle/Calypso/develop/data/images/Calypso.png',
-  'https://raw.githubusercontent.com/sabattle/Calypso/develop/data/images/Calypso_WIP.png',
-  'https://raw.githubusercontent.com/sabattle/Calypso/develop/data/images/Calypso_WIP_2.png',
-  'https://raw.githubusercontent.com/sabattle/Calypso/develop/data/images/Calypso_WIP_3.png'
+  'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Full_Signature.png',
+  'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png',
+  'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_WIP.png',
+  'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_WIP_2.png',
+  'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_WIP_3.png'
 ];
 
 module.exports = class GalleryCommand extends Command {
@@ -22,8 +22,8 @@ module.exports = class GalleryCommand extends Command {
     let n = 0;
     const back = '⬅';
     const next = '➡';
-    let embed = new Discord.RichEmbed()
-      .setAuthor('Gallery', message.client.user.displayAvatarURL)
+    let embed = new Discord.MessageEmbed()
+      .setAuthor('Gallery', message.client.user.displayAvatarURL()())
       .setImage(art[n])
       .setFooter('All art courtesy of CommradeFido#5286.\nGallery expires after 3 minutes.')
       .setColor(message.guild.me.displayHexColor);
@@ -33,7 +33,7 @@ module.exports = class GalleryCommand extends Command {
     const filter = (reaction, user) => user != message.client.user;
     const collector = msg.createReactionCollector(filter, { time: 180000 }); // Three minute timer
     collector.on('collect', async reaction => {
-      const reactionUsers = (await reaction.fetchUsers()).filter(u => u != message.client.user);
+      const reactionUsers = (await reaction.users.fetch()).filter(u => u != message.client.user);
       reactionUsers.forEach(async user => await reaction.remove(user));
       if (reaction.emoji.name === back){
         n--;

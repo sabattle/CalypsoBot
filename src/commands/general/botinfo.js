@@ -15,8 +15,8 @@ module.exports = class BotInfoCommand extends Command {
     });
   }
   run(message) {
-    const embed = new Discord.RichEmbed()
-      .setAuthor('Calypso\'s Information', message.client.user.avatarURL)
+    const embed = new Discord.MessageEmbed()
+      .setAuthor('Calypso\'s Information', message.client.user.avatarURL())
       .setDescription(oneLine`
         Calypso is a multipurpose Discord bot with a variety of commands. Originally started as a side project, she
         soon turned into something much more. She first went live on February 22nd, 2018.

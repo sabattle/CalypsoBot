@@ -90,7 +90,7 @@ class Command {
     const matches = mention.match(/^<@!?(\d+)>$/);
     if (!matches) return;
     const id = matches[1];
-    return message.guild.members.get(id);
+    return message.guild.members.cache.get(id);
   }
 
   /**
@@ -103,7 +103,7 @@ class Command {
     const matches = mention.match(/^<@&(\d+)>$/);
     if (!matches) return;
     const id = matches[1];
-    return message.guild.roles.get(id);
+    return message.guild.roles.cache.get(id);
   }
 
   /**
@@ -116,7 +116,7 @@ class Command {
     const matches = mention.match(/^<#(\d+)>$/);
     if (!matches) return;
     const id = matches[1];
-    return message.guild.channels.get(id);
+    return message.guild.channels.cache.get(id);
   }
 
   /**

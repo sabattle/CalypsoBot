@@ -18,7 +18,7 @@ module.exports = class OwnerAliasesCommand extends Command {
       if (command.aliases && command.type == 'owner') 
         aliases = aliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
     });
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle('Alias List')
       .setColor(message.guild.me.displayHexColor)
       .setDescription(aliases);

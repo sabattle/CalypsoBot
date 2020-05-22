@@ -23,7 +23,7 @@ module.exports = class PurgeBotCommand extends Command {
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
       return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
     await message.delete();
-    let messages = await message.channel.fetchMessages({limit: amount});
+    let messages = await message.channel.messages.fetch({limit: amount});
     messages = messages.array().filter(msg => { // Filter for commands or bot messages
       const command = message.client.commands.get(msg.content
         .trim().split(/ +/g).shift().slice(prefix.length).toLowerCase());
@@ -38,9 +38,9 @@ module.exports = class PurgeBotCommand extends Command {
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Action: `Purgebot`')
         .addField('Executor', message.member, true)
         .addField('Channel', message.channel, true)

@@ -25,7 +25,7 @@ module.exports = class YoutubeCommand extends Command {
     result = result.results[0];
     if (!result) return message.channel.send(`Sorry ${message.member}, I was unable to find that video.`);
     const decodedTitle = he.decode(result.title);
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(decodedTitle)
       .setURL(result.link)
       .setDescription(result.description)

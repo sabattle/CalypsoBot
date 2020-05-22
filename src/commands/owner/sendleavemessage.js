@@ -14,7 +14,7 @@ module.exports = class SendLeaveMessageCommand extends Command {
   run(message, args) {
     const id = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(message.guild.id);
     let defaultChannel;
-    if (id) defaultChannel = message.guild.channels.get(id);
+    if (id) defaultChannel = message.guild.channels.cache.get(id);
     const channel = this.getChannelFromMention(message, args[0]) || defaultChannel;
     if (!channel) 
       return message.channel.send('No text channel was mentioned and no `default channel` is set on this server.');

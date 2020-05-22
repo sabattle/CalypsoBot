@@ -15,7 +15,7 @@ module.exports = class YesNoCommand extends Command {
   async run(message) {
     try {
       const res = (await fetch.get('http://yesno.wtf/api/')).body;
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle(res.answer + '!')
         .setImage(res.image)
         .setColor(message.guild.me.displayHexColor);

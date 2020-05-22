@@ -12,9 +12,9 @@ module.exports = class ServerIconCommand extends Command {
     });
   }
   run(message) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(`${message.guild.name}'s Icon`)
-      .setImage(message.guild.iconURL)
+      .setImage(message.guild.iconURL())
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }

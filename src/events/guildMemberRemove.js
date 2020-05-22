@@ -5,7 +5,7 @@ module.exports = (client, member) => {
   if (leaveMessage) leaveMessage = leaveMessage.replace('?member', member); // Member substituion
   const defaultChannelId = client.db.guildSettings.selectDefaultChannelId.pluck().get(member.guild.id);
   let defaultChannel;
-  if (defaultChannelId) defaultChannel = member.guild.channels.get(defaultChannelId);
+  if (defaultChannelId) defaultChannel = member.guild.channels.cache.get(defaultChannelId);
   if (leaveMessage && defaultChannel) defaultChannel.send(leaveMessage);
 
   client.logger.info(`${member.guild.name}: ${member.user.username} has left the server`);

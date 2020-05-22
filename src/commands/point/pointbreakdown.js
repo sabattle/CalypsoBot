@@ -21,7 +21,7 @@ module.exports = class PointBreakdownCommand extends Command {
       **Command Points**: \`${commandPoints} per command\`
       **Voice Points**: \`${voicePoints} per minute\`
     `;
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(`${message.guild.name}'s Point Breakdown`)
       .setColor(message.guild.me.displayHexColor)
       .setDescription(breakdown);

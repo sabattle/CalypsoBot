@@ -15,13 +15,13 @@ module.exports = class SettingsCommand extends Command {
   }
   run(message) {
     const row = message.client.db.guildSettings.selectRow.get(message.guild.id);
-    const defaultChannel = message.guild.channels.get(row.default_channel_id) || '';
-    const modlogChannel = message.guild.channels.get(row.modlog_channel_id) || '';
-    const adminRole = message.guild.roles.get(row.admin_role_id) || '';
-    const modRole = message.guild.roles.get(row.mod_role_id) || '';
-    const muteRole = message.guild.roles.get(row.mute_role_id) || '';
-    const autoRole = message.guild.roles.get(row.auto_role_id) || '';
-    const crownRole = message.guild.roles.get(row.crown_role_id) || '';
+    const defaultChannel = message.guild.channels.cache.get(row.default_channel_id) || '';
+    const modlogChannel = message.guild.channels.cache.get(row.modlog_channel_id) || '';
+    const adminRole = message.guild.roles.cache.get(row.admin_role_id) || '';
+    const modRole = message.guild.roles.cache.get(row.mod_role_id) || '';
+    const muteRole = message.guild.roles.cache.get(row.mute_role_id) || '';
+    const autoRole = message.guild.roles.cache.get(row.auto_role_id) || '';
+    const crownRole = message.guild.roles.cache.get(row.crown_role_id) || '';
     let pointsEnabled = 'false';
     if (row.enable_points) pointsEnabled = 'true';
     let welcomeMessage = 'false';
@@ -50,9 +50,9 @@ module.exports = class SettingsCommand extends Command {
       **Crown Message**: \`${crownMessage}\`
       **Crown Schedule**: ${crownSchedule}
     `;
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL)
+      .setThumbnail(message.guild.iconURL())
       .setColor(message.guild.me.displayHexColor)
       .setDescription(settings);
     message.channel.send(embed);

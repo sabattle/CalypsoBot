@@ -14,10 +14,10 @@ module.exports = class UserInfoCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    const embed = new Discord.RichEmbed()
-      .setAuthor(member.displayName, member.user.displayAvatarURL)
+    const embed = new Discord.MessageEmbed()
+      .setAuthor(member.displayName, member.user.displayAvatarURL()())
       .setDescription(`Current status is **${member.presence.status}**.`)
-      .setThumbnail(member.user.displayAvatarURL)
+      .setThumbnail(member.user.displayAvatarURL()())
       .setFooter(`${member.user.username}#${member.user.discriminator} | User ID: ${member.id}`)
       .setTimestamp()
       .addField('Joined server on', moment(member.joinedAt).format('MMM DD YYYY'), true)

@@ -5,17 +5,17 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
   // Get default channel
   const id = client.db.guildSettings.selectDefaultChannelId.pluck().get(guild.id);
   let defaultChannel;
-  if (id) defaultChannel = guild.channels.get(id);
+  if (id) defaultChannel = guild.channels.cache.get(id);
   
   const leaderboard = client.db.guildPoints.selectLeaderboard.all(guild.id);
-  const winner = guild.members.get(leaderboard[0].user_id);
+  const winner = guild.members.cache.get(leaderboard[0].user_id);
   let quit = false;
 
   // Remove role from losers
-  await Promise.all(guild.members.map(async member => { // Good alternative to handling async forEach
+  await Promise.all(guild.members.cache.map(async member => { // Good alternative to handling async forEach
     if (member.roles.has(crownRole.id)) {
       try {
-        await member.removeRole(crownRole);
+        await member.roles.remove(crownRole);
       } catch (err) {
         if (defaultChannel) return defaultChannel.send(oneLine`
           I tried to remove ${crownRole} from ${member}, but something went wrong. Please check the role hierarchy and 
@@ -30,7 +30,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
 
   // Give role to winner
   try {
-    await winner.addRole(crownRole);
+    await winner.roles.add(crownRole);
     // Clear points
     client.db.guildPoints.clearPoints.run(guild.id);
   } catch (err) {

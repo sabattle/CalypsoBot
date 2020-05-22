@@ -12,11 +12,11 @@ module.exports = class MembersCommand extends Command {
   }
   run(message) {
 
-    const online = message.guild.members.array().filter((m) => m.presence.status === 'online').length;
-    const offline = message.guild.members.array().filter((m) => m.presence.status === 'offline').length;
-    const dnd = message.guild.members.array().filter((m) => m.presence.status === 'dnd').length;
-    const afk = message.guild.members.array().filter((m) => m.presence.status === 'idle').length;
-    const embed = new Discord.RichEmbed()
+    const online = message.guild.members.cache.array().filter((m) => m.presence.status === 'online').length;
+    const offline = message.guild.members.cache.array().filter((m) => m.presence.status === 'offline').length;
+    const dnd = message.guild.members.cache.array().filter((m) => m.presence.status === 'dnd').length;
+    const afk = message.guild.members.cache.array().filter((m) => m.presence.status === 'idle').length;
+    const embed = new Discord.MessageEmbed()
       .setTitle('Member Status')
       .setDescription(`
         🟢 **Online**: \`${online}\` members
@@ -28,7 +28,7 @@ module.exports = class MembersCommand extends Command {
         ⚫ **Offline**: \`${offline}\` members
       `)
       .setColor(message.guild.me.displayHexColor)
-      .setFooter(`Found ${message.guild.members.array().length} members`);
+      .setFooter(`Found ${message.guild.members.cache.array().length} members`);
     message.channel.send(embed);
   }
 };

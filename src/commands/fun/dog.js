@@ -14,7 +14,7 @@ module.exports = class DogCommand extends Command {
   async run(message) {
     try {
       const img = (await fetch.get('https://dog.ceo/api/breeds/image/random')).body.message;
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Woof!')
         .setImage(img)
         .setColor(message.guild.me.displayHexColor);

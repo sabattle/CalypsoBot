@@ -17,11 +17,11 @@ module.exports = class MuteCommand extends Command {
   async run(message, args) {
     const id = message.client.db.guildSettings.selectMuteRoleId.pluck().get(message.guild.id);
     let muteRole;
-    if (id) muteRole = message.guild.roles.get(id);
+    if (id) muteRole = message.guild.roles.cache.get(id);
     else return message.channel.send('There is currently no `mute role` set on this server.');
     const member = this.getMemberFromMention(message, args[0]);
     if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
-    if (member.highestRole.position >= message.member.highestRole.position)
+    if (member.roles.highest.position >= message.member.roles.highest.position)
       return message.channel.send(`${message.member}, you cannot mute someone who has an equal or higher role.`);
     let time = ms(args[1]);
     if (!time || time > 864000000) // Cap at 10 days, larger than 24.8 days causes integer overflow
@@ -30,7 +30,7 @@ module.exports = class MuteCommand extends Command {
       `);
     if (member.roles.has(id)) return message.channel.send(`${member} is already muted!`);
     try {
-      await member.addRole(muteRole);
+      await member.roles.add(muteRole);
     } catch (err) {
       message.client.logger.error(err.stack);
       return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
@@ -38,7 +38,7 @@ module.exports = class MuteCommand extends Command {
     message.channel.send(`${member} has now been muted for **${ms(time, { long: true })}**.`);
     member.timeout = message.client.setTimeout(async () => {
       try {
-        await member.removeRole(muteRole);
+        await member.roles.remove(muteRole);
         message.channel.send(`${member} has been unmuted.`);
       } catch (err) {
         message.client.logger.error(err.stack);
@@ -49,9 +49,9 @@ module.exports = class MuteCommand extends Command {
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Action: `Mute`')
         .addField('Executor', message.member, true)
         .addField('Member', member, true)

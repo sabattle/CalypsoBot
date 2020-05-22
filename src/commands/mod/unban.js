@@ -31,9 +31,9 @@ module.exports = class UnbanCommand extends Command {
     // Update modlog
     const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.get(modlogChannelId);
+    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setTitle('Action: `Unban`')
         .addField('Executor', message.member, true)
         .addField('Member', user.username, true)

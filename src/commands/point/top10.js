@@ -16,14 +16,14 @@ module.exports = class TopTenCommand extends Command {
     const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
     const top10 = leaderboard.slice(0, 10);
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(message.guild.name + ' Leaderboard (Top 10)')
       .setColor(message.guild.me.displayHexColor)
       .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
     let count = 1, pointsList = [];
     for(const row of top10) {
       pointsList.push(oneLine`
-        **${count}.** ${await message.guild.members.get(row.user_id).displayName} | **${row.points}** points
+        **${count}.** ${await message.guild.members.cache.get(row.user_id).displayName} | **${row.points}** points
       `);
       count++;
     }

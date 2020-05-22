@@ -30,17 +30,17 @@ module.exports = class ServerInfoCommand extends Command {
     });
   }
   run(message) {
-    const embed = new Discord.RichEmbed()
-      .setAuthor(message.guild.name, message.guild.iconURL)
-      .setThumbnail(message.guild.iconURL)
+    const embed = new Discord.MessageEmbed()
+      .setAuthor(message.guild.name, message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL())
       .addField('Owner', message.guild.owner.displayName, true)
       .addField('Region', region[message.guild.region], true)
-      .addField('Members', message.guild.members.size, true)
-      .addField('Bots', message.guild.members.array().filter(b => b.user.bot).length, true)
+      .addField('Members', message.guild.members.cache.size, true)
+      .addField('Bots', message.guild.members.cache.array().filter(b => b.user.bot).length, true)
       .addField('Verification Level', verifLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
-      .addField('Roles', message.guild.roles.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
-      .addField('Text Channels', message.guild.channels.array().filter(c => c.type === 'text').join(' '))
+      .addField('Roles', message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
+      .addField('Text Channels', message.guild.channels.cache.array().filter(c => c.type === 'text').join(' '))
       .setFooter(`Server ID: ${message.guild.id}`)
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

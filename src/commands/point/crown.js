@@ -13,15 +13,15 @@ module.exports = class CrownCommand extends Command {
   run(message) {
     const id = message.client.db.guildSettings.selectCrownRoleId.pluck().get(message.guild.id);
     let crownRole;
-    if (id) crownRole = message.guild.roles.get(id);
+    if (id) crownRole = message.guild.roles.cache.get(id);
     else return message.channel.send('There is currently no `crown role` set on this server.');
     const crownSchedule = message.client.db.guildSettings.selectCrownSchedule.pluck().get(message.guild.id);
-    const crowned = message.guild.members.filter(m => {
+    const crowned = message.guild.members.cache.filter(m => {
       if (m.roles.find(r => r === crownRole)) return true;
     });
     let crownList = '';
     crowned.forEach(m => crownList = crownList + `${m.displayName}\n`);
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle(':crown: Crowned Members :crown:')
       .addField('Crown Role', crownRole)
       .setColor(message.guild.me.displayHexColor);

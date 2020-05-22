@@ -13,9 +13,9 @@ module.exports = class AvatarCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setAuthor(`${member.displayName}'s Avatar`)
-      .setImage(member.user.displayAvatarURL)
+      .setImage(member.user.displayAvatarURL()())
       .setColor(member.displayHexColor);
     message.channel.send(embed);
   }

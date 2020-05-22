@@ -13,22 +13,22 @@ module.exports = class ModsCommand extends Command {
   run(message) {
     const id = message.client.db.guildSettings.selectModRoleId.pluck().get(message.guild.id);
     let modRole;
-    if (id) modRole = message.guild.roles.get(id);
+    if (id) modRole = message.guild.roles.cache.get(id);
     else return message.channel.send('There is currently no `mod role` set on this server.');
-    const mods = message.guild.members.filter(m => {
+    const mods = message.guild.members.cache.filter(m => {
       if (m.roles.find(r => r === modRole)) return true;
     });
     let modList = '';
     mods.forEach(m => modList = modList + `${m.displayName}\n`);
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setTitle('Mod List')
-      .setFooter(`${mods.size} out of ${message.guild.members.size} accounts`)
+      .setFooter(`${mods.size} out of ${message.guild.members.cache.size} accounts`)
       .setColor(message.guild.me.displayHexColor);
     while (modList.length > 2048) { // Description is capped at 2048 chars
       modList = modList.substring(0, modList.lastIndexOf('\n') -2);
       const count = modList.split('\n').length;
       embed.setFooter(`
-        ${mods.size} out of ${message.guild.members.size} accounts
+        ${mods.size} out of ${message.guild.members.cache.size} accounts
         Only ${count} of ${mods.size} mods could be displayed
       `);
     }

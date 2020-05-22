@@ -16,7 +16,7 @@ module.exports = (client) => {
     // Update points table
     const userIds = client.db.guildPoints.selectUserIds.pluck().all(guild.id);
     userIds.forEach(userId => {
-      const member = guild.members.get(userId);
+      const member = guild.members.cache.get(userId);
       if (member) client.db.guildPoints.insertRow.run(userId, member.user.username, guild.id, guild.name);
       else {
         const name = client.db.guildPoints.selectUserName.pluck().get(userId, guild.id);

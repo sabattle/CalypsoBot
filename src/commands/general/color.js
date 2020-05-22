@@ -14,12 +14,12 @@ module.exports = class ColorCommand extends Command {
   }
   async run(message, args) {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const colors = message.guild.roles.filter(c => c.name.indexOf('#') === 0);
+    const colors = message.guild.roles.cache.filter(c => c.name.indexOf('#') === 0);
     const colorName = args.join(' ').toLowerCase();
     // Clear if no color provided
     if (!colorName) {
       try {
-        await message.member.removeRoles(colors);
+        await message.member.roles.removes(colors);
         return message.channel.send(`${message.member}, I successfully **cleared** your color.`);
       } catch (err) {
         message.client.logger.error(err.stack);
@@ -44,8 +44,8 @@ module.exports = class ColorCommand extends Command {
     // Color exists and member does not have color
     else {
       try {
-        await message.member.removeRoles(colors);
-        await message.member.addRole(color);
+        await message.member.roles.removes(colors);
+        await message.member.roles.add(color);
         message.channel.send(`${message.member}, you now have the color ${color}.`);
       } catch (err) {
         message.client.logger.error(err.stack);
