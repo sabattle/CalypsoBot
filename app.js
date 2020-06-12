@@ -1,4 +1,4 @@
-const config = require('./config.json');
+const config = require('./config');
 const Client = require('./src/Client.js');
 global.__basedir = __dirname;
 
