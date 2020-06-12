@@ -1,8 +1,0 @@
-{
-  "token": "your_token_here",
-  "ownerId": "your_ID_here",
-  "apiKeys": {
-    "catApi": "your_API_key_here",
-    "googleApi": "your_API_key_here"
-  }
-}
