@@ -6,11 +6,13 @@ global.__basedir = __dirname;
 const client = new Client(config);
 
 // initialize client
-function init() {
-  client.loadEvents('./src/events');
-  client.loadCommands('./src/commands');
-  client.loadTopics('./data/trivia');
-  client.login(client.token);
-}
+init() = async () => {
+  await client.loadEvents('./src/events');
+  await client.loadCommands('./src/commands');
+  await client.loadTopics('./data/trivia');
+  await client.login(client.token);
+};
 
-init();
+(async () => {
+  await init();
+})();
