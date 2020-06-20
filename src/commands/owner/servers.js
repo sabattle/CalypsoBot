@@ -14,14 +14,14 @@ module.exports = class ServersCommand extends Command {
   }
   run(message) {
     let serverList = '';
-    message.client.guilds.forEach(guild => {
+    message.client.guilds.cache.forEach(guild => {
       serverList = serverList + `${guild.name} | \`${guild.members.cache.array().length}\` members\n`;
     });
     const embed = new Discord.MessageEmbed()
       .setTitle('Server List')
       .setDescription(serverList)
       .setColor(message.guild.me.displayHexColor)
-      .setFooter(`Found ${message.client.guilds.array().length} servers`);
+      .setFooter(`Found ${message.client.guilds.cache.array().length} servers`);
     message.channel.send(embed);
   }
 };

@@ -22,8 +22,8 @@ module.exports = class BotInfoCommand extends Command {
         soon turned into something much more. She first went live on February 22nd, 2018.
       `)
       .addField('Current Version', pkg.version, true)
-      .addField('Detected Users', message.client.users.size - 1, true)
-      .addField('Servers', message.client.guilds.size, true)
+      .addField('Detected Users', message.client.users.cache.size - 1, true)
+      .addField('Servers', message.client.guilds.cache.size, true)
       .addField('Uptime', `${moment.duration(message.client.uptime).hours()} hours`, true)
       .addField('Library/Environment', 'Discord.js 11.6.4 | Node.js 8.10.0', true)
       .addField('Database', 'SQLite', true)

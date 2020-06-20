@@ -14,7 +14,7 @@ module.exports = class PingCommand extends Command {
     const msg = await message.channel.send('Pinging....');
     msg.edit(oneLine`
       🏓 Pong! Latency is **${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms**.
-      API Latency is **${Math.round(message.client.ping)}ms**.
+      API Latency is **${Math.round(message.client.ws.ping)}ms**.
     `);
   }
 };

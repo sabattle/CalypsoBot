@@ -33,7 +33,7 @@ module.exports = class GalleryCommand extends Command {
     const filter = (reaction, user) => user != message.client.user;
     const collector = msg.createReactionCollector(filter, { time: 180000 }); // Three minute timer
     collector.on('collect', async reaction => {
-      const reactionUsers = (await reaction.users.fetch()).filter(u => u != message.client.user);
+      const reactionUsers = (await reaction.users.cache.fetch()).filter(u => u != message.client.user);
       reactionUsers.forEach(async user => await reaction.remove(user));
       if (reaction.emoji.name === back){
         n--;

@@ -21,7 +21,7 @@ module.exports = class WipeAllServerPointsCommand extends Command {
     const id = args[0] || message.guild.id;
     if (!rgx.test(id)) 
       return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please provide a valid server ID.`);
-    const guild = message.client.guilds.get(id);
+    const guild = message.client.guilds.cache.get(id);
     if (!guild) 
       return message.channel.send(oneLine`
         Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
