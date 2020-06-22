@@ -23,7 +23,7 @@ module.exports = class GalleryCommand extends Command {
     const back = '⬅';
     const next = '➡';
     let embed = new Discord.MessageEmbed()
-      .setAuthor('Gallery', message.client.user.displayAvatarURL()())
+      .setAuthor('Gallery', message.client.user.displayAvatarURL())
       .setImage(art[n])
       .setFooter('All art courtesy of CommradeFido#5286.\nGallery expires after 3 minutes.')
       .setColor(message.guild.me.displayHexColor);
@@ -33,8 +33,8 @@ module.exports = class GalleryCommand extends Command {
     const filter = (reaction, user) => user != message.client.user;
     const collector = msg.createReactionCollector(filter, { time: 180000 }); // Three minute timer
     collector.on('collect', async reaction => {
-      const reactionUsers = (await reaction.users.cache.fetch()).filter(u => u != message.client.user);
-      reactionUsers.forEach(async user => await reaction.remove(user));
+      const reactionUsers = (await reaction.users.fetch()).filter(user=> user != message.client.user);
+      reactionUsers.forEach(async user => await reaction.users.remove(user));
       if (reaction.emoji.name === back){
         n--;
         if (n < 0) n = art.length - 1;
