@@ -7,9 +7,11 @@ module.exports = (client, message) => {
   // Command handler
   let command;
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
-  if (message.content.startsWith(prefix)){
-    const args = message.content.trim().split(/ +/g);
-    const cmd = args.shift().slice(prefix.length).toLowerCase();
+  const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
+  const [, match] = message.content.match(prefixRegex);
+  if (match){ 
+    const args = message.content.slice(match.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
     command = client.commands.get(cmd);
     if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
     if (command) {
