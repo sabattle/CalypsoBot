@@ -166,6 +166,7 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkClientPermissions(message) {
+    if (!message.guild.me.hasPermission('SEND_MESSAGES')) return false;
     let missingPermissions = [];
     this.clientPermissions.forEach(perm => {
       if (message.guild.me.hasPermission(perm)) return true;

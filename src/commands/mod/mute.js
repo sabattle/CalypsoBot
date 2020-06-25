@@ -28,7 +28,7 @@ module.exports = class MuteCommand extends Command {
       return message.channel.send(oneLine`
         ${message.member}, please enter a length of time of 10 days or less (\`1s\`/\`m\`/\`h\`/\`d\`).
       `);
-    if (member.roles.has(id)) return message.channel.send(`${member} is already muted!`);
+    if (member.roles.cache.has(id)) return message.channel.send(`${member} is already muted!`);
     try {
       await member.roles.add(muteRole);
     } catch (err) {

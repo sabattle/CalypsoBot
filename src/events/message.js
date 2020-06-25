@@ -5,34 +5,34 @@ module.exports = (client, message) => {
   const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(message.guild.id);
 
   // Command handler
-  let command;
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+  console.log(prefix)
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
+  if (!prefixRegex.test(message.content)) return;
+
   const [, match] = message.content.match(prefixRegex);
-  if (match){ 
-    const args = message.content.slice(match.length).trim().split(/ +/g);
-    const cmd = args.shift().toLowerCase();
-    command = client.commands.get(cmd);
-    if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
-    if (command) {
+  const args = message.content.slice(match.length).trim().split(/ +/g);
+  const cmd = args.shift().toLowerCase();
+  let command = client.commands.get(cmd);
+  if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
+  if (command) {
 
-      // Check permissions
-      const permission = command.checkPermissions(message);
-      if (permission) {
+    // Check permissions
+    const permission = command.checkPermissions(message);
+    if (permission) {
 
-        // Check command type     
-        if (command.type === 'point' && !pointsEnabled) {
-          return message.channel.send('Points are currently **disabled** on this server.');
+      // Check command type     
+      if (command.type === 'point' && !pointsEnabled) {
+        return message.channel.send('Points are currently **disabled** on this server.');
 
-        // Update points with commandPoints value  
-        } else if (pointsEnabled) {
-          const commandPoints = client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
-          client.db.guildPoints.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
-        }
-        return command.run(message, args); // Run command
+      // Update points with commandPoints value  
+      } else if (pointsEnabled) {
+        const commandPoints = client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
+        client.db.guildPoints.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
       }
-    } 
-  }
+      return command.run(message, args); // Run command
+    }
+  } 
 
   // Update points with messagePoints value
   if (pointsEnabled) {  

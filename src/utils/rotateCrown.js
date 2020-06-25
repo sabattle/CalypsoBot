@@ -13,7 +13,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
 
   // Remove role from losers
   await Promise.all(guild.members.cache.map(async member => { // Good alternative to handling async forEach
-    if (member.roles.has(crownRole.id)) {
+    if (member.roles.cache.has(crownRole.id)) {
       try {
         await member.roles.remove(crownRole);
       } catch (err) {

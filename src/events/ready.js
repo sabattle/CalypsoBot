@@ -7,7 +7,7 @@ module.exports = (client) => {
 
   // Update db with new servers
   client.logger.info('Updating database and scheduling jobs...');
-  for (const guild of client.guilds.cache) {
+  client.guilds.cache.forEach(guild => {
     client.db.guildSettings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
 
     // Schedule crown role rotation
@@ -24,7 +24,7 @@ module.exports = (client) => {
         client.db.guildPoints.deleteRow.run(userId, guild.id);
       }
     });
-  }
+  });
 
   client.logger.info('Calypso is now online');
   client.logger.info(`Calypso is running on ${client.guilds.cache.size} server(s)`);

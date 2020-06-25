@@ -19,7 +19,7 @@ module.exports = class ColorCommand extends Command {
     // Clear if no color provided
     if (!colorName) {
       try {
-        await message.member.roles.removes(colors);
+        await message.member.roles.remove(colors);
         return message.channel.send(`${message.member}, I successfully **cleared** your color.`);
       } catch (err) {
         message.client.logger.error(err.stack);
@@ -39,12 +39,12 @@ module.exports = class ColorCommand extends Command {
       Sorry ${message.member}, I don't recognize that color. Use \`${prefix}colors\` for a list.
     `);
     // Color exists but member already has color
-    else if (message.member.roles.has(color.id)) 
+    else if (message.member.roles.cache.has(color.id)) 
       return message.channel.send(`${message.member}, you are already ${color}!`);
     // Color exists and member does not have color
     else {
       try {
-        await message.member.roles.removes(colors);
+        await message.member.roles.remove(colors);
         await message.member.roles.add(color);
         message.channel.send(`${message.member}, you now have the color ${color}.`);
       } catch (err) {
