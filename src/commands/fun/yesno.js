@@ -14,10 +14,12 @@ module.exports = class YesNoCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await fetch.get('http://yesno.wtf/api/')).body;
+      const res = await (await fetch('http://yesno.wtf/api/')).json();
+      const answer = res.answer.charAt(0).toUpperCase() + res.answer.slice(1) + '!';
+      const img = res.image;
       const embed = new Discord.MessageEmbed()
-        .setTitle(res.answer + '!')
-        .setImage(res.image)
+        .setTitle(answer)
+        .setImage(img)
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
     } catch (err) {

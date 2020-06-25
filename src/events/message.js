@@ -6,7 +6,6 @@ module.exports = (client, message) => {
 
   // Command handler
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
-  console.log(prefix)
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
   if (!prefixRegex.test(message.content)) return;
 

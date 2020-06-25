@@ -13,8 +13,9 @@ module.exports = class DogFactCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await fetch.get('https://dog-api.kinduff.com/api/facts')).body.facts[0];
-      message.channel.send(res);
+      const res = await fetch('https://dog-api.kinduff.com/api/facts');
+      const fact = (await res.json()).facts[0];
+      message.channel.send(fact);
     } catch (err) {
       message.client.logger.error(err.stack);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);

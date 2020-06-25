@@ -13,8 +13,9 @@ module.exports = class ThouArtCommand extends Command {
   }
   async run(message) {
     try {
-      const res = (await fetch.get('http://quandyfactory.com/insult/json/')).body.insult;
-      message.channel.send(res);
+      const res = await fetch('http://quandyfactory.com/insult/json/');
+      const insult = (await res.json()).insult;
+      message.channel.send(insult);
     } catch (err) {
       message.client.logger.error(err.stack);
       message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);

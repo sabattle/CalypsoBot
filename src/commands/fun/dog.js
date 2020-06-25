@@ -13,7 +13,8 @@ module.exports = class DogCommand extends Command {
   }
   async run(message) {
     try {
-      const img = (await fetch.get('https://dog.ceo/api/breeds/image/random')).body.message;
+      const res = await fetch('https://dog.ceo/api/breeds/image/random');
+      const img = (await res.json()).message;
       const embed = new Discord.MessageEmbed()
         .setTitle('Woof!')
         .setImage(img)
