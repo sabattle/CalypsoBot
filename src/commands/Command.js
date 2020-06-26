@@ -38,7 +38,7 @@ class Command {
      * The arguments for the command
      * @type {string}
      */
-    this.usage = options.usage || '';
+    this.usage = options.usage || options.name;
 
     /**
      * The description for the command
@@ -63,6 +63,12 @@ class Command {
      * @type {Array<string>}
      */
     this.userPermssions = options.userPermissions || null;
+
+    /**
+     * Examples of how the command is used
+     * @type {Array<string>}
+     */
+    this.examples = options.examples || null;
     
     /**
      * If command can only be used by owner
