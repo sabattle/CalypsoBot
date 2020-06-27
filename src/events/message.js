@@ -1,3 +1,5 @@
+const sendInfo = require('../utils/sendInfo.js');
+
 module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
@@ -31,7 +33,9 @@ module.exports = (client, message) => {
       }
       return command.run(message, args); // Run command
     }
-  } 
+  } else if (args.length == 0) {
+    sendInfo(message);
+  }
 
   // Update points with messagePoints value
   if (pointsEnabled) {  
