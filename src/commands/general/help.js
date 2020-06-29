@@ -23,16 +23,12 @@ module.exports = class HelpCommand extends Command {
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     if (args.length > 0 && (message.client.commands.has(args[0]) || message.client.aliases.has(args[0]))) {
       const command = message.client.commands.get(args[0]);
-      let description = `
-        ${command.description}
-
-        ‣ **Aliases:** ${(command.aliases) ? command.aliases.map(c => `\`${c}\``).join(' ') : 'None'}
+      let description = `${command.description} 
+        ${(command.aliases) ? '\n‣ **Aliases:** ' + command.aliases.map(c => `\`${c}\``).join(' ') : ''}
         ‣ **Usage:** \`${prefix}${command.usage}\`
         ‣ **Type:** \`${command.type}\`
+        ${(command.examples) ? '‣ **Examples:** ' + command.examples.map(c => `\`${prefix}${c}\``).join(' ') : ''}
       `;
-      if (command.examples) {
-        description = description + `‣ **Examples:** ${command.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;
-      }
       embed = new MessageEmbed()
         .setTitle(`Command: \`${command.name}\``)
         .setDescription(description)  
