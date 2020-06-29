@@ -14,8 +14,7 @@ module.exports = (client, message) => {
   const [, match] = message.content.match(prefixRegex);
   const args = message.content.slice(match.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
-  let command = client.commands.get(cmd);
-  if (!command) command = client.aliases.get(cmd); // If command not found, check aliases
+  let command = client.commands.get(cmd) || client.aliases.get(cmd); // If command not found, check aliases
   if (command) {
 
     // Check permissions

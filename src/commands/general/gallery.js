@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const art = [
   'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Full_Signature.png',
   'https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png',
@@ -22,7 +22,7 @@ module.exports = class GalleryCommand extends Command {
     let n = 0;
     const back = '⬅';
     const next = '➡';
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle('Art Gallery')
       .setImage(art[n])
       .setFooter('All art courtesy of CommradeFido#5286.\nGallery expires after 3 minutes.')
@@ -46,7 +46,7 @@ module.exports = class GalleryCommand extends Command {
       await msg.edit(embed);
     });
     collector.on('end', async () => {
-      await msg.edit(new Discord.MessageEmbed()
+      await msg.edit(new MessageEmbed()
         .setTitle('Art Gallery')
         .setDescription('Sorry! The gallery has expired.')
         .setColor(message.guild.me.displayHexColor)
