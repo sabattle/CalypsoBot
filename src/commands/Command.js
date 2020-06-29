@@ -56,7 +56,7 @@ class Command {
      * The client permissions needed
      * @type {Array<string>}
      */
-    this.clientPermissions = options.clientPermissions || ['SEND_MESSAGES'];
+    this.clientPermissions = options.clientPermissions || ['SEND_MESSAGES', 'EMBED_LINKS'];
 
     /**
      * The user permissions needed

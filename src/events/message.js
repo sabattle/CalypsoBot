@@ -33,7 +33,7 @@ module.exports = (client, message) => {
       }
       return command.run(message, args); // Run command
     }
-  } else if (args.length == 0) {
+  } else if (args.length == 0 && !message.content.startsWith(prefix)) {
     sendInfo(message);
   }
 
