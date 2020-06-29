@@ -13,7 +13,7 @@ module.exports = class GalleryCommand extends Command {
     super(client, {
       name: 'gallery',
       aliases: ['art'],
-      usage: '',
+      usage: 'gallery',
       description: 'Displays a gallery of Calypso\'s art.',
       type: 'general',
     });
@@ -22,8 +22,8 @@ module.exports = class GalleryCommand extends Command {
     let n = 0;
     const back = '⬅';
     const next = '➡';
-    let embed = new Discord.MessageEmbed()
-      .setAuthor('Gallery', message.client.user.displayAvatarURL())
+    const embed = new Discord.MessageEmbed()
+      .setTitle('Art Gallery')
       .setImage(art[n])
       .setFooter('All art courtesy of CommradeFido#5286.\nGallery expires after 3 minutes.')
       .setColor(message.guild.me.displayHexColor);
@@ -46,7 +46,12 @@ module.exports = class GalleryCommand extends Command {
       await msg.edit(embed);
     });
     collector.on('end', async () => {
-      await msg.delete();
+      await msg.edit(new Discord.MessageEmbed()
+        .setTitle('Art Gallery')
+        .setDescription('Sorry! The gallery has expired.')
+        .setColor(message.guild.me.displayHexColor)
+      );
+      await msg.reactions.removeAll();
     });
   }
 };

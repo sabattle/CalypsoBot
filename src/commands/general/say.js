@@ -4,9 +4,10 @@ module.exports = class SayCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'say',
-      usage: '<CHANNEL MENTION> <MESSAGE>',
+      usage: 'say [channel mention] <message>',
       description: 'Sends a message to the specified channel (or the current channel, if none is specified).',
-      type: 'general'
+      type: 'general',
+      examples: ['say #general hello world']
     });
   }
   run(message, args) {
@@ -19,7 +20,7 @@ module.exports = class SayCommand extends Command {
       channel = message.channel;
       msg = args.join(' ');
     }
-    if (!msg) message.channel.send(`${message.member}, please provide a message for me to say.`);
+    if (!msg) this.sendErrorMessage(message, 'No message provided. Please provide a message for me to say.');
     else channel.send(msg);
   } 
 };

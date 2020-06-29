@@ -13,7 +13,6 @@ module.exports = class HelpCommand extends Command {
         Can be used in conjunction with a command for additional information.
       `,
       type: 'general',
-      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS'],
       examples: ['help ping']
     });
   }
