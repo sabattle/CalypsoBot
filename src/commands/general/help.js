@@ -18,6 +18,7 @@ module.exports = class HelpCommand extends Command {
     });
   }
   run(message, args) {
+
     let embed;
     const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     if (args.length > 0 && (message.client.commands.has(args[0]) || message.client.aliases.has(args[0]))) {
@@ -25,12 +26,12 @@ module.exports = class HelpCommand extends Command {
       let description = `
         ${command.description}
 
-        **‣ Aliases:** ${(command.aliases) ? command.aliases.map(c => `\`${c}\``).join(' ') : 'None'}
-        **‣ Usage:** \`${prefix}${command.usage}\`
-        **‣ Type:** \`${command.type}\`
+        ‣ **Aliases:** ${(command.aliases) ? command.aliases.map(c => `\`${c}\``).join(' ') : 'None'}
+        ‣ **Usage:** \`${prefix}${command.usage}\`
+        ‣ **Type:** \`${command.type}\`
       `;
       if (command.examples) {
-        description = description + `**‣ Examples:** ${command.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;
+        description = description + `‣ **Examples:** ${command.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;
       }
       embed = new MessageEmbed()
         .setTitle(`Command: \`${command.name}\``)
@@ -42,7 +43,7 @@ module.exports = class HelpCommand extends Command {
         .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
         .setColor(message.guild.me.displayHexColor);
     } else if (args.length > 0) {
-      // Send command failure template
+      return this.sendErrorMessage(message, `Unable to find command \`${args[0]}\`. Please enter a valid command.`);
     } else {
       const general = [], fun = [], point = [], mod = [], howto = [], admin = [];
       message.client.commands.forEach(c => {

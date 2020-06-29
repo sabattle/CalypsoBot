@@ -1,4 +1,4 @@
-const { oneLine } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 const permissions = require('../utils/permissions.json');
 
 /**
@@ -156,10 +156,17 @@ class Command {
       missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermssions);
       missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
-        message.channel.send(oneLine`
-          The \`${this.name}\` command requires you to have the following permissions: 
-          \`${missingPermissions.join(', ')}\`.
-        `);
+        const embed = new MessageEmbed()
+          .setAuthor(`${message.author.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
+          .setTitle(`Missing User Permissions: \`${this.name}\``)
+          .setDescription(`
+            The \`${this.name}\` command requires you to have the following permissions: 
+          
+            ${missingPermissions.map(p => `\`${p}\``).join(' ')}
+          `)
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        message.channel.send(embed);
         return false;
       }
     }
@@ -172,7 +179,8 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkClientPermissions(message) {
-    if (!message.guild.me.hasPermission('SEND_MESSAGES')) return false;
+    if (!message.guild.me.hasPermission('SEND_MESSAGES') || !message.guild.me.hasPermission('EMBED_LINKS')) 
+      return false;
     let missingPermissions = [];
     this.clientPermissions.forEach(perm => {
       if (message.guild.me.hasPermission(perm)) return true;
@@ -180,14 +188,45 @@ class Command {
     });
     missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
     if (missingPermissions.length !== 0) {
-      message.channel.send(oneLine`
-        The \`${this.name}\` command requires me to have the following permissions: 
-        \`${missingPermissions.join(', ')}\`.
-      `);
+      const embed = new MessageEmbed()
+        .setAuthor(`
+          ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
+        )
+        .setTitle(`Missing Bot Permissions: \`${this.name}\``)
+        .setDescription(`
+          The \`${this.name}\` command requires me to have the following permissions: 
+        
+          ${missingPermissions.map(p => `\`${p}\``).join(' ')}
+        `)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      message.channel.send(embed);
       return false;
     } else return true;
   }
   
+  /**
+   * Creates and sends command failure embed
+   * @param {Message} message
+   * @param {string} reason 
+   * @param {string} errorMessage 
+   */
+  sendErrorMessage(message, reason, errorMessage = null) {
+    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+    let description = reason + `\n\n ‣ **Usage:** \`${prefix}${this.usage}\``;
+    if (this.examples) {
+      description = description + `\n‣ **Examples:** ${this.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;
+    }
+    const embed = new MessageEmbed()
+      .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
+      .setTitle(`Error: \`${this.name}\``)
+      .setDescription(description)
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    if (errorMessage) embed.addField('Error Message', `\`\`\`${errorMessage}\`\`\``);
+    message.channel.send(embed);
+  }
+
   /**
    * Validates all options provided
    * Code modified from: https://github.com/discordjs/Commando/blob/master/src/commands/base.js
