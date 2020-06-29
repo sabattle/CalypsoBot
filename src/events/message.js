@@ -4,7 +4,7 @@ module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
   // Check if points enabled
-  const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(message.guild.id);
+  const pointsEnabled = client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id);
 
   // Command handler
   const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);

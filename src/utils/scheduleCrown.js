@@ -7,7 +7,7 @@ const rotateCrown = require('./rotateCrown.js');
  * @param {Guild} guild
  */
 module.exports = function scheduleCrown(client, guild) {
-  const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(guild.id);
+  const pointsEnabled = client.db.guildSettings.selectPointsEnabled.pluck().get(guild.id);
   const id = client.db.guildSettings.selectCrownRoleId.pluck().get(guild.id);
   let crownRole;
   if (id) crownRole = guild.roles.cache.get(id);

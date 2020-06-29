@@ -1,7 +1,7 @@
 module.exports = (client, oldMember, newMember) => {
   
   // Check if points enabled
-  const pointsEnabled = client.db.guildSettings.selectEnablePoints.pluck().get(newMember.guild.id);
+  const pointsEnabled = client.db.guildSettings.selectPointsEnabled.pluck().get(newMember.guild.id);
   const voicePoints = client.db.guildSettings.selectVoicePoints.pluck().get(newMember.guild.id);
   if (!pointsEnabled || voicePoints == 0) return;
 
