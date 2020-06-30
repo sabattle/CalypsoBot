@@ -1,30 +1,44 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class SetMuteRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmuterole',
       aliases: ['setmur', 'smur'],
-      usage: '<ROLE MENTION | ROLE NAME>',
-      description: 'Sets the mute role your server (provide no role to clear).',
+      usage: 'setmuterole <role mention | role name>',
+      description: 'Sets the mute role your server. Provide no role to clear the current mute role.',
       type: 'admin',
-      userPermissions: ['MANAGE_GUILD']
+      userPermissions: ['MANAGE_GUILD'],
+      examples: ['setmuterole @Muted']
     });
   }
   run(message, args) {
+    const muteRoleId = message.client.db.guildSettings.selectMuteRoleId.pluck().get(message.guild.id);
+    let oldRole = message.guild.roles.cache.find(r => r.id === muteRoleId) || '`None`';
+
+    const embed = new MessageEmbed()
+      .setTitle('Server Settings')
+      .addField('Setting', '**Mute Role**', true)
+      .setThumbnail(message.guild.iconURL())
+      .setFooter(`
+        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.guildSettings.updateMuteRoleId.run(null, message.guild.id);
-      return message.channel.send('Successfully **cleared** the `mute role`.');
-    } 
+      return message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 \`None\``, true));
+    }
+
+    // Update role
     const roleName = args.join(' ').toLowerCase();
     let role = message.guild.roles.cache.find(r => r.name.toLowerCase() === roleName);
     role = this.getRoleFromMention(message, args[0]) || role;
-    if (!role) return message.channel.send(oneLine`
-      Sorry ${message.member}, I don't recognize that. Please mention a role or provide a role name.
-    `);
+    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
     message.client.db.guildSettings.updateMuteRoleId.run(role.id, message.guild.id);
-    message.channel.send(`Successfully updated the \`mute role\` to ${role}.`);
+    message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 ${role}`, true));
   }
 };
