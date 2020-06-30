@@ -13,7 +13,7 @@ module.exports = class TogglePointsCommand extends Command {
     });
   }
   run(message) {
-    let pointsEnabled = message.client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id); // Get prefix
+    let pointsEnabled = message.client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id);
     pointsEnabled = 1 - pointsEnabled; // Invert
     message.client.db.guildSettings.updatePointsEnabled.run(pointsEnabled, message.guild.id);
     let status;
