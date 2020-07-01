@@ -36,7 +36,7 @@ module.exports = class EightBallCommand extends Command {
   }
   run(message) {
     const embed = new MessageEmbed()
-      .setTitle('🎱 The Magic 8-Ball Says 🎱')
+      .setTitle('🎱  The Magic 8-Ball Says  🎱')
       .setDescription(`${answers[Math.floor(Math.random() * answers.length)]}`)
       .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
         message.author.displayAvatarURL({ dynamic: true })

@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = class CatFactCommand extends Command {
@@ -6,7 +7,7 @@ module.exports = class CatFactCommand extends Command {
     super(client, {
       name: 'catfact',
       aliases: ['cf'],
-      usage: '',
+      usage: 'catfact',
       description: 'Says a random cat fact.',
       type: 'fun'
     });
@@ -15,10 +16,18 @@ module.exports = class CatFactCommand extends Command {
     try {
       const res = await fetch('https://catfact.ninja/fact');
       const fact = (await res.json()).fact;
-      message.channel.send(fact);
+      const embed = new MessageEmbed()
+        .setTitle('🐱  Cat Fact  🐱')
+        .setDescription(fact)
+        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
+      this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
     }
   }
 };

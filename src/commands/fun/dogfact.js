@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = class DogFactCommand extends Command {
@@ -6,7 +7,7 @@ module.exports = class DogFactCommand extends Command {
     super(client, {
       name: 'dogfact',
       aliases: ['df'],
-      usage: '',
+      usage: 'dogfact',
       description: 'Says a random dog fact.',
       type: 'fun'
     });
@@ -15,10 +16,18 @@ module.exports = class DogFactCommand extends Command {
     try {
       const res = await fetch('https://dog-api.kinduff.com/api/facts');
       const fact = (await res.json()).facts[0];
-      message.channel.send(fact);
+      const embed = new MessageEmbed()
+        .setTitle('🐶  Dog Fact  🐶')
+        .setDescription(fact)
+        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
+      this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
     }
   }
 };

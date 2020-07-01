@@ -1,12 +1,13 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 
 module.exports = class CatCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'cat',
-      usage: '',
+      aliases: ['kitten', 'kitty'],
+      usage: 'cat',
       description: 'Finds a random cat for your viewing pleasure.',
       type: 'fun'
     });
@@ -16,8 +17,8 @@ module.exports = class CatCommand extends Command {
     try {
       const res = await fetch('https://api.thecatapi.com/v1/images/search', { headers: { 'x-api-key': apiKey }});
       const img = (await res.json())[0].url;
-      const embed = new Discord.MessageEmbed()
-        .setTitle('Meow!')
+      const embed = new MessageEmbed()
+        .setTitle('🐱  Meow!  🐱')
         .setImage(img)
         .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
           message.author.displayAvatarURL({ dynamic: true })
@@ -27,7 +28,7 @@ module.exports = class CatCommand extends Command {
       message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      message.channel.send(`Sorry ${message.member}, something went wrong. Please try again in a few seconds.`);
+      this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
     }
   }
 };

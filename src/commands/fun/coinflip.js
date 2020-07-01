@@ -1,11 +1,12 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class CoinFlipCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'coinflip',
       aliases: ['cointoss', 'coin', 'flip'],
-      usage: '',
+      usage: 'coinflip',
       description: 'Flips a coin.',
       type: 'fun'
     });
@@ -15,6 +16,14 @@ module.exports = class CoinFlipCommand extends Command {
     let result;
     if (n === 1) result = 'heads';
     else result = 'tails';
-    message.channel.send(`I flipped a coin for you, ${message.member}. It was **${result}**!`);
+    const embed = new MessageEmbed()
+      .setTitle('🤔  Coinflip  🤔')
+      .setDescription(`I flipped a coin for you, ${message.member}. It was **${result}**!`)
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   }
 };

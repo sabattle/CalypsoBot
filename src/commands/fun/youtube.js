@@ -8,28 +8,35 @@ module.exports = class YoutubeCommand extends Command {
     super(client, {
       name: 'youtube',
       aliases: ['yt'],
-      usage: '<VIDEO NAME>',
+      usage: 'youtube <video name>',
       description: 'Searches YouTube for the specified video.',
-      type: 'fun'
+      type: 'fun',
+      examples: ['youtube That\'s a ten']
     });
   }
   async run(message, args) {
     const apiKey = message.client.apiKeys.googleApi;
     const videoName = args.join(' ');
-    if (!videoName) return message.channel.send(`${message.member}, please provide a YouTube video name.`);
+    if (!videoName) return this.sendErrorMessage(message, 'Invalid Argument. Please provide a YouTube video name.');
     let result = await search(videoName, { maxResults: 1, key: apiKey, type: 'video' })
       .catch(err => {
         message.client.logger.error(err);
-        return message.channel.send(`Sorry ${message.member}, something went wrong. Please try again later.`);
+        return this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
       });
     result = result.results[0];
-    if (!result) return message.channel.send(`Sorry ${message.member}, I was unable to find that video.`);
+    if (!result) 
+      return this.sendErrorMessage(message, 'Unable to find video. Please provide a different YouTube video name.');
     const decodedTitle = he.decode(result.title);
     const embed = new Discord.MessageEmbed()
       .setTitle(decodedTitle)
       .setURL(result.link)
       .setDescription(result.description)
-      .setThumbnail(result.thumbnails.default.url);
+      .setThumbnail(result.thumbnails.default.url)
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };
