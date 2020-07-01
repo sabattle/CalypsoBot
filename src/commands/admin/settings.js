@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { stripIndent } = require('common-tags');
 
 module.exports = class SettingsCommand extends Command {
@@ -7,7 +7,7 @@ module.exports = class SettingsCommand extends Command {
     super(client, {
       name: 'settings',
       aliases: ['config', 'set', 's'],
-      usage: '',
+      usage: 'settings',
       description: 'Displays all the current settings for your server.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD']
@@ -32,29 +32,70 @@ module.exports = class SettingsCommand extends Command {
     if (row.crown_message) crownMessage = 'true';
     let crownSchedule = '';
     if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
+    // const settings = stripIndent`
+    //   **Prefix**: \`${row.prefix}\`
+    //   **Default Channel**: ${defaultChannel}
+    //   **Modlog Channel**: ${modlogChannel}
+    //   **Admin Role**: ${adminRole}
+    //   **Mod Role**: ${modRole}
+    //   **Mute Role**: ${muteRole}
+    //   **Auto Role**: ${autoRole}
+    //   **Crown Role**: ${crownRole}
+    //   **Points Enabled**: \`${pointsEnabled}\`
+    //   **Message Points**: \`${row.message_points}\`
+    //   **Command Points**: \`${row.command_points}\`
+    //   **Voice Points**: \`${row.voice_points}\`
+    //   **Welcome Message**: \`${welcomeMessage}\`
+    //   **Leave Message**: \`${leaveMessage}\`
+    //   **Crown Message**: \`${crownMessage}\`
+    //   **Crown Schedule**: ${crownSchedule}
+    // `;
     const settings = stripIndent`
-      **Prefix**: \`${row.prefix}\`
-      **Default Channel**: ${defaultChannel}
-      **Modlog Channel**: ${modlogChannel}
-      **Admin Role**: ${adminRole}
-      **Mod Role**: ${modRole}
-      **Mute Role**: ${muteRole}
-      **Auto Role**: ${autoRole}
-      **Crown Role**: ${crownRole}
-      **Points Enabled**: \`${pointsEnabled}\`
-      **Message Points**: \`${row.message_points}\`
-      **Command Points**: \`${row.command_points}\`
-      **Voice Points**: \`${row.voice_points}\`
-      **Welcome Message**: \`${welcomeMessage}\`
-      **Leave Message**: \`${leaveMessage}\`
-      **Crown Message**: \`${crownMessage}\`
-      **Crown Schedule**: ${crownSchedule}
+      **Prefix**:
+      **Default Channel**
+      **Modlog Channel**
+      **Admin Role**
+      **Mod Role**
+      **Mute Role**
+      **Auto Role**
+      **Crown Role**
+      **Points Enabled**
+      **Message Points**
+      **Command Points**
+      **Voice Points**
+      **Welcome Message**
+      **Leave Message**
+      **Crown Message**
+      **Crown Schedule**
     `;
-    const embed = new Discord.MessageEmbed()
+    const values = stripIndent`
+    \`${row.prefix}\`
+    ${defaultChannel}
+    ${modlogChannel}
+    ${adminRole}
+    ${modRole}
+    ${muteRole}
+    ${autoRole}
+    ${crownRole}
+    \`${pointsEnabled}\`
+    \`${row.message_points}\`
+    \`${row.command_points}\`
+    \`${row.voice_points}\`
+    \`${welcomeMessage}\`
+    \`${leaveMessage}\`
+    \`${crownMessage}\`
+    ${crownSchedule}
+  `;
+    const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL())
       .setColor(message.guild.me.displayHexColor)
-      .setDescription(settings);
+      .addField('Settings', settings, true)
+      .addField('Values', values, true)
+      .setFooter(`
+        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      )
+      .setTimestamp();
     message.channel.send(embed);
   }
 };
