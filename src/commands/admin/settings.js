@@ -22,80 +22,43 @@ module.exports = class SettingsCommand extends Command {
     const muteRole = message.guild.roles.cache.get(row.mute_role_id) || '';
     const autoRole = message.guild.roles.cache.get(row.auto_role_id) || '';
     const crownRole = message.guild.roles.cache.get(row.crown_role_id) || '';
-    let pointsEnabled = 'false';
-    if (row.enable_points) pointsEnabled = 'true';
-    let welcomeMessage = 'false';
-    if (row.welcome_message) welcomeMessage = 'true';
-    let leaveMessage = 'false';
-    if (row.leave_message) leaveMessage = 'true';
-    let crownMessage = 'false';
-    if (row.crown_message) crownMessage = 'true';
+    let points = 'disabled';
+    if (row.points_enabled) points = 'enabled';
+    let welcomeMessage = 'disabled';
+    if (row.welcome_message) welcomeMessage = 'enabled';
+    let leaveMessage = 'disabled';
+    if (row.leave_message) leaveMessage = 'enabled';
+    let crownMessage = 'disabled';
+    if (row.crown_message) crownMessage = 'enabled';
     let crownSchedule = '';
     if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
-    // const settings = stripIndent`
-    //   **Prefix**: \`${row.prefix}\`
-    //   **Default Channel**: ${defaultChannel}
-    //   **Modlog Channel**: ${modlogChannel}
-    //   **Admin Role**: ${adminRole}
-    //   **Mod Role**: ${modRole}
-    //   **Mute Role**: ${muteRole}
-    //   **Auto Role**: ${autoRole}
-    //   **Crown Role**: ${crownRole}
-    //   **Points Enabled**: \`${pointsEnabled}\`
-    //   **Message Points**: \`${row.message_points}\`
-    //   **Command Points**: \`${row.command_points}\`
-    //   **Voice Points**: \`${row.voice_points}\`
-    //   **Welcome Message**: \`${welcomeMessage}\`
-    //   **Leave Message**: \`${leaveMessage}\`
-    //   **Crown Message**: \`${crownMessage}\`
-    //   **Crown Schedule**: ${crownSchedule}
-    // `;
     const settings = stripIndent`
-      **Prefix**:
-      **Default Channel**
-      **Modlog Channel**
-      **Admin Role**
-      **Mod Role**
-      **Mute Role**
-      **Auto Role**
-      **Crown Role**
-      **Points Enabled**
-      **Message Points**
-      **Command Points**
-      **Voice Points**
-      **Welcome Message**
-      **Leave Message**
-      **Crown Message**
-      **Crown Schedule**
+        **Prefix**: \`${row.prefix}\`
+        **Default Channel**: ${defaultChannel}
+        **Modlog Channel**: ${modlogChannel}
+        **Admin Role**: ${adminRole}
+        **Mod Role**: ${modRole}
+        **Mute Role**: ${muteRole}
+        **Auto Role**: ${autoRole}
+        **Crown Role**: ${crownRole}
+        **Points**: \`${points}\`
+        **Message Points**: \`${row.message_points}\`
+        **Command Points**: \`${row.command_points}\`
+        **Voice Points**: \`${row.voice_points}\`
+        **Welcome Message**: \`${welcomeMessage}\`
+        **Leave Message**: \`${leaveMessage}\`
+        **Crown Message**: \`${crownMessage}\`
+        **Crown Schedule**: ${crownSchedule}
     `;
-    const values = stripIndent`
-    \`${row.prefix}\`
-    ${defaultChannel}
-    ${modlogChannel}
-    ${adminRole}
-    ${modRole}
-    ${muteRole}
-    ${autoRole}
-    ${crownRole}
-    \`${pointsEnabled}\`
-    \`${row.message_points}\`
-    \`${row.command_points}\`
-    \`${row.voice_points}\`
-    \`${welcomeMessage}\`
-    \`${leaveMessage}\`
-    \`${crownMessage}\`
-    ${crownSchedule}
-  `;
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL())
-      .setColor(message.guild.me.displayHexColor)
-      .addField('Settings', settings, true)
-      .addField('Values', values, true)
+      .setDescription(settings)
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )
-      .setTimestamp();
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

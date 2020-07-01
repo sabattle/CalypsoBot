@@ -24,9 +24,9 @@ module.exports = class SetPrefixCommand extends Command {
     message.client.db.guildSettings.updatePrefix.run(prefix, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .addField('Setting', '**Prefix**', true)
-      .addField('Current Prefix', `\`${oldPrefix}\` 🡪 \`${prefix}\``, true)
       .setThumbnail(message.guild.iconURL())
+      .addField('Setting', '**Prefix**', true)
+      .addField('Current Value', `\`${oldPrefix}\` 🡪 \`${prefix}\``, true)
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )

@@ -21,9 +21,9 @@ module.exports = class SetVoicePointsVoice extends Command {
     message.client.db.guildSettings.updateVoicePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Voice Points**', true)
       .addField('Current Value', `\`${voicePoints}\` 🡪 \`${amount}\``, true)
-      .setThumbnail(message.guild.iconURL())
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )

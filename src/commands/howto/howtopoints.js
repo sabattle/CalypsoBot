@@ -33,7 +33,7 @@ module.exports = class HowToPointsCommand extends Command {
 
     To check leaderboard standing, use the \`${prefix}position\` command. 
     To see the leaderboard itself, use either \`${prefix}top20\`, \`${prefix}top10\`, or \`${prefix}top5\`.
-    **Please Note**: If points are disabled on your server, these commands cannot be used.
+    **Please Note:** If points are disabled on your server, these commands cannot be used.
   `);
   }
 };

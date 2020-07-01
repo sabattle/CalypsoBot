@@ -18,11 +18,12 @@ module.exports = class CreateColorCommand extends Command {
     });
   }
   async run(message, args) {
-    const hex = args.shift();
+    let hex = args.shift();
     if (args.length === 0 || !rgx.test(hex))
       return this.sendErrorMessage(message, 'Invalid arguments. Please provide a color hex and a color name.');
     let colorName = args.join(' ');
     if (!colorName.startsWith('#')) colorName = '#' + colorName;
+    if (!hex.startsWith('#')) hex = '#' + hex;
     try {
       const role = await message.guild.roles.create({
         data: {
@@ -33,7 +34,10 @@ module.exports = class CreateColorCommand extends Command {
       });
       const embed = new MessageEmbed()
         .setTitle('Create Color')
+        .setThumbnail(message.guild.iconURL())
         .setDescription(`Successfully created the ${role} color.`)
+        .addField('Hex', `\`${hex}\``, true)
+        .addField('Color Name', `\`${colorName.slice(1, colorName.length)}\``, true)
         .setFooter(`
           Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
         )

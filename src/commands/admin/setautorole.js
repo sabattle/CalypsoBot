@@ -23,8 +23,8 @@ module.exports = class SetAutoRoleCommand extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .addField('Setting', '**Auto Role**', true)
       .setThumbnail(message.guild.iconURL())
+      .addField('Setting', '**Auto Role**', true)
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )
@@ -34,7 +34,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.guildSettings.updateAutoRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 \`None\``, true));
+      return message.channel.send(embed.addField('Current Value', `${oldRole} 🡪 \`None\``, true));
     }
 
     // Update role
@@ -43,6 +43,6 @@ module.exports = class SetAutoRoleCommand extends Command {
     role = this.getRoleFromMention(message, args[0]) || role;
     if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
     message.client.db.guildSettings.updateAutoRoleId.run(role.id, message.guild.id);
-    message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 ${role}`, true));
+    message.channel.send(embed.addField('Current Value', `${oldRole} 🡪 ${role}`, true));
   }
 };

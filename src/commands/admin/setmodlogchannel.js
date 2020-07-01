@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetModlogChannelCommand extends Command {
@@ -6,23 +7,39 @@ module.exports = class SetModlogChannelCommand extends Command {
     super(client, {
       name: 'setmodlogchannel',
       aliases: ['setmlc', 'smlc'],
-      usage: '<CHANNEL MENTION>',
-      description: 'Sets the modlog channel for your server (provide no channel to clear).',
+      usage: 'setmodlogchannel <channel mention>',
+      description: oneLine`
+        Sets the modlog text channel for your server. 
+        Provide no channel to clear the current modlog channel.
+      `,
       type: 'admin',
-      userPermissions: ['MANAGE_GUILD']
+      userPermissions: ['MANAGE_GUILD'],
+      examples: ['setmodlogchannel #mod-log']
     });
   }
   run(message, args) {
+    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    let oldModlogChannel = '`None`';
+    if (modlogChannelId) oldModlogChannel = message.guild.channels.cache.get(modlogChannelId);
+    const embed = new MessageEmbed()
+      .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL())
+      .addField('Setting', '**Modlog Channel**', true)
+      .setFooter(`
+        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.guildSettings.updateModlogChannelId.run(null, message.guild.id);
-      return message.channel.send('Successfully **cleared** the `modlog channel`.');
-    }     
+      return message.channel.send(embed.addField('Current Value', `${oldModlogChannel} 🡪 \`None\``, true));
+    }
+
     const channel = this.getChannelFromMention(message, args[0]);
-    if (!channel) return message.channel.send(oneLine`
-      Sorry ${message.member}, I don't recognize that. Please mention a text channel.
-    `);
+    if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
     message.client.db.guildSettings.updateModlogChannelId.run(channel.id, message.guild.id);
-    message.channel.send(`Successfully updated the \`modlog channel\` to ${channel}.`);
+    message.channel.send(embed.addField('Current Value', `${oldModlogChannel} 🡪 ${channel}`, true));
   }
 };

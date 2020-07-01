@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetWelcomeMessageCommand extends Command {
@@ -6,40 +7,42 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     super(client, {
       name: 'setwelcomemessage',
       aliases: ['setwm', 'swm'],
-      usage: '',
-      description: 'Sets the message Calypso will say when someone joins your server.',
+      usage: 'setwelcomemessage <message>',
+      description: oneLine`
+        Sets the message Calypso will say when someone joins your server.
+        You may use \`?member\` to substitute for a user mention.
+        Enter no message to clear the current welcome message.
+      `,
       type: 'admin',
-      userPermissions: ['MANAGE_GUILD']
+      userPermissions: ['MANAGE_GUILD'],
+      examples: ['setwelcomemessage ?member has joined the server!']
     });
   }
   run(message) {
-    message.channel.send(oneLine`
-      ${message.member}, I am now waiting for the new welcome message. Your next message will be saved exactly as
-      written. You may use \`?member\` to substitute for a user mention. You may enter \`clear\` to clear the current 
-      message. This will timeout after 1 minute.
-    `);
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    message.channel.awaitMessages(m => {
-      let command, alias;
-      if (m.content.startsWith(prefix)){
-        const args = m.content.trim().split(/ +/g);
-        const cmd = args.shift().slice(prefix.length).toLowerCase();
-        command = message.client.commands.get(cmd);
-        alias = message.client.aliases.get(cmd);
-      }
-      if (m.author == message.author && !command && !alias) return true;
-    }, { maxMatches: 1, time: 60000 }) // One minute timer
-      .then(messages => {
-        const content = messages.first().content;
-        // Clear message
-        if (content === 'clear') {
-          message.client.db.guildSettings.updateWelcomeMessage.run(null, message.guild.id);
-          return message.channel.send('Successfully **cleared** the `welcome message`.');
-        }
-        message.client.db.guildSettings.updateWelcomeMessage.run(content, message.guild.id);
-        message.channel.send('Successfully updated the `welcome message` to:');
-        message.channel.send(content);
-      })
-      .catch(() => message.channel.send(`${message.member}, operation has timed out. Please try again.`));
+    const oldWelcomeMessage = message.client.db.guildSettings.selectWelcomeMessage.pluck().get(message.guild.id);
+    const status = (oldWelcomeMessage) ? '`enabled`' : '`disabled`';
+    const embed = new MessageEmbed()
+      .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL())
+      .addField('Setting', '**Welcome Message**', true)
+      .setFooter(`
+        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    if (!message.content.includes(' ')) {
+      message.client.db.guildSettings.updateWelcomeMessage.run(null, message.guild.id);
+      return message.channel.send(embed
+        .addField('Current Status', `${status} 🡪 \`disabled\``, true)
+        .addField('New Message', '`None`')
+      );
+    }
+    let welcomeMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
+    message.client.db.guildSettings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
+    if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
+    message.channel.send(embed
+      .addField('Current Status', `${status} 🡪 \`enabled\``, true)
+      .addField('New Message', welcomeMessage)
+    );
   }
 };

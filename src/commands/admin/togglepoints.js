@@ -16,14 +16,12 @@ module.exports = class TogglePointsCommand extends Command {
     let pointsEnabled = message.client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id);
     pointsEnabled = 1 - pointsEnabled; // Invert
     message.client.db.guildSettings.updatePointsEnabled.run(pointsEnabled, message.guild.id);
-    let status;
-    if (pointsEnabled == 1) status = '`disabled`	🡪 `enabled`';
-    else status = '`enabled` 🡪 `disabled`';
+    const status = (pointsEnabled == 1) ? '`disabled`	🡪 `enabled`' : '`enabled` 🡪 `disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Points**', true)
       .addField('Current Status', status, true)
-      .setThumbnail(message.guild.iconURL())
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )

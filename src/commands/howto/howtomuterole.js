@@ -21,7 +21,7 @@ module.exports = class HowToMuteRoleCommand extends Command {
         3. Repeat the above step, but with the voice channel permission overrides.
       
       And that's it! To set the mute role, use the \`${prefix}setmuterole\` command.
-      **Please Note**: Roles with overrides that allow sending messages will always take priorty.
+      **Please Note:** Roles with overrides that allow sending messages will always take priorty.
     `);
   }
 };

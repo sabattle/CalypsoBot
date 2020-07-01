@@ -24,8 +24,8 @@ module.exports = class SetCrownRoleCommand extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .addField('Setting', '**Crown Role**', true)
       .setThumbnail(message.guild.iconURL())
+      .addField('Setting', '**Crown Role**', true)
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )
@@ -35,7 +35,7 @@ module.exports = class SetCrownRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.guildSettings.updateCrownRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 \`None\``, true));
+      return message.channel.send(embed.addField('Current Value', `${oldRole} 🡪 \`None\``, true));
     }
 
     // Update role
@@ -44,7 +44,7 @@ module.exports = class SetCrownRoleCommand extends Command {
     role = this.getRoleFromMention(message, args[0]) || role;
     if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
     message.client.db.guildSettings.updateCrownRoleId.run(role.id, message.guild.id);
-    message.channel.send(embed.addField('Current Role', `${oldRole} 🡪 ${role}`, true));
+    message.channel.send(embed.addField('Current Value', `${oldRole} 🡪 ${role}`, true));
 
     // Schedule crown role rotation
     scheduleCrown(message.client, message.guild);

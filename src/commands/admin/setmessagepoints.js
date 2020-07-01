@@ -21,9 +21,9 @@ module.exports = class SetMessagePointsCommand extends Command {
     message.client.db.guildSettings.updateMessagePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
+      .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Message Points**', true)
       .addField('Current Value', `\`${messagePoints}\` 🡪 \`${amount}\``, true)
-      .setThumbnail(message.guild.iconURL())
       .setFooter(`
         Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
       )
