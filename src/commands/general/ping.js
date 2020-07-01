@@ -20,8 +20,8 @@ module.exports = class PingCommand extends Command {
         **Latency:** \`${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms\`
         **API Latency:** \`${Math.round(message.client.ws.ping)}ms\`
       `)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp();
     msg.edit(embed);

@@ -24,8 +24,8 @@ module.exports = class SetCommandPointsCommand extends Command {
       .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Command Points**', true)
       .addField('Current Value', `\`${commandPoints}\` 🡪 \`${amount}\``, true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

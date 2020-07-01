@@ -24,8 +24,8 @@ module.exports = class SetMessagePointsCommand extends Command {
       .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Message Points**', true)
       .addField('Current Value', `\`${messagePoints}\` 🡪 \`${amount}\``, true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

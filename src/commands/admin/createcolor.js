@@ -38,8 +38,8 @@ module.exports = class CreateColorCommand extends Command {
         .setDescription(`Successfully created the ${role} color.`)
         .addField('Hex', `\`${hex}\``, true)
         .addField('Color Name', `\`${colorName.slice(1, colorName.length)}\``, true)
-        .setFooter(`
-          Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+          message.author.displayAvatarURL({ dynamic: true })
         )
         .setTimestamp()
         .setColor(hex);

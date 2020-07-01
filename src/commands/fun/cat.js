@@ -19,6 +19,10 @@ module.exports = class CatCommand extends Command {
       const embed = new Discord.MessageEmbed()
         .setTitle('Meow!')
         .setImage(img)
+        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
     } catch (err) {

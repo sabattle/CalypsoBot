@@ -23,8 +23,8 @@ module.exports = class FindIdCommand extends Command {
       .setTitle('Find ID')
       .addField('Target', target, true)
       .addField('ID', `\`${id}\``, true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

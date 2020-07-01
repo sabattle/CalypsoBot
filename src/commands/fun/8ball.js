@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 const answers = [
   'It is certain.',
   'It is decidedly so.',
@@ -27,12 +28,21 @@ module.exports = class EightBallCommand extends Command {
     super(client, {
       name: '8ball',
       aliases: ['fortune'],
-      usage: '',
+      usage: '8ball [question]',
       description: 'Asks the Magic 8-Ball for some psychic wisdom.',
-      type: 'fun'
+      type: 'fun',
+      examples: ['8ball Am I going to win the lottery?']
     });
   }
   run(message) {
-    message.channel.send(`The Magic 8-Ball says: **${answers[Math.floor(Math.random() * answers.length)]}**`);
+    const embed = new MessageEmbed()
+      .setTitle('🎱 The Magic 8-Ball Says 🎱')
+      .setDescription(`${answers[Math.floor(Math.random() * answers.length)]}`)
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   }
 };

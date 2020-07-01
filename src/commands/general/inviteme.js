@@ -23,8 +23,8 @@ module.exports = class InviteMeCommand extends Command {
         '**[Support Server](https://discord.gg/pnYVdut) | ' +
         '[Repository](https://github.com/sabattle/CalypsoBot)**'
       )
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')

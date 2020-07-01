@@ -22,8 +22,8 @@ module.exports = class ShowWelcomeMessageCommand extends Command {
       .addField('Setting', '**Welcome Message**', true)
       .addField('Current Status', status, true)
       .addField('Current Message', welcomeMessage)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

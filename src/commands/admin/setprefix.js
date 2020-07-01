@@ -27,8 +27,8 @@ module.exports = class SetPrefixCommand extends Command {
       .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Prefix**', true)
       .addField('Current Value', `\`${oldPrefix}\` 🡪 \`${prefix}\``, true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -22,8 +22,8 @@ module.exports = class ShowLeaveMessageCommand extends Command {
       .addField('Setting', '**Leave Message**', true)
       .addField('Current Status', status, true)
       .addField('Current Message', leaveMessage)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

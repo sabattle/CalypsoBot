@@ -24,8 +24,8 @@ module.exports = class SetVoicePointsVoice extends Command {
       .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Voice Points**', true)
       .addField('Current Value', `\`${voicePoints}\` 🡪 \`${amount}\``, true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

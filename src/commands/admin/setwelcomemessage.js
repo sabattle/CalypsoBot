@@ -25,8 +25,8 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL())
       .addField('Setting', '**Welcome Message**', true)
-      .setFooter(`
-        Requested by ${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL()
+      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
+        message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
