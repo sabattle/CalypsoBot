@@ -31,9 +31,7 @@ module.exports = class HelpCommand extends Command {
       embed = new MessageEmbed()
         .setTitle(`Command: \`${command.name}\``)
         .setDescription(description)  
-        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-          message.author.displayAvatarURL({ dynamic: true })
-        )
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
         .setColor(message.guild.me.displayHexColor);
@@ -67,9 +65,7 @@ module.exports = class HelpCommand extends Command {
           '[Support Server](https://discord.gg/pnYVdut) | ' +
           '[Repository](https://github.com/sabattle/CalypsoBot)**'
         )
-        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-          message.author.displayAvatarURL({ dynamic: true })
-        )
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
         .setColor(message.guild.me.displayHexColor);

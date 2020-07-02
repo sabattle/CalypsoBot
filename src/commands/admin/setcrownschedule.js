@@ -37,11 +37,9 @@ module.exports = class SetCrownScheduleCommand extends Command {
     const status = (oldCrownSchedule) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Crown Schedule**', true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (!message.content.includes(' ')) {

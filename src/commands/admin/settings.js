@@ -52,11 +52,9 @@ module.exports = class SettingsCommand extends Command {
     `;
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(settings)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

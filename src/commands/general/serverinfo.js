@@ -31,8 +31,8 @@ module.exports = class ServerInfoCommand extends Command {
   }
   run(message) {
     const embed = new Discord.MessageEmbed()
-      .setAuthor(message.guild.name, message.guild.iconURL())
-      .setThumbnail(message.guild.iconURL())
+      .setAuthor(message.guild.name, message.guild.iconURL({ dynamic: true }))
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Owner', message.guild.owner.displayName, true)
       .addField('Region', region[message.guild.region], true)
       .addField('Members', message.guild.members.cache.size, true)

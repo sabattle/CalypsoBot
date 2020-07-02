@@ -19,11 +19,9 @@ module.exports = class SetModRoleCommand extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Mod Role**', true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 

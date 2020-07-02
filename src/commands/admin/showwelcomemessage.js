@@ -18,13 +18,11 @@ module.exports = class ShowWelcomeMessageCommand extends Command {
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Welcome Message')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Welcome Message**', true)
       .addField('Current Status', status, true)
       .addField('Current Message', welcomeMessage)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

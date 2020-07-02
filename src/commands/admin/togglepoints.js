@@ -19,12 +19,10 @@ module.exports = class TogglePointsCommand extends Command {
     const status = (pointsEnabled == 1) ? '`disabled`	🡪 `enabled`' : '`enabled` 🡪 `disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Points**', true)
       .addField('Current Status', status, true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

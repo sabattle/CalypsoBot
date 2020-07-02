@@ -32,9 +32,7 @@ module.exports = class YoutubeCommand extends Command {
       .setURL(result.link)
       .setDescription(result.description)
       .setThumbnail(result.thumbnails.default.url)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

@@ -19,9 +19,7 @@ module.exports = class CoinFlipCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('🤔  Coinflip  🤔')
       .setDescription(`I flipped a coin for you, ${message.member}. It was **${result}**!`)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

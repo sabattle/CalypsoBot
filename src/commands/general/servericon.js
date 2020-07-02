@@ -14,10 +14,8 @@ module.exports = class ServerIconCommand extends Command {
   run(message) {
     const embed = new Discord.MessageEmbed()
       .setTitle(`${message.guild.name}'s Icon`)
-      .setImage(message.guild.iconURL({ size: 512 }))
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setImage(message.guild.iconURL({ dynamic: true, size: 512 }))
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

@@ -18,13 +18,11 @@ module.exports = class ShowLeaveMessageCommand extends Command {
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Leave Message')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Leave Message**', true)
       .addField('Current Status', status, true)
       .addField('Current Message', leaveMessage)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

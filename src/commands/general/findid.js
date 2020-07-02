@@ -5,7 +5,7 @@ module.exports = class FindIdCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'findid',
-      aliases: ['id'],
+      aliases: ['find', 'id'],
       usage: 'findid <user/role/channel mention>',
       description: 'Finds the ID of the mentioned user, role, or text channel.',
       type: 'general',
@@ -23,9 +23,7 @@ module.exports = class FindIdCommand extends Command {
       .setTitle('Find ID')
       .addField('Target', target, true)
       .addField('ID', `\`${id}\``, true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

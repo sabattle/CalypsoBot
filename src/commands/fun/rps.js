@@ -29,9 +29,7 @@ module.exports = class RockPaperScissorsCommand extends Command {
       .addField('Your Choice:', res[userChoice], true)
       .addField('Calypso\'s Choice', res[botChoice], true)
       .addField('Result', result, true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

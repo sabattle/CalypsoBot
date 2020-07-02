@@ -21,12 +21,10 @@ module.exports = class SetCommandPointsCommand extends Command {
     message.client.db.guildSettings.updateCommandPoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
-      .setThumbnail(message.guild.iconURL())
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Command Points**', true)
       .addField('Current Value', `\`${commandPoints}\` 🡪 \`${amount}\``, true)
-      .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);

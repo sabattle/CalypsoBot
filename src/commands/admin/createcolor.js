@@ -34,13 +34,11 @@ module.exports = class CreateColorCommand extends Command {
       });
       const embed = new MessageEmbed()
         .setTitle('Create Color')
-        .setThumbnail(message.guild.iconURL())
+        .setThumbnail(message.guild.iconURL({ dynamic: true }))
         .setDescription(`Successfully created the ${role} color.`)
         .addField('Hex', `\`${hex}\``, true)
         .addField('Color Name', `\`${colorName.slice(1, colorName.length)}\``, true)
-        .setFooter(`Requested by ${message.member.displayName}#${message.author.discriminator}`, 
-          message.author.displayAvatarURL({ dynamic: true })
-        )
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(hex);
       message.channel.send(embed);
