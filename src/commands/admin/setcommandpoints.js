@@ -23,7 +23,7 @@ module.exports = class SetCommandPointsCommand extends Command {
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Setting', '**Command Points**', true)
-      .addField('Current Value', `\`${commandPoints}\` 🡪 \`${amount}\``, true)
+      .addField('Current Value', `\`${commandPoints}\` ➔ \`${amount}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

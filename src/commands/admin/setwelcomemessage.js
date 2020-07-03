@@ -31,7 +31,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     if (!message.content.includes(' ')) {
       message.client.db.guildSettings.updateWelcomeMessage.run(null, message.guild.id);
       return message.channel.send(embed
-        .addField('Current Status', `${status} 🡪 \`disabled\``, true)
+        .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
@@ -39,7 +39,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     message.client.db.guildSettings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
     message.channel.send(embed
-      .addField('Current Status', `${status} 🡪 \`enabled\``, true)
+      .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', welcomeMessage)
     );
   }

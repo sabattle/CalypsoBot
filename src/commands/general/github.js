@@ -15,6 +15,7 @@ module.exports = class GitHubCommand extends Command {
   run(message) {
     const embed = new MessageEmbed()
       .setTitle('GitHub Link')
+      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setDescription(oneLine`
         Click [here](https://github.com/sabattle/CalypsoBot) to to visit my GitHub repository!
         Please support me by starring ⭐ the repo, and feel free to comment about issues or suggestions!
@@ -25,7 +26,6 @@ module.exports = class GitHubCommand extends Command {
       )
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
-      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }

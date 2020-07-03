@@ -31,7 +31,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     if (!message.content.includes(' ')) {
       message.client.db.guildSettings.updateCrownMessage.run(null, message.guild.id);
       return message.channel.send(embed
-        .addField('Current Status', `${status} 🡪 \`disabled\``, true)
+        .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
@@ -39,7 +39,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     message.client.db.guildSettings.updateCrownMessage.run(crownMessage, message.guild.id);
     if (crownMessage.length > 1024) crownMessage = crownMessage.slice(1021) + '...';
     message.channel.send(embed
-      .addField('Current Status', `${status} 🡪 \`enabled\``, true)
+      .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', crownMessage)
     );
   }

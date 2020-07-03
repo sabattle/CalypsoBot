@@ -45,7 +45,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     if (!message.content.includes(' ')) {
       message.client.db.guildSettings.updateCrownSchedule.run(null, message.guild.id);
       return message.channel.send(embed
-        .addField('Current Status', `${status} 🡪 \`disabled\``, true)
+        .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Crown Schedule', '`None`')
       );
     }
@@ -67,7 +67,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
         Successfully updated the \`crown schedule\`.
         Please note that \`points\` must be enabled and a \`crown role\` must be set.
       `)
-      .addField('Current Status', `${status} 🡪 \`enabled\``, true)
+      .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Crown Schedule', `\`${cron}\``)
     );
   }

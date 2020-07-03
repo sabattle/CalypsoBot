@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class AvatarCommand extends Command {
   constructor(client) {
@@ -14,7 +14,7 @@ module.exports = class AvatarCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle(`${member.displayName}'s Avatar`)
       .setImage(member.user.displayAvatarURL({ dynamic: true, size: 512 }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

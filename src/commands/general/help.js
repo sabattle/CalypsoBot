@@ -30,10 +30,10 @@ module.exports = class HelpCommand extends Command {
       `;
       embed = new MessageEmbed()
         .setTitle(`Command: \`${command.name}\``)
+        .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
         .setDescription(description)  
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
-        .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
         .setColor(message.guild.me.displayHexColor);
     } else if (args.length > 0) {
       return this.sendErrorMessage(message, `Unable to find command \`${args[0]}\`. Please enter a valid command.`);

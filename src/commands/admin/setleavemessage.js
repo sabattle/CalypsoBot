@@ -31,7 +31,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     if (!message.content.includes(' ')) {
       message.client.db.guildSettings.updateLeaveMessage.run(null, message.guild.id);
       return message.channel.send(embed
-        .addField('Current Status', `${status} 🡪 \`disabled\``, true)
+        .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
@@ -39,7 +39,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     message.client.db.guildSettings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
     message.channel.send(embed
-      .addField('Current Status', `${status} 🡪 \`enabled\``, true)
+      .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', leaveMessage)
     );
   }

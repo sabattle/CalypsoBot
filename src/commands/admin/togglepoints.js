@@ -16,7 +16,7 @@ module.exports = class TogglePointsCommand extends Command {
     let pointsEnabled = message.client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id);
     pointsEnabled = 1 - pointsEnabled; // Invert
     message.client.db.guildSettings.updatePointsEnabled.run(pointsEnabled, message.guild.id);
-    const status = (pointsEnabled == 1) ? '`disabled`	🡪 `enabled`' : '`enabled` 🡪 `disabled`';
+    const status = (pointsEnabled == 1) ? '`disabled`	➔ `enabled`' : '`enabled` ➔ `disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

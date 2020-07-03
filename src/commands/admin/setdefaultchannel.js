@@ -32,12 +32,12 @@ module.exports = class SetDefaultChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.guildSettings.updateDefaultChannelId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} 🡪 \`None\``, true));
+      return message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ \`None\``, true));
     }
 
     const channel = this.getChannelFromMention(message, args[0]);
     if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
     message.client.db.guildSettings.updateDefaultChannelId.run(channel.id, message.guild.id);
-    message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} 🡪 ${channel}`, true));
+    message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ ${channel}`, true));
   }
 };

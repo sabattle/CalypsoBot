@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class AliasesCommand extends Command {
   constructor(client) {
@@ -34,7 +34,7 @@ module.exports = class AliasesCommand extends Command {
           adminAliases = adminAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
       } 
     });
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle('Alias List')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField(`**General [${generalAliases.split('\n').length - 1}]**`, generalAliases)
