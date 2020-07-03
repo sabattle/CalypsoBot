@@ -83,7 +83,7 @@ class Command {
    * @param {string[]} args 
    */
   run(message, args) {
-    throw new Error(`${this.constructor.name} has no run() method`);
+    throw new Error(`The ${this.name} command has no run() method`);
   }
 
   /**
@@ -147,7 +147,6 @@ class Command {
     if (!this.ownerOnly && !this.userPermssions) return true;
     if (ownerOverride && this.client.isOwner(message.author)) return true;
     if (this.ownerOnly && !this.client.isOwner(message.author)) {
-      message.channel.send(`The \`${this.name}\` command can only be used by my owner.`);
       return false;
     }
     

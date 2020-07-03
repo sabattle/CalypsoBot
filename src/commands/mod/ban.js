@@ -1,28 +1,38 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class BanCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'ban',
-      usage: '<USER MENTION> <REASON>',
+      usage: 'ban <user mention> [reason]',
       description: 'Bans a member from your server.',
       type: 'mod',
       clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
-      userPermissions: ['BAN_MEMBERS']
+      userPermissions: ['BAN_MEMBERS'],
+      examples: ['ban @Nettles']
     });
   }
-  async run(message, args) {
+  async runf(message, args) {
     const member = this.getMemberFromMention(message, args[0]);
-    if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
-    if (member === message.member) return message.channel.send('You cannot ban yourself.'); 
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user.');
+    if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot ban yourself.'); 
     if (member.roles.highest.position >= message.member.roles.highest.position)
-      return message.channel.send(`${message.member}, you cannot ban someone who has an equal or higher role.`);
-    if (!member.bannable) return message.channel.send(`I am unable to ban ${member}.`);
+      return this.sendErrorMessage(message, 'Invalid argument. You cannot ban someone with an equal or higher role.');
+    if (!member.bannable) return this.sendErrorMessage(message, `Unable to ban ${member}.`);
     let reason = args.slice(1).join(' ');
     if(!reason) reason = 'No reason provided';
     await member.ban(reason);
-    message.channel.send(`I have successfully banned ${member}.`);
+    const embed = new MessageEmbed()
+      .setTitle('Ban Member')
+      .setDescription(`${member} was successfully banned.`)
+      .addField('Executor', message.member, true)
+      .addField('Member', member, true)
+      .addField('Reason', reason)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${member.displayName}`);
 
     // Update modlog
@@ -30,14 +40,14 @@ module.exports = class BanCommand extends Command {
     let modlogChannel;
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
-      const embed = new Discord.MessageEmbed()
+      const modEmbed = new MessageEmbed()
         .setTitle('Action: `Ban`')
         .addField('Executor', message.member, true)
         .addField('Member', member, true)
         .addField('Reason', reason)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
+      modlogChannel.send(modEmbed).catch(err => message.client.logger.error(err.stack));
     }
   }
 };
