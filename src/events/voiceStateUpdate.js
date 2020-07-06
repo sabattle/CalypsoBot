@@ -1,4 +1,4 @@
-const checkPointsDisabled = require('./checkPointsDisabled.js');
+const checkPointsDisabled = require('../utils/checkPointsDisabled.js');
 
 module.exports = (client, oldMember, newMember) => {
   
