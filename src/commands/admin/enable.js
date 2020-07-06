@@ -31,6 +31,7 @@ module.exports = class EnableCommand extends Command {
       return this.sendErrorMessage(message, 'Invalid argument. `Admin` commands are always enabled.');
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
+    let description;
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
     const type = args[0];
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
@@ -40,12 +41,14 @@ module.exports = class EnableCommand extends Command {
       for (const cmd of message.client.commands.values()) {
         if (cmd.type === type  && disabledCommands.includes(cmd.name)) disabledCommands.remove(cmd.name);
       }
-    
+      description = `All \`${type}\` type commands have been successfully **enabled**.`;
+
     // Handle single commands
     } else if (command) {
       if (command.type === 'admin') 
         return this.sendErrorMessage(message, 'Invalid argument. `Admin` commands are always enabled.');
       disabledCommands.remove(command.name); // Remove from array
+      description = `The \`${command.name}\` command has been successfully **enabled**.`;
     } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command.');
 
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);
@@ -53,6 +56,7 @@ module.exports = class EnableCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription(description)
       .addField('Setting', 'Disabled Commands', true)
       .addField('Current Value', disabledCommands.map(c => `\`${c}\``).join(' '), true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

@@ -24,6 +24,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `leave message` was successfully updated.')
       .addField('Setting', 'Leave Message', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

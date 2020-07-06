@@ -20,6 +20,7 @@ module.exports = class SetModRoleCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `mod role` was successfully updated.')
       .addField('Setting', 'Mod Role', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

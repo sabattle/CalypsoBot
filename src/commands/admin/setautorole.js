@@ -24,6 +24,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `auto role` was successfully updated.')
       .addField('Setting', 'Auto Role', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

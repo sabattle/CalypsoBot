@@ -1,30 +1,26 @@
 const Command = require('../Command.js');
-const { MessageEmbed } = require('discord.js');
+const { oneLine } = require('common-tags');
 
-module.exports = class ShowCrownMessageCommand extends Command {
+module.exports = class SayCrownMessageCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'showcrownmessage',
-      aliases: ['showcm', 'shcm'],
-      usage: 'showcrownmessage',
-      description: 'Shows the current crown message and crown message status for your server.',
-      type: 'admin'
+      name: 'saycrownmessage',
+      aliases: ['saycm'],
+      usage: 'saycrownmessage [text channel mention/ID]',
+      description: oneLine`
+        Says the currently set crown message in the provided text channel.
+        If no text channel is given, the crown message will be sent in the current channel.
+      `,
+      type: 'admin',
+      examples: ['saycrownmessage #general'] 
     });
   }
-  run(message) {
-    let crownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
-    const status = (crownMessage) ? '`true`' : '`false`';
-    if (!crownMessage) crownMessage = '`None`';
-    if (crownMessage.length > 1024) crownMessage = crownMessage.slice(1021) + '...';
-    const embed = new MessageEmbed()
-      .setTitle('Crown Message')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Crown Message', true)
-      .addField('Current Status', status, true)
-      .addField('Current Message', crownMessage)
-      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
-    message.channel.send(embed);
-  } 
+  run(message, args) {
+    const crownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
+    const channel = this.getChannelFromMention(message, args[0]) || 
+      message.guild.channels.cache.get(args[0]) || 
+      message.channel;
+    if (crownMessage) channel.send(crownMessage);
+    else this.sendErrorMessage(message, 'There is currently no `crown message` set.');
+  }
 };

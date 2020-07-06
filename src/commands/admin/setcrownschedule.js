@@ -63,10 +63,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     // Schedule crown role rotation
     scheduleCrown(message.client, message.guild);
     message.channel.send(embed
-      .setDescription(oneLine`
-        Successfully updated the \`crown schedule\`.
-        Please note that \`points\` must be enabled and a \`crown role\` must be set.
-      `)
+      .setDescription('Successfully updated the `crown schedule`. Please note that a `crown role` must also be set.')
       .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Crown Schedule', `\`${cron}\``)
     );

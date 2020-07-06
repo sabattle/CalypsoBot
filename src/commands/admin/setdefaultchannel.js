@@ -24,6 +24,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `default channel` was successfully updated.')
       .addField('Setting', 'Default Channel', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

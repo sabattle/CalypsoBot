@@ -24,6 +24,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `welcome message` was successfully updated.')
       .addField('Setting', 'Welcome Message', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

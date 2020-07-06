@@ -22,6 +22,7 @@ module.exports = class SetCommandPointsCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription('The `command points` value was successfully updated.')
       .addField('Setting', 'Command Points', true)
       .addField('Current Value', `\`${commandPoints}\` ➔ \`${amount}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
