@@ -32,7 +32,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
       examples: ['setcrownschedule 0 21 * * 3,6', 'setcrownschedule * 0 12 /10 * *']
     });
   }
-  run(message) {
+  run(message, args) {
     const oldCrownSchedule = message.client.db.settings.selectCrownSchedule.pluck().get(message.guild.id);
     const status = (oldCrownSchedule) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
@@ -49,7 +49,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
         .addField('New Crown Schedule', '`None`')
       );
     }
-    let cron = message.content.slice(message.content.indexOf(' '), message.content.length);
+    let cron = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     try {
       parser.parseExpression(cron);
     } catch (err) {

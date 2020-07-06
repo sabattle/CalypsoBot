@@ -18,7 +18,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       examples: ['setwelcomemessage ?member has joined the server!']
     });
   }
-  run(message) {
+  run(message, args) {
     const oldWelcomeMessage = message.client.db.settings.selectWelcomeMessage.pluck().get(message.guild.id);
     const status = (oldWelcomeMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
         .addField('New Message', '`None`')
       );
     }
-    let welcomeMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
+    let welcomeMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
     message.channel.send(embed

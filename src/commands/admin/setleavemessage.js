@@ -18,7 +18,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
       examples: ['setleavemessage ?member has left the server.']
     });
   }
-  run(message) {
+  run(message, args) {
     const oldLeaveMessage = message.client.db.settings.selectLeaveMessage.pluck().get(message.guild.id);
     const status = (oldLeaveMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
         .addField('New Message', '`None`')
       );
     }
-    let leaveMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
+    let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
     message.channel.send(embed

@@ -18,7 +18,7 @@ module.exports = class SetCrownMessageCommand extends Command {
       examples: ['setcrownmessage ?member has won the ?role!']
     });
   }
-  run(message) {
+  run(message, args) {
     const oldCrownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
     const status = (oldCrownMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
@@ -36,7 +36,7 @@ module.exports = class SetCrownMessageCommand extends Command {
         .addField('New Message', '`None`')
       );
     }
-    let crownMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
+    let crownMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateCrownMessage.run(crownMessage, message.guild.id);
     if (crownMessage.length > 1024) crownMessage = crownMessage.slice(1021) + '...';
     message.channel.send(embed
