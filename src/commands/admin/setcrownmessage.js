@@ -28,7 +28,8 @@ module.exports = class SetCrownMessageCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    if (!message.content.includes(' ')) {
+
+    if (!args[0]) {
       message.client.db.settings.updateCrownMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .setDescription('The `crown message` was successfully updated.')

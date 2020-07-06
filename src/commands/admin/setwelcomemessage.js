@@ -29,7 +29,8 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    if (!message.content.includes(' ')) {
+
+    if (!args[0]) {
       message.client.db.settings.updateWelcomeMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)

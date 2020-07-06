@@ -29,13 +29,15 @@ module.exports = class SetLeaveMessageCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    if (!message.content.includes(' ')) {
+    
+    if (!args[0]) {
       message.client.db.settings.updateLeaveMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
+    
     let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
