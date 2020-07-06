@@ -30,6 +30,8 @@ module.exports = class SettingsCommand extends Command {
     if (row.crown_message) crownMessage = 'enabled';
     let crownSchedule = '';
     if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
+    let disabledCommands = '';
+    if (row.disabled_commands) disabledCommands = row.disabled_commands.split(' ').map(c => `\`${c}\``).join(' ');
     const settings = stripIndent`
         **Prefix:** \`${row.prefix}\`
         **Default Channel:** ${defaultChannel}
@@ -46,6 +48,7 @@ module.exports = class SettingsCommand extends Command {
         **Leave Message:** \`${leaveMessage}\`
         **Crown Message:** \`${crownMessage}\`
         **Crown Schedule:** ${crownSchedule}
+        **Disabled Commands**: ${disabledCommands}
     `;
     const embed = new MessageEmbed()
       .setTitle('Server Settings')

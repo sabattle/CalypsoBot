@@ -25,7 +25,7 @@ module.exports = class SetPrefixCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Prefix**', true)
+      .addField('Setting', 'Prefix', true)
       .addField('Current Value', `\`${oldPrefix}\` ➔ \`${prefix}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

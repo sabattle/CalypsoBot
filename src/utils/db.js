@@ -35,7 +35,6 @@ db.prepare(`
     leave_message TEXT,
     crown_message TEXT,
     crown_schedule TEXT,
-    disabled_types TEXT,
     disabled_commands TEXT
 );`).run();
 
@@ -102,8 +101,6 @@ const settings = {
   updateCrownMessage: db.prepare('UPDATE settings SET crown_message = ? WHERE guild_id = ?;'),
   selectCrownSchedule: db.prepare('SELECT crown_schedule FROM settings WHERE guild_id = ?;'),
   updateCrownSchedule: db.prepare('UPDATE settings SET crown_schedule = ? WHERE guild_id = ?;'),
-  selectDisabledTypes: db.prepare('SELECT disabled_types FROM settings WHERE guild_id = ?;'),
-  updateDisabledTypes: db.prepare('UPDATE settings SET disabled_types = ? WHERE guild_id = ?;'),
   selectDisabledCommands: db.prepare('SELECT disabled_commands FROM settings WHERE guild_id = ?;'),
   updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;')
 };

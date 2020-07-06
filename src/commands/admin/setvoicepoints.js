@@ -22,7 +22,7 @@ module.exports = class SetVoicePointsVoice extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Voice Points**', true)
+      .addField('Setting', 'Voice Points', true)
       .addField('Current Value', `\`${voicePoints}\` ➔ \`${amount}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

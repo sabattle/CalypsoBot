@@ -20,7 +20,7 @@ module.exports = class SetMuteRoleCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Mute Role**', true)
+      .addField('Setting', 'Mute Role', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

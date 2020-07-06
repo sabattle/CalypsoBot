@@ -24,7 +24,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Welcome Message**', true)
+      .addField('Setting', 'Welcome Message', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

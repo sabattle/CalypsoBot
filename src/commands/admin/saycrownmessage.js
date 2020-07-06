@@ -19,7 +19,7 @@ module.exports = class ShowCrownMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Crown Message')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Crown Message**', true)
+      .addField('Setting', 'Crown Message', true)
       .addField('Current Status', status, true)
       .addField('Current Message', crownMessage)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

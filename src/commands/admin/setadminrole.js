@@ -20,7 +20,7 @@ module.exports = class SetAdminRoleCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Admin Role**', true)
+      .addField('Setting', 'Admin Role', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

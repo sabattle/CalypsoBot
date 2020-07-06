@@ -22,7 +22,7 @@ module.exports = class SetMessagePointsCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', '**Message Points**', true)
+      .addField('Setting', 'Message Points', true)
       .addField('Current Value', `\`${messagePoints}\` ➔ \`${amount}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
