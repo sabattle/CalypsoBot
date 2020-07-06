@@ -8,14 +8,14 @@ module.exports = (client) => {
   // Update db with new servers
   client.logger.info('Updating database and scheduling jobs...');
   client.guilds.cache.forEach(guild => {
-    client.db.guildSettings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
+    client.db.settings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
 
     // Schedule crown role rotation
     scheduleCrown(client, guild);
 
     // Update points table
     guild.members.cache.forEach(member => {
-      client.db.guildPoints.insertRow.run(member.id, member.user.username, guild.id, guild.name);
+      client.db.users.insertRow.run(member.id, member.user.username, guild.id, guild.name);
     });
   });
 

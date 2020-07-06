@@ -50,7 +50,7 @@ class Command {
      * The type of command
      * @type {string}
      */
-    this.type = options.type || 'general';
+    this.type = options.type || 'info';
 
     /**
      * The client permissions needed
@@ -211,7 +211,7 @@ class Command {
    * @param {string} errorMessage 
    */
   sendErrorMessage(message, reason, errorMessage = null) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     let description = reason + `\n\n ‣ **Usage:** \`${prefix}${this.usage}\``;
     if (this.examples) {
       description = description + `\n‣ **Examples:** ${this.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;

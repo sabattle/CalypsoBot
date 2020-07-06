@@ -12,14 +12,14 @@ module.exports = class HelpCommand extends Command {
         Displays a list of all current commands, sorted by category. 
         Can be used in conjunction with a command for additional information.
       `,
-      type: 'general',
+      type: 'info',
       examples: ['help ping']
     });
   }
   run(message, args) {
 
     let embed;
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     if (args.length > 0 && (message.client.commands.has(args[0]) || message.client.aliases.has(args[0]))) {
       const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
       let description = `${command.description} 
@@ -38,13 +38,13 @@ module.exports = class HelpCommand extends Command {
     } else if (args.length > 0) {
       return this.sendErrorMessage(message, `Unable to find command \`${args[0]}\`. Please enter a valid command.`);
     } else {
-      const general = [], fun = [], point = [], mod = [], howto = [], admin = [];
+      const info = [], fun = [], point = [], color = [], mod = [],  admin = [];
       message.client.commands.forEach(c => {
-        if (c.type === 'general') general.push(`\`${c.name}\``);
+        if (c.type === 'info') info.push(`\`${c.name}\``);
         else if (c.type === 'fun') fun.push(`\`${c.name}\``);
         else if (c.type === 'point') point.push(`\`${c.name}\``);
         else if (c.type === 'mod') mod.push(`\`${c.name}\``);
-        else if (c.type === 'howto') howto.push(`\`${c.name}\``);
+        else if (c.type === 'color') color.push(`\`${c.name}\``);
         else if (c.type === 'admin') admin.push(`\`${c.name}\``);
       });
       embed = new MessageEmbed()
@@ -53,10 +53,10 @@ module.exports = class HelpCommand extends Command {
           ‣ The prefix on **${message.guild.name}** is \`${prefix}\`
           ‣ Use \`${prefix}help [command]\` for more information
         `)
-        .addField(`**General [${general.length}]**`, general.join(' '))
+        .addField(`**Info [${info.length}]**`, info.join(' '))
         .addField(`**Fun [${fun.length}]**`, fun.join(' '))
         .addField(`**Point [${point.length}]**`, point.join(' '))
-        .addField(`**How To [${howto.length}]**`, howto.join(' '))
+        .addField(`**Color [${color.length}]**`, color.join(' '))
         .addField(`**Mod [${mod.length}]**`, mod.join(' '))
         .addField(`**Admin [${admin.length}]**`, admin.join(' '))
         .addField(

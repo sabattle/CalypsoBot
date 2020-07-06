@@ -8,7 +8,7 @@ module.exports = class FindIdCommand extends Command {
       aliases: ['find', 'id'],
       usage: 'findid <user/role/channel mention>',
       description: 'Finds the ID of the mentioned user, role, or text channel.',
-      type: 'general',
+      type: 'info',
       examples: ['findid @Calypso', 'findid #general']
     });
   }

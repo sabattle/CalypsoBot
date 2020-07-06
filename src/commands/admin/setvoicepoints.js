@@ -17,8 +17,8 @@ module.exports = class SetVoicePointsVoice extends Command {
     const amount = args[0];
     if (!amount || !Number.isInteger(Number(amount)) || amount < 0) 
       return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
-    const voicePoints = message.client.db.guildSettings.selectVoicePoints.pluck().get(message.guild.id);
-    message.client.db.guildSettings.updateVoicePoints.run(amount, message.guild.id);
+    const voicePoints = message.client.db.settings.selectVoicePoints.pluck().get(message.guild.id);
+    message.client.db.settings.updateVoicePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

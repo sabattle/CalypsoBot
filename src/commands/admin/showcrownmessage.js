@@ -12,7 +12,7 @@ module.exports = class ShowCrownMessageCommand extends Command {
     });
   }
   run(message) {
-    let crownMessage = message.client.db.guildSettings.selectCrownMessage.pluck().get(message.guild.id);
+    let crownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
     const status = (crownMessage) ? '`true`' : '`false`';
     if (!crownMessage) crownMessage = '`None`';
     if (crownMessage.length > 1024) crownMessage = crownMessage.slice(1021) + '...';

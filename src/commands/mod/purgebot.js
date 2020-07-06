@@ -18,7 +18,7 @@ module.exports = class PurgeBotCommand extends Command {
     });
   }
   async run(message, args) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
       return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
@@ -36,7 +36,7 @@ module.exports = class PurgeBotCommand extends Command {
       .then(msg => msg.delete(5000));
 
     // Update modlog
-    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {

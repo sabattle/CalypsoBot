@@ -17,7 +17,7 @@ module.exports = class GivePointsCommand extends Command {
     if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
     if (member.id === message.client.user.id) 
       return message.channel.send('Thank you, you\'re too kind! But I must decline. I prefer not to take handouts.');
-    const points = message.client.db.guildPoints.selectPoints.pluck().get(message.author.id, message.guild.id);
+    const points = message.client.db.users.selectPoints.pluck().get(message.author.id, message.guild.id);
     if (points === 0) 
       return message.channel.send(`${message.member}, you have **0** points! Try earning some points first.`);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > points) 
@@ -25,9 +25,9 @@ module.exports = class GivePointsCommand extends Command {
         ${message.member}, you can't give that much! You currently have **${points}** points.
       `);
     // Remove points
-    message.client.db.guildPoints.updatePoints.run({ points: -amount }, message.author.id, message.guild.id);
+    message.client.db.users.updatePoints.run({ points: -amount }, message.author.id, message.guild.id);
     // Add points
-    message.client.db.guildPoints.updatePoints.run({ points: amount }, member.id, message.guild.id);
+    message.client.db.users.updatePoints.run({ points: amount }, member.id, message.guild.id);
     if (amount === 1) message.channel.send(`I transferred **${amount}** point to ${member}.`);
     else message.channel.send(`I transferred **${amount}** points to ${member}.`);
   }

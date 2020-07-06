@@ -26,7 +26,7 @@ module.exports = class ServerInfoCommand extends Command {
       aliases: ['server', 'si'],
       usage: '',
       description: 'Fetches information and statistics about the server.',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message) {

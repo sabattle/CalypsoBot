@@ -17,8 +17,8 @@ module.exports = class SetMessagePointsCommand extends Command {
     const amount = args[0];
     if (!amount || !Number.isInteger(Number(amount)) || amount < 0) 
       return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
-    const messagePoints = message.client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
-    message.client.db.guildSettings.updateMessagePoints.run(amount, message.guild.id);
+    const messagePoints = message.client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
+    message.client.db.settings.updateMessagePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

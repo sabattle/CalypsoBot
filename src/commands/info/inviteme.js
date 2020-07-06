@@ -9,7 +9,7 @@ module.exports = class InviteMeCommand extends Command {
       aliases: ['invite', 'invme', 'im'],
       usage: 'inviteme',
       description: 'Generates a link you can use to invite Calypso to your own server.',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message) {

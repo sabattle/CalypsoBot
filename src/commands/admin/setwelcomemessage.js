@@ -19,7 +19,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     });
   }
   run(message) {
-    const oldWelcomeMessage = message.client.db.guildSettings.selectWelcomeMessage.pluck().get(message.guild.id);
+    const oldWelcomeMessage = message.client.db.settings.selectWelcomeMessage.pluck().get(message.guild.id);
     const status = (oldWelcomeMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
@@ -29,14 +29,14 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (!message.content.includes(' ')) {
-      message.client.db.guildSettings.updateWelcomeMessage.run(null, message.guild.id);
+      message.client.db.settings.updateWelcomeMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
     let welcomeMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
-    message.client.db.guildSettings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
+    message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
     message.channel.send(embed
       .addField('Current Status', `${status} ➔ \`enabled\``, true)

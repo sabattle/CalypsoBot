@@ -3,11 +3,11 @@ const { oneLine } = require('common-tags');
 module.exports = async function rotateCrown(client, guild, crownRole) {
 
   // Get default channel
-  const id = client.db.guildSettings.selectDefaultChannelId.pluck().get(guild.id);
+  const id = client.db.settings.selectDefaultChannelId.pluck().get(guild.id);
   let defaultChannel;
   if (id) defaultChannel = guild.channels.cache.get(id);
   
-  const leaderboard = client.db.guildPoints.selectLeaderboard.all(guild.id);
+  const leaderboard = client.db.users.selectLeaderboard.all(guild.id);
   const winner = guild.members.cache.get(leaderboard[0].user_id);
   let quit = false;
 
@@ -32,7 +32,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
   try {
     await winner.roles.add(crownRole);
     // Clear points
-    client.db.guildPoints.clearPoints.run(guild.id);
+    client.db.users.clearPoints.run(guild.id);
   } catch (err) {
     if (defaultChannel) return defaultChannel.send(oneLine`
       I tried to pass ${crownRole} to ${winner}, but something went wrong. Please check the role hierarchy and ensure I
@@ -40,7 +40,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
     `);
   }
   
-  let crownMessage = client.db.guildSettings.selectCrownMessage.pluck().get(guild.id);
+  let crownMessage = client.db.settings.selectCrownMessage.pluck().get(guild.id);
   if (crownMessage) {
     crownMessage = crownMessage.replace('?member', winner); // Member substituion
     crownMessage = crownMessage.replace('?role', crownRole); // Member substituion

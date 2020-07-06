@@ -8,11 +8,11 @@ module.exports = class HowToMuteRoleCommand extends Command {
       aliases: ['how2muterole', 'h2muterole'],
       usage: '',
       description: 'Explains how to create a proper mute role on your server.',
-      type: 'howto'
+      type: 'info'
     });
   }
   run(message) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.send(stripIndent`
       Working with Discord role permissions can be tricky! To make a working mute role, here's what I recommend:
 

@@ -7,7 +7,7 @@ module.exports = class ModsCommand extends Command {
       name: 'mods',
       usage: 'mods',
       description: 'Displays a list of all current mods.',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message) {
@@ -16,7 +16,7 @@ module.exports = class ModsCommand extends Command {
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    const modRoleId = message.client.db.guildSettings.selectModRoleId.pluck().get(message.guild.id);
+    const modRoleId = message.client.db.settings.selectModRoleId.pluck().get(message.guild.id);
     let modRole;
     if (modRoleId) modRole = message.guild.roles.cache.get(modRoleId);
     else return message.channel.send(embed.setDescription('Sorry! The `mod role` has not been set on this server.'));

@@ -3,12 +3,12 @@ const { oneLine } = require('common-tags');
 module.exports = async (client, member) => {
 
   // Get default channel
-  const defaultChannelId = client.db.guildSettings.selectDefaultChannelId.pluck().get(member.guild.id);
+  const defaultChannelId = client.db.settings.selectDefaultChannelId.pluck().get(member.guild.id);
   let defaultChannel;
   if (defaultChannelId) defaultChannel = member.guild.channels.cache.get(defaultChannelId);
 
   // Set auto role
-  const autoRoleId = client.db.guildSettings.selectAutoRoleId.pluck().get(member.guild.id);
+  const autoRoleId = client.db.settings.selectAutoRoleId.pluck().get(member.guild.id);
   if (autoRoleId) {
     const autoRole = member.guild.roles.cache.get(autoRoleId);
     try {
@@ -22,12 +22,12 @@ module.exports = async (client, member) => {
   }
 
   // Send welcome message
-  let welcomeMessage = client.db.guildSettings.selectWelcomeMessage.pluck().get(member.guild.id);
+  let welcomeMessage = client.db.settings.selectWelcomeMessage.pluck().get(member.guild.id);
   if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
   if (welcomeMessage && defaultChannel) defaultChannel.send(welcomeMessage);
 
   // Update points db
-  client.db.guildPoints.insertRow.run(member.id, member.user.username, member.guild.id, member.guild.name);
+  client.db.users.insertRow.run(member.id, member.user.username, member.guild.id, member.guild.name);
 
   client.logger.info(`${member.guild.name}: ${member.user.username} has joined the server`);
 };

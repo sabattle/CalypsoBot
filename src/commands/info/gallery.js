@@ -15,7 +15,7 @@ module.exports = class GalleryCommand extends Command {
       aliases: ['art'],
       usage: 'gallery',
       description: 'Displays a gallery of Calypso\'s art.',
-      type: 'general',
+      type: 'info',
     });
   }
   async run(message) {

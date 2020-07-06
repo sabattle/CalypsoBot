@@ -8,11 +8,11 @@ module.exports = class HowToColorsCommand extends Command {
       aliases: ['how2colors', 'h2colors'],
       usage: '',
       description: 'Explains how to set up colors on your server.',
-      type: 'howto'
+      type: 'color'
     });
   }
   run(message) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     message.channel.send(
       'Colors can be set up by creating roles beginning with `#` that have specific color hexes. For example, ' +
       '**#Red** or **#Blue**. These roles should have cleared permissions and be at the bottom of the role hierarchy. ' +

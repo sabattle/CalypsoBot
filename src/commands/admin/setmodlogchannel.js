@@ -18,7 +18,7 @@ module.exports = class SetModlogChannelCommand extends Command {
     });
   }
   run(message, args) {
-    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     let oldModlogChannel = '`None`';
     if (modlogChannelId) oldModlogChannel = message.guild.channels.cache.get(modlogChannelId);
     const embed = new MessageEmbed()
@@ -31,13 +31,13 @@ module.exports = class SetModlogChannelCommand extends Command {
 
     // Clear if no args provided
     if (args.length === 0) {
-      message.client.db.guildSettings.updateModlogChannelId.run(null, message.guild.id);
+      message.client.db.settings.updateModlogChannelId.run(null, message.guild.id);
       return message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ \`None\``, true));
     }
 
     const channel = this.getChannelFromMention(message, args[0]);
     if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
-    message.client.db.guildSettings.updateModlogChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateModlogChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ ${channel}`, true));
   }
 };

@@ -13,7 +13,7 @@ module.exports = class TopTenCommand extends Command {
     });
   }
   async run(message) {
-    const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
+    const leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
     const top10 = leaderboard.slice(0, 10);
     const embed = new Discord.MessageEmbed()

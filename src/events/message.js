@@ -1,13 +1,11 @@
-const sendInfo = require('../utils/sendInfo.js');
+const { MessageEmbed } = require('discord.js');
+const { oneLine } = require('common-tags');
 
 module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
-  // Check if points enabled
-  const pointsEnabled = client.db.guildSettings.selectPointsEnabled.pluck().get(message.guild.id);
-
   // Command handler
-  const prefix = client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+  const prefix = client.db.settings.selectPrefix.pluck().get(message.guild.id);
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
   if (!prefixRegex.test(message.content)) return;
 
@@ -20,26 +18,30 @@ module.exports = (client, message) => {
     // Check permissions
     const permission = command.checkPermissions(message);
     if (permission) {
-
-      // Check command type     
-      if (command.type === 'point' && !pointsEnabled) {
-        return message.channel.send('Points are currently **disabled** on this server.');
-
-      // Update points with commandPoints value  
-      } else if (pointsEnabled) {
-        const commandPoints = client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
-        client.db.guildPoints.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
-      }
+      const commandPoints = client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
+      client.db.users.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
       return command.run(message, args); // Run command
     }
   } else if (args.length == 0 && !message.content.startsWith(prefix)) {
-    sendInfo(message);
+    const embed = new MessageEmbed()
+      .setTitle('Hi, I\'m Calypso. Need help?')
+      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
+      .setDescription(`You can see everything I can do by using the \`${prefix}help\` command.`)
+      .addField('Invite Me', oneLine`
+        You can add me to your server by clicking 
+        [here](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727)!
+      `)
+      .addField('Support', oneLine`
+        If you have questions, suggestions, or found a bug, please join the 
+        [Calypso Support Server](https://discord.gg/pnYVdut)!
+      `)
+      .setFooter('DM Nettles#8880 to speak directly with the developer!')
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   }
 
   // Update points with messagePoints value
-  if (pointsEnabled) {  
-    const messagePoints = client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
-    client.db.guildPoints.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
-  }
+  const messagePoints = client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
+  client.db.users.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
 };
 

@@ -8,26 +8,26 @@ module.exports = class AliasesCommand extends Command {
       aliases: ['alias', 'ali'],
       usage: 'aliases',
       description: 'Displays a list of all current aliases per command.',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message) {
-    let generalAliases = '';
+    let infoAliases = '';
     let funAliases = '';
     let pointAliases = '';
-    let howtoAliases = '';
+    let colorAliases = '';
     let modAliases = '';
     let adminAliases = '';
     message.client.commands.forEach(command => {
       if (command.aliases) {
-        if (command.type == 'general')
-          generalAliases = generalAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
+        if (command.type == 'info')
+        infoAliases = infoAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
         if (command.type == 'fun')
           funAliases = funAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
         if (command.type == 'point')
           pointAliases = pointAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-        if (command.type == 'howto')
-          howtoAliases = howtoAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
+        if (command.type == 'color')
+        colorAliases = colorAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
         if (command.type == 'mod')
           modAliases = modAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
         if (command.type == 'admin')
@@ -37,10 +37,10 @@ module.exports = class AliasesCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Alias List')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField(`**General [${generalAliases.split('\n').length - 1}]**`, generalAliases)
+      .addField(`**Info [${infoAliases.split('\n').length - 1}]**`, infoAliases)
       .addField(`**Fun [${funAliases.split('\n').length - 1}]**`, funAliases)
       .addField(`**Point [${pointAliases.split('\n').length - 1}]**`, pointAliases)
-      .addField(`**How To [${howtoAliases.split('\n').length - 1}]**`, howtoAliases)
+      .addField(`**Color [${colorAliases.split('\n').length - 1}]**`, colorAliases)
       .addField(`**Mod [${modAliases.split('\n').length - 1}]**`, modAliases)
       .addField(`**Admin [${adminAliases.split('\n').length - 1}]**`, adminAliases)
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))

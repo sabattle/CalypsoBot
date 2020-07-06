@@ -19,7 +19,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     });
   }
   run(message) {
-    const oldLeaveMessage = message.client.db.guildSettings.selectLeaveMessage.pluck().get(message.guild.id);
+    const oldLeaveMessage = message.client.db.settings.selectLeaveMessage.pluck().get(message.guild.id);
     const status = (oldLeaveMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
@@ -29,14 +29,14 @@ module.exports = class SetLeaveMessageCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (!message.content.includes(' ')) {
-      message.client.db.guildSettings.updateLeaveMessage.run(null, message.guild.id);
+      message.client.db.settings.updateLeaveMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
     let leaveMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
-    message.client.db.guildSettings.updateLeaveMessage.run(leaveMessage, message.guild.id);
+    message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
     message.channel.send(embed
       .addField('Current Status', `${status} ➔ \`enabled\``, true)

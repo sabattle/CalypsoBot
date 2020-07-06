@@ -18,7 +18,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
     });
   }
   run(message, args) {
-    const defaultChannelId = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(message.guild.id);
+    const defaultChannelId = message.client.db.settings.selectDefaultChannelId.pluck().get(message.guild.id);
     let oldDefaultChannel = '`None`';
     if (defaultChannelId) oldDefaultChannel = message.guild.channels.cache.get(defaultChannelId);
     const embed = new MessageEmbed()
@@ -31,13 +31,13 @@ module.exports = class SetDefaultChannelCommand extends Command {
 
     // Clear if no args provided
     if (args.length === 0) {
-      message.client.db.guildSettings.updateDefaultChannelId.run(null, message.guild.id);
+      message.client.db.settings.updateDefaultChannelId.run(null, message.guild.id);
       return message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ \`None\``, true));
     }
 
     const channel = this.getChannelFromMention(message, args[0]);
     if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
-    message.client.db.guildSettings.updateDefaultChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateDefaultChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ ${channel}`, true));
   }
 };

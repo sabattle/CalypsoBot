@@ -14,14 +14,14 @@ module.exports = class SetPrefixCommand extends Command {
     });
   }
   run(message, args) {
-    const oldPrefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id);
+    const oldPrefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const prefix = args[0];
     if (!prefix) return this.sendErrorMessage(message, 'Invalid argument. Please specify a prefix.');
     else if (prefix.length > 3) 
       return this.sendErrorMessage(
         message, 'Invalid argument. Please ensure the prefix is no larger than 3 characters.'
       );
-    message.client.db.guildSettings.updatePrefix.run(prefix, message.guild.id);
+    message.client.db.settings.updatePrefix.run(prefix, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

@@ -12,7 +12,7 @@ module.exports = class ShowWelcomeMessageCommand extends Command {
     });
   }
   run(message) {
-    let welcomeMessage = message.client.db.guildSettings.selectWelcomeMessage.pluck().get(message.guild.id);
+    let welcomeMessage = message.client.db.settings.selectWelcomeMessage.pluck().get(message.guild.id);
     const status = (welcomeMessage) ? '`true`' : '`false`';
     if (!welcomeMessage) welcomeMessage = '`None`';
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';

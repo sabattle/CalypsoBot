@@ -8,11 +8,11 @@ module.exports = class ColorsCommand extends Command {
       aliases: ['cols'],
       usage: 'colors',
       description: 'Displays a list of all available colors.',
-      type: 'general'
+      type: 'color'
     });
   }
   run(message) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const embed = new MessageEmbed()
       .setTitle('Available Colors')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

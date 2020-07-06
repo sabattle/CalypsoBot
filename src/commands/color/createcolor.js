@@ -11,10 +11,10 @@ module.exports = class CreateColorCommand extends Command {
       aliases: ['cc'],
       usage: 'createcolor <hex> <color name>',
       description: 'Creates a new role for the given color hex.',
-      type: 'admin',
+      type: 'color',
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
-      examples: ['createcolor #FF0000 #Red']
+      examples: ['createcolor #FF0000 Red']
     });
   }
   async run(message, args) {

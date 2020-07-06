@@ -11,13 +11,13 @@ module.exports = class ColorCommand extends Command {
       description: oneLine`
         Changes your current color to the one specified. Provide no color to clear your current color role.
       `,
-      type: 'general',
+      type: 'color',
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       examples: ['color Red']
     });
   }
   async run(message, args) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const embed = new MessageEmbed()
       .setTitle('Color Change')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')

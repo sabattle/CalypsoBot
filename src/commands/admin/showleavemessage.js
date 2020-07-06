@@ -12,7 +12,7 @@ module.exports = class ShowLeaveMessageCommand extends Command {
     });
   }
   run(message) {
-    let leaveMessage = message.client.db.guildSettings.selectLeaveMessage.pluck().get(message.guild.id);
+    let leaveMessage = message.client.db.settings.selectLeaveMessage.pluck().get(message.guild.id);
     const status = (leaveMessage) ? '`true`' : '`false`';
     if (!leaveMessage) leaveMessage = '`None`';
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';

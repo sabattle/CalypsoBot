@@ -9,7 +9,7 @@ module.exports = class UserInfoCommand extends Command {
       aliases: ['user', 'ui'],
       usage: '<USER MENTION>',
       description: 'Fetches a user\'s information (or your own, if no user is mentioned).',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message, args) {

@@ -13,9 +13,9 @@ module.exports = class PointBreakdownCommand extends Command {
     });
   }
   run(message) {
-    const messagePoints = message.client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
-    const commandPoints = message.client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
-    const voicePoints = message.client.db.guildSettings.selectVoicePoints.pluck().get(message.guild.id);
+    const messagePoints = message.client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
+    const commandPoints = message.client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
+    const voicePoints = message.client.db.settings.selectVoicePoints.pluck().get(message.guild.id);
     const breakdown = stripIndent`
       **Message Points**: \`${messagePoints} per message\`
       **Command Points**: \`${commandPoints} per command\`

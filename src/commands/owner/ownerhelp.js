@@ -12,7 +12,7 @@ module.exports = class OwnerHelpCommand extends Command {
     });
   }
   run(message) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let owner = ['**Owner Commands**'];
     message.client.commands.forEach(c => {
       if (c.type === 'owner') owner.push(`\`${prefix}${c.name} ${c.usage}\` - *${c.description}*`);

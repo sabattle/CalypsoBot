@@ -33,7 +33,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     });
   }
   run(message) {
-    const oldCrownSchedule = message.client.db.guildSettings.selectCrownSchedule.pluck().get(message.guild.id);
+    const oldCrownSchedule = message.client.db.settings.selectCrownSchedule.pluck().get(message.guild.id);
     const status = (oldCrownSchedule) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
@@ -43,7 +43,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (!message.content.includes(' ')) {
-      message.client.db.guildSettings.updateCrownSchedule.run(null, message.guild.id);
+      message.client.db.settings.updateCrownSchedule.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Crown Schedule', '`None`')
@@ -58,7 +58,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
         If you need additional help building your cron, please check out this website: <https://crontab.guru/#>
       `);
     }
-    message.client.db.guildSettings.updateCrownSchedule.run(cron, message.guild.id);
+    message.client.db.settings.updateCrownSchedule.run(cron, message.guild.id);
     if (message.guild.job) message.guild.job.cancel(); // Cancel old job
     // Schedule crown role rotation
     scheduleCrown(message.client, message.guild);

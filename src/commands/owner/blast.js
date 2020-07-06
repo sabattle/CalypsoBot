@@ -13,7 +13,7 @@ module.exports = class BlastCommand extends Command {
   run(message, args) {
     const msg = args.join(' ');
     message.client.guilds.cache.forEach(guild => {
-      const id = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(guild.id);
+      const id = message.client.db.settings.selectDefaultChannelId.pluck().get(guild.id);
       let defaultChannel;
       if (id) defaultChannel = guild.channels.cache.get(id);
       if (defaultChannel) defaultChannel.send(msg);

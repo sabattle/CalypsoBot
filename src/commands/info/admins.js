@@ -7,7 +7,7 @@ module.exports = class AdminsCommand extends Command {
       name: 'admins',
       usage: 'admins',
       description: 'Displays a list of all current admins.',
-      type: 'general'
+      type: 'info'
     });
   }
   run(message) {
@@ -16,7 +16,7 @@ module.exports = class AdminsCommand extends Command {
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    const adminRoleId = message.client.db.guildSettings.selectAdminRoleId.pluck().get(message.guild.id);
+    const adminRoleId = message.client.db.settings.selectAdminRoleId.pluck().get(message.guild.id);
     let adminRole;
     if (adminRoleId) adminRole = message.guild.roles.cache.get(adminRoleId);
     else return message.channel.send(embed.setDescription('Sorry! The `admin role` has not been set on this server.'));

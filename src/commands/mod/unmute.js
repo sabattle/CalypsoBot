@@ -13,7 +13,7 @@ module.exports = class UnmuteCommand extends Command {
     });
   }
   async run(message, args) {
-    const id = message.client.db.guildSettings.selectMuteRoleId.pluck().get(message.guild.id);
+    const id = message.client.db.settings.selectMuteRoleId.pluck().get(message.guild.id);
     let muteRole;
     if (id) muteRole = message.guild.roles.cache.get(id);
     else return message.channel.send('There is currently no `mute role` set on this server.');
@@ -33,7 +33,7 @@ module.exports = class UnmuteCommand extends Command {
     } else return message.channel.send(`${member} is not muted!`);
     
     // Update modlog
-    const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {

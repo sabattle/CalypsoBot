@@ -12,7 +12,7 @@ module.exports = class PositionCommand extends Command {
   }
   run(message, args) {
     const member = this.getMemberFromMention(message, args[0]) || message.member;
-    const leaderboard = message.client.db.guildPoints.selectLeaderboard.all(message.guild.id);
+    const leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(member.id);
     message.channel.send(`${member}'s position: **${position + 1}**`);
   }

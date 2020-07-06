@@ -35,7 +35,7 @@ module.exports = class SlowmodeCommand extends Command {
     } else {
 
       // Update modlog
-      const modlogChannelId = message.client.db.guildSettings.selectModlogChannelId.pluck().get(message.guild.id);
+      const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
       let modlogChannel;
       if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
       if (modlogChannel) {

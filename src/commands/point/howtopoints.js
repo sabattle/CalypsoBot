@@ -8,14 +8,14 @@ module.exports = class HowToPointsCommand extends Command {
       aliases: ['how2points', 'h2points'],
       usage: '',
       description: 'Explains various aspects about Calypso\'s point system.',
-      type: 'howto'
+      type: 'point'
     });
   }
   run(message) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const messagePoints = message.client.db.guildSettings.selectMessagePoints.pluck().get(message.guild.id);
-    const commandPoints = message.client.db.guildSettings.selectCommandPoints.pluck().get(message.guild.id);
-    const voicePoints = message.client.db.guildSettings.selectVoicePoints.pluck().get(message.guild.id);
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const messagePoints = message.client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
+    const commandPoints = message.client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
+    const voicePoints = message.client.db.settings.selectVoicePoints.pluck().get(message.guild.id);
     message.channel.send(stripIndent`
     Points can be earned in a variety of ways. Here is **${message.guild.name}**'s point breakdown:
 

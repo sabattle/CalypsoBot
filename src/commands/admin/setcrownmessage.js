@@ -19,7 +19,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     });
   }
   run(message) {
-    const oldCrownMessage = message.client.db.guildSettings.selectCrownMessage.pluck().get(message.guild.id);
+    const oldCrownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
     const status = (oldCrownMessage) ? '`enabled`' : '`disabled`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
@@ -29,14 +29,14 @@ module.exports = class SetCrownMessageCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (!message.content.includes(' ')) {
-      message.client.db.guildSettings.updateCrownMessage.run(null, message.guild.id);
+      message.client.db.settings.updateCrownMessage.run(null, message.guild.id);
       return message.channel.send(embed
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
     }
     let crownMessage = message.content.slice(message.content.indexOf(' '), message.content.length);
-    message.client.db.guildSettings.updateCrownMessage.run(crownMessage, message.guild.id);
+    message.client.db.settings.updateCrownMessage.run(crownMessage, message.guild.id);
     if (crownMessage.length > 1024) crownMessage = crownMessage.slice(1021) + '...';
     message.channel.send(embed
       .addField('Current Status', `${status} ➔ \`enabled\``, true)

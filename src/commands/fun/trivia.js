@@ -18,7 +18,7 @@ module.exports = class TriviaCommand extends Command {
     });
   }
   async run(message, args) {
-    const prefix = message.client.db.guildSettings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let topic = args[0];
     let randomTopic = false;
     if (!topic) { // Pick a random topic if none given

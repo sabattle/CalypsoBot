@@ -12,13 +12,13 @@ module.exports = class SendWelcomeMessageCommand extends Command {
     });
   }
   run(message, args) {
-    const id = message.client.db.guildSettings.selectDefaultChannelId.pluck().get(message.guild.id);
+    const id = message.client.db.settings.selectDefaultChannelId.pluck().get(message.guild.id);
     let defaultChannel;
     if (id) defaultChannel = message.guild.channels.cache.get(id);
     const channel = this.getChannelFromMention(message, args[0]) || defaultChannel;
     if (!channel) 
       return message.channel.send('No text channel was mentioned and no `default channel` is set on this server.');
-    const msg = message.client.db.guildSettings.selectWelcomeMessage.pluck().get(message.guild.id);
+    const msg = message.client.db.settings.selectWelcomeMessage.pluck().get(message.guild.id);
     if (msg) channel.send(msg);
     else message.channel.send('There is currently no `welcome message` set on this server.');
   } 
