@@ -13,7 +13,7 @@ module.exports = (client) => {
     // Schedule crown role rotation
     scheduleCrown(client, guild);
 
-    // Update points table
+    // Update users table
     guild.members.cache.forEach(member => {
       client.db.users.insertRow.run(member.id, member.user.username, guild.id, guild.name);
     });

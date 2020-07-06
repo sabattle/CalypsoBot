@@ -17,9 +17,9 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
       try {
         await member.roles.remove(crownRole);
       } catch (err) {
-        if (defaultChannel) return defaultChannel.send(oneLine`
-          I tried to remove ${crownRole} from ${member}, but something went wrong. Please check the role hierarchy and 
-          ensure I have the \`Manage Roles\` permission.
+        if (defaultChannel) return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
+          Something went wrong. Unable to remove ${crownRole} from ${member}. 
+          Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
         `);
         quit = true;
       } 
@@ -34,16 +34,16 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
     // Clear points
     client.db.users.clearPoints.run(guild.id);
   } catch (err) {
-    if (defaultChannel) return defaultChannel.send(oneLine`
-      I tried to pass ${crownRole} to ${winner}, but something went wrong. Please check the role hierarchy and ensure I
-      have the \`Manage Roles\` permission.
+    if (defaultChannel) return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
+      Something went wrong. Unable to pass ${crownRole} to ${winner}. 
+      Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
     `);
   }
   
   let crownMessage = client.db.settings.selectCrownMessage.pluck().get(guild.id);
   if (crownMessage) {
     crownMessage = crownMessage.replace('?member', winner); // Member substituion
-    crownMessage = crownMessage.replace('?role', crownRole); // Member substituion
+    crownMessage = crownMessage.replace('?role', crownRole); // Role substituion
   }
 
   // Send crown message

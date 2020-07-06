@@ -1,5 +1,6 @@
 const schedule = require('node-schedule');
 const rotateCrown = require('./rotateCrown.js');
+const checkPointsDisabled = require('./checkPointsDisabled.js');
 
 /**
  * Schedule crown role rotation if checks pass
@@ -7,9 +8,12 @@ const rotateCrown = require('./rotateCrown.js');
  * @param {Guild} guild
  */
 module.exports = function scheduleCrown(client, guild) {
-  const id = client.db.settings.selectCrownRoleId.pluck().get(guild.id);
+
+  if (checkPointsDisabled(client, guild)) return;
+
+  const crownRoleId = client.db.settings.selectCrownRoleId.pluck().get(guild.id);
   let crownRole;
-  if (id) crownRole = guild.roles.cache.get(id);
+  if (crownRoleId) crownRole = guild.roles.cache.get(crownRoleId);
   const cron = client.db.settings.selectCrownSchedule.pluck().get(guild.id);
   if (crownRole && cron) {
     guild.job = schedule.scheduleJob(cron, () => {

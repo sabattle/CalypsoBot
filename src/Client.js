@@ -159,6 +159,27 @@ class Client extends Discord.Client {
     else return false;
   }
 
+  /**
+   * Creates and sends system failure embed
+   * @param {Guild} guild
+   * @param {string} error
+   * @param {string} errorMessage 
+   */
+  sendSystemErrorMessage(guild, error, errorMessage) {
+
+    // Get default channel
+    const defaultChannelId = this.db.settings.selectDefaultChannelId.pluck().get(guild.id);
+    let defaultChannel;
+    if (defaultChannelId) defaultChannel = guild.channels.cache.get(defaultChannelId);
+
+    const embed = new Discord.MessageEmbed()
+      .setAuthor(`${guild.me.displayName}#${this.user.discriminator}`, this.user.displayAvatarURL())
+      .setTitle(`System Error: \`${error}\``)
+      .setDescription(errorMessage)
+      .setTimestamp()
+      .setColor(guild.me.displayHexColor);
+    defaultChannel.send(embed);
+  }
 }
 
 module.exports = Client;

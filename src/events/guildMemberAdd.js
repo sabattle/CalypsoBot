@@ -14,9 +14,9 @@ module.exports = async (client, member) => {
     try {
       await member.roles.add(autoRole);
     } catch (err) {
-      if (defaultChannel) return defaultChannel.send(oneLine`
-        I tried to give ${autoRole} to ${member}, but something went wrong. Please check the role hierarchy and ensure 
-        I have the \`Manage Roles\` permission.
+      if (defaultChannel) return client.sendSystemErrorMessage(member.guild, 'crown update', oneLine`
+        Something went wrong. Unable to give ${autoRole} to ${member}. 
+        Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
       `);
     }
   }
