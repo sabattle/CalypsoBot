@@ -6,7 +6,7 @@ module.exports = class SetMuteRoleCommand extends Command {
     super(client, {
       name: 'setmuterole',
       aliases: ['setmur', 'smur'],
-      usage: 'setmuterole <role mention | role name>',
+      usage: 'setmuterole <role mention/ID>',
       description: 'Sets the mute role your server. Provide no role to clear the current mute role.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD'],
@@ -33,10 +33,8 @@ module.exports = class SetMuteRoleCommand extends Command {
     }
 
     // Update role
-    const roleName = args.join(' ').toLowerCase();
-    let role = message.guild.roles.cache.find(r => r.name.toLowerCase() === roleName);
-    role = this.getRoleFromMention(message, args[0]) || role;
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
+    const role = this.getRoleFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
     message.client.db.settings.updateMuteRoleId.run(role.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldRole} ➔ ${role}`, true));
   }

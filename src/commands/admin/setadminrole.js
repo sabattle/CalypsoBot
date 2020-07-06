@@ -6,7 +6,7 @@ module.exports = class SetAdminRoleCommand extends Command {
     super(client, {
       name: 'setadminrole',
       aliases: ['setar', 'sar'],
-      usage: 'setadminrole <role mention | role name>',
+      usage: 'setadminrole <role mention/ID>',
       description: 'Sets the admin role for your server. Provide no role to clear the current admin role.',
       type: 'admin',
       userPermissions: ['MANAGE_GUILD'],
@@ -33,10 +33,8 @@ module.exports = class SetAdminRoleCommand extends Command {
     }
 
     // Update role
-    const roleName = args.join(' ').toLowerCase();
-    let role = message.guild.roles.cache.find(r => r.name.toLowerCase() === roleName);
-    role = this.getRoleFromMention(message, args[0]) || role;
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
+    const role = this.getRoleFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
     message.client.db.settings.updateAdminRoleId.run(role.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldRole} ➔ ${role}`, true));
   }

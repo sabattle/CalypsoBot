@@ -7,7 +7,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
     super(client, {
       name: 'setdefaultchannel',
       aliases: ['setdc', 'sdc'],
-      usage: 'setdefaultchannel <channel mention>',
+      usage: 'setdefaultchannel <channel mention/ID>',
       description: oneLine`
         Sets the default text channel for your server. 
         Provide no channel to clear the current default channel.
@@ -36,8 +36,9 @@ module.exports = class SetDefaultChannelCommand extends Command {
       return message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ \`None\``, true));
     }
 
-    const channel = this.getChannelFromMention(message, args[0]);
-    if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
+    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!channel) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel or provide a channel ID.');
     message.client.db.settings.updateDefaultChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldDefaultChannel} ➔ ${channel}`, true));
   }

@@ -7,14 +7,14 @@ module.exports = class SetModlogChannelCommand extends Command {
     super(client, {
       name: 'setmodlogchannel',
       aliases: ['setmlc', 'smlc'],
-      usage: 'setmodlogchannel <channel mention>',
+      usage: 'setmodlogchannel <channel mention/ID>',
       description: oneLine`
         Sets the modlog text channel for your server. 
         Provide no channel to clear the current modlog channel.
       `,
       type: 'admin',
       userPermissions: ['MANAGE_GUILD'],
-      examples: ['setmodlogchannel #mod-log']
+      examples: ['setmodlogchannel #modlog']
     });
   }
   run(message, args) {
@@ -36,8 +36,9 @@ module.exports = class SetModlogChannelCommand extends Command {
       return message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ \`None\``, true));
     }
 
-    const channel = this.getChannelFromMention(message, args[0]);
-    if (!channel) return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel.');
+    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!channel) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel or provide a channel ID.');
     message.client.db.settings.updateModlogChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ ${channel}`, true));
   }

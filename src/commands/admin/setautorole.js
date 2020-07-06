@@ -7,7 +7,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     super(client, {
       name: 'setautorole',
       aliases: ['setaur', 'saur'],
-      usage: 'setautorole <role mention | role name>',
+      usage: 'setautorole <role mention/ID>',
       description: oneLine`
         Sets the role all new members will receive upon joining your server.
         Provide no role to clear the current auto role.
@@ -37,10 +37,8 @@ module.exports = class SetAutoRoleCommand extends Command {
     }
 
     // Update role
-    const roleName = args.join(' ').toLowerCase();
-    let role = message.guild.roles.cache.find(r => r.name.toLowerCase() === roleName);
-    role = this.getRoleFromMention(message, args[0]) || role;
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role name.');
+    const role = this.getRoleFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
     message.client.db.settings.updateAutoRoleId.run(role.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldRole} ➔ ${role}`, true));
   }
