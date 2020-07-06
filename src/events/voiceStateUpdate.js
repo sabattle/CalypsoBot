@@ -1,5 +1,13 @@
 module.exports = (client, oldMember, newMember) => {
   
+  // Get disabled commands
+  let disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(oldMember.guild.id) || [];
+  if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
+
+  // Check if points are disabled
+  const commands = client.commands.array().filter(c => c.type === 'point' && !disabledCommands.includes(c.name));
+  if (commands.length === 0) return;
+
   const voicePoints = client.db.settings.selectVoicePoints.pluck().get(newMember.guild.id);
   if (voicePoints == 0) return;
 

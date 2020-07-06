@@ -5,7 +5,7 @@ module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
   // Get disabled commands
-  let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
+  let disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
   if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
   // Command handler
