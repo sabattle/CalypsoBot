@@ -31,7 +31,7 @@ module.exports = class YoutubeCommand extends Command {
       .setTitle(decodedTitle)
       .setURL(result.link)
       .setDescription(result.description)
-      .setThumbnail(result.thumbnails.default.url)
+      .setImage(result.thumbnails.high.url)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
