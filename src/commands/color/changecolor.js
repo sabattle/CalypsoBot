@@ -7,7 +7,7 @@ module.exports = class ChangeColorCommand extends Command {
     super(client, {
       name: 'changecolor',
       aliases: ['changecol', 'changec', 'cc'],
-      usage: 'changecolor <role mention | color name>',
+      usage: 'changecolor <role mention/ID | color name>',
       description: oneLine`
         Changes your current color to the one specified. Provide no color to clear your current color role.
       `,
@@ -39,7 +39,7 @@ module.exports = class ChangeColorCommand extends Command {
       }
     }
 
-    const role = this.getRoleFromMention(message, args[0]);
+    const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
     let color;
     if (role && colors.get(role.id)) color = role;
     if (!color) {

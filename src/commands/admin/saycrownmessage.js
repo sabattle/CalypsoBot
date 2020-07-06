@@ -6,7 +6,7 @@ module.exports = class SayCrownMessageCommand extends Command {
     super(client, {
       name: 'saycrownmessage',
       aliases: ['saycm'],
-      usage: 'saycrownmessage [text channel mention/ID]',
+      usage: 'saycrownmessage [channel mention/ID]',
       description: oneLine`
         Says the currently set crown message in the provided text channel.
         If no text channel is given, the crown message will be sent in the current channel.

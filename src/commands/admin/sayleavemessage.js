@@ -6,7 +6,7 @@ module.exports = class SayLeaveMessageCommand extends Command {
     super(client, {
       name: 'sayleavemessage',
       aliases: ['saylm'],
-      usage: 'sayleavemessage [text channel mention/ID]',
+      usage: 'sayleavemessage [channel mention/ID]',
       description: oneLine`
         Says the currently set leave message in the provided text channel.
         If no text channel is given, the leave message will be sent in the current channel.

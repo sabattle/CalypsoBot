@@ -1,20 +1,26 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
+const { oneLine } = require('common-tags');
 
 module.exports = class ThouArtCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'thouart',
       aliases: ['elizabethan', 'ta'],
-      usage: 'thouart [user mention]',
-      description: 'Says a random Elizabethan insult to the mentioned user (or you, if no user is mentioned).',
+      usage: 'thouart [user mention/ID]',
+      description: oneLine`
+        Says a random Elizabethan insult to the specified user. 
+        If no user is given, then the insult will be directed at you!
+      `,
       type: 'fun',
       examples: ['thouart @Calypso']
     });
   }
   async run(message, args) {
-    const member =  this.getMemberFromMention(message, args[0]) || message.member;
+    const member =  this.getMemberFromMention(message, args[0]) || 
+      message.guild.members.cache.get(args[0]) || 
+      message.member;
     try {
       const res = await fetch('http://quandyfactory.com/insult/json/');
       let insult = (await res.json()).insult;

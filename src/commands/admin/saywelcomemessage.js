@@ -6,7 +6,7 @@ module.exports = class SayWelcomeMessageCommand extends Command {
     super(client, {
       name: 'saywelcomemessage',
       aliases: ['saywm'],
-      usage: 'saywelcomemessage [text channel mention/ID]',
+      usage: 'saywelcomemessage [channel mention/ID]',
       description: oneLine`
         Says the currently set welcome message in the provided text channel.
         If no text channel is given, the welcome message will be sent in the current channel.
