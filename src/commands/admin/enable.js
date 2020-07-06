@@ -31,10 +31,10 @@ module.exports = class EnableCommand extends Command {
       return this.sendErrorMessage(message, 'Invalid argument. `Admin` commands are always enabled.');
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
-    let description;
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
     const type = args[0];
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
+    let description;
 
     // Handle types
     if (types.includes(type.toLowerCase())) {

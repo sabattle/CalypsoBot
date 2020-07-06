@@ -4,6 +4,10 @@ const { oneLine } = require('common-tags');
 module.exports = (client, message) => {
   if (message.channel.type === 'dm' || message.author.bot) return;
 
+  // Get disabled commands
+  let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
+  if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
+
   // Command handler
   const prefix = client.db.settings.selectPrefix.pluck().get(message.guild.id);
   const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\s*`);
@@ -13,7 +17,7 @@ module.exports = (client, message) => {
   const args = message.content.slice(match.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
   let command = client.commands.get(cmd) || client.aliases.get(cmd); // If command not found, check aliases
-  if (command) {
+  if (command && !disabledCommands.includes(command.name)) {
 
     // Check permissions
     const permission = command.checkPermissions(message);
