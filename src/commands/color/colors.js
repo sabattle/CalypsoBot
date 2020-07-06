@@ -5,7 +5,7 @@ module.exports = class ColorsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'colors',
-      aliases: ['cols'],
+      aliases: ['cols', 'c'],
       usage: 'colors',
       description: 'Displays a list of all available colors.',
       type: 'color'

@@ -8,7 +8,7 @@ module.exports = class CreateColorCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'createcolor',
-      aliases: ['cc'],
+      aliases: ['createcol', 'createc', 'crc'],
       usage: 'createcolor <hex> <color name>',
       description: 'Creates a new role for the given color hex.',
       type: 'color',

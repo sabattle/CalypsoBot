@@ -2,18 +2,18 @@ const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class ColorCommand extends Command {
+module.exports = class ChangeColorCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'color',
-      aliases: ['col', 'c'],
-      usage: 'color <role mention | color name>',
+      name: 'changecolor',
+      aliases: ['changecol', 'changec', 'cc'],
+      usage: 'changecolor <role mention | color name>',
       description: oneLine`
         Changes your current color to the one specified. Provide no color to clear your current color role.
       `,
       type: 'color',
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
-      examples: ['color Red']
+      examples: ['changecolor Red']
     });
   }
   async run(message, args) {
