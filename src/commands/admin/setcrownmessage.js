@@ -43,7 +43,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     message.channel.send(embed
       .setDescription(oneLine`
         The \`crown message\` was successfully updated.
-        Please note that a \`crown role\` and \`crown schedule\` must also be set.
+        Please note that a \`crown role\`, \`crown channel\`, and \`crown schedule\` must also be set.
       `)
       .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', crownMessage)

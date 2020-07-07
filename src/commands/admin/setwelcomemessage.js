@@ -24,7 +24,6 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `welcome message` was successfully updated.')
       .addField('Setting', 'Welcome Message', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
@@ -33,6 +32,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     if (!args[0]) {
       message.client.db.settings.updateWelcomeMessage.run(null, message.guild.id);
       return message.channel.send(embed
+        .setDescription('The `welcome message` was successfully updated.')
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
@@ -41,6 +41,9 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
     message.channel.send(embed
+      .setDescription(oneLine`
+        The \`welcome message\` was successfully updated. Please note that a \`welcome channel\` must also be set.
+      `)
       .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', welcomeMessage)
     );

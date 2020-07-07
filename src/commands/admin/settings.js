@@ -16,6 +16,9 @@ module.exports = class SettingsCommand extends Command {
   run(message) {
     const row = message.client.db.settings.selectRow.get(message.guild.id);
     const defaultChannel = message.guild.channels.cache.get(row.default_channel_id) || '';
+    const welcomeChannel = message.guild.channels.cache.get(row.welcome_channel_id) || '';
+    const leaveChannel = message.guild.channels.cache.get(row.leave_channel_id) || '';
+    const crownChannel = message.guild.channels.cache.get(row.crown_channel_id) || '';
     const modlogChannel = message.guild.channels.cache.get(row.modlog_channel_id) || '';
     const adminRole = message.guild.roles.cache.get(row.admin_role_id) || '';
     const modRole = message.guild.roles.cache.get(row.mod_role_id) || '';
@@ -35,6 +38,9 @@ module.exports = class SettingsCommand extends Command {
     const settings = stripIndent`
         **Prefix:** \`${row.prefix}\`
         **Default Channel:** ${defaultChannel}
+        **Welcome Channel:** ${welcomeChannel}
+        **Leave Channel:** ${leaveChannel}
+        **Crown Channel:** ${crownChannel}
         **Modlog Channel:** ${modlogChannel}
         **Admin Role:** ${adminRole}
         **Mod Role:** ${modRole}

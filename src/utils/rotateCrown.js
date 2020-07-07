@@ -3,9 +3,9 @@ const { oneLine } = require('common-tags');
 module.exports = async function rotateCrown(client, guild, crownRole) {
 
   // Get default channel
-  const id = client.db.settings.selectDefaultChannelId.pluck().get(guild.id);
-  let defaultChannel;
-  if (id) defaultChannel = guild.channels.cache.get(id);
+  const crownChannelId = client.db.settings.selectCrownChannelId.pluck().get(guild.id);
+  let crownChannel;
+  if (crownChannelId) crownChannel = guild.channels.cache.get(crownChannelId);
   
   const leaderboard = client.db.users.selectLeaderboard.all(guild.id);
   const winner = guild.members.cache.get(leaderboard[0].user_id);
@@ -17,11 +17,13 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
       try {
         await member.roles.remove(crownRole);
       } catch (err) {
-        if (defaultChannel) return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
+
+        quit = true;
+        
+        return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
           Something went wrong. Unable to remove ${crownRole} from ${member}. 
           Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
         `);
-        quit = true;
       } 
     }
   }));
@@ -34,7 +36,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
     // Clear points
     client.db.users.clearPoints.run(guild.id);
   } catch (err) {
-    if (defaultChannel) return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
+    return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
       Something went wrong. Unable to pass ${crownRole} to ${winner}. 
       Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
     `);
@@ -47,7 +49,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
   }
 
   // Send crown message
-  if (defaultChannel && crownMessage) defaultChannel.send(crownMessage);
+  if (crownChannel && crownMessage) crownChannel.send(crownMessage);
 
   client.logger.info(`${guild.name}: Successfully assigned crown role to ${winner.displayName} and reset points`);
 };

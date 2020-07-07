@@ -9,7 +9,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
       aliases: ['setdc', 'sdc'],
       usage: 'setdefaultchannel <channel mention/ID>',
       description: oneLine`
-        Sets the default text channel for your server. 
+        Sets the default text channel for your server, where Calypso's system messages will be sent. 
         Provide no channel to clear the current default channel.
       `,
       type: 'admin',

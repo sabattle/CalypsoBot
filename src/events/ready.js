@@ -8,7 +8,14 @@ module.exports = (client) => {
   // Update db with new servers
   client.logger.info('Updating database and scheduling jobs...');
   client.guilds.cache.forEach(guild => {
-    client.db.settings.insertRow.run(guild.id, guild.name, guild.systemChannelID);
+    client.db.settings.insertRow.run(
+      guild.id,
+      guild.name,
+      guild.systemChannelID, // Default channel
+      guild.systemChannelID, // Welcome channel
+      guild.systemChannelID, // Leave channel
+      guild.systemChannelID  // Crown Channel
+    );
 
     // Schedule crown role rotation
     scheduleCrown(client, guild);

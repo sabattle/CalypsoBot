@@ -24,7 +24,6 @@ module.exports = class SetLeaveMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `leave message` was successfully updated.')
       .addField('Setting', 'Leave Message', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
@@ -33,6 +32,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     if (!args[0]) {
       message.client.db.settings.updateLeaveMessage.run(null, message.guild.id);
       return message.channel.send(embed
+        .setDescription('The `leave message` was successfully updated.')
         .addField('Current Status', `${status} ➔ \`disabled\``, true)
         .addField('New Message', '`None`')
       );
@@ -42,6 +42,9 @@ module.exports = class SetLeaveMessageCommand extends Command {
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
     message.channel.send(embed
+      .setDescription(oneLine`
+        The \`leave message\` was successfully updated. Please note that a \`leave channel\` must also be set.
+      `)
       .addField('Current Status', `${status} ➔ \`enabled\``, true)
       .addField('New Message', leaveMessage)
     );

@@ -20,9 +20,10 @@ db.prepare(`
     guild_name TEXT,
     prefix TEXT NOT NULL,
     default_channel_id TEXT,
-    modlog_channel_id TEXT, 
     welcome_channel_id TEXT,
     leave_channel_id TEXT,
+    crown_channel_id TEXT,
+    modlog_channel_id TEXT, 
     admin_role_id TEXT,
     mod_role_id TEXT,
     mute_role_id TEXT,
@@ -60,23 +61,28 @@ const settings = {
       guild_id, 
       guild_name,
       prefix, 
-      default_channel_id, 
+      default_channel_id,
+      welcome_channel_id,
+      leave_channel_id,
+      crown_channel_id,
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!', ?, 1, 1, 1);
+    ) VALUES (?, ?, '!!', ?, ?, ?, ?, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
   updatePrefix: db.prepare('UPDATE settings SET prefix = ? WHERE guild_id = ?;'),
   selectDefaultChannelId: db.prepare('SELECT default_channel_id FROM settings WHERE guild_id = ?;'),
   updateDefaultChannelId: db.prepare('UPDATE settings SET default_channel_id = ? WHERE guild_id = ?;'),
-  selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
-  updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
   selectWelcomeChannelId: db.prepare('SELECT welcome_channel_id FROM settings WHERE guild_id = ?;'),
   updateWelcomeChannelId: db.prepare('UPDATE settings SET welcome_channel_id = ? WHERE guild_id = ?;'),
   selectLeaveChannelId: db.prepare('SELECT leave_channel_id FROM settings WHERE guild_id = ?;'),
   updateLeaveChannelId: db.prepare('UPDATE settings SET leave_channel_id = ? WHERE guild_id = ?;'),
+  selectCrownChannelId: db.prepare('SELECT crown_channel_id FROM settings WHERE guild_id = ?;'),
+  updateCrownChannelId: db.prepare('UPDATE settings SET crown_channel_id = ? WHERE guild_id = ?;'),
+  selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
+  updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
   selectAdminRoleId: db.prepare('SELECT admin_role_id FROM settings WHERE guild_id = ?;'),
   updateAdminRoleId: db.prepare('UPDATE settings SET admin_role_id = ? WHERE guild_id = ?;'),
   selectModRoleId: db.prepare('SELECT mod_role_id FROM settings WHERE guild_id = ?;'),
@@ -118,8 +124,6 @@ const users = {
     ) VALUES (?, ?, ?, ?, 0, 0);
   `),
   selectRow: db.prepare('SELECT * FROM users WHERE user_id = ? AND guild_id = ?;'),
-  selectUserIds: db.prepare('SELECT user_id FROM users WHERE guild_id = ?;'),
-  selectUserName: db.prepare('SELECT user_name FROM users WHERE user_id = ? AND guild_id = ?;'),
   selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? ORDER BY points DESC;'),
   selectPoints: db.prepare('SELECT points FROM users WHERE user_id = ? AND guild_id = ?;'),
   updatePoints: db.prepare(`
@@ -131,8 +135,7 @@ const users = {
   wipeServerPoints: db.prepare('UPDATE users SET points = 0 WHERE guild_id = ?;'),
   wipeAllServerPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;'),
   wipePoints: db.prepare('UPDATE users SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
-  wipeAllPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;'),
-  deleteRow: db.prepare('DELETE FROM users WHERE user_id = ? AND guild_id = ?;')
+  wipeAllPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;')
 };
 
 module.exports = {
