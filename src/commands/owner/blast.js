@@ -6,7 +6,7 @@ module.exports = class BlastCommand extends Command {
       name: 'blast',
       usage: '',
       description: 'Sends a message to every server that Calypso is in.',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

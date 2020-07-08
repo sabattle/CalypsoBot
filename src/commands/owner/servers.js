@@ -8,7 +8,7 @@ module.exports = class ServersCommand extends Command {
       aliases: ['servs'],
       usage: '',
       description: 'Displays a list of Calypso\'s joined servers.',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

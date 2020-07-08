@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const search = require('youtube-search');
 const he = require('he');
 
@@ -27,7 +27,7 @@ module.exports = class YoutubeCommand extends Command {
     if (!result) 
       return this.sendErrorMessage(message, 'Unable to find video. Please provide a different YouTube video name.');
     const decodedTitle = he.decode(result.title);
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle(decodedTitle)
       .setURL(result.link)
       .setDescription(result.description)

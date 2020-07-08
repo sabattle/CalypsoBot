@@ -17,27 +17,14 @@ module.exports = class AliasesCommand extends Command {
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
-    let infoAliases = '';
-    let funAliases = '';
-    let pointAliases = '';
-    let colorAliases = '';
-    let modAliases = '';
-    let adminAliases = '';
+    const aliases = {};
+    for (const type of Object.values(types)) {
+      aliases[type] = [];
+    }
+
     message.client.commands.forEach(command => {
-      if (command.aliases) {
-        if (command.type == 'info' && !disabledCommands.includes(command.name)) 
-          `**${command.name}**: \`${command.aliases.join(' ')}\``;
-        if (command.type == 'fun' && !disabledCommands.includes(command.name))
-          funAliases = funAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-        if (command.type == 'point' && !disabledCommands.includes(command.name))
-          pointAliases = pointAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-        if (command.type == 'color' && !disabledCommands.includes(command.name))
-          colorAliases = colorAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-        if (command.type == 'mod' && !disabledCommands.includes(command.name))
-          modAliases = modAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-        if (command.type == 'admin' && !disabledCommands.includes(command.name))
-          adminAliases = adminAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
-      } 
+      if (command.aliases) 
+        aliases[command.type].push(`**${command.name}**: ${command.aliases.map(a => `\`${a}\``).join(' ')}`);
     });
 
     const embed = new MessageEmbed()
@@ -47,20 +34,11 @@ module.exports = class AliasesCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
-    const info = infoAliases.split('\n');
-    const fun = funAliases.split('\n');
-    const point = pointAliases.split('\n');
-    const color = colorAliases.split('\n');
-    const mod = modAliases.split('\n');
-    const admin = adminAliases.split('\n');
+    for (const type of Object.values(types)) {
+      if (type === types.OWNER) continue;
+      if (aliases[type][0]) embed.addField(`**${type} [${aliases[type].length}]**`, aliases[type].join('\n'));
+    }
 
-    if (info[0]) embed.addField(`**Info [${info.length - 1}]**`, infoAliases);
-    if (fun[0]) embed.addField(`**Fun [${fun.length - 1}]**`, funAliases);
-    if (point[0]) embed.addField(`**Point [${point.length - 1}]**`, pointAliases);
-    if (color[0]) embed.addField(`**Color [${color.length - 1}]**`, colorAliases);
-    if (mod[0]) embed.addField(`**Mod [${mod.length - 1}]**`, modAliases);
-    embed.addField(`**Admin [${admin.length - 1}]**`, adminAliases);
-      
     message.channel.send(embed);
   }
 };

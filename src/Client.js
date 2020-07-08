@@ -70,6 +70,12 @@ class Client extends Discord.Client {
      */
     this.ownerId = config.ownerId;
 
+    /** 
+     * Utility functions
+     * @type {Object}
+     */
+    this.utils = require('./utils/utils.js');
+
     this.logger.info('Initializing...');
 
   }

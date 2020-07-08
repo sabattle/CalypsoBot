@@ -269,7 +269,7 @@ class Command {
     if(options.description && typeof options.description !== 'string') 
       throw new TypeError('Command description is not a string');
     if(options.type && typeof options.type !== 'string') throw new TypeError('Command type is not a string');
-    if(options.type && options.type !== options.type.toLowerCase()) throw new Error('Command type is not lowercase');
+    if(options.type && !Object.values(types).includes(options.type)) throw new Error('Command type is not valid');
     if(options.clientPermissions) {
       if(!Array.isArray(options.clientPermissions)) {
         throw new TypeError('Command clientPermissions is not an Array of permission key strings');

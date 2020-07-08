@@ -7,7 +7,7 @@ module.exports = class OwnerHelpCommand extends Command {
       aliases: ['ownercommands', 'oh'],
       usage: '',
       description: 'Displays a list of all current owner commands.',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

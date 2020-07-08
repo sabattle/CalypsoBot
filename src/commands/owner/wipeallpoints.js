@@ -7,7 +7,7 @@ module.exports = class WipeAllPointsCommand extends Command {
       aliases: ['wipeap', 'wap'],
       usage: '<USER MENTION>',
       description: 'Wipes the mentioned user\'s points and total points (or your own, if no user is mentioned).',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

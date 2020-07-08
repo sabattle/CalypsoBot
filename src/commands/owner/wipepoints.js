@@ -7,7 +7,7 @@ module.exports = class WipePointsCommand extends Command {
       aliases: ['wipep', 'wp'],
       usage: '<USER MENTION>',
       description: 'Wipes the mentioned user\'s points (or your own, if no user is mentioned).',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

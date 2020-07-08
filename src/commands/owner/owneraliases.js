@@ -8,7 +8,7 @@ module.exports = class OwnerAliasesCommand extends Command {
       aliases: ['ownali', 'oa'],
       usage: '',
       description: 'Displays a list of all current aliases per owner command.',
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }

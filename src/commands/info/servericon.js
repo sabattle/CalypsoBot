@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class ServerIconCommand extends Command {
   constructor(client) {
@@ -12,7 +12,7 @@ module.exports = class ServerIconCommand extends Command {
     });
   }
   run(message) {
-    const embed = new Discord.MessageEmbed()
+    const embed = new MessageEmbed()
       .setTitle(`${message.guild.name}'s Icon`)
       .setImage(message.guild.iconURL({ dynamic: true, size: 512 }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

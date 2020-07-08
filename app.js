@@ -5,13 +5,14 @@ global.__basedir = __dirname;
 
 // Command types
 global.types = {
-  INFO: 'info',
-  FUN: 'fun',
-  COLOR: 'color',
-  XP: 'xp',
-  MISC: 'misc',
-  MOD: 'mod',
-  ADMIN: 'admin',
+  INFO: 'Info',
+  FUN: 'Fun',
+  COLOR: 'Color',
+  XP: 'XP',
+  MISC: 'Misc',
+  MOD: 'Mod',
+  ADMIN: 'Admin',
+  OWNER: 'Owner'
 };
 
 // Client setup

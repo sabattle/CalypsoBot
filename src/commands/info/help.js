@@ -45,14 +45,15 @@ module.exports = class HelpCommand extends Command {
       return this.sendErrorMessage(message, `Unable to find command \`${args[0]}\`. Please enter a valid command.`);
 
     } else {
-      const info = [], fun = [], point = [], color = [], mod = [],  admin = [];
-      message.client.commands.forEach(c => {
-        if (c.type === 'info' && !disabledCommands.includes(c.name)) info.push(`\`${c.name}\``);
-        else if (c.type === 'fun' && !disabledCommands.includes(c.name)) fun.push(`\`${c.name}\``);
-        else if (c.type === 'point' && !disabledCommands.includes(c.name)) point.push(`\`${c.name}\``);
-        else if (c.type === 'mod' && !disabledCommands.includes(c.name)) mod.push(`\`${c.name}\``);
-        else if (c.type === 'color' && !disabledCommands.includes(c.name)) color.push(`\`${c.name}\``);
-        else if (c.type === 'admin' && !disabledCommands.includes(c.name)) admin.push(`\`${c.name}\``);
+
+      // Get commands
+      const commands = {};
+      for (const type of Object.values(types)) {
+        commands[type] = [];
+      }
+  
+      message.client.commands.forEach(command => {
+        commands[command.type].push(`\`${command.name}\``);
       });
 
       embed = new MessageEmbed()
@@ -65,12 +66,12 @@ module.exports = class HelpCommand extends Command {
         .setTimestamp()
         .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
         .setColor(message.guild.me.displayHexColor);
-      if (info.length > 0) embed.addField(`**Info [${info.length}]**`, info.join(' '));
-      if (fun.length > 0) embed.addField(`**Fun [${fun.length}]**`, fun.join(' '));
-      if (point.length > 0)  embed.addField(`**Point [${point.length}]**`, point.join(' '));
-      if (color.length > 0)  embed.addField(`**Color [${color.length}]**`, color.join(' '));
-      if (mod.length > 0) embed.addField(`**Mod [${mod.length}]**`, mod.join(' '));
-      embed.addField(`**Admin [${admin.length}]**`, admin.join(' '));
+
+      for (const type of Object.values(types)) {
+        if (type === types.OWNER) continue;
+        if (commands[type][0]) embed.addField(`**${type} [${commands[type].length}]**`, commands[type].join(' '));
+      }
+
       embed.addField(
         '**Links**', 
         '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) | ' +

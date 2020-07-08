@@ -12,7 +12,7 @@ module.exports = class WipeServerPointsCommand extends Command {
       description: oneLine`
         Wipes all members' points in the server with the provided ID (or the current server, if no ID is given).
       `,
-      type: 'owner',
+      type: types.OWNER,
       ownerOnly: true
     });
   }
