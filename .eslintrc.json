@@ -20,7 +20,8 @@
     ],
     "indent": [
       "error",
-      2
+      2,
+      { "SwitchCase": 1 }
     ],
     "brace-style": [2, "1tbs", { "allowSingleLine": true }],
     "require-await": 2,
