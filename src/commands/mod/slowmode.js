@@ -1,55 +1,66 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const { oneLine } = require('common-tags');
 
 module.exports = class SlowmodeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'slowmode',
       aliases: ['slow', 'sm'],
-      usage: '<CHANNEL MENTION> <RATE> <REASON>',
-      description: 'Enables slowmode in a channel with the specified rate (provide a rate of 0 to disable).',
+      usage: 'slowmode [channel mention/ID] <rate> [reason]',
+      description: oneLine`
+        Enables slowmode in a channel with the specified rate.
+        If no channel is provided, then slowmode will affect the current channel.
+        Provide a rate of 0 to disable.
+      `,
       type: 'mod',
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'],
-      userPermissions: ['MANAGE_CHANNELS']
+      userPermissions: ['MANAGE_CHANNELS'],
+      examples: ['slowmode #general 2', 'slowmode 3']
     });
   }
   async run(message, args) {
-    let offset = 1;
-    let channel = this.getChannelFromMention(message, args[0]);
+    let index = 1;
+    let channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
     if (!channel) {
       channel = message.channel;
-      offset--;
+      index--;
     }
-    const rate = args[offset];
+    const rate = args[index];
     if (!rate || rate < 0 || rate > 59) 
-      return message.channel.send(`${message.member}, please provide a rate limit between 0 and 59 seconds.`);
-    let reason = args.slice(offset + 1).join(' ');
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide a rate limit between 0 and 59 seconds.');
+    let reason = args.slice(index + 1).join(' ');
     if(!reason) reason = 'No reason provided';
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
+    const status = (channel.rateLimitPerUser) ? 'enabled' : 'disabled';
+    const embed = new MessageEmbed()
+      .setTitle('Slowmode')
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
 
     // Slowmode disabled
     if (rate === '0') {
-      return message.channel.send(`Slowmode in ${channel} has been **disabled**.`);
+      return message.channel.send(embed
+        .setDescription(`\`${status}\` ➔ \`disabled\``)
+        .addField('Executor', message.member, true)
+        .addField('Channel', channel, true)
+        .addField('Reason', reason)
+      );
     
       // Slowmode enabled
     } else {
 
       // Update modlog
-      const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-      let modlogChannel;
-      if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-      if (modlogChannel) {
-        const embed = new Discord.MessageEmbed()
-          .setTitle('Action: `Slowmode`')
-          .addField('Executor', message.member, true)
-          .addField('Channel', channel, true)
-          .addField('Rate', rate, true)
-          .addField('Reason', reason)
-          .setTimestamp()
-          .setColor(message.guild.me.displayHexColor);
-        modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
-      }   
-      return message.channel.send(`Slowmode in ${channel} has been **enabled** with a rate of **${rate}s**.`);
+      this.sendModlogMessage(message, reason, { Channel: channel, Rate: rate });
+
+      return message.channel.send(embed
+        .setDescription(`\`${status}\` ➔ \`enabled\``)
+        .addField('Executor', message.member, true)
+        .addField('Channel', channel, true)
+        .addField('Rate', rate, true)
+        .addField('Reason', reason)
+      );
     }
   }
 };

@@ -227,11 +227,10 @@ class Command {
   /**
    * Creates and sends modlog embed
    * @param {Message} message
-   * @param {GuildMember} member 
    * @param {string} reason 
    * @param {Object} fields
    */
-  sendModlogMessage(message, member, reason, fields = {}) {
+  sendModlogMessage(message, reason, fields = {}) {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
@@ -239,7 +238,6 @@ class Command {
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${this.name.charAt(0).toUpperCase() + this.name.slice(1)}\``)
         .addField('Executor', message.member, true)
-        .addField('Member', member, true)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       for (const field in fields) {

@@ -16,7 +16,7 @@ module.exports = class BanCommand extends Command {
   async run(message, args) {
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user provide a user ID.');
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
     if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot ban yourself.'); 
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot ban someone with an equal or higher role.');
@@ -38,6 +38,6 @@ module.exports = class BanCommand extends Command {
     message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${member.displayName}`);
         
     // Update modlog
-    this.sendModlogMessage(message, member, reason);
+    this.sendModlogMessage(message, reason, { Member: member});
   }
 };

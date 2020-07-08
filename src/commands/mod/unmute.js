@@ -1,49 +1,49 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class UnmuteCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'unmute',
-      usage: '<USER MENTION>',
+      usage: 'unmute <user mention/ID>',
       description: 'Unmutes the specified user.',
       type: 'mod',
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
-      userPermissions: ['MANAGE_ROLES']
+      userPermissions: ['MANAGE_ROLES'],
+      examples: ['unmute @Nettles']
     });
   }
   async run(message, args) {
-    const id = message.client.db.settings.selectMuteRoleId.pluck().get(message.guild.id);
+    const muteRoleId = message.client.db.settings.selectMuteRoleId.pluck().get(message.guild.id);
     let muteRole;
-    if (id) muteRole = message.guild.roles.cache.get(id);
-    else return message.channel.send('There is currently no `mute role` set on this server.');
-    const member = this.getMemberFromMention(message, args[0]);
-    if (!member) return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please mention a user.`);
+    if (muteRoleId) muteRole = message.guild.roles.cache.get(muteRoleId);
+    else return this.sendErrorMessage(message, 'There is currently no `mute role` set on this server.');
+
+    const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
     if (member.roles.highest.position >= message.member.roles.highest.position)
-      return message.channel.send(`${message.member}, you cannot unmute someone who has an equal or higher role.`);
-    if (member.roles.cache.has(id)) {
-      message.client.clearTimeout(member.timeout);
-      try {
-        await member.roles.remove(muteRole);
-        message.channel.send(`${member} has been unmuted.`);
-      } catch (err) {
-        message.client.logger.error(err.stack);
-        return message.channel.send(`Sorry ${message.member}, something went wrong. Please check the role hierarchy.`);
-      }
-    } else return message.channel.send(`${member} is not muted!`);
+      return this.sendErrorMessage(message, 'Invalid argument. You cannot unmute someone with an equal or higher role.');
+    let reason = args.slice(2).join(' ');
+    if(!reason) reason = 'No reason provided';
+    if (!member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is not muted.`);
     
-    // Update modlog
-    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-    if (modlogChannel) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle('Action: `Unmute`')
-        .addField('Executor', message.member, true)
-        .addField('Member', member, true)
+    // Unmute member
+    message.client.clearTimeout(member.timeout);
+    try {
+      await member.roles.remove(muteRole);
+      const embed = new MessageEmbed()
+        .setTitle('Unmute Member')
+        .setDescription(`${member} has been unmuted.`)
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
-    }  
+      message.channel.send(embed);
+    } catch (err) {
+      message.client.logger.error(err.stack);
+      return this.sendErrorMessage(message, 'Something went wrong. Please check the role hierarchy.', err.message);
+    }
+    
+    // Update modlog
+    this.sendModlogMessage(message, reason, { Member: member });
   }
 };

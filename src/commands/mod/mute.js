@@ -22,7 +22,7 @@ module.exports = class MuteCommand extends Command {
     else return this.sendErrorMessage(message, 'There is currently no `mute role` set on this server.');
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user provide a user ID.');
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
     if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot mute yourself.');
     if (member === message.guild.me) return this.sendErrorMessage(message, 'Invalid argument. You cannot mute me.');
     if (member.roles.highest.position >= message.member.roles.highest.position)
@@ -74,6 +74,6 @@ module.exports = class MuteCommand extends Command {
     }, time);
 
     // Update modlog
-    this.sendModlogMessage(message, member, reason, { Time: ms(time) });
+    this.sendModlogMessage(message, reason, { Member: member, Time: ms(time) });
   }
 };
