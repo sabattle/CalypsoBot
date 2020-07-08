@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed, MessageCollector } = require('discord.js');
 const fs = require('fs');
 const YAML = require('yaml');
 const { oneLine } = require('common-tags');
@@ -8,26 +8,24 @@ module.exports = class SoloTriviaCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'solotrivia',
-      aliases: ['solotriv', 'striv'],
-      usage: '<TOPIC>',
+      aliases: ['solotriv', 'striv', 'solot', 'st'],
+      usage: 'solotrivia [topic]',
       description: oneLine`
         Test your knowledge in a game of trivia (only you can answer).
         If no topic is given, a random one will be chosen.
+        The question will expire after 15 seconds.
       `,
-      type: 'fun'
+      type: 'fun',
+      examples: ['solotrivia sports']
     });
   }
-  async run(message, args) {
+  run(message, args) {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     let topic = args[0];
-    let randomTopic = false;
     if (!topic) { // Pick a random topic if none given
       topic = message.client.topics[Math.floor(Math.random() * message.client.topics.length)];
-      randomTopic = true;
     } else if (!message.client.topics.includes(topic))
-      return message.channel.send(oneLine`
-        Sorry ${message.member}, I don't recognize that topic. Please use \`\`${prefix}topics\`\` to see a list.
-      `);
+      return this.sendErrorMessage(message, `Invalid topic. Use \`\`${prefix}topics\`\` for a list.`);
     
     // Get question and answers
     const path = __basedir + '/data/trivia/' + topic + '.yml';
@@ -42,12 +40,18 @@ module.exports = class SoloTriviaCommand extends Command {
     }
 
     // Get user answer
-    if (randomTopic) await message.channel.send(`From \`${topic}\`: ${question}`);
-    else await message.channel.send(question);
+    const questionEmbed = new MessageEmbed()
+      .setTitle('Trivia')
+      .addField('Topic', `\`${topic}\``)
+      .addField('Question', `${question}`)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(questionEmbed);
     let winner;
-    const collector = new Discord.MessageCollector(message.channel, msg => {
+    const collector = new MessageCollector(message.channel, msg => {
       if (!msg.author.bot && msg.author == message.author) return true;
-    }, { time: 10000 }); // Wait 10 seconds
+    }, { time: 15000 }); // Wait 15 seconds
     collector.on('collect', msg => {
       if (answers.includes(msg.content.trim().toLowerCase().replace(/\.|'|-|\s/g, ''))){
         winner = msg.author;
@@ -55,10 +59,17 @@ module.exports = class SoloTriviaCommand extends Command {
       }
     });
     collector.on('end', () => {
-      if (winner) message.channel.send(`Congratulations ${winner}, you gave the correct answer!`);
-      else message.channel.send(`
-        Sorry ${message.member}, time's up! Better luck next time.\n\n**Correct answers**: ${origAnswers.join(', ')}
-      `);
+      const answerEmbed = new MessageEmbed()
+        .setTitle('Trivia')
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      if (winner) 
+        message.channel.send(answerEmbed.setDescription(`Congratulations ${winner}, you gave the correct answer!`));
+      else message.channel.send(answerEmbed
+        .setDescription(`Sorry ${message.member}, time's up! Better luck next time.`)
+        .addField('Correct Answers', origAnswers.join(', '))
+      );
     });
   }
 };

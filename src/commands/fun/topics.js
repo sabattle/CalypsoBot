@@ -1,21 +1,28 @@
 const Command = require('../Command.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class TopicsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'topics',
-      aliases: ['categories'],
-      usage: '',
-      description: 'Displays a list of all trivia topics.',
+      aliases: ['triviatopics', 'categories', 'ts'],
+      usage: 'topics',
+      description: 'Displays the list of all available trivia topics.',
       type: 'fun'
     });
   }
   run(message) {
-    let topics;
+    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+    const topics = [];
     message.client.topics.forEach(topic => {
-      topics += '``' + topic + '``, ';
+      topics.push(`\`${topic}\``);
     });
-    topics = topics.slice(9, -2);
-    message.channel.send('Here is the list of all available trivia topics:\n' + topics);
+    const embed = new MessageEmbed()
+      .setTitle('Trivia Topics')
+      .setDescription(`${topics.join(' ')}\n\nType \`${prefix}trivia [topic]\` to choose one.`)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   }
 };
