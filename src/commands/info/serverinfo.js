@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const region = {
   'us-central': 'US Central :flag_us:',
@@ -17,33 +17,42 @@ const region = {
   'sydney': 'Sydney :flag_au:',
   'southafrica': 'South Africa :flag_za:'
 };
-const verifLevels = ['None', 'Low', 'Medium', '(╯°□°）╯︵  ┻━┻', '┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻'];
+const verificationLevels = {
+  NONE: 'None',
+  LOW: 'Low',
+  MEDIUM: 'Medium',
+  HIGH: 'High',
+  VERY_HIGH: 'Highest'
+};
 
 module.exports = class ServerInfoCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'serverinfo',
       aliases: ['server', 'si'],
-      usage: '',
+      usage: 'serverinfo',
       description: 'Fetches information and statistics about the server.',
       type: 'info'
     });
   }
   run(message) {
-    const embed = new Discord.MessageEmbed()
-      .setAuthor(message.guild.name, message.guild.iconURL({ dynamic: true }))
+    const embed = new MessageEmbed()
+      .setTitle(message.guild.name)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Owner', message.guild.owner.displayName, true)
+      .addField('Server ID', `\`${message.guild.id}\``)
+      .addField('Owner', message.guild.owner, true)
       .addField('Region', region[message.guild.region], true)
-      .addField('Members', message.guild.members.cache.size, true)
+      .addField('Members', message.guild.memberCount, true)
       .addField('Bots', message.guild.members.cache.array().filter(b => b.user.bot).length, true)
-      .addField('Verification Level', verifLevels[message.guild.verificationLevel], true)
+      .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
       .addField('Text Channels', message.guild.channels.cache.array().filter(c => c.type === 'text').join(' '))
-      .setFooter(`Server ID: ${message.guild.id}`)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    if (message.guild.description) embed.setDescription(message.guild.description);
+    if (message.guild.bannerURL) embed.setImage(message.guild.bannerURL({ dynamic: true }));
     message.channel.send(embed);
   }
 };
