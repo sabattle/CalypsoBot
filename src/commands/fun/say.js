@@ -19,8 +19,8 @@ module.exports = class SayCommand extends Command {
     if (channel) {
       args.shift();
     } else channel = message.channel;
+    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide a message for me to say.');
     const msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
-    if (!msg) this.sendErrorMessage(message, 'No message provided. Please provide a message for me to say.');
-    else channel.send(msg);
+    channel.send(msg);
   } 
 };

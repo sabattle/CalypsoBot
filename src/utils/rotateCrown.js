@@ -23,7 +23,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
         return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
           Something went wrong. Unable to remove ${crownRole} from ${member}. 
           Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
-        `);
+        `, err.message);
       } 
     }
   }));
@@ -39,7 +39,7 @@ module.exports = async function rotateCrown(client, guild, crownRole) {
     return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
       Something went wrong. Unable to pass ${crownRole} to ${winner}. 
       Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
-    `);
+    `, err.message);
   }
   
   let crownMessage = client.db.settings.selectCrownMessage.pluck().get(guild.id);

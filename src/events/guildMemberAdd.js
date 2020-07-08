@@ -17,7 +17,7 @@ module.exports = async (client, member) => {
       if (welcomeChannel) return client.sendSystemErrorMessage(member.guild, 'crown update', oneLine`
         Something went wrong. Unable to give ${autoRole} to ${member}. 
         Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
-      `);
+      `, err.message);
     }
   }
 

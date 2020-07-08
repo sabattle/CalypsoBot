@@ -5,7 +5,7 @@ module.exports = class BanCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'ban',
-      usage: 'ban <user mention> [reason]',
+      usage: 'ban <user mention/ID> [reason]',
       description: 'Bans a member from your server.',
       type: 'mod',
       clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
@@ -13,9 +13,10 @@ module.exports = class BanCommand extends Command {
       examples: ['ban @Nettles']
     });
   }
-  async runf(message, args) {
-    const member = this.getMemberFromMention(message, args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user.');
+  async run(message, args) {
+
+    const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user provide a user ID.');
     if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot ban yourself.'); 
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot ban someone with an equal or higher role.');
@@ -23,6 +24,7 @@ module.exports = class BanCommand extends Command {
     let reason = args.slice(1).join(' ');
     if(!reason) reason = 'No reason provided';
     await member.ban(reason);
+
     const embed = new MessageEmbed()
       .setTitle('Ban Member')
       .setDescription(`${member} was successfully banned.`)
@@ -34,20 +36,8 @@ module.exports = class BanCommand extends Command {
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${member.displayName}`);
-
+        
     // Update modlog
-    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-    if (modlogChannel) {
-      const modEmbed = new MessageEmbed()
-        .setTitle('Action: `Ban`')
-        .addField('Executor', message.member, true)
-        .addField('Member', member, true)
-        .addField('Reason', reason)
-        .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(modEmbed).catch(err => message.client.logger.error(err.stack));
-    }
+    this.sendModlogMessage(message, member, reason);
   }
 };
