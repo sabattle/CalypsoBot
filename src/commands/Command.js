@@ -50,7 +50,7 @@ class Command {
      * The type of command
      * @type {string}
      */
-    this.type = options.type || 'info';
+    this.type = options.type || types.MISC;
 
     /**
      * The client permissions needed

@@ -1,6 +1,5 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const types = ['info', 'fun', 'point', 'color', 'mod'];
 
 // Remove specific array element
 Array.prototype.remove = function(value) {
@@ -18,7 +17,7 @@ module.exports = class EnableCommand extends Command {
       aliases: ['en'],
       usage: 'enable <command | command type>',
       description: 'Enables the provided command or command type. All commands are enabled by default.',
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['enable ping', 'enable fun']
     });
@@ -37,7 +36,7 @@ module.exports = class EnableCommand extends Command {
     let description;
 
     // Handle types
-    if (types.includes(type.toLowerCase())) {
+    if (Object.values(types).includes(type.toLowerCase())) {
       for (const cmd of message.client.commands.values()) {
         if (cmd.type === type  && disabledCommands.includes(cmd.name)) disabledCommands.remove(cmd.name);
       }
@@ -53,12 +52,13 @@ module.exports = class EnableCommand extends Command {
 
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);
 
+    disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Setting', 'Disabled Commands', true)
-      .addField('Current Value', disabledCommands.map(c => `\`${c}\``).join(' '), true)
+      .addField('Current Value', disabledCommands, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

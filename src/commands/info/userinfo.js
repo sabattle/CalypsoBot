@@ -30,7 +30,7 @@ module.exports = class UserInfoCommand extends Command {
       aliases: ['user', 'ui'],
       usage: 'userinfo [user mention/ID]',
       description: 'Fetches a user\'s information. If no user is given, your own information will be displayed.',
-      type: 'info',
+      type: types.INFO,
       examples: ['userinfo @Calypso']
     });
   }

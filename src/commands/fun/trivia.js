@@ -15,7 +15,7 @@ module.exports = class TriviaCommand extends Command {
         If no topic is given, a random one will be chosen.
         The question will expire after 15 seconds.
       `,
-      type: 'fun',
+      type: types.FUN,
       examples: ['trivia sports']
     });
   }

@@ -8,7 +8,7 @@ module.exports = class SetMessagePointsCommand extends Command {
       aliases: ['setmp', 'smp'],
       usage: 'setmessagepoints <point count>',
       description: 'Sets the amount of points earned per user message.',
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setmessagepoints 1']
     });

@@ -10,7 +10,7 @@ module.exports = class YoutubeCommand extends Command {
       aliases: ['yt'],
       usage: 'youtube <video name>',
       description: 'Searches YouTube for the specified video.',
-      type: 'fun',
+      type: types.FUN,
       examples: ['youtube That\'s a ten']
     });
   }

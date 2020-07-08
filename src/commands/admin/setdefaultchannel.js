@@ -12,7 +12,7 @@ module.exports = class SetDefaultChannelCommand extends Command {
         Sets the default text channel for your server, where Calypso's system messages will be sent. 
         Provide no channel to clear the current default channel.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setdefaultchannel #general']
     });

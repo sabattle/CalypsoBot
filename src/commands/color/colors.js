@@ -8,7 +8,7 @@ module.exports = class ColorsCommand extends Command {
       aliases: ['cols', 'c'],
       usage: 'colors',
       description: 'Displays a list of all available colors.',
-      type: 'color'
+      type: types.COLOR
     });
   }
   run(message) {

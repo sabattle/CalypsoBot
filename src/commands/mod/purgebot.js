@@ -12,7 +12,7 @@ module.exports = class PurgeBotCommand extends Command {
         Sifts through the specified amount of messages and deletes any commands or messages from Calypso 
         (limit is 50 at a time).
       `,
-      type: 'mod',
+      type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES']
     });

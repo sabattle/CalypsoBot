@@ -8,7 +8,7 @@ module.exports = class MuteCommand extends Command {
       name: 'mute',
       usage: 'mute <user mention/ID> <time> [reason]',
       description: 'Mutes a user for the specified amount of time (max is 10 days).',
-      type: 'mod',
+      type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['mute @Nettles 10s', 'mute @Nettles 30m talks too much']

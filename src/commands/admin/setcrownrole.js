@@ -13,7 +13,7 @@ module.exports = class SetCrownRoleCommand extends Command {
         Sets the role Calypso will give members with the most points each cycle. 
         Provide no role to clear the current crown role.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setcrownrole @Crowned']
     });

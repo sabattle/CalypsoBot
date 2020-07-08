@@ -9,7 +9,7 @@ module.exports = class RockPaperScissorsCommand extends Command {
       name: 'rps',
       usage: 'rps <rock | paper | scissors>',
       description: 'Play a game of rock–paper–scissors against Calypso!',
-      type: 'fun',
+      type: types.FUN,
       examples: ['rps rock']
     });
   }

@@ -13,7 +13,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
         You may use \`?member\` to substitute for a user mention.
         Enter no message to clear the current welcome message.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setwelcomemessage ?member has joined the server!']
     });

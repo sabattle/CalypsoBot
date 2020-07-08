@@ -8,7 +8,7 @@ module.exports = class CoinFlipCommand extends Command {
       aliases: ['cointoss', 'coin', 'flip'],
       usage: 'coinflip',
       description: 'Flips a coin.',
-      type: 'fun'
+      type: types.FUN
     });
   }
   run(message) {

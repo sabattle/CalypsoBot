@@ -11,7 +11,7 @@ module.exports = class SayCrownMessageCommand extends Command {
         Says the currently set crown message in the provided text channel.
         If no text channel is given, the crown message will be sent in the current channel.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       examples: ['saycrownmessage #general'] 
     });
   }

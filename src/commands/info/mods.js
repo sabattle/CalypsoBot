@@ -7,7 +7,7 @@ module.exports = class ModsCommand extends Command {
       name: 'mods',
       usage: 'mods',
       description: 'Displays a list of all current mods.',
-      type: 'info'
+      type: types.INFO
     });
   }
   run(message) {

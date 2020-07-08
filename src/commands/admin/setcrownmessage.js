@@ -13,7 +13,7 @@ module.exports = class SetCrownMessageCommand extends Command {
         You may use \`?member\` to substitute for a user mention and \`?role\` to substitute for the crown role.
         Enter no message to clear the current crown message.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setcrownmessage ?member has won the ?role!']
     });

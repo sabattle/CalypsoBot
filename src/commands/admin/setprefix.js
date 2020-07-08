@@ -8,7 +8,7 @@ module.exports = class SetPrefixCommand extends Command {
       aliases: ['setp', 'sp'],
       usage: 'setprefix <prefix>',
       description: 'Sets the command prefix for your server. The max prefix length is 3 characters.',
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setprefix !']
     });

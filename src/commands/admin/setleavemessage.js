@@ -13,7 +13,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
         You may use \`?member\` to substitute for a user mention.
         Enter no message to clear the current leave message.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setleavemessage ?member has left the server.']
     });

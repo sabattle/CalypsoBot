@@ -7,7 +7,7 @@ module.exports = class UnmuteCommand extends Command {
       name: 'unmute',
       usage: 'unmute <user mention/ID>',
       description: 'Unmutes the specified user.',
-      type: 'mod',
+      type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['unmute @Nettles']

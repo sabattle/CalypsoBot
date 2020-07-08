@@ -11,7 +11,7 @@ module.exports = class SayLeaveMessageCommand extends Command {
         Says the currently set leave message in the provided text channel.
         If no text channel is given, the leave message will be sent in the current channel.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       examples: ['sayleavemessage #general'] 
     });
   }

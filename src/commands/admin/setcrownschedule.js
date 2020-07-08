@@ -27,7 +27,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
         'If you need additional help building your cron, please check out this website: <https://crontab.guru/#>. ' + 
         `Enter no schedule to clear the current crown schedule.
         **Please Note:** Not all months have the same amount of days.`,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setcrownschedule 0 21 * * 3,6', 'setcrownschedule * 0 12 /10 * *']
     });

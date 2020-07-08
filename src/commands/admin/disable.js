@@ -1,7 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
-const types = ['info', 'fun', 'point', 'color', 'mod'];
 
 module.exports = class DisableCommand extends Command {
   constructor(client) {
@@ -14,7 +13,7 @@ module.exports = class DisableCommand extends Command {
         Disabled commands will no longer be able to be used, and will no longer show up with the \`help\` command.
         \`Admin\` commands cannot be disabled.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['disable ping', 'disable fun']
     });
@@ -33,7 +32,7 @@ module.exports = class DisableCommand extends Command {
     let description;
 
     // Handle types
-    if (types.includes(type.toLowerCase())) {
+    if (Object.values(types).includes(type.toLowerCase())) {
       for (const cmd of message.client.commands.values()) {
         if (cmd.type === type  && !disabledCommands.includes(cmd.name)) disabledCommands.push(cmd.name);
       }
@@ -49,12 +48,13 @@ module.exports = class DisableCommand extends Command {
 
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);
 
+    disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
       .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Setting', 'Disabled Commands', true)
-      .addField('Current Value', disabledCommands.map(c => `\`${c}\``).join(' '), true)
+      .addField('Current Value', disabledCommands, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

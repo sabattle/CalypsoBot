@@ -9,7 +9,7 @@ module.exports = class UnbanCommand extends Command {
       name: 'unban',
       usage: 'unban <user ID> [reason]',
       description: 'Unbans a member from your server.',
-      type: 'mod',
+      type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
       userPermissions: ['BAN_MEMBERS'],
       examples: ['unban 134672335474130944']

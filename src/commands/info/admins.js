@@ -7,7 +7,7 @@ module.exports = class AdminsCommand extends Command {
       name: 'admins',
       usage: 'admins',
       description: 'Displays a list of all current admins.',
-      type: 'info'
+      type: types.INFO
     });
   }
   run(message) {

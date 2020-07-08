@@ -11,7 +11,7 @@ module.exports = class ChangeColorCommand extends Command {
       description: oneLine`
         Changes your current color to the one specified. Provide no color to clear your current color role.
       `,
-      type: 'color',
+      type: types.COLOR,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       examples: ['changecolor Red']
     });

@@ -8,7 +8,7 @@ module.exports = class TopicsCommand extends Command {
       aliases: ['triviatopics', 'categories', 'ts'],
       usage: 'topics',
       description: 'Displays the list of all available trivia topics.',
-      type: 'fun'
+      type: types.FUN
     });
   }
   run(message) {

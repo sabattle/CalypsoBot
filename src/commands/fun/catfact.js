@@ -9,7 +9,7 @@ module.exports = class CatFactCommand extends Command {
       aliases: ['cf'],
       usage: 'catfact',
       description: 'Says a random cat fact.',
-      type: 'fun'
+      type: types.FUN
     });
   }
   async run(message) {

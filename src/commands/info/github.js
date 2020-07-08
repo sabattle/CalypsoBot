@@ -9,7 +9,7 @@ module.exports = class GitHubCommand extends Command {
       aliases: ['gh', 'repo'],
       usage: 'github',
       description: 'Posts the link to Calypso\'s GitHub repository.',
-      type: 'info'
+      type: types.INFO
     });
   }
   run(message) {

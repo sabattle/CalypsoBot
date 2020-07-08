@@ -8,7 +8,7 @@ module.exports = class PurgeCommand extends Command {
       aliases: ['clear'],
       usage: '<MESSAGE COUNT>',
       description: 'Deletes the specified amount of messages from a channel (limit is 50 at a time).',
-      type: 'mod',
+      type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES']
     });

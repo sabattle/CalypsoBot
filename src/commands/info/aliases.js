@@ -8,7 +8,7 @@ module.exports = class AliasesCommand extends Command {
       aliases: ['alias', 'ali'],
       usage: 'aliases',
       description: 'Displays a list of all current aliases per command.',
-      type: 'info'
+      type: types.INFO
     });
   }
   run(message) {
@@ -26,7 +26,7 @@ module.exports = class AliasesCommand extends Command {
     message.client.commands.forEach(command => {
       if (command.aliases) {
         if (command.type == 'info' && !disabledCommands.includes(command.name)) 
-          infoAliases = infoAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
+          `**${command.name}**: \`${command.aliases.join(' ')}\``;
         if (command.type == 'fun' && !disabledCommands.includes(command.name))
           funAliases = funAliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
         if (command.type == 'point' && !disabledCommands.includes(command.name))

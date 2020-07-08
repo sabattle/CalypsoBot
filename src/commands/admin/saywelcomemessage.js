@@ -11,7 +11,7 @@ module.exports = class SayWelcomeMessageCommand extends Command {
         Says the currently set welcome message in the provided text channel.
         If no text channel is given, the welcome message will be sent in the current channel.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       examples: ['saywelcomemessage #general'] 
     });
   }

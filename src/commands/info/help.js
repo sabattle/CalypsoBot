@@ -12,7 +12,7 @@ module.exports = class HelpCommand extends Command {
         Displays a list of all current commands, sorted by category. 
         Can be used in conjunction with a command for additional information.
       `,
-      type: 'info',
+      type: types.INFO,
       examples: ['help ping']
     });
   }

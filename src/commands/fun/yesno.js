@@ -9,7 +9,7 @@ module.exports = class YesNoCommand extends Command {
       aliases: ['yn'],
       usage: 'yesno',
       description: 'Fetches a gif of a yes or a no.',
-      type: 'fun'
+      type: types.FUN
     });
   }
   async run(message) {

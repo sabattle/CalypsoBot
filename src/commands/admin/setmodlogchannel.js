@@ -12,7 +12,7 @@ module.exports = class SetModlogChannelCommand extends Command {
         Sets the modlog text channel for your server. 
         Provide no channel to clear the current modlog channel.
       `,
-      type: 'admin',
+      type: types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setmodlogchannel #modlog']
     });

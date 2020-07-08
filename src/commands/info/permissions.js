@@ -13,7 +13,7 @@ module.exports = class PermissionsCommand extends Command {
         Displays all current permissions for the specified user. 
         If no user is given, your own permissions will be displayed.
       `,
-      type: 'info',
+      type: types.INFO,
       examples: ['permissions @Calypso']
     });
   }
