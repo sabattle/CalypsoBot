@@ -22,24 +22,21 @@ module.exports = class HelpCommand extends Command {
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
-    let embed;
+    const embed = new MessageEmbed();
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     if (args.length > 0 && (message.client.commands.has(args[0]) || message.client.aliases.has(args[0]))) {
       const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
-      let description = `${command.description} 
-        ${(command.aliases) ? '\n‣ **Aliases:** ' + command.aliases.map(c => `\`${c}\``).join(' ') : ''}
-        ‣ **Usage:** \`${prefix}${command.usage}\`
-        ‣ **Type:** \`${command.type}\`
-        ${(command.examples) ? '‣ **Examples:** ' + command.examples.map(c => `\`${prefix}${c}\``).join(' ') : ''}
-      `;
-
-      embed = new MessageEmbed()
+      embed // Build specific command help embed
         .setTitle(`Command: \`${command.name}\``)
         .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
-        .setDescription(description)  
+        .setDescription(command.description)
+        .addField('Usage', `\`${prefix}${command.usage}\``, true)
+        .addField('Type', `\`${command.type}\``, true)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
+      if (command.aliases) embed.addField('Aliases', command.aliases.map(c => `\`${c}\``).join(' '));
+      if (command.examples) embed.addField('Examples', command.examples.map(c => `\`${prefix}${c}\``).join('\n'));
 
     } else if (args.length > 0) {
       return this.sendErrorMessage(message, `Unable to find command \`${args[0]}\`. Please enter a valid command.`);
@@ -56,11 +53,11 @@ module.exports = class HelpCommand extends Command {
         commands[command.type].push(`\`${command.name}\``);
       });
 
-      embed = new MessageEmbed()
+      embed // Build help embed
         .setTitle('Calypso\'s Commands')
         .setDescription(stripIndent`
-          ‣ The prefix on **${message.guild.name}** is \`${prefix}\`
-          ‣ Use \`${prefix}help [command]\` for more information
+          The prefix on **${message.guild.name}** is \`${prefix}\`
+          Use \`${prefix}help [command]\` for more information
         `)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
