@@ -212,18 +212,42 @@ class Command {
    */
   sendErrorMessage(message, reason, errorMessage = null) {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
-    let description = reason + `\n\n ‣ **Usage:** \`${prefix}${this.usage}\``;
-    if (this.examples) {
-      description = description + `\n‣ **Examples:** ${this.examples.map(e => `\`${prefix}${e}\``).join(' ')}`;
-    }
     const embed = new MessageEmbed()
       .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
       .setTitle(`Error: \`${this.name}\``)
-      .setDescription(description)
+      .setDescription(reason)
+      .addField('Usage', `\`${prefix}${this.usage}\``)
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    if (this.examples) embed.addField('Examples', this.examples.map(e => `\`${prefix}${e}\``).join('\n'));
     if (errorMessage) embed.addField('Error Message', `\`\`\`${errorMessage}\`\`\``);
     message.channel.send(embed);
+  }
+
+  /**
+   * Creates and sends modlog embed
+   * @param {Message} message
+   * @param {GuildMember} member 
+   * @param {string} reason 
+   * @param {Object} fields
+   */
+  sendModlogMessage(message, member, reason, fields = {}) {
+    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
+    let modlogChannel;
+    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
+    if (modlogChannel) {
+      const embed = new MessageEmbed()
+        .setTitle(`Action: \`${this.name.charAt(0).toUpperCase() + this.name.slice(1)}\``)
+        .addField('Executor', message.member, true)
+        .addField('Member', member, true)
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      for (const field in fields) {
+        embed.addField(field, fields[field], true);
+      }
+      embed.addField('Reason', reason);
+      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
+    }
   }
 
   /**
