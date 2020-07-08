@@ -1,7 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const parser = require('cron-parser');
-const scheduleCrown = require('../../utils/scheduleCrown.js');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetCrownScheduleCommand extends Command {
@@ -61,7 +60,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     message.client.db.settings.updateCrownSchedule.run(cron, message.guild.id);
     if (message.guild.job) message.guild.job.cancel(); // Cancel old job
     // Schedule crown role rotation
-    scheduleCrown(message.client, message.guild);
+    message.client.utils.scheduleCrown(message.client, message.guild);
     message.channel.send(embed
       .setDescription('Successfully updated the `crown schedule`. Please note that a `crown role` must also be set.')
       .addField('Current Status', `${status} ➔ \`enabled\``, true)

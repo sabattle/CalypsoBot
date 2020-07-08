@@ -15,7 +15,7 @@ module.exports = class YesNoCommand extends Command {
   async run(message) {
     try {
       const res = await (await fetch('http://yesno.wtf/api/')).json();
-      let answer = res.answer.charAt(0).toUpperCase() + res.answer.slice(1);
+      let answer = message.client.utils.capitalize(res.answer);
       if (answer === 'Yes') answer = '👍  ' + answer + '!  👍';
       else if (answer === 'No') answer = '👎  ' + answer + '!  👎';
       else answer = '👍  ' + answer + '...  👎';

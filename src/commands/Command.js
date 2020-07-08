@@ -236,7 +236,7 @@ class Command {
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
       const embed = new MessageEmbed()
-        .setTitle(`Action: \`${this.name.charAt(0).toUpperCase() + this.name.slice(1)}\``)
+        .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)
         .addField('Executor', message.member, true)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);

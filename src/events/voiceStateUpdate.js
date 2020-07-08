@@ -1,8 +1,6 @@
-const checkPointsDisabled = require('../utils/checkPointsDisabled.js');
-
 module.exports = (client, oldMember, newMember) => {
   
-  if (checkPointsDisabled(client, oldMember.guild)) return;
+  if (client.utils.checkXPDisabled(client, oldMember.guild)) return;
 
   const voicePoints = client.db.settings.selectVoicePoints.pluck().get(newMember.guild.id);
   if (voicePoints == 0) return;

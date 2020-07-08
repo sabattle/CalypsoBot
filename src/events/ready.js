@@ -1,5 +1,3 @@
-const scheduleCrown = require('../utils/scheduleCrown.js');
-
 module.exports = (client) => {
   
   // Update presence
@@ -18,7 +16,7 @@ module.exports = (client) => {
     );
 
     // Schedule crown role rotation
-    scheduleCrown(client, guild);
+    client.utils.scheduleCrown(client, guild);
 
     // Update users table
     guild.members.cache.forEach(member => {

@@ -1,15 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 
-// Remove specific array element
-Array.prototype.remove = function(value) {
-  var index = this.indexOf(value);
-  if (index > -1) {
-    this.splice(index, 1);
-  }
-  return this;
-};
-
 module.exports = class EnableCommand extends Command {
   constructor(client) {
     super(client, {
@@ -41,7 +32,8 @@ module.exports = class EnableCommand extends Command {
     if (typeList.includes(type)) {
       
       for (const cmd of message.client.commands.values()) {
-        if (cmd.type.toLowerCase() === type  && disabledCommands.includes(cmd.name)) disabledCommands.remove(cmd.name);
+        if (cmd.type.toLowerCase() === type  && disabledCommands.includes(cmd.name)) 
+          message.client.utils.removeElement(disabledCommands, cmd.name);
       }
       description = `All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **enabled**.`;
 
@@ -49,7 +41,7 @@ module.exports = class EnableCommand extends Command {
     } else if (command) {
       if (command.type === types.ADMIN) 
         return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands are always enabled.`);
-      disabledCommands.remove(command.name); // Remove from array
+      message.client.utils.removeElement(disabledCommands, command.name); // Remove from array
       description = `The \`${command.name}\` command has been successfully **enabled**.`;
     } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command or command type.');
 

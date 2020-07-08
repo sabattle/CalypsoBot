@@ -1,6 +1,5 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const scheduleCrown = require('../../utils/scheduleCrown.js');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetCrownRoleCommand extends Command {
@@ -51,6 +50,6 @@ module.exports = class SetCrownRoleCommand extends Command {
     );
 
     // Schedule crown role rotation
-    scheduleCrown(message.client, message.guild);
+    message.client.utils.scheduleCrown(message.client, message.guild);
   }
 };
