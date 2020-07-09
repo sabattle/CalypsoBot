@@ -1,28 +1,37 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class EmojisCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'emojis',
-      usage: '',
+      aliases: ['e'],
+      usage: 'emojis',
       description: 'Displays a list of all current emojis.',
       type: types.INFO
     });
   }
   run(message) {
-    const emojis = message.guild.emojis.cache;
-    let emojiList = '';
-    emojis.forEach(e => { emojiList = emojiList + `${e} :${e.name}: \n`; });
-    const embed = new Discord.MessageEmbed()
-      .setTitle('Emoji List')
-      .setColor(message.guild.me.displayHexColor);
-    while (emojiList.length > 2048) { // Description is capped at 2048 chars
-      emojiList = emojiList.substring(0, emojiList.lastIndexOf('\n') -2);
-      const count = emojiList.split('\n').length;
-      embed.setFooter(`Only ${count} of ${emojis.size} emojis could be displayed`);
+
+    let emojis = [];
+    message.guild.emojis.cache.forEach(e => emojis.push(`${e} **-** \`:${e.name}:\``));
+
+    // Trim array
+    let description = emojis.join('\n');
+    if (description.length === 0) description = 'No emojis found 😞';
+    else if (description.length > 2048) {
+      description = description.slice(0, description.length - (description.length - 2033)); // 2048 - "And ___ more..."
+      description = description.slice(0, description.lastIndexOf('\n'));
+      description = description + `\nAnd **${emojis.length - description.split('\n').length}** more...`;
     }
-    embed.setDescription(emojiList);
+    
+    const embed = new MessageEmbed()
+      .setTitle(`Emoji List [${message.guild.emojis.cache.size}]`)
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription(description)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };
