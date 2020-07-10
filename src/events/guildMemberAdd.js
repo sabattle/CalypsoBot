@@ -34,8 +34,12 @@ module.exports = async (client, member) => {
     member.guild.id, 
     member.guild.name,
     member.joinedAt.toString(),
-    member.bot ? 1 : 0
+    member.user.bot ? 1 : 0
   );
+  
+  // If member already in users table
+  const missingMemberIds = client.db.users.selectMissingMembers.all(member.guild.id).map(row => row.user_id);
+  if (missingMemberIds.includes(member.id)) client.db.users.updateCurrentMember.run(1, member.id, member.guild.id);
 
   client.logger.info(`${member.guild.name}: ${member.user.tag} has joined`);
 };

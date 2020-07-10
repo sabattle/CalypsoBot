@@ -75,7 +75,7 @@ const settings = {
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1);
+    ) VALUES (?, ?, '!!', ?, ?, ?, ?, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
@@ -135,7 +135,8 @@ const users = {
     ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, 1);
   `),
   selectRow: db.prepare('SELECT * FROM users WHERE user_id = ? AND guild_id = ?;'),
-  selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? ORDER BY points DESC;'),
+  updateGuildName: db.prepare('UPDATE users SET guild_name = ? WHERE guild_id = ?;'),
+  selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? AND current_member = 1 ORDER BY points DESC;'),
   selectPoints: db.prepare('SELECT points FROM users WHERE user_id = ? AND guild_id = ?;'),
   updatePoints: db.prepare(`
     UPDATE users 
@@ -146,7 +147,10 @@ const users = {
   wipePoints: db.prepare('UPDATE users SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
   wipeTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;'),
   wipeAllPoints: db.prepare('UPDATE users SET points = 0 WHERE guild_id = ?;'),
-  wipeAllTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;')
+  wipeAllTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;'),
+  selectCurrentMembers: db.prepare('SELECT * FROM users WHERE guild_id = ? AND current_member = 1;'),
+  updateCurrentMember: db.prepare('UPDATE users SET current_member = ? WHERE user_id = ? AND guild_id = ?;'),
+  selectMissingMembers: db.prepare('SELECT * FROM users WHERE guild_id = ? AND current_member = 0;')
 };
 
 module.exports = {

@@ -15,7 +15,7 @@ module.exports = (client) => {
       guild.systemChannelID, // Leave channel
       guild.systemChannelID  // Crown Channel
     );
-
+    
     // Update users table
     guild.members.cache.forEach(member => {
       client.db.users.insertRow.run(
@@ -25,9 +25,24 @@ module.exports = (client) => {
         guild.id, 
         guild.name,
         member.joinedAt.toString(),
-        member.bot ? 1 : 0
+        member.user.bot ? 1 : 0
       );
     });
+
+    // If member left
+    const currentMemberIds = client.db.users.selectCurrentMembers.all(guild.id).map(row => row.user_id);
+    for (const id of currentMemberIds) {
+      if (!guild.members.cache.has(id)) {
+        client.db.users.updateCurrentMember.run(0, id, guild.id);
+        client.db.users.wipeTotalPoints.run(id, guild.id);
+      }
+    }
+
+    // If member joined
+    const missingMemberIds = client.db.users.selectMissingMembers.all(guild.id).map(row => row.user_id);
+    for (const id of missingMemberIds) {
+      if (guild.members.cache.has(id)) client.db.users.updateCurrentMember.run(1, id, guild.id);
+    }
 
     // Schedule crown role rotation
     client.utils.scheduleCrown(client, guild);
