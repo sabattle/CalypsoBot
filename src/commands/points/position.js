@@ -6,7 +6,7 @@ module.exports = class PositionCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'position',
-      aliases: ['pos', 'p'],
+      aliases: ['pos'],
       usage: 'position <user mention/ID>',
       description: oneLine`
         Fetches a user's current leaderboard position. 
