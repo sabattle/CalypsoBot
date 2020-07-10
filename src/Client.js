@@ -114,7 +114,7 @@ class Client extends Discord.Client {
       commands.forEach(f => {
         const Command = require(resolve(__basedir, join(path, dir, f)));
         const command = new Command(this); // Instantiate the specific command
-        if (command.name) {
+        if (command.name && !command.disabled) {
           // Map command
           this.commands.set(command.name, command);
           // Map command aliases

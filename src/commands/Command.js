@@ -75,6 +75,12 @@ class Command {
      * @type {boolean}
      */
     this.ownerOnly = options.ownerOnly || false;
+
+    /**
+     * If command is enabled
+     * @type {boolean}
+     */
+    this.disabled = options.disabled || false;
   }
 
   /**
@@ -286,8 +292,13 @@ class Command {
         if(!permissions[perm]) throw new RangeError(`Invalid command userPermission: ${perm}`);
       }
     }
+    if(options.examples && !Array.isArray(options.examples))
+      throw new TypeError('Command examples is not an Array of permission key strings');
     if(options.ownerOnly && typeof options.ownerOnly !== 'boolean') 
       throw new TypeError('Command ownerOnly is not a boolean');
+
+    if(options.disabled && typeof options.disabled !== 'boolean') 
+      throw new TypeError('Command disabled is not a boolean');
   }
 }
 

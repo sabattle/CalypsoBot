@@ -14,7 +14,8 @@ module.exports = class YoMommaCommand extends Command {
         If no user is given, then the joke will be directed at you!
       `,
       type: types.FUN,
-      examples: ['yomomma @Calypso']
+      examples: ['yomomma @Calypso'],
+      disabled: true
     });
   }
   async run(message, args) {
