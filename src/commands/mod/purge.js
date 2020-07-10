@@ -1,41 +1,53 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+const { oneLine } = require('common-tags');
 
 module.exports = class PurgeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'purge',
       aliases: ['clear'],
-      usage: '<MESSAGE COUNT>',
-      description: 'Deletes the specified amount of messages from a channel (limit is 50 at a time).',
+      usage: 'purge [channel mention/ID] <message count>',
+      description: oneLine`
+        Deletes the specified amount of messages from the provided channel. 
+        If no channel is given, the messages will be deleted from the current channel.
+        No more than 100 messages may be deleted at a time.
+        Messages older than 2 weeks old cannot be deleted.
+      `,
       type: types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
-      userPermissions: ['MANAGE_MESSAGES']
+      userPermissions: ['MANAGE_MESSAGES'],
+      examples: ['purge 20', 'purge 10 @Nettles ']
     });
   }
   async run(message, args) {
-    const amount = parseInt(args[0]);
-    if (isNaN(amount) === true || !amount || amount <= 0 || amount > 50) 
-      return message.channel.send(`${message.member}, please enter a number between 1 and 50.`);
-    await message.delete(); // delete command message
-    const messages = await message.channel.messages.fetch({ limit: amount });
-    messages.forEach(async msg => {
-      await msg.delete();
-    });
 
-    // Update modlog
-    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-    if (modlogChannel) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle('Action: `Purge`')
-        .addField('Executor', message.member, true)
-        .addField('Channel', message.channel, true)
-        .addField('Message Count', amount, true)
+    let channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (channel) {
+      args.shift();
+    } else channel = message.channel;
+    const amount = parseInt(args[0]);
+    if (isNaN(amount) === true || !amount || amount < 0 || amount > 100)
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');
+    let reason = args.slice(1).join(' ');
+    if(!reason) reason = 'No reason provided';
+
+    await message.delete(); // Delete command message
+    channel.bulkDelete(amount, true).then(messages => {
+      const embed = new MessageEmbed()
+        .setTitle('Purge')
+        .setDescription(`Successfully deleted **${messages.size}** messages.`)
+        .addField('Channel', channel, true)
+        .addField('Message Count', `\`${messages.size}\``, true)
+        .addField('Reason', reason)
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
-    }
+      message.channel.send(embed).then(msg => msg.delete({ timeout: 5000 }));
+
+      // Update modlog
+      this.sendModlogMessage(message, reason, { Channel: channel, 'Message Count': `\`${messages.size}\`` });
+    });
+
   }
 };

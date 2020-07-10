@@ -52,13 +52,13 @@ module.exports = class SlowmodeCommand extends Command {
     } else {
 
       // Update modlog
-      this.sendModlogMessage(message, reason, { Channel: channel, Rate: rate });
+      this.sendModlogMessage(message, reason, { Channel: channel, Rate: `\`${rate}\`` });
 
       return message.channel.send(embed
         .setDescription(`\`${status}\` ➔ \`enabled\``)
         .addField('Executor', message.member, true)
         .addField('Channel', channel, true)
-        .addField('Rate', rate, true)
+        .addField('Rate', `\`${rate}\``, true)
         .addField('Reason', reason)
       );
     }

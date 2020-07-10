@@ -52,7 +52,7 @@ module.exports = class MuteCommand extends Command {
       .setDescription(`${member} has now been muted for **${ms(time, { long: true })}**.`)
       .addField('Executor', message.member, true)
       .addField('Member', member, true)
-      .addField('Time', ms(time), true)
+      .addField('Time', `\`${ms(time)}\``, true)
       .addField('Reason', reason)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
@@ -74,6 +74,6 @@ module.exports = class MuteCommand extends Command {
     }, time);
 
     // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member, Time: ms(time) });
+    this.sendModlogMessage(message, reason, { Member: member, Time: `\`${ms(time)}\`` });
   }
 };

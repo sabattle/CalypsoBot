@@ -9,7 +9,7 @@ module.exports = class SetCrownRoleCommand extends Command {
       aliases: ['setcr', 'scr'],
       usage: 'setcrownrole <role mention/ID>',
       description: oneLine`
-        Sets the role Calypso will give to the member with the most XP each cycle.
+        Sets the role Calypso will give to the member with the most points each cycle.
         Provide no role to clear the current crown role.
       `,
       type: types.ADMIN,
