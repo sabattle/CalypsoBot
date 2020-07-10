@@ -1,27 +1,33 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class OwnerAliasesCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'owneraliases',
-      aliases: ['ownali', 'oa'],
-      usage: '',
+      aliases: ['ownerali', 'oali', 'oa'],
+      usage: 'owneraliases',
       description: 'Displays a list of all current aliases per owner command.',
       type: types.OWNER,
       ownerOnly: true
     });
   }
   run(message) {
-    let aliases = '';
+    
+    const aliases = [];
+
     message.client.commands.forEach(command => {
-      if (command.aliases && command.type == 'owner') 
-        aliases = aliases + `**${command.name}**: \`${command.aliases.join(', ')}\`\n`;
+      if (command.aliases && command.type == types.OWNER) 
+        aliases.push(`**${command.name}**: ${command.aliases.map(a => `\`${a}\``).join(' ')}`);
     });
-    const embed = new Discord.MessageEmbed()
-      .setTitle('Alias List')
-      .setColor(message.guild.me.displayHexColor)
-      .setDescription(aliases);
+
+    const embed = new MessageEmbed()
+      .setTitle(`Owner Alias List [${aliases.length}]`)
+      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
+      .setDescription(aliases.join('\n'))
+      .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };

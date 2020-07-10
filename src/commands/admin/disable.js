@@ -41,7 +41,7 @@ module.exports = class DisableCommand extends Command {
       description = `All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **disabled**.`;
 
     // Handle single commands
-    } else if (command) {
+    } else if (command && command.type != types.OWNER) {
       if (command.type === types.ADMIN) 
         return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands cannot be disabled.`);
       if (!disabledCommands.includes(command.name)) disabledCommands.push(command.name); // Add to array if not present

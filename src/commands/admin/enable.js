@@ -38,7 +38,7 @@ module.exports = class EnableCommand extends Command {
       description = `All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **enabled**.`;
 
     // Handle single commands
-    } else if (command) {
+    } else if (command  && command.type != types.OWNER) {
       if (command.type === types.ADMIN) 
         return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands are always enabled.`);
       message.client.utils.removeElement(disabledCommands, command.name); // Remove from array

@@ -24,8 +24,10 @@ module.exports = class HelpCommand extends Command {
 
     const embed = new MessageEmbed();
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    if (args.length > 0 && (message.client.commands.has(args[0]) || message.client.aliases.has(args[0]))) {
-      const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
+    
+    const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
+    if (command && command.type != types.OWNER && !disabledCommands.includes(command.name)) {
+      
       embed // Build specific command help embed
         .setTitle(`Command: \`${command.name}\``)
         .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
@@ -50,7 +52,7 @@ module.exports = class HelpCommand extends Command {
       }
   
       message.client.commands.forEach(command => {
-        commands[command.type].push(`\`${command.name}\``);
+        if (!disabledCommands.includes(command.name)) commands[command.type].push(`\`${command.name}\``);
       });
 
       embed // Build help embed

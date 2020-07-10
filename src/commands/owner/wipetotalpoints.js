@@ -1,31 +1,28 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
-
-const rgx = /^(?:<@!?)?(\d+)>?$/;
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class WipeTotalPointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'wipetotalpoints',
       aliases: ['wipetp', 'wtp'],
-      usage: '<SERVER ID>',
-      description: oneLine`
-        Wipes all members' points in the server with the provided ID (or the current server, if no ID is given).
-      `,
+      usage: 'wipetotalpoints <user mention/ID>',
+      description: 'Wipes the provided user\'s points and total points.',
       type: types.OWNER,
-      ownerOnly: true
+      ownerOnly: true,
+      examples: ['wipetotalpoints @Nettles']
     });
   }
   run(message, args) {
-    const id = args[0] || message.guild.id;
-    if (!rgx.test(id)) 
-      return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please provide a valid server ID.`);
-    const guild = message.client.guilds.cache.get(id);
-    if (!guild) 
-      return message.channel.send(oneLine`
-        Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
-      `);
-    message.client.db.users.wipeServerPoints.run(id);
-    message.channel.send(`Successfully wiped all members' points in **${guild.name}**.`);
+    const member =  this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
+    message.client.db.users.wipeTotalPoints.run(member.id, message.guild.id);
+    const embed = new MessageEmbed()
+      .setTitle('Wipe Total Points')
+      .setDescription(`Successfully wiped ${member}'s points and total points.`)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   } 
 };

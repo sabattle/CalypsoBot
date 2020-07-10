@@ -23,13 +23,13 @@ module.exports = class AliasesCommand extends Command {
     }
 
     message.client.commands.forEach(command => {
-      if (command.aliases) 
+      if (command.aliases && !disabledCommands.includes(command.name)) 
         aliases[command.type].push(`**${command.name}**: ${command.aliases.map(a => `\`${a}\``).join(' ')}`);
     });
 
     const embed = new MessageEmbed()
       .setTitle('Alias List')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

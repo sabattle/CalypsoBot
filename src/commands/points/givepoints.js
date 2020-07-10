@@ -15,6 +15,9 @@ module.exports = class GivePointsCommand extends Command {
   }
   run(message, args) {
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
+    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
+    if (member.id === message.client.user.id)
+      return message.channel.send('Thank you, you\'re too kind! But I must decline. I prefer not to take handouts.');
     const amount = parseInt(args[1]);
     const points = message.client.db.users.selectPoints.pluck().get(message.author.id, message.guild.id);
     if (isNaN(amount) === true || !amount)
@@ -24,9 +27,6 @@ module.exports = class GivePointsCommand extends Command {
         Unable to transfer points. You currently have \`${points}\` points. 
         Please provide a point count less than or equal to \`${points}\`.
       `);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
-    if (member.id === message.client.user.id)
-      return message.channel.send('Thank you, you\'re too kind! But I must decline. I prefer not to take handouts.');
     // Remove points
     message.client.db.users.updatePoints.run({ points: -amount }, message.author.id, message.guild.id);
     // Add points

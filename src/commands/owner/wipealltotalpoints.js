@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
+const { MessageEmbed } = require('discord.js');
 
 const rgx = /^(?:<@!?)?(\d+)>?$/;
 
@@ -8,25 +8,25 @@ module.exports = class WipeAllTotalPointsCommand extends Command {
     super(client, {
       name: 'wipealltotalpoints',
       aliases: ['wipeatp', 'watp'],
-      usage: '<SERVER ID>',
-      description: oneLine`
-        Wipes all members' points and total points in the server with the provided ID 
-        (or the current server, if no ID is given).
-      `,
+      usage: 'wipealltotalpoints <server ID>',
+      description: 'Wipes all members\' points and total points in the server with the provided ID.',
       type: types.OWNER,
-      ownerOnly: true
+      ownerOnly: true,
+      examples: ['wipealltotalpoints 264445053596991498']
     });
   }
   run(message, args) {
-    const id = args[0] || message.guild.id;
-    if (!rgx.test(id)) 
-      return message.channel.send(`Sorry ${message.member}, I don't recognize that. Please provide a valid server ID.`);
-    const guild = message.client.guilds.cache.get(id);
-    if (!guild) 
-      return message.channel.send(oneLine`
-        Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
-      `);
-    message.client.db.users.wipeAllServerPoints.run(id);
-    message.channel.send(`Successfully wiped all members' points and total points in **${guild.name}**.`);
+    const guildId = args[0];
+    if (!rgx.test(guildId)) return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid server ID.');
+    const guild = message.client.guilds.cache.get(guildId);
+    if (!guild) return this.sendErrorMessage(message, 'Unable to find server. Please check the provided ID.');
+    message.client.db.users.wipeAllTotalPoints.run(guildId);
+    const embed = new MessageEmbed()
+      .setTitle('Wipe All Total Points')
+      .setDescription(`Successfully wiped **${guild.name}**'s points and total points.`)
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    message.channel.send(embed);
   } 
 };

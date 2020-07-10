@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { stripIndent } = require('common-tags');
 
 module.exports = class MembersCommand extends Command {
   constructor(client) {
@@ -19,7 +20,7 @@ module.exports = class MembersCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle(`Member Status [${message.guild.members.cache.size}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription(`
+      .setDescription(stripIndent`
         🟢 **Online**: \`${online}\` members
 
         🔴 **Busy**: \`${dnd}\` members
