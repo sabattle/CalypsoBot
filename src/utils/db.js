@@ -78,6 +78,7 @@ const settings = {
     ) VALUES (?, ?, '!!', ?, ?, ?, ?, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
+  updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
   updatePrefix: db.prepare('UPDATE settings SET prefix = ? WHERE guild_id = ?;'),
   selectDefaultChannelId: db.prepare('SELECT default_channel_id FROM settings WHERE guild_id = ?;'),
