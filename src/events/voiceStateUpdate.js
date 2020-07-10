@@ -1,6 +1,6 @@
 module.exports = (client, oldMember, newMember) => {
   
-  if (client.utils.checkXPDisabled(client, oldMember.guild)) return;
+  if (client.utils.checkPointsDisabled(client, oldMember.guild)) return;
 
   const voicePoints = client.db.settings.selectVoicePoints.pluck().get(newMember.guild.id);
   if (voicePoints == 0) return;

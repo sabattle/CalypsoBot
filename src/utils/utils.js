@@ -37,18 +37,33 @@ function trimArray(arr, maxLen = 10) {
 }
 
 /**
- * Checks if XP is disabled on a server
+ * Gets the ordinal numeral of a number
+ * @param {int} number
+ */
+function getOrdinalNumeral(number) {
+  number = number.toString();
+  if (number === '11' || number === '12' || number === '13') return number + 'th';
+  if (number.endsWith(1)) return number + 'st';
+  else if (number.endsWith(2)) return number + 'nd';
+  else if (number.endsWith(3)) return number + 'rd';
+  else return number + 'th';
+}
+
+/**
+ * Checks if points are disabled on a server
  * @param {Client} client 
  * @param {Guild} guild
  */
-function checkXPDisabled(client, guild) {
+function checkPointsDisabled(client, guild, disabledCommands = null) {
   
   // Get disabled commands
-  let disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(guild.id) || [];
-  if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
+  if (!disabledCommands) {
+    disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(guild.id) || [];
+    if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
+  }
 
-  // Check if XP is disabled
-  const commands = client.commands.array().filter(c => c.type === types.XP && !disabledCommands.includes(c.name));
+  // Check if points are disabled
+  const commands = client.commands.array().filter(c => c.type === types.POINTS && !disabledCommands.includes(c.name));
   if (commands.length === 0) return true;
   else return false;
 
@@ -94,7 +109,7 @@ async function transferCrown(client, guild, crownRole) {
   try {
     await winner.roles.add(crownRole);
     // Clear points
-    client.db.users.clearPoints.run(guild.id);
+    client.db.users.wipeAllPoints.run(guild.id);
   } catch (err) {
     return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
       Something went wrong. Unable to pass ${crownRole} to ${winner}. 
@@ -111,7 +126,7 @@ async function transferCrown(client, guild, crownRole) {
   // Send crown message
   if (crownChannel && crownMessage) crownChannel.send(crownMessage);
 
-  client.logger.info(`${guild.name}: Successfully assigned crown role to ${winner.displayName} and reset points`);
+  client.logger.info(`${guild.name}: Successfully assigned crown role to ${winner.user.tag} and reset server points`);
 }
 
 /**
@@ -121,7 +136,7 @@ async function transferCrown(client, guild, crownRole) {
  */
 function scheduleCrown(client, guild) {
 
-  if (client.utils.checkXPDisabled(client, guild)) return;
+  if (client.utils.checkPointsDisabled(client, guild)) return;
 
   const crownRoleId = client.db.settings.selectCrownRoleId.pluck().get(guild.id);
   let crownRole;
@@ -139,7 +154,8 @@ module.exports = {
   capitalize,
   removeElement,
   trimArray,
-  checkXPDisabled,
+  getOrdinalNumeral,
+  checkPointsDisabled,
   transferCrown,
   scheduleCrown
 };

@@ -26,8 +26,16 @@ module.exports = async (client, member) => {
   if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
   if (welcomeMessage && welcomeChannel) welcomeChannel.send(welcomeMessage);
 
-  // Update points db
-  client.db.users.insertRow.run(member.id, member.user.username, member.guild.id, member.guild.name);
+  // Update users table
+  client.db.users.insertRow.run(
+    member.id, 
+    member.user.username, 
+    member.user.discriminator,
+    member.guild.id, 
+    member.guild.name,
+    member.joinedAt.toString(),
+    member.bot ? 1 : 0
+  );
 
-  client.logger.info(`${member.guild.name}: ${member.user.username} has joined the server`);
+  client.logger.info(`${member.guild.name}: ${member.user.tag} has joined`);
 };

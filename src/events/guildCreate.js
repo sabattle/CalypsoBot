@@ -1,6 +1,6 @@
 module.exports = (client, guild) => {
   
-  // Update db
+  // Update settings table
   client.db.settings.insertRow.run(
     guild.id,
     guild.name,
@@ -9,8 +9,19 @@ module.exports = (client, guild) => {
     guild.systemChannelID, // Leave channel
     guild.systemChannelID  // Crown Channel
   );
+
+  // Update users table
   guild.members.cache.forEach(member => {
-    client.db.guildPoints.insertRow.run(member.id, member.user.username, guild.id, guild.name);
+    client.db.users.insertRow.run(
+      member.id, 
+      member.user.username, 
+      member.user.discriminator,
+      guild.id, 
+      guild.name,
+      member.joinedAt.toString(),
+      member.bot ? 1 : 0
+    );
   });
+
   client.logger.info(`Calypso has joined ${guild.name}`);
 };

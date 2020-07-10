@@ -13,7 +13,7 @@ module.exports = class WipeAllPointsCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.member;
-    message.client.db.users.wipeAllPoints.run(member.id, message.guild.id);
+    message.client.db.users.wipeAllUserPoints.run(member.id, message.guild.id);
     message.channel.send(`Successfully wiped ${member}'s points and total points.`);
   } 
 };

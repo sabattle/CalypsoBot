@@ -13,7 +13,7 @@ db.pragma('synchronous = 1');
 /** ------------------------------------------------------------------------------------------------
  * TABLES
  * ------------------------------------------------------------------------------------------------ */
-// GUILD SETTINGS
+// BOT SETTINGS TABLE
 db.prepare(`
   CREATE TABLE IF NOT EXISTS settings (
     guild_id TEXT PRIMARY KEY,
@@ -37,24 +37,31 @@ db.prepare(`
     crown_message TEXT,
     crown_schedule TEXT,
     disabled_commands TEXT
-);`).run();
+  );
+`).run();
 
-// GUILD POINTS
+// USERS TABLE
 db.prepare(`
   CREATE TABLE IF NOT EXISTS users (
     user_id TEXT,
     user_name TEXT,
+    user_discriminator TEXT,
     guild_id TEXT,
     guild_name TEXT,
+    date_joined TEXT,
+    bot INTEGER,
     points INTEGER NOT NULL,
     total_points INTEGER NOT NULL,
+    warns TEXT,
+    current_member INTEGER NOT NULL,
     PRIMARY KEY (user_id, guild_id)
-);`).run();
+  );
+`).run();
 
 /** ------------------------------------------------------------------------------------------------
  * PREPARED STATEMENTS
  * ------------------------------------------------------------------------------------------------ */
-// GUILD SETTINGS
+// BOT SETTINGS TABLE
 const settings = {
   insertRow: db.prepare(`
     INSERT OR IGNORE INTO settings (
@@ -68,7 +75,7 @@ const settings = {
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!!', ?, ?, ?, ?, 1, 1, 1);
+    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
@@ -111,17 +118,21 @@ const settings = {
   updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;')
 };
 
-// GUILD POINTS
+// USERS TABLE
 const users = {
   insertRow: db.prepare(`
     INSERT OR IGNORE INTO users (
       user_id, 
       user_name,
+      user_discriminator,
       guild_id, 
       guild_name, 
+      date_joined,
+      bot,
       points,
-      total_points
-    ) VALUES (?, ?, ?, ?, 0, 0);
+      total_points,
+      current_member
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, 1);
   `),
   selectRow: db.prepare('SELECT * FROM users WHERE user_id = ? AND guild_id = ?;'),
   selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? ORDER BY points DESC;'),
@@ -132,10 +143,10 @@ const users = {
     WHERE user_id = ? AND guild_id = ?;
   `),
   selectTotalPoints: db.prepare('SELECT total_points FROM users WHERE user_id = ? AND guild_id = ?;'),
-  wipeServerPoints: db.prepare('UPDATE users SET points = 0 WHERE guild_id = ?;'),
-  wipeAllServerPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;'),
   wipePoints: db.prepare('UPDATE users SET points = 0 WHERE user_id = ? AND guild_id = ?;'),
-  wipeAllPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;')
+  wipeTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE user_id = ? AND guild_id = ?;'),
+  wipeAllPoints: db.prepare('UPDATE users SET points = 0 WHERE guild_id = ?;'),
+  wipeAllTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;')
 };
 
 module.exports = {

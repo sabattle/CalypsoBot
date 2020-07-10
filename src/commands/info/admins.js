@@ -19,7 +19,7 @@ module.exports = class AdminsCommand extends Command {
     const adminRoleId = message.client.db.settings.selectAdminRoleId.pluck().get(message.guild.id);
     let adminRole;
     if (adminRoleId) adminRole = message.guild.roles.cache.get(adminRoleId);
-    else return message.channel.send(embed.setDescription('Sorry! The `admin role` has not been set on this server.'));
+    else return message.channel.send(embed.setDescription('Sorry! The `admin role` is not set on this server.'));
     const admins = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === adminRole)) return true;
     });

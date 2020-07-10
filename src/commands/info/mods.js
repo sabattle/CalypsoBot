@@ -19,7 +19,7 @@ module.exports = class ModsCommand extends Command {
     const modRoleId = message.client.db.settings.selectModRoleId.pluck().get(message.guild.id);
     let modRole;
     if (modRoleId) modRole = message.guild.roles.cache.get(modRoleId);
-    else return message.channel.send(embed.setDescription('Sorry! The `mod role` has not been set on this server.'));
+    else return message.channel.send(embed.setDescription('Sorry! The `mod role` is not set on this server.'));
     const mods = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === modRole)) return true;
     });

@@ -8,7 +8,7 @@ global.types = {
   INFO: 'Info',
   FUN: 'Fun',
   COLOR: 'Color',
-  XP: 'XP',
+  POINTS: 'Points',
   MISC: 'Misc',
   MOD: 'Mod',
   ADMIN: 'Admin',

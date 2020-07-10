@@ -2,22 +2,22 @@ const Command = require('../Command.js');
 const Discord = require('discord.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class TopTwentyCommand extends Command {
+module.exports = class TopFiveCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'top20',
-      aliases: ['t20'],
+      name: 'top5',
+      aliases: ['t5'],
       usage: '',
-      description: 'Lists the top 20 members with the most points on your server.',
-      type: types.XP
+      description: 'Lists the top 5 members with the most points on your server.',
+      type: types.POINTS
     });
   }
   async run(message) {
     const leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
-    const top10 = leaderboard.slice(0, 20);
+    const top10 = leaderboard.slice(0, 5);
     const embed = new Discord.MessageEmbed()
-      .setTitle(message.guild.name + ' Leaderboard (Top 20)')
+      .setTitle(message.guild.name + ' Leaderboard (Top 5)')
       .setColor(message.guild.me.displayHexColor)
       .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
     let count = 1, pointsList = [];

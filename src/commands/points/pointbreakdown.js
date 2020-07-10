@@ -9,7 +9,7 @@ module.exports = class PointBreakdownCommand extends Command {
       aliases: ['pbd'],
       usage: '',
       description: 'Displays the amount of points earned per action.',
-      type: types.XP
+      type: types.POINTS
     });
   }
   run(message) {

@@ -3,15 +3,14 @@ const { oneLine } = require('common-tags');
 
 const rgx = /^(?:<@!?)?(\d+)>?$/;
 
-module.exports = class WipeAllServerPointsCommand extends Command {
+module.exports = class WipeTotalPointsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'wipeallserverpoints',
-      aliases: ['wipeasp', 'wasp'],
+      name: 'wipetotalpoints',
+      aliases: ['wipetp', 'wtp'],
       usage: '<SERVER ID>',
       description: oneLine`
-        Wipes all members' points and total points in the server with the provided ID 
-        (or the current server, if no ID is given).
+        Wipes all members' points in the server with the provided ID (or the current server, if no ID is given).
       `,
       type: types.OWNER,
       ownerOnly: true
@@ -26,7 +25,7 @@ module.exports = class WipeAllServerPointsCommand extends Command {
       return message.channel.send(oneLine`
         Sorry ${message.member}, I couldn't find that server. Please check the provided ID.
       `);
-    message.client.db.users.wipeAllServerPoints.run(id);
-    message.channel.send(`Successfully wiped all members' points and total points in **${guild.name}**.`);
+    message.client.db.users.wipeServerPoints.run(id);
+    message.channel.send(`Successfully wiped all members' points in **${guild.name}**.`);
   } 
 };

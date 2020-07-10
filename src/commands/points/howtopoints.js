@@ -8,7 +8,7 @@ module.exports = class HowToPointsCommand extends Command {
       aliases: ['how2points', 'h2points'],
       usage: '',
       description: 'Explains various aspects about Calypso\'s point system.',
-      type: types.XP
+      type: types.POINTS
     });
   }
   run(message) {
