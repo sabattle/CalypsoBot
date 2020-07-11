@@ -1,33 +1,48 @@
 const Command = require('../Command.js');
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
-module.exports = class TopFiveCommand extends Command {
+module.exports = class LeaderboardCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'top5',
-      aliases: ['t5'],
-      usage: '',
-      description: 'Lists the top 5 members with the most points on your server.',
-      type: types.POINTS
+      name: 'leaderboard',
+      aliases: ['top', 'lb', 'rankings'],
+      usage: 'leaderboard [member count]',
+      description: oneLine`
+        Displays the server points leaderboard of the provided member count. 
+        If no member count is given, the leaderboard will default to size 10.
+        The max leaderboard size is 25.
+      `,
+      type: types.POINTS,
+      examples: ['leaderboard 20']
     });
   }
-  async run(message) {
-    const leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
+  async run(message, args) {
+    let amount = parseInt(args[0]);
+    if (!amount || amount < 0) amount = 10;
+    else if (amount > 25) amount = 25;
+    let leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
-    const top10 = leaderboard.slice(0, 5);
-    const embed = new Discord.MessageEmbed()
-      .setTitle(message.guild.name + ' Leaderboard (Top 5)')
-      .setColor(message.guild.me.displayHexColor)
-      .setFooter(`${message.member.displayName}'s position: ${position + 1}`);
-    let count = 1, pointsList = [];
-    for(const row of top10) {
-      pointsList.push(oneLine`
-        **${count}.** ${await message.guild.members.cache.get(row.user_id).displayName} | **${row.points}** points
+    leaderboard = leaderboard.slice(0, amount);
+    let count = 1;
+    const members = [];
+    for(const row of leaderboard) {
+      members.push(oneLine`
+        **${count}.** ${await message.guild.members.cache.get(row.user_id)} - \`${row.points}\` points
       `);
       count++;
     }
-    embed.setDescription(pointsList.join('\n'));
+    const range = (amount == 1) ? '[1]' : `[1 - ${members.length}]`;
+    const embed = new MessageEmbed()
+      .setTitle(`Points Leaderboard ${range}`)
+      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription(members.join('\n'))
+      .setFooter(
+        `${message.member.displayName}'s position: ${position + 1}`,  
+        message.author.displayAvatarURL({ dynamic: true })
+      )
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     return message.channel.send(embed);
   }
 };
