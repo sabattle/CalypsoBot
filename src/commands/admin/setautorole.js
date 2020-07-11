@@ -37,7 +37,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     }
 
     // Update role
-    const role = this.getRoleFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
     if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
     message.client.db.settings.updateAutoRoleId.run(role.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldRole} ➔ ${role}`, true));
