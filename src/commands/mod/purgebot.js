@@ -7,7 +7,7 @@ module.exports = class PurgeBotCommand extends Command {
     super(client, {
       name: 'purgebot',
       aliases: ['clearbot'],
-      usage: 'purgebot [channel mention/ID] <message count>',
+      usage: 'purgebot [channel mention/ID] <message count> [reason]',
       description: oneLine`
         Sifts through the specified amount of messages in the provided channel
         and deletes all Calypso commands and messages from Calypso.

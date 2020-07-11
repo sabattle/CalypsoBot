@@ -7,7 +7,7 @@ module.exports = class PurgeCommand extends Command {
     super(client, {
       name: 'purge',
       aliases: ['clear'],
-      usage: 'purge [channel mention/ID] <message count>',
+      usage: 'purge [channel mention/ID] <message count> [reason]',
       description: oneLine`
         Deletes the specified amount of messages from the provided channel. 
         If no channel is given, the messages will be deleted from the current channel.
