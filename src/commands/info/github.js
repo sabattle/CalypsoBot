@@ -8,7 +8,7 @@ module.exports = class GitHubCommand extends Command {
       name: 'github',
       aliases: ['gh', 'repo'],
       usage: 'github',
-      description: 'Posts the link to Calypso\'s GitHub repository.',
+      description: 'Displays the link to Calypso\'s GitHub repository.',
       type: types.INFO
     });
   }
