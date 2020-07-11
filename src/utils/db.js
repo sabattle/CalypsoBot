@@ -8,7 +8,7 @@ db.pragma('synchronous = 1');
  * Enabling WAL mode causes issues with file locking within WSL, works fine on a normal Unix system
  * Issue documented here: https://github.com/microsoft/WSL/issues/2395
  */
-// db.pragma('journal_mode = wal');
+db.pragma('journal_mode = wal');
 
 /** ------------------------------------------------------------------------------------------------
  * TABLES
@@ -75,7 +75,7 @@ const settings = {
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!!', ?, ?, ?, ?, 1, 1, 1);
+    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
