@@ -71,6 +71,18 @@ class Client extends Discord.Client {
     this.ownerId = config.ownerId;
 
     /** 
+     * Calypso's bug report channel ID
+     * @type {string}
+     */
+    this.bugReportChannelId = config.bugReportChannelId;
+
+    /** 
+     * Calypso's feedback channel ID
+     * @type {string}
+     */
+    this.feedbackChannelId = config.feedbackChannelId;
+
+    /** 
      * Utility functions
      * @type {Object}
      */
