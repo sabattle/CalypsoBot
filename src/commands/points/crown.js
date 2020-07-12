@@ -8,7 +8,7 @@ module.exports = class CrownCommand extends Command {
       aliases: ['crowned'],
       usage: 'crown',
       description: 'Displays all crowned guild members, the crown role, and crown schedule (if set).',
-      type: types.POINTS
+      type: client.types.POINTS
     });
   }
   run(message) {

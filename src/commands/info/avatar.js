@@ -8,7 +8,7 @@ module.exports = class AvatarCommand extends Command {
       aliases: ['profilepic', 'pic', 'a'],
       usage: 'avatar [user mention/ID]',
       description: 'Displays a user\'s avatar (or your own, if no user is mentioned).',
-      type: types.INFO,
+      type: client.types.INFO,
       examples: ['avatar @Calypso']
     });
   }

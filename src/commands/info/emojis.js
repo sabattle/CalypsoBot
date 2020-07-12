@@ -8,7 +8,7 @@ module.exports = class EmojisCommand extends Command {
       aliases: ['e'],
       usage: 'emojis',
       description: 'Displays a list of all current emojis.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

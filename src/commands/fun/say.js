@@ -10,7 +10,7 @@ module.exports = class SayCommand extends Command {
         Sends a message to the specified channel. 
         If no channel is given, then the message will be sent to the current channel.
       `,
-      type: types.FUN,
+      type: client.types.FUN,
       examples: ['say #general hello world']
     });
   }

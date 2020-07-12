@@ -8,7 +8,7 @@ module.exports = class SetMuteRoleCommand extends Command {
       aliases: ['setmur', 'smur'],
       usage: 'setmuterole <role mention/ID>',
       description: 'Sets the mute role your server. Provide no role to clear the current mute role.',
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setmuterole @Muted']
     });

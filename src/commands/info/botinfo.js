@@ -11,7 +11,7 @@ module.exports = class BotInfoCommand extends Command {
       aliases: ['bot', 'bi'],
       usage: 'botinfo',
       description: 'Fetches Calypso\'s information and statistics.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

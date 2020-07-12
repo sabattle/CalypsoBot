@@ -8,7 +8,7 @@ module.exports = class CurrentPointsCommand extends Command {
       aliases: ['currpoints', 'cp', 'p'],
       usage: 'currentpoints <user mention/ID>',
       description: 'Fetches a user\'s current points. If no user is given, your own points will be displayed.',
-      type: types.POINTS,
+      type: client.types.POINTS,
       examples: ['currentpoints @Nettles']
     });
   }

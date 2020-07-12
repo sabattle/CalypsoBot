@@ -8,7 +8,7 @@ module.exports = class SetVoicePointsVoice extends Command {
       aliases: ['setvp', 'svp'],
       usage: 'setvoicepoints <point count>',
       description: 'Sets the amount of points earned per minute spent in voice chat.',
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setvoicepoints 5']
     });

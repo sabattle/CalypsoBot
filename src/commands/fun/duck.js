@@ -8,7 +8,7 @@ module.exports = class DuckCommand extends Command {
       name: 'duck',
       usage: 'duck',
       description: 'Finds a random duck for your viewing pleasure.',
-      type: types.FUN
+      type: client.types.FUN
     });
   }
   async run(message) {

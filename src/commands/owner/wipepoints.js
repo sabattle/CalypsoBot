@@ -8,7 +8,7 @@ module.exports = class WipePointsCommand extends Command {
       aliases: ['wipep', 'wp'],
       usage: 'wipepoints <user mention/ID>',
       description: 'Wipes the provided user\'s points.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true,
       examples: ['wipepoints @Nettles']
     });

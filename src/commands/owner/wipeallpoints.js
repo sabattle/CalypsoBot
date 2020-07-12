@@ -10,7 +10,7 @@ module.exports = class WipeAllPointsCommand extends Command {
       aliases: ['wipeap', 'wap'],
       usage: 'wipeallpoints <server ID>',
       description: 'Wipes all members\' points in the server with the provided ID.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true,
       examples: ['wipeallpoints 264445053596991498']
     });

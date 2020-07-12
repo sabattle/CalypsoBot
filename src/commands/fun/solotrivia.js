@@ -15,7 +15,7 @@ module.exports = class SoloTriviaCommand extends Command {
         If no topic is given, a random one will be chosen.
         The question will expire after 15 seconds.
       `,
-      type: types.FUN,
+      type: client.types.FUN,
       examples: ['solotrivia sports']
     });
   }

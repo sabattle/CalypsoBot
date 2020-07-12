@@ -9,7 +9,7 @@ module.exports = class UptimeCommand extends Command {
       aliases: ['up'],
       usage: 'uptime',
       description: 'Fetches Calypso\'s current uptime.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

@@ -8,7 +8,7 @@ module.exports = class TotalPointsCommand extends Command {
       aliases: ['totalp', 'tp'],
       usage: 'totalpoints <user mention/ID>',
       description: 'Fetches a user\'s total points. If no user is given, your own total points will be displayed.',
-      type: types.POINTS,
+      type: client.types.POINTS,
       examples: ['totalpoints @Nettles']
     });
   }

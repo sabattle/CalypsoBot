@@ -9,7 +9,7 @@ module.exports = class FeedbackCommand extends Command {
       aliases: ['fb'],
       usage: 'feedback <message>',
       description: 'Sends a message to the Calypso Support Server\'s feedback channel.',
-      type: types.MISC,
+      type: client.types.MISC,
       examples: ['feedback we love Calypso!']
     });
   }

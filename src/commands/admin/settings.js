@@ -9,7 +9,7 @@ module.exports = class SettingsCommand extends Command {
       aliases: ['config', 'set', 's'],
       usage: 'settings',
       description: 'Displays all the current settings for your server.',
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD']
     });
   }

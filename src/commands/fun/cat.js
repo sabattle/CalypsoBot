@@ -9,7 +9,7 @@ module.exports = class CatCommand extends Command {
       aliases: ['kitten', 'kitty'],
       usage: 'cat',
       description: 'Finds a random cat for your viewing pleasure.',
-      type: types.FUN
+      type: client.types.FUN
     });
   }
   async run(message) {

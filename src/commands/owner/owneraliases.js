@@ -8,7 +8,7 @@ module.exports = class OwnerAliasesCommand extends Command {
       aliases: ['ownerali', 'oali', 'oa'],
       usage: 'owneraliases',
       description: 'Displays a list of all current aliases per owner command.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true
     });
   }
@@ -17,7 +17,7 @@ module.exports = class OwnerAliasesCommand extends Command {
     const aliases = [];
 
     message.client.commands.forEach(command => {
-      if (command.aliases && command.type == types.OWNER) 
+      if (command.aliases && command.type == message.client.types.OWNER) 
         aliases.push(`**${command.name}**: ${command.aliases.map(a => `\`${a}\``).join(' ')}`);
     });
 

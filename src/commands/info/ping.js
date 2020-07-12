@@ -7,7 +7,7 @@ module.exports = class PingCommand extends Command {
       name: 'ping',
       usage: 'ping',
       description: 'Gets Calypso\'s current latency and API latency.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   async run(message) {

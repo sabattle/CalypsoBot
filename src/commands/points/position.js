@@ -12,7 +12,7 @@ module.exports = class PositionCommand extends Command {
         Fetches a user's current leaderboard position. 
         If no user is given, your own position will be displayed.
       `,
-      type: types.POINTS,
+      type: client.types.POINTS,
       examples: ['position @Nettles']
     });
   }

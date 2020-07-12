@@ -33,7 +33,6 @@
     "no-console": 0
   },
   "globals": {
-    "__basedir": false,
-    "types": false
+    "__basedir": false
   }
 }

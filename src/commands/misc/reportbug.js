@@ -12,7 +12,7 @@ module.exports = class ReportBugCommand extends Command {
         Sends a message to the Calypso Support Server's bug report channel.
         When reporting a bug, please include as much information as possible.
       `,
-      type: types.MISC,
+      type: client.types.MISC,
       examples: ['reportbug bot is botched']
     });
   }

@@ -12,7 +12,7 @@ module.exports = class SetLeaveChannelCommand extends Command {
         Sets the leave message text channel for your server. 
         Provide no channel to clear the current leave channel.
       `,
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setleavechannel #general']
     });

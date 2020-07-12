@@ -63,7 +63,8 @@ function checkPointsDisabled(client, guild, disabledCommands = null) {
   }
 
   // Check if points are disabled
-  const commands = client.commands.array().filter(c => c.type === types.POINTS && !disabledCommands.includes(c.name));
+  const commands = client.commands.array()
+    .filter(c => c.type === client.types.POINTS && !disabledCommands.includes(c.name));
   if (commands.length === 0) return true;
   else return false;
 

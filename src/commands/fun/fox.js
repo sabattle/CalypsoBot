@@ -8,7 +8,7 @@ module.exports = class FoxCommand extends Command {
       name: 'fox',
       usage: 'fox',
       description: 'Finds a random fox for your viewing pleasure.',
-      type: types.FUN
+      type: client.types.FUN
     });
   }
   async run(message) {

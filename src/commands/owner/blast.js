@@ -7,7 +7,7 @@ module.exports = class BlastCommand extends Command {
       name: 'blast',
       usage: 'blast <message>',
       description: 'Sends a message to every server that Calypso is in that has a default channel.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true,
       examples: ['blast Hello World!']
     });

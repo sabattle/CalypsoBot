@@ -3,18 +3,6 @@ const Client = require('./src/Client.js');
 const { Intents } = require('discord.js');
 global.__basedir = __dirname;
 
-// Command types
-global.types = {
-  INFO: 'Info',
-  FUN: 'Fun',
-  COLOR: 'Color',
-  POINTS: 'Points',
-  MISC: 'Misc',
-  MOD: 'Mod',
-  ADMIN: 'Admin',
-  OWNER: 'Owner'
-};
-
 // Client setup
 const intents = new Intents();
 intents.add(

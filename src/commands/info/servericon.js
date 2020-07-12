@@ -8,7 +8,7 @@ module.exports = class ServerIconCommand extends Command {
       aliases: ['icon', 'i'],
       usage: 'servericon',
       description: 'Displays the server\'s icon.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

@@ -13,7 +13,7 @@ module.exports = class YoMommaCommand extends Command {
         Says a random "yo momma" joke to the specified user. 
         If no user is given, then the joke will be directed at you!
       `,
-      type: types.FUN,
+      type: client.types.FUN,
       examples: ['yomomma @Calypso'],
       disabled: true
     });

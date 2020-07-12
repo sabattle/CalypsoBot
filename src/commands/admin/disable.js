@@ -11,19 +11,21 @@ module.exports = class DisableCommand extends Command {
       description: oneLine`
         Disables the provided command or command type. 
         Disabled commands will no longer be able to be used, and will no longer show up with the \`help\` command.
-        \`${types.ADMIN}\` commands cannot be disabled.
+        \`${client.types.ADMIN}\` commands cannot be disabled.
       `,
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['disable ping', 'disable Fun']
     });
   }
   run(message, args) {
 
-    if (args.length === 0 || args[0].toLowerCase() === types.OWNER.toLowerCase()) 
+    if (args.length === 0 || args[0].toLowerCase() === message.client.types.OWNER.toLowerCase()) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command or command type.');
-    if (args[0].toLowerCase() === types.ADMIN.toLowerCase()) 
-      return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands cannot be disabled.`);
+    if (args[0].toLowerCase() === message.client.types.ADMIN.toLowerCase()) 
+      return this.sendErrorMessage(message, `
+        Invalid argument. \`${message.client.types.ADMIN}\` commands cannot be disabled.
+      `);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
@@ -32,7 +34,7 @@ module.exports = class DisableCommand extends Command {
     let description;
 
     // Handle types
-    const typeListOrig = Object.values(types);
+    const typeListOrig = Object.values(message.client.types);
     const typeList = typeListOrig.map(t => t.toLowerCase());
     if (typeList.includes(type)) {
       for (const cmd of message.client.commands.values()) {
@@ -41,9 +43,11 @@ module.exports = class DisableCommand extends Command {
       description = `All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **disabled**.`;
 
     // Handle single commands
-    } else if (command && command.type != types.OWNER) {
-      if (command.type === types.ADMIN) 
-        return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands cannot be disabled.`);
+    } else if (command && command.type != message.client.types.OWNER) {
+      if (command.type === message.client.types.ADMIN) 
+        return this.sendErrorMessage(message, `
+          Invalid argument. \`${message.client.types.ADMIN}\` commands cannot be disabled.
+        `);
       if (!disabledCommands.includes(command.name)) disabledCommands.push(command.name); // Add to array if not present
       description = `The \`${command.name}\` command has been successfully **disabled**.`;
     } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command or command type.');

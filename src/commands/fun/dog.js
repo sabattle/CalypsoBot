@@ -9,7 +9,7 @@ module.exports = class DogCommand extends Command {
       aliases: ['puppy', 'pup'],
       usage: 'dog',
       description: 'Finds a random dog for your viewing pleasure.',
-      type: types.FUN
+      type: client.types.FUN
     });
   }
   async run(message) {

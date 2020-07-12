@@ -12,7 +12,7 @@ module.exports = class HelpCommand extends Command {
         Displays a list of all current commands, sorted by category. 
         Can be used in conjunction with a command for additional information.
       `,
-      type: types.INFO,
+      type: client.types.INFO,
       examples: ['help ping']
     });
   }
@@ -26,7 +26,7 @@ module.exports = class HelpCommand extends Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
-    if (command && command.type != types.OWNER && !disabledCommands.includes(command.name)) {
+    if (command && command.type != message.client.types.OWNER && !disabledCommands.includes(command.name)) {
       
       embed // Build specific command help embed
         .setTitle(`Command: \`${command.name}\``)
@@ -47,7 +47,7 @@ module.exports = class HelpCommand extends Command {
 
       // Get commands
       const commands = {};
-      for (const type of Object.values(types)) {
+      for (const type of Object.values(message.client.types)) {
         commands[type] = [];
       }
   
@@ -66,8 +66,8 @@ module.exports = class HelpCommand extends Command {
         .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
         .setColor(message.guild.me.displayHexColor);
 
-      for (const type of Object.values(types)) {
-        if (type === types.OWNER) continue;
+      for (const type of Object.values(message.client.types)) {
+        if (type === message.client.types.OWNER) continue;
         if (commands[type][0]) embed.addField(`**${type} [${commands[type].length}]**`, commands[type].join(' '));
       }
 

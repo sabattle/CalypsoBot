@@ -10,7 +10,7 @@ module.exports = class WipeAllTotalPointsCommand extends Command {
       aliases: ['wipeatp', 'watp'],
       usage: 'wipealltotalpoints <server ID>',
       description: 'Wipes all members\' points and total points in the server with the provided ID.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true,
       examples: ['wipealltotalpoints 264445053596991498']
     });

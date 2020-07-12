@@ -8,7 +8,7 @@ module.exports = class SetCommandPointsCommand extends Command {
       aliases: ['setcp', 'scp'],
       usage: 'setcommandpoints <point count>',
       description: 'Sets the amount of points earned per Calypso command used.',
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setcommandpoints 5']
     });

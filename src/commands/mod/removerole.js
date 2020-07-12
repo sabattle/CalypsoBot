@@ -8,7 +8,7 @@ module.exports = class RemoveRoleCommand extends Command {
       aliases: ['remover', 'rr'],
       usage: 'removerole <user mention/ID> <role mention/ID> [reason]',
       description: 'Removes the specified role from the provided user.',
-      type: types.MOD,
+      type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['removerole @Nettles @Member']

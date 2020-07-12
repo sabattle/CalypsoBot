@@ -13,7 +13,7 @@ module.exports = class ThouArtCommand extends Command {
         Says a random Elizabethan insult to the specified user. 
         If no user is given, then the insult will be directed at you!
       `,
-      type: types.FUN,
+      type: client.types.FUN,
       examples: ['thouart @Calypso']
     });
   }

@@ -28,11 +28,20 @@ class Client extends Discord.Client {
      */
     this.db = require('./utils/db.js');
 
-    /** 
-     * Date the client was started
-     * @type {Date}
+    /**
+     * All possible command types
+     * @type {Object}
      */
-    this.startDate = new Date();
+    this.types = {
+      INFO: 'Info',
+      FUN: 'Fun',
+      COLOR: 'Color',
+      POINTS: 'Points',
+      MISC: 'Misc',
+      MOD: 'Mod',
+      ADMIN: 'Admin',
+      OWNER: 'Owner'
+    };
 
     /** 
      * Collection of bot commands

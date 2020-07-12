@@ -13,7 +13,7 @@ module.exports = class LeaderboardCommand extends Command {
         If no member count is given, the leaderboard will default to size 10.
         The max leaderboard size is 25.
       `,
-      type: types.POINTS,
+      type: client.types.POINTS,
       examples: ['leaderboard 20']
     });
   }

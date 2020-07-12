@@ -8,7 +8,7 @@ module.exports = class PrefixCommand extends Command {
       aliases: ['pre'],
       usage: 'prefix',
       description: 'Fetches Calypso\'s current prefix.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

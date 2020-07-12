@@ -9,7 +9,7 @@ module.exports = class PointPerCommand extends Command {
       aliases: ['pointsp', 'pp'],
       usage: '',
       description: 'Displays the amount of points earned per action.',
-      type: types.POINTS
+      type: client.types.POINTS
     });
   }
   run(message) {

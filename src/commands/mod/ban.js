@@ -7,7 +7,7 @@ module.exports = class BanCommand extends Command {
       name: 'ban',
       usage: 'ban <user mention/ID> [reason]',
       description: 'Bans a member from your server.',
-      type: types.MOD,
+      type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
       userPermissions: ['BAN_MEMBERS'],
       examples: ['ban @Nettles']

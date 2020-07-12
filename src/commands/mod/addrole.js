@@ -8,7 +8,7 @@ module.exports = class AddRoleCommand extends Command {
       aliases: ['addr', 'ar'],
       usage: 'addrole <user mention/ID> <role mention/ID> [reason]',
       description: 'Adds the specified role to the provided user.',
-      type: types.MOD,
+      type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['addrole @Nettles @Member']

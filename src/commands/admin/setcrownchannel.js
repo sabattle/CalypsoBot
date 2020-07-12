@@ -12,7 +12,7 @@ module.exports = class SetCrownChannelCommand extends Command {
         Sets the crown message text channel for your server. 
         Provide no channel to clear the current crown channel.
       `,
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setcrownchannel #general']
     });

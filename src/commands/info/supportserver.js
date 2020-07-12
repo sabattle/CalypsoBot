@@ -8,7 +8,7 @@ module.exports = class SupportServerCommand extends Command {
       aliases: ['support', 'ss'],
       usage: 'supportserver',
       description: 'Displays the invite link to Calypso\'s Discord Support Server.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

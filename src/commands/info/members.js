@@ -9,7 +9,7 @@ module.exports = class MembersCommand extends Command {
       aliases: ['memberstatus'],
       usage: 'members',
       description: 'Displays how many server members are online, busy, AFK, and offline.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {

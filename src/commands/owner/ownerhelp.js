@@ -9,7 +9,7 @@ module.exports = class OwnerHelpCommand extends Command {
       aliases: ['ownercommands', 'ohelp', 'oh'],
       usage: 'ownerhelp [command]',
       description: 'Displays a list of all current owner commands.',
-      type: types.OWNER,
+      type: client.types.OWNER,
       ownerOnly: true,
       examples: ['ownerhelp blast']
     });
@@ -20,7 +20,7 @@ module.exports = class OwnerHelpCommand extends Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
-    if (command && command.type == types.OWNER) {
+    if (command && command.type == message.client.types.OWNER) {
       
       embed // Build specific command help embed
         .setTitle(`Command: \`${command.name}\``)
@@ -43,7 +43,7 @@ module.exports = class OwnerHelpCommand extends Command {
       const commands = [];
   
       message.client.commands.forEach(command => {
-        if (command.type === types.OWNER) commands.push(`\`${command.name}\``);
+        if (command.type === message.client.types.OWNER) commands.push(`\`${command.name}\``);
       });
 
       embed // Build help embed
@@ -53,7 +53,7 @@ module.exports = class OwnerHelpCommand extends Command {
           The prefix on **${message.guild.name}** is \`${prefix}\`
           Use \`${prefix}ownerhelp [command]\` for more information 
         `)
-        .addField(`**${types.OWNER} [${commands.length}]**`, commands.join(' '))
+        .addField(`**${message.client.types.OWNER} [${commands.length}]**`, commands.join(' '))
         .addField(
           '**Links**', 
           '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) | ' +

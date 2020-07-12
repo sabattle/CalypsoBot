@@ -30,7 +30,7 @@ module.exports = class EightBallCommand extends Command {
       aliases: ['fortune'],
       usage: '8ball [question]',
       description: 'Asks the Magic 8-Ball for some psychic wisdom.',
-      type: types.FUN,
+      type: client.types.FUN,
       examples: ['8ball Am I going to win the lottery?']
     });
   }

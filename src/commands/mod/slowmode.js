@@ -13,7 +13,7 @@ module.exports = class SlowmodeCommand extends Command {
         If no channel is provided, then slowmode will affect the current channel.
         Provide a rate of 0 to disable.
       `,
-      type: types.MOD,
+      type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'],
       userPermissions: ['MANAGE_CHANNELS'],
       examples: ['slowmode #general 2', 'slowmode 3']

@@ -11,7 +11,7 @@ module.exports = class CreateColorCommand extends Command {
       aliases: ['createcol', 'createc', 'crc'],
       usage: 'createcolor <hex> <color name>',
       description: 'Creates a new role for the given color hex. Color roles are denoted by the prefix `#`.',
-      type: types.COLOR,
+      type: client.types.COLOR,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['createcolor #FF0000 Red']

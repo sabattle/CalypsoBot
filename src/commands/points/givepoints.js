@@ -9,7 +9,7 @@ module.exports = class GivePointsCommand extends Command {
       aliases: ['gp'],
       usage: 'givepoints <user mention/ID> <point count>',
       description: 'Gives the specified amount of your own points to the mentioned user.',
-      type: types.POINTS,
+      type: client.types.POINTS,
       examples: ['givepoints @Nettles 1000']
     });
   }

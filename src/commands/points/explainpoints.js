@@ -9,7 +9,7 @@ module.exports = class ExplainPointsCommand extends Command {
       aliases: ['explainp', 'ep', 'howtopoints', 'h2points'],
       usage: 'explainpoints',
       description: 'Explains the various aspects about Calypso\'s point system.',
-      type: types.POINTS
+      type: client.types.POINTS
     });
   }
   run(message) {

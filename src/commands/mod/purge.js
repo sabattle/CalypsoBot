@@ -14,7 +14,7 @@ module.exports = class PurgeCommand extends Command {
         No more than 100 messages may be deleted at a time.
         Messages older than 2 weeks old cannot be deleted.
       `,
-      type: types.MOD,
+      type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES'],
       examples: ['purge 20', 'purge 10 @Nettles ']

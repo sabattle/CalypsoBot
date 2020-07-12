@@ -8,7 +8,7 @@ module.exports = class RollCommand extends Command {
       aliases: ['dice', 'r'],
       usage: 'roll <dice sides>',
       description: 'Rolls a dice with the specified number of sides. Will default to 6 sides if no number is given.',
-      type: types.FUN
+      type: client.types.FUN
     });
   }
   run(message, args) {

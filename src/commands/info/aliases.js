@@ -8,7 +8,7 @@ module.exports = class AliasesCommand extends Command {
       aliases: ['alias', 'ali'],
       usage: 'aliases',
       description: 'Displays a list of all current aliases per command.',
-      type: types.INFO
+      type: client.types.INFO
     });
   }
   run(message) {
@@ -18,7 +18,7 @@ module.exports = class AliasesCommand extends Command {
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
     const aliases = {};
-    for (const type of Object.values(types)) {
+    for (const type of Object.values(message.client.types)) {
       aliases[type] = [];
     }
 
@@ -34,8 +34,8 @@ module.exports = class AliasesCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
-    for (const type of Object.values(types)) {
-      if (type === types.OWNER) continue;
+    for (const type of Object.values(message.client.types)) {
+      if (type === message.client.types.OWNER) continue;
       if (aliases[type][0]) embed.addField(`**${type} [${aliases[type].length}]**`, aliases[type].join('\n'));
     }
 

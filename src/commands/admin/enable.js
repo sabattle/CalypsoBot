@@ -8,17 +8,19 @@ module.exports = class EnableCommand extends Command {
       aliases: ['en'],
       usage: 'enable <command | command type>',
       description: 'Enables the provided command or command type. All commands are enabled by default.',
-      type: types.ADMIN,
+      type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['enable ping', 'enable Fun']
     });
   }
   run(message, args) {
 
-    if (args.length === 0  || args[0].toLowerCase() === types.OWNER.toLowerCase()) 
+    if (args.length === 0  || args[0].toLowerCase() === message.client.types.OWNER.toLowerCase()) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command or command type.');
-    if (args[0].toLowerCase() === types.ADMIN.toLowerCase()) 
-      return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands are always enabled.`);
+    if (args[0].toLowerCase() === message.client.types.ADMIN.toLowerCase()) 
+      return this.sendErrorMessage(message, `
+        Invalid argument. \`${message.client.types.ADMIN}\` commands are always enabled.
+      `);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
@@ -27,7 +29,7 @@ module.exports = class EnableCommand extends Command {
     let description;
 
     // Handle types
-    const typeListOrig = Object.values(types);
+    const typeListOrig = Object.values(message.client.types);
     const typeList = typeListOrig.map(t => t.toLowerCase());
     if (typeList.includes(type)) {
       
@@ -38,9 +40,11 @@ module.exports = class EnableCommand extends Command {
       description = `All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **enabled**.`;
 
     // Handle single commands
-    } else if (command  && command.type != types.OWNER) {
-      if (command.type === types.ADMIN) 
-        return this.sendErrorMessage(message, `Invalid argument. \`${types.ADMIN}\` commands are always enabled.`);
+    } else if (command  && command.type != message.client.types.OWNER) {
+      if (command.type ===message.client.types.ADMIN) 
+        return this.sendErrorMessage(message, `
+          Invalid argument. \`${message.client.types.ADMIN}\` commands are always enabled.
+        `);
       message.client.utils.removeElement(disabledCommands, command.name); // Remove from array
       description = `The \`${command.name}\` command has been successfully **enabled**.`;
     } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command or command type.');
