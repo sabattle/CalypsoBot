@@ -10,7 +10,7 @@ module.exports = class RoleInfoCommand extends Command {
       name: 'roleinfo',
       aliases: ['role', 'ri'],
       usage: 'roleinfo <role mention/ID>',
-      description: 'Fetches information about the provided role',
+      description: 'Fetches information about the provided role.',
       type: client.types.INFO,
       examples: ['roleinfo @Member']
     });

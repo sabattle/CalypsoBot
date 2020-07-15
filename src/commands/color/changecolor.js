@@ -6,7 +6,7 @@ module.exports = class ChangeColorCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'changecolor',
-      aliases: ['changecol', 'changec', 'cc'],
+      aliases: ['colorchange', 'cc'],
       usage: 'changecolor <role mention/ID | color name>',
       description: oneLine`
         Changes your current color to the one specified. Provide no color to clear your current color role.
