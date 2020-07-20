@@ -16,28 +16,25 @@ module.exports = class AdminsCommand extends Command {
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    
+    // Get admin role
     const adminRoleId = message.client.db.settings.selectAdminRoleId.pluck().get(message.guild.id);
     let adminRole;
     if (adminRoleId) adminRole = message.guild.roles.cache.get(adminRoleId);
     else return message.channel.send(embed.setDescription('Sorry! The `admin role` is not set on this server.'));
+
     const admins = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === adminRole)) return true;
-    });
-    let adminList = '';
-    admins.forEach(m => adminList = adminList + `${m.displayName}#${m.user.discriminator}\n`);
-    embed.setTitle(`Admin List [${admins.size}]`)
+    }).array();
+
+    let description = message.client.utils.trimStringFromArray(admins);
+    if (admins.length === 0) description = 'Sorry! No admins found.';
+
+    embed.setTitle(`Admin List [${admins.length}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription(description)
       .addField('Admin Role', adminRole)
-      .addField('Admin Count', `**${admins.size}** out of **${message.guild.members.cache.size}** accounts`);
-    while (adminList.length > 2048) { // Description is capped at 2048 chars
-      adminList = adminList.substring(0, adminList.lastIndexOf('\n') -2);
-      const count = adminList.split('\n').length;
-      embed.spliceFields(0, 1, { name: 'Admin Count', value: `
-        **${admins.size}** out of **${message.guild.members.cache.size}** accounts
-        Only **${count}** of **${admins.size}** admins can be shown
-      `});
-    }
-    embed.setDescription(adminList);
+      .addField('Admin Count', `**${admins.length}** out of **${message.guild.members.cache.size}** accounts`);
     message.channel.send(embed);
   }
 };

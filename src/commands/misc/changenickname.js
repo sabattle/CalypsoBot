@@ -11,7 +11,7 @@ module.exports = class ChangeNicknameCommand extends Command {
       type: client.types.MISC,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_NICKNAMES'],
       userPermissions: ['CHANGE_NICKNAME'],
-      examples: ['setnickname Billy Zane']
+      examples: ['changenickname Billy Zane']
     });
   }
   async run(message, args) {

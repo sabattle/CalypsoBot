@@ -16,28 +16,25 @@ module.exports = class ModsCommand extends Command {
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    
+    // Get mod role
     const modRoleId = message.client.db.settings.selectModRoleId.pluck().get(message.guild.id);
     let modRole;
     if (modRoleId) modRole = message.guild.roles.cache.get(modRoleId);
     else return message.channel.send(embed.setDescription('Sorry! The `mod role` is not set on this server.'));
+
     const mods = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === modRole)) return true;
-    });
-    let modList = '';
-    mods.forEach(m => modList = modList + `${m.displayName}#${m.user.discriminator}\n`);
-    embed.setTitle(`Mod List [${mods.size}]`)
+    }).array();
+
+    let description = message.client.utils.trimStringFromArray(mods);
+    if (mods.length === 0) description = 'Sorry! No mods found.';
+
+    embed.setTitle(`Mod List [${mods.length}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setDescription(description)
       .addField('Mod Role', modRole)
-      .addField('Mod Count', `**${mods.size}** out of **${message.guild.members.cache.size}** accounts`);
-    while (modList.length > 2048) { // Description is capped at 2048 chars
-      modList = modList.substring(0, modList.lastIndexOf('\n') -2);
-      const count = modList.split('\n').length;
-      embed.spliceFields(0, 1, { name: 'Mod Count', value: `
-        **${mods.size}** out of **${message.guild.members.cache.size}** accounts
-        Only **${count}** of **${mods.size}** mods can be shown
-      `});
-    }
-    embed.setDescription(modList);
+      .addField('Mod Count', `**${mods.length}** out of **${message.guild.members.cache.size}** accounts`);
     message.channel.send(embed);
   }
 };

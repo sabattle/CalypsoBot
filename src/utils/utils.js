@@ -37,6 +37,23 @@ function trimArray(arr, maxLen = 10) {
 }
 
 /**
+ * Trims joined array to specified size
+ * @param {Array} arr
+ * @param {int} maxLen
+ * @param {string} joinChar
+ */
+function trimStringFromArray(arr, maxLen = 2048, joinChar = '\n') {
+  let string = arr.join(joinChar);
+  const diff = maxLen - 15; // Leave room for "And ___ more..."
+  if (string.length > maxLen) {
+    string = string.slice(0, string.length - (string.length - diff)); 
+    string = string.slice(0, string.lastIndexOf(joinChar));
+    string = string + `\nAnd **${arr.length - string.split('\n').length}** more...`;
+  }
+  return string;
+}
+
+/**
  * Gets the ordinal numeral of a number
  * @param {int} number
  */
@@ -155,6 +172,7 @@ module.exports = {
   capitalize,
   removeElement,
   trimArray,
+  trimStringFromArray,
   getOrdinalNumeral,
   checkPointsDisabled,
   transferCrown,
