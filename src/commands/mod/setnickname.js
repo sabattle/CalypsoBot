@@ -16,7 +16,7 @@ module.exports = class SetNicknameCommand extends Command {
       type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_NICKNAMES'],
       userPermissions: ['MANAGE_NICKNAMES'],
-      examples: ['setnickname @Nettles Noodles']
+      examples: ['setnickname @Nettles Noodles', 'setnickname @Nettles "Val Kilmer"']
     });
   }
   async run(message, args) {
