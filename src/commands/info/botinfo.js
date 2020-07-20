@@ -17,6 +17,9 @@ module.exports = class BotInfoCommand extends Command {
   run(message) {
     const owner = message.client.users.cache.get(message.client.ownerId);
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
+    const d = moment.duration(message.client.uptime);
+    const days = (d.days() == 1) ? `${d.days()} day` : `${d.days()} days`;
+    const hours = (d.hours() == 1) ? `${d.hours()} hour` : `${d.hours()} hours`;
     const embed = new MessageEmbed()
       .setTitle('Calypso\'s Information')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
@@ -31,12 +34,12 @@ module.exports = class BotInfoCommand extends Command {
       .addField('Username', message.client.user.username, true)
       .addField('Discriminator', `\`#${message.client.user.discriminator}\``, true)
       .addField('Prefix', `\`${prefix}\``, true)
-      .addField('Detected Users', message.client.users.cache.size - 1, true)
-      .addField('Servers', message.client.guilds.cache.size, true)
+      .addField('Detected Users', `\`${message.client.users.cache.size - 1}\``, true)
+      .addField('Servers', `\`${message.client.guilds.cache.size}\``, true)
       .addField('Current Version', `\`${pkg.version}\``, true)
       .addField('Library/Environment', 'Discord.js 12.2.0\nNode.js 12.16.3', true)
       .addField('Database', 'SQLite', true)
-      .addField('Uptime', `${moment.duration(message.client.uptime).hours()} hours`, true)
+      .addField('Uptime', `\`${days}\` and \`${hours}\``, true)
       .addField('Owner', owner, true)
       .addField(
         'Links', 
