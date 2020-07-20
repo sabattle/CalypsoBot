@@ -12,5 +12,5 @@ module.exports = (client, member) => {
   client.db.users.updateCurrentMember.run(0, member.id, member.guild.id);
   client.db.users.wipeTotalPoints.run(member.id, member.guild.id);
 
-  client.logger.info(`${member.guild.name}: ${member.user.username} has left the server`);
+  client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
 };
