@@ -39,7 +39,7 @@
   <a href="#credits">Credits</a>
 </p>
 
-Calypso is an open source, multipurpose Discord bot that is constantly growing. You can invite her to your Discord server using [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Also,  join the official [Calypso Support Server](https://discord.gg/pnYVdut) for all questions, suggestions, and assistance!
+Calypso is an open source, multipurpose Discord bot that is constantly growing. You can invite her to your Discord server using [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) link! Also,  join the official [Calypso Support Server](https://discord.gg/pnYVdut) for all questions, suggestions, and assistance!
 
 If you liked or enjoyed this repository, feel free to leave a star ⭐ to help promote Calypso!
 
@@ -56,7 +56,7 @@ If you liked or enjoyed this repository, feel free to leave a star ⭐ to help p
 
 ## Installation
 
-You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) link! Alternatively, you can clone this repo and host the bot yourself.
+You can add Calypso to your server with [this](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) link! Alternatively, you can clone this repo and host the bot yourself.
 ```
 git clone https://github.com/sabattle/CalypsoBot.git
 ```

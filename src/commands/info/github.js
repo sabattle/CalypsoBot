@@ -21,7 +21,7 @@ module.exports = class GitHubCommand extends Command {
         Please support me by starring ⭐ the repo, and feel free to comment about issues or suggestions!
       `)
       .addField('Other Links',
-        '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) | ' +
+        '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +
         '[Support Server](https://discord.gg/pnYVdut)**'
       )
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

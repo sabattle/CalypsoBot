@@ -56,7 +56,7 @@ module.exports = class OwnerHelpCommand extends Command {
         .addField(`**${message.client.types.OWNER} [${commands.length}]**`, commands.join(' '))
         .addField(
           '**Links**', 
-          '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) | ' +
+          '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +
           '[Support Server](https://discord.gg/pnYVdut) | ' +
           '[Repository](https://github.com/sabattle/CalypsoBot)**'
         )

@@ -17,7 +17,7 @@ module.exports = class SupportServerCommand extends Command {
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setDescription('Click [here](https://discord.gg/pnYVdut) to join the Calypso Support Server!')
       .addField('Other Links', 
-        '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727) | ' +
+        '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +
         '[Repository](https://github.com/sabattle/CalypsoBot)**'
       )
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

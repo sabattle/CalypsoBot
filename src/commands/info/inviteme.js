@@ -17,7 +17,7 @@ module.exports = class InviteMeCommand extends Command {
       .setTitle('Invite Me')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setDescription(oneLine`
-        Click [here](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=268528727)
+        Click [here](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599)
         to invite me to your server!
       `)
       .addField('Other Links', 
