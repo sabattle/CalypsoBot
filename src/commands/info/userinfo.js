@@ -62,6 +62,11 @@ module.exports = class UserInfoCommand extends Command {
       }
     }
     
+    // Trim roles
+    const roles = message.client.utils.trimArray(
+      member.roles.cache.array().filter(r => r.name.indexOf('#') !== 0)
+    ).join(' ');
+
     const embed = new MessageEmbed()
       .setTitle(member.displayName)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
@@ -69,11 +74,11 @@ module.exports = class UserInfoCommand extends Command {
       .addField('Username', member.user.username, true)
       .addField('Discriminator', `\`#${member.user.discriminator}\``, true)
       .addField('Status', statuses[member.presence.status], true)
-      .addField('Color', member.roles.color || 'None', true)
+      .addField('Color', member.roles.color || '`None`', true)
       .addField('Highest Role', member.roles.highest, true)
       .addField('Joined server on', moment(member.joinedAt).format('MMM DD YYYY'), true)
       .addField('Joined Discord on', moment(member.user.createdAt).format('MMM DD YYYY'), true)
-      .addField('Roles', member.roles.cache.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
+      .addField('Roles', roles)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(member.displayHexColor);

@@ -2,7 +2,6 @@ const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const permissions = require('../../utils/permissions.json');
-const { oneLine } = require('common-tags');
 
 module.exports = class RoleInfoCommand extends Command {
   constructor(client) {

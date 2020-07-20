@@ -46,12 +46,12 @@ module.exports = class ChannelInfoCommand extends Command {
       embed // Text embed
         .setTitle(`#${channel.name}`)
         .spliceFields(2, 0, { name: 'Rate Limit', value: `\`${channel.rateLimitPerUser}\``, inline: true })
-        .spliceFields(5, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true })
+        .spliceFields(5, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
     } else if (channel.type === 'voice') {
       embed // Voice embed
         .spliceFields(4, 0, { name: 'User Limit', value: `\`${channel.userLimit}\``, inline: true })
         .spliceFields(5, 0, { name: 'Full', value: `\`${channel.full}\``, inline: true });
-      const members = channel.members.array()
+      const members = channel.members.array();
       if (members.length > 0) 
         embed.addField('Members Joined', message.client.utils.trimArray(channel.members.array()).join(' '));
     }

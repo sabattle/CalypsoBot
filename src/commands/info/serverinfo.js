@@ -36,18 +36,31 @@ module.exports = class ServerInfoCommand extends Command {
     });
   }
   run(message) {
+
+    // Trim roles
+    const roles = message.client.utils.trimArray(
+      message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0)
+    );
+
+    // Trim channels
+    const channels = message.client.utils.trimArray(
+      message.guild.channels.cache.array().filter(c => c.type === 'text')
+    );
+
     const embed = new MessageEmbed()
       .setTitle(message.guild.name)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Server ID', `\`${message.guild.id}\``)
       .addField('Owner', message.guild.owner, true)
       .addField('Region', region[message.guild.region], true)
-      .addField('Members', message.guild.memberCount, true)
-      .addField('Bots', message.guild.members.cache.array().filter(b => b.user.bot).length, true)
+      .addField('Members', `\`${message.guild.memberCount}\``, true)
+      .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
+      .addField('Role Count', `\`${roles.length}\``, true)
+      .addField('Text Channel Count', `\`${channels.length}\``, true)
       .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
-      .addField('Roles', message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0).join(' '))
-      .addField('Text Channels', message.guild.channels.cache.array().filter(c => c.type === 'text').join(' '))
+      .addField('Roles', roles.join(' '))
+      .addField('Text Channels', channels.join(' ') || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

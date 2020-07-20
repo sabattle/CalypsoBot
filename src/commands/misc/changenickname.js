@@ -7,7 +7,7 @@ module.exports = class ChangeNicknameCommand extends Command {
       name: 'changenickname',
       aliases: ['changenn', 'cnn'],
       usage: 'changenickname <nickname>',
-      description: 'Changes your own nickname to one specified. The nickname cannot be larger than 32 characters.',
+      description: 'Changes your own nickname to the one specified. The nickname cannot be larger than 32 characters.',
       type: client.types.MISC,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_NICKNAMES'],
       userPermissions: ['CHANGE_NICKNAME'],
