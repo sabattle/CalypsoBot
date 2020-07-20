@@ -19,6 +19,12 @@ module.exports = class EmojifyCommand extends Command {
       if (c === ' ') return c;
       else return (/[a-zA-Z]/.test(c)) ? ':regional_indicator_' + c.toLowerCase() + ':' : '';
     }).join('');
+
+    if (msg.length > 2048) {
+      msg = msg.slice(0, msg.length - (msg.length - 2033)); 
+      msg = msg.slice(0, msg.lastIndexOf(':')) + '**...**';
+    }
+
     const embed = new MessageEmbed()
       .setTitle('Emojify')
       .setDescription(msg)

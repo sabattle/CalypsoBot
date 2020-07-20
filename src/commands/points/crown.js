@@ -24,10 +24,12 @@ module.exports = class CrownCommand extends Command {
     const crownSchedule = message.client.db.settings.selectCrownSchedule.pluck().get(message.guild.id);
     const crowned = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === crownRole)) return true;
-    });
-    
-    if (crowned.length > 0) embed.setDescription(crowned.join('\n'));
-    else embed.setDescription('`None`');
+    }).array();
+
+    let description = message.client.utils.trimStringFromArray(crowned);
+    if (crowned.length === 0) description = 'No one has the crown!';
+
+    embed.setDescription(description);
     embed.addField('Crown Role', crownRole);
     if (crownSchedule) embed.addField('Crown Schedule', `\`${crownSchedule}\``);
     message.channel.send(embed);

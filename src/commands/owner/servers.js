@@ -15,12 +15,15 @@ module.exports = class ServersCommand extends Command {
   run(message) {
 
     const servers = message.client.guilds.cache.array().map(guild => {
-      return `**${guild.name}** - \`${guild.members.cache.size}\` members`;
+      return `\`${guild.id}\` - **${guild.name}** - \`${guild.members.cache.size}\` members`;
     });
+
+    // Trim array
+    const description = message.client.utils.trimStringFromArray(servers);
 
     const embed = new MessageEmbed()
       .setTitle(`Server List [${servers.length}]`)
-      .setDescription(servers.join('\n'))
+      .setDescription(description)
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

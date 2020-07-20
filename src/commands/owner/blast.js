@@ -23,10 +23,14 @@ module.exports = class BlastCommand extends Command {
       if (defaultChannel) defaultChannel.send(msg);
       else guilds.push(guild.name);
     });
+  
     if (guilds.length > 0) {
+      // Trim array
+      const description = message.client.utils.trimStringFromArray(guilds);
+
       const embed = new MessageEmbed()
         .setTitle('Blast Failures')
-        .setDescription(`${guilds.join('\n')}`)
+        .setDescription(description)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
