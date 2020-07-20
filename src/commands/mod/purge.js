@@ -29,8 +29,10 @@ module.exports = class PurgeCommand extends Command {
     const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > 100)
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');
+
     let reason = args.slice(1).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
 
     await message.delete(); // Delete command message
     channel.bulkDelete(amount, true).then(messages => {

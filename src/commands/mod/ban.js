@@ -21,8 +21,11 @@ module.exports = class BanCommand extends Command {
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot ban someone with an equal or higher role.');
     if (!member.bannable) return this.sendErrorMessage(message, `Unable to ban ${member}.`);
+
     let reason = args.slice(1).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    
     await member.ban(reason);
 
     const embed = new MessageEmbed()

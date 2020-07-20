@@ -24,8 +24,11 @@ module.exports = class RemoveRoleCommand extends Command {
       `);
 
     const role = this.getRoleFromMention(message, args[1]) || message.guild.roles.cache.get(args[1]);
+
     let reason = args.slice(2).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    
     if (!role) return this.sendErrorMessage(message, 'Invalid role. Please mention a role or provide a role ID.');
     else if (!member.roles.cache.has(role.id)) // If member doesn't have role
       return this.sendErrorMessage(message, `Unable to remove role. ${member} does not have the ${role} role.`);

@@ -45,6 +45,7 @@ module.exports = class SetNicknameCommand extends Command {
 
       let reason = message.content.split(nickname)[1];
       if(!reason) reason = 'No reason provided';
+      if (reason.length > 1024) reason = reason.slice(1021) + '...';
 
       try {
 

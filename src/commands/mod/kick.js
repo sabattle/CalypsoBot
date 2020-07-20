@@ -21,8 +21,11 @@ module.exports = class KickCommand extends Command {
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot kick someone with an equal or higher role.');
     if (!member.kickable) return this.sendErrorMessage(message, `Unable to kick ${member}.`);
+
     let reason = args.slice(1).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+
     await member.kick(reason);
 
     const embed = new MessageEmbed()

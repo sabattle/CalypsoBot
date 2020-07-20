@@ -36,8 +36,11 @@ module.exports = class MuteCommand extends Command {
       return this.sendErrorMessage(message, `
         Invalid argument. Please enter a length of time of 10 days or less (\`1s\`/\`m\`/\`h\`/\`d\`).
       `);
+
     let reason = args.slice(2).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+
     if (member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is already muted!`);
 
     // Mute member

@@ -23,8 +23,11 @@ module.exports = class UnmuteCommand extends Command {
     if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot unmute someone with an equal or higher role.');
+
     let reason = args.slice(2).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    
     if (!member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is not muted.`);
     
     // Unmute member

@@ -29,8 +29,11 @@ module.exports = class SlowmodeCommand extends Command {
     const rate = args[index];
     if (!rate || rate < 0 || rate > 59) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a rate limit between 0 and 59 seconds.');
+
     let reason = args.slice(index + 1).join(' ');
     if(!reason) reason = 'No reason provided';
+    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
     const status = (channel.rateLimitPerUser) ? 'enabled' : 'disabled';
     const embed = new MessageEmbed()
