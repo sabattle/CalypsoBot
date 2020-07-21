@@ -23,7 +23,7 @@ module.exports = class BanCommand extends Command {
     if (!member.bannable) return this.sendErrorMessage(message, `Unable to ban ${member}.`);
 
     let reason = args.slice(1).join(' ');
-    if(!reason) reason = 'No reason provided';
+    if (!reason) reason = 'No reason provided';
     if (reason.length > 1024) reason = reason.slice(1021) + '...';
     
     await member.ban(reason);

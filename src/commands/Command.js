@@ -304,7 +304,7 @@ class Command {
         throw new TypeError('Command clientPermissions is not an Array of permission key strings');
       
       for (const perm of options.clientPermissions) {
-        if(!permissions[perm]) throw new RangeError(`Invalid command clientPermission: ${perm}`);
+        if (!permissions[perm]) throw new RangeError(`Invalid command clientPermission: ${perm}`);
       }
     }
 

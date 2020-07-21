@@ -32,7 +32,7 @@ module.exports = class PurgeBotCommand extends Command {
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');
 
     let reason = args.slice(1).join(' ');
-    if(!reason) reason = 'No reason provided';
+    if (!reason) reason = 'No reason provided';
     if (reason.length > 1024) reason = reason.slice(1021) + '...';
     
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix

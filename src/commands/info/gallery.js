@@ -35,10 +35,10 @@ module.exports = class GalleryCommand extends Command {
     collector.on('collect', async reaction => {
       const reactionUsers = (await reaction.users.fetch()).filter(user=> user != message.client.user);
       reactionUsers.forEach(async user => await reaction.users.remove(user));
-      if (reaction.emoji.name === back){
+      if (reaction.emoji.name === back) {
         n--;
         if (n < 0) n = art.length - 1;
-      } else if (reaction.emoji.name === next){
+      } else if (reaction.emoji.name === next) {
         n++;
         if (n > art.length - 1) n = 0;
       }

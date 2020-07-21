@@ -53,7 +53,7 @@ module.exports = class TriviaCommand extends Command {
       if (!msg.author.bot) return true;
     }, { time: 15000 }); // Wait 15 seconds
     collector.on('collect', msg => {
-      if (answers.includes(msg.content.trim().toLowerCase().replace(/\.|'|-|\s/g, ''))){
+      if (answers.includes(msg.content.trim().toLowerCase().replace(/\.|'|-|\s/g, ''))) {
         winner = msg.author;
         collector.stop();
       }

@@ -26,7 +26,7 @@ module.exports = class LeaderboardCommand extends Command {
     leaderboard = leaderboard.slice(0, amount);
     let count = 1;
     const members = [];
-    for(const row of leaderboard) {
+    for (const row of leaderboard) {
       members.push(oneLine`
         **${count}.** ${await message.guild.members.cache.get(row.user_id)} - \`${row.points}\` points
       `);

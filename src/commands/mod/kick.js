@@ -23,7 +23,7 @@ module.exports = class KickCommand extends Command {
     if (!member.kickable) return this.sendErrorMessage(message, `Unable to kick ${member}.`);
 
     let reason = args.slice(1).join(' ');
-    if(!reason) reason = 'No reason provided';
+    if (!reason) reason = 'No reason provided';
     if (reason.length > 1024) reason = reason.slice(1021) + '...';
 
     await member.kick(reason);
