@@ -156,6 +156,7 @@ class Command {
       return false;
     }
     
+    if(message.member.hasPermission('ADMINISTRATOR')) return true;
     let missingPermissions = [];
     if (this.userPermssions) {
       missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermssions);
@@ -184,6 +185,7 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkClientPermissions(message) {
+    if (message.guild.me.hasPermission('ADMINISTRATOR')) return true;
     if (!message.guild.me.hasPermission('SEND_MESSAGES') || !message.guild.me.hasPermission('EMBED_LINKS')) 
       return false;
     let missingPermissions = [];
