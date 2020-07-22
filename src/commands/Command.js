@@ -238,14 +238,16 @@ class Command {
    * @param {string} reason 
    * @param {Object} fields
    */
-  sendModlogMessage(message, reason, fields = {}) {
+  async sendModlogMessage(message, reason, fields = {}) {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     let modlogChannel;
     if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
     if (modlogChannel) {
+      const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild);
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)
         .addField('Executor', message.member, true)
+        .setFooter(`Case #${caseNumber}`)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       for (const field in fields) {

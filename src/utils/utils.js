@@ -88,6 +88,35 @@ function checkPointsDisabled(client, guild, disabledCommands = null) {
 }
 
 /**
+ * Gets the next moderation case number
+ * @param {Client} client 
+ * @param {Guild} guild
+ */
+async function getCaseNumber(client, guild) {
+  
+  // Get modlog channel
+  const modlogChannelId = client.db.settings.selectModlogChannelId.pluck().get(guild.id);
+  let modlogChannel;
+  if (modlogChannelId) modlogChannel = guild.channels.cache.get(modlogChannelId);
+
+  const message = (await modlogChannel.messages.fetch({ limit: 100 })).filter(m => m.member === guild.me &&
+    m.embeds[0] &&
+    m.embeds[0].type == 'rich' &&
+    m.embeds[0].footer &&
+    m.embeds[0].footer.text &&
+    m.embeds[0].footer.text.startsWith('Case')
+  ).first();
+  
+  if (message) {
+    const footer = message.embeds[0].footer.text;
+    const num = parseInt(footer.split('#').pop());
+    if (!isNaN(num)) return num + 1;
+  }
+
+  return 1;
+}
+
+/**
  * Transfers crown from one member to another
  * @param {Client} client 
  * @param {Guild} guild
@@ -95,7 +124,7 @@ function checkPointsDisabled(client, guild, disabledCommands = null) {
  */
 async function transferCrown(client, guild, crownRole) {
 
-  // Get default channel
+  // Get crown message channel
   const crownChannelId = client.db.settings.selectCrownChannelId.pluck().get(guild.id);
   let crownChannel;
   if (crownChannelId) crownChannel = guild.channels.cache.get(crownChannelId);
@@ -175,6 +204,7 @@ module.exports = {
   trimStringFromArray,
   getOrdinalNumeral,
   checkPointsDisabled,
+  getCaseNumber,
   transferCrown,
   scheduleCrown
 };
