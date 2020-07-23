@@ -31,9 +31,10 @@ module.exports = class ChannelInfoCommand extends Command {
       args.shift();
     } else channel = message.channel;
     const embed = new MessageEmbed()
-      .setTitle(channel.name)
+      .setTitle('Channel Information')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Channel ID', `\`${channel.id}\``, true)
+      .addField('Channel', channel, true)
+      .addField('ID', `\`${channel.id}\``, true)
       .addField('Type', `\`${channelTypes[channel.type]}\``, true)
       .addField('Members', `\`${channel.members.size}\``, true)
       .addField('Bots', `\`${channel.members.array().filter(b => b.user.bot).length}\``, true)
@@ -44,13 +45,13 @@ module.exports = class ChannelInfoCommand extends Command {
     if (channel.topic) embed.setDescription(channel.topic);
     if (channel.type === 'text') {
       embed // Text embed
-        .setTitle(`#${channel.name}`)
-        .spliceFields(2, 0, { name: 'Rate Limit', value: `\`${channel.rateLimitPerUser}\``, inline: true })
-        .spliceFields(5, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
+        .spliceFields(3, 0, { name: 'Rate Limit', value: `\`${channel.rateLimitPerUser}\``, inline: true })
+        .spliceFields(6, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
     } else if (channel.type === 'voice') {
       embed // Voice embed
-        .spliceFields(4, 0, { name: 'User Limit', value: `\`${channel.userLimit}\``, inline: true })
-        .spliceFields(5, 0, { name: 'Full', value: `\`${channel.full}\``, inline: true });
+        .spliceFields(0, 1, { name: 'Channel', value: `<:voice:735665114870710413> ${channel.name}`, inline: true })
+        .spliceFields(5, 0, { name: 'User Limit', value: `\`${channel.userLimit}\``, inline: true })
+        .spliceFields(6, 0, { name: 'Full', value: `\`${channel.full}\``, inline: true });
       const members = channel.members.array();
       if (members.length > 0) 
         embed.addField('Members Joined', message.client.utils.trimArray(channel.members.array()).join(' '));

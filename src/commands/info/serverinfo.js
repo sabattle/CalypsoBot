@@ -48,16 +48,25 @@ module.exports = class ServerInfoCommand extends Command {
     );
 
     const embed = new MessageEmbed()
-      .setTitle(message.guild.name)
+      .setTitle('Server Information')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Server ID', `\`${message.guild.id}\``)
-      .addField('Owner', message.guild.owner, true)
+      .addField('Server', message.guild.name, true)
+      .addField('ID', `\`${message.guild.id}\``, true)
+      .addField('Owner <:owner:735338114230255616>', message.guild.owner, true)
       .addField('Region', region[message.guild.region], true)
       .addField('Members', `\`${message.guild.memberCount}\``, true)
       .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
       .addField('Role Count', `\`${roles.length}\``, true)
       .addField('Text Channel Count', `\`${channels.length}\``, true)
       .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
+      .addField('AFK Channel', 
+        (message.guild.afkChannel) ? `<:voice:735665114870710413> ${message.guild.afkChannel.name}` : '`None`', true
+      )
+      .addField('AFK Timeout', 
+        (message.guild.afkChannel) ? 
+          `\`${moment.duration(message.guild.afkTimeout * 1000).asMinutes()} minutes\`` : '`None`', 
+        true
+      )
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', roles.join(' '))
       .addField('Text Channels', channels.join(' ') || '`None`')

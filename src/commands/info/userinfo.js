@@ -68,10 +68,11 @@ module.exports = class UserInfoCommand extends Command {
     ).join(' ');
 
     const embed = new MessageEmbed()
-      .setTitle(member.displayName)
+      .setTitle('User Information')
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .addField('ID', `\`${member.id}\``, true)
       .addField('Username', member.user.username, true)
+      .addField('Nickname', (member.nickname) ? member.nickname : '`None`', true)
+      .addField('ID', `\`${member.id}\``, true)
       .addField('Discriminator', `\`#${member.user.discriminator}\``, true)
       .addField('Status', statuses[member.presence.status], true)
       .addField('Color', member.roles.color || '`None`', true)

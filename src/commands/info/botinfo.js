@@ -30,17 +30,18 @@ module.exports = class BotInfoCommand extends Command {
         Her codebase also serves as a base framework to easily create Discord bots of all kinds. 
         She first went live on **February 22nd, 2018**.
       `)
-      .addField('ID', `\`${message.client.user.id}\``, true)
       .addField('Username', message.client.user.username, true)
+      .addField('Nickname', (message.guild.me.nickname) ? message.guild.me.nickname : '`None`', true)
+      .addField('ID', `\`${message.client.user.id}\``, true)
       .addField('Discriminator', `\`#${message.client.user.discriminator}\``, true)
       .addField('Prefix', `\`${prefix}\``, true)
       .addField('Detected Users', `\`${message.client.users.cache.size - 1}\``, true)
       .addField('Servers', `\`${message.client.guilds.cache.size}\``, true)
+      .addField('Owner <:owner:735338114230255616>', owner, true)
+      .addField('Uptime', `\`${days}\` and \`${hours}\``, true)
       .addField('Current Version', `\`${pkg.version}\``, true)
       .addField('Library/Environment', 'Discord.js 12.2.0\nNode.js 12.16.3', true)
       .addField('Database', 'SQLite', true)
-      .addField('Uptime', `\`${days}\` and \`${hours}\``, true)
-      .addField('Owner', owner, true)
       .addField(
         'Links', 
         '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +
