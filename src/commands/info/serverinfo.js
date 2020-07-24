@@ -6,10 +6,8 @@ const region = {
   'us-east': 'US East :flag_us:',
   'us-south': 'US South :flag_us:',
   'us-west': 'US West :flag_us:',
-  'eu-west': 'EU West :flag_eu:',
-  'eu-central': 'EU Central :flag_eu:',
+  'europe': 'Europe :flag_eu:',
   'singapore': 'Singapore :flag_sg:',
-  'london': 'London :flag_gb:',
   'japan': 'Japan :flag_jp:',
   'russia': 'Russia :flag_ru:',
   'hongkong': 'Hong Kong :flag_hk:',
@@ -46,11 +44,10 @@ module.exports = class ServerInfoCommand extends Command {
     const channels = message.client.utils.trimArray(
       message.guild.channels.cache.array().filter(c => c.type === 'text')
     );
-
+    
     const embed = new MessageEmbed()
-      .setTitle('Server Information')
+      .setTitle(`${message.guild.name}'s Information`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Server', message.guild.name, true)
       .addField('ID', `\`${message.guild.id}\``, true)
       .addField('Owner <:owner:735338114230255616>', message.guild.owner, true)
       .addField('Region', region[message.guild.region], true)
@@ -58,7 +55,6 @@ module.exports = class ServerInfoCommand extends Command {
       .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
       .addField('Role Count', `\`${roles.length}\``, true)
       .addField('Text Channel Count', `\`${channels.length}\``, true)
-      .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('AFK Channel', 
         (message.guild.afkChannel) ? `<:voice:735665114870710413> ${message.guild.afkChannel.name}` : '`None`', true
       )
@@ -67,6 +63,7 @@ module.exports = class ServerInfoCommand extends Command {
           `\`${moment.duration(message.guild.afkTimeout * 1000).asMinutes()} minutes\`` : '`None`', 
         true
       )
+      .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', roles.join(' '))
       .addField('Text Channels', channels.join(' ') || '`None`')

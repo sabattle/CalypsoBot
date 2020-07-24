@@ -50,10 +50,10 @@ module.exports = class OwnerHelpCommand extends Command {
         .setTitle('Calypso\'s Owner Commands')
         .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
         .setDescription(stripIndent`
-          The prefix on **${message.guild.name}** is \`${prefix}\`
-          Use \`${prefix}ownerhelp [command]\` for more information 
+          **Prefix:** \`${prefix}\`
+          **More Information:** \`${prefix}ownerhelp [command]\`
         `)
-        .addField(`**${message.client.types.OWNER} [${commands.length}]**`, commands.join(' '))
+        .addField(`**<:owner:735338114230255616> ${message.client.types.OWNER} [${commands.length}]**`, commands.join(' '))
         .addField(
           '**Links**', 
           '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +

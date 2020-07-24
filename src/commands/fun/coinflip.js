@@ -17,7 +17,7 @@ module.exports = class CoinFlipCommand extends Command {
     if (n === 1) result = 'heads';
     else result = 'tails';
     const embed = new MessageEmbed()
-      .setTitle('🤔  Coinflip  🤔')
+      .setTitle('½  Coinflip  ½')
       .setDescription(`I flipped a coin for you, ${message.member}. It was **${result}**!`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

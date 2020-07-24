@@ -42,8 +42,8 @@ module.exports = class ChannelInfoCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    if (channel.topic) embed.setDescription(channel.topic);
     if (channel.type === 'text') {
+      if (channel.topic) embed.setDescription(channel.topic);
       embed // Text embed
         .spliceFields(3, 0, { name: 'Rate Limit', value: `\`${channel.rateLimitPerUser}\``, inline: true })
         .spliceFields(6, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });

@@ -21,7 +21,7 @@ module.exports = class BotInfoCommand extends Command {
     const days = (d.days() == 1) ? `${d.days()} day` : `${d.days()} days`;
     const hours = (d.hours() == 1) ? `${d.hours()} hour` : `${d.hours()} hours`;
     const embed = new MessageEmbed()
-      .setTitle('Calypso\'s Information')
+      .setTitle('Calypso\'s Bot Information')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
       .setDescription(oneLine`
         Calypso is a feature-rich Discord bot built with customizability in mind.
@@ -31,9 +31,9 @@ module.exports = class BotInfoCommand extends Command {
         She first went live on **February 22nd, 2018**.
       `)
       .addField('Username', message.client.user.username, true)
-      .addField('Nickname', (message.guild.me.nickname) ? message.guild.me.nickname : '`None`', true)
-      .addField('ID', `\`${message.client.user.id}\``, true)
       .addField('Discriminator', `\`#${message.client.user.discriminator}\``, true)
+      .addField('ID', `\`${message.client.user.id}\``, true)
+      .addField('Nickname', (message.guild.me.nickname) ? message.guild.me.nickname : '`None`', true)
       .addField('Prefix', `\`${prefix}\``, true)
       .addField('Detected Users', `\`${message.client.users.cache.size - 1}\``, true)
       .addField('Servers', `\`${message.client.guilds.cache.size}\``, true)

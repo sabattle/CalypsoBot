@@ -50,7 +50,17 @@ module.exports = class HelpCommand extends Command {
       for (const type of Object.values(message.client.types)) {
         commands[type] = [];
       }
-  
+
+      const emojiMap = {
+        [message.client.types.INFO]: `<:pin_unread:735343728679714907> ${message.client.types.INFO}`,
+        [message.client.types.FUN]: `<:add_reaction:735344430512341163> ${message.client.types.FUN}`,
+        [message.client.types.COLOR]: `<:store_tag:735661829828771860> ${message.client.types.COLOR}`,
+        [message.client.types.POINTS]: `<:members:735661916906717276> ${message.client.types.POINTS}`,
+        [message.client.types.MISC]: `<:mention:735344543125471242> ${message.client.types.MISC}`,
+        [message.client.types.MOD]: `<:moderation:735343938361360404> ${message.client.types.MOD}`,
+        [message.client.types.ADMIN]: `<:settings:735343627051728926> ${message.client.types.ADMIN}`,
+      };
+
       message.client.commands.forEach(command => {
         if (!disabledCommands.includes(command.name)) commands[command.type].push(`\`${command.name}\``);
       });
@@ -58,8 +68,8 @@ module.exports = class HelpCommand extends Command {
       embed // Build help embed
         .setTitle('Calypso\'s Commands')
         .setDescription(stripIndent`
-          The prefix on **${message.guild.name}** is \`${prefix}\`
-          Use \`${prefix}help [command]\` for more information
+          **Prefix:** \`${prefix}\`
+          **More Information:** \`${prefix}help [command]\`
         `)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
@@ -68,7 +78,7 @@ module.exports = class HelpCommand extends Command {
 
       for (const type of Object.values(message.client.types)) {
         if (type === message.client.types.OWNER) continue;
-        if (commands[type][0]) embed.addField(`**${type} [${commands[type].length}]**`, commands[type].join(' '));
+        if (commands[type][0]) embed.addField(`**${emojiMap[type]} [${commands[type].length}]**`, commands[type].join(' '));
       }
 
       embed.addField(

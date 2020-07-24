@@ -21,8 +21,9 @@ module.exports = class RoleInfoCommand extends Command {
       return Object.keys(permissions).indexOf(a) - Object.keys(permissions).indexOf(b);
     }).map(p => '`' + permissions[p] + '`');
     const embed = new MessageEmbed()
-      .setTitle(role.name)
+      .setTitle('Role Information')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .addField('Role', role, true)
       .addField('Role ID', `\`${role.id}\``, true)
       .addField('Position', `\`${role.position}\``, true)
       .addField('Hoisted', `\`${role.hoist}\``, true)

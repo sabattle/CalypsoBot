@@ -2,32 +2,32 @@ const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const statuses = {
-  online: 'Online',
-  idle: 'AFK',
-  offline: 'Offline',
-  dnd: 'Do Not Disturb'
+  online: ' <:online_2:735342262589980703> Online',
+  idle: '<:idle_2:735342167333011496> AFK',
+  offline: '<:offline_2:735341972352401449> Offline',
+  dnd: '<:dnd_2:735342097359568926> Do Not Disturb'
 };
 const flags = {
-  DISCORD_EMPLOYEE: 'Discord Employee',
-  DISCORD_PARTNER: 'Discord Partner',
-  BUGHUNTER_LEVEL_1: 'Bug Hunter (Level 1)',
-  BUGHUNTER_LEVEL_2: 'Bug Hunter (Level 2)',
-  HYPESQUAD_EVENTS: 'HypeSquad Events',
-  HOUSE_BRAVERY: 'House of Bravery',
-  HOUSE_BRILLIANCE: 'House of Brilliance',
-  HOUSE_BALANCE: 'House of Balance',
-  EARLY_SUPPORTER: 'Early Supporter',
+  DISCORD_EMPLOYEE: '<:DISCORD_EMPLOYEE:735339014621626378> `Discord Employee`',
+  DISCORD_PARTNER: '<:DISCORD_PARTNER:735339215746760784> `Discord Partner`',
+  BUGHUNTER_LEVEL_1: '<:BUGHUNTER_LEVEL_1:735339352913346591> `Bug Hunter (Level 1)`',
+  BUGHUNTER_LEVEL_2: '<:BUGHUNTER_LEVEL_2:735339420667871293> `Bug Hunter (Level 2)`',
+  HYPESQUAD_EVENTS: '<:HYPESQUAD_EVENTS:735339581087547392> `HypeSquad Events`',
+  HOUSE_BRAVERY: '<:HOUSE_BRAVERY:735339756283756655> `House of Bravery`',
+  HOUSE_BRILLIANCE: '<:HOUSE_BRILLIANCE:735339675102871642> `House of Brilliance`',
+  HOUSE_BALANCE: '<:HOUSE_BALANCE:735339871018942466> `House of Balance`',
+  EARLY_SUPPORTER: '<:EARLY_SUPPORTER:735340061226172589> `Early Supporter`',
   TEAM_USER: 'Team User',
   SYSTEM: 'System',
-  VERIFIED_BOT: 'Verified Bot',
-  VERIFIED_DEVELOPER: 'Verified Bot Developer'
+  VERIFIED_BOT: '<:VERIFIED_BOT:735345343037833267> `Verified Bot`',
+  VERIFIED_DEVELOPER: '<:VERIFIED_DEVELOPER:735340154310361202> `Verified Bot Developer`'
 };
 
 module.exports = class UserInfoCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'userinfo',
-      aliases: ['user', 'ui'],
+      aliases: ['whois', 'user', 'ui'],
       usage: 'userinfo [user mention/ID]',
       description: 'Fetches a user\'s information. If no user is given, your own information will be displayed.',
       type: client.types.INFO,
@@ -68,12 +68,12 @@ module.exports = class UserInfoCommand extends Command {
     ).join(' ');
 
     const embed = new MessageEmbed()
-      .setTitle('User Information')
+      .setTitle(`${member.displayName}'s Information`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .addField('Username', member.user.username, true)
-      .addField('Nickname', (member.nickname) ? member.nickname : '`None`', true)
-      .addField('ID', `\`${member.id}\``, true)
       .addField('Discriminator', `\`#${member.user.discriminator}\``, true)
+      .addField('ID', `\`${member.id}\``, true)
+      .addField('Nickname', (member.nickname) ? member.nickname : '`None`', true)
       .addField('Status', statuses[member.presence.status], true)
       .addField('Color', member.roles.color || '`None`', true)
       .addField('Highest Role', member.roles.highest, true)
@@ -85,7 +85,7 @@ module.exports = class UserInfoCommand extends Command {
       .setColor(member.displayHexColor);
     if (activities.length > 0) embed.setDescription(activities.join('\n'));
     if (customStatus) embed.spliceFields(0, 0, { name: 'Custom Status', value: customStatus});
-    if (userFlags.length > 0) embed.addField('Flags', userFlags.map(flag => `\`${flags[flag]}\``).join('\n'));
+    if (userFlags.length > 0) embed.addField('Badges', userFlags.map(flag => flags[flag]).join('\n'));
     message.channel.send(embed);
   }
 };
