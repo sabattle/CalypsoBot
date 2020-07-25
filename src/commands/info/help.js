@@ -54,7 +54,7 @@ module.exports = class HelpCommand extends Command {
       const emojiMap = {
         [message.client.types.INFO]: `<:pin_unread:735343728679714907> ${message.client.types.INFO}`,
         [message.client.types.FUN]: `<:add_reaction:735344430512341163> ${message.client.types.FUN}`,
-        [message.client.types.COLOR]: `<:store_tag:735661829828771860> ${message.client.types.COLOR}`,
+        [message.client.types.COLOR]: `<:channel:735665033333178389> ${message.client.types.COLOR}`,
         [message.client.types.POINTS]: `<:members:735661916906717276> ${message.client.types.POINTS}`,
         [message.client.types.MISC]: `<:mention:735344543125471242> ${message.client.types.MISC}`,
         [message.client.types.MOD]: `<:moderation:735343938361360404> ${message.client.types.MOD}`,

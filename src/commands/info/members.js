@@ -21,13 +21,13 @@ module.exports = class MembersCommand extends Command {
       .setTitle(`Member Status [${message.guild.members.cache.size}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(stripIndent`
-        🟢 **Online**: \`${online}\` members
+        <:online:735341197450805279> **Online**: \`${online}\` members
 
-        🔴 **Busy**: \`${dnd}\` members
+        <:dnd:735341494537289768> **Busy**: \`${dnd}\` members
 
-        🟠 **AFK**: \`${afk}\` members
+        <:idle:735341387842584648> **AFK**: \`${afk}\` members
 
-        ⚫ **Offline**: \`${offline}\` members
+        <:offline:735341676121554986> **Offline**: \`${offline}\` members
       `)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

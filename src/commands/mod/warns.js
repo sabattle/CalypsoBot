@@ -17,16 +17,17 @@ module.exports = class WarnsCommand extends Command {
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
     if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.'); 
 
+    let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };
+    if (typeof(warns) == 'string') warns = JSON.parse(warns);
+    const count = warns.warns.length;
+
     const embed = new MessageEmbed()
-      .setTitle(`${member.displayName}'s Warns`)
+      .setAuthor(member.user.tag, member.user.displayAvatarURL())
+      .setTitle(`Warn List [${count}]`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
-    let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };
-    if (typeof(warns) == 'string') warns = JSON.parse(warns);
-
-    const count = warns.warns.length;
     let max = (count > 5) ? 5 : count;
     if (count == 0) embed.setDescription(`${member} currently has no warns.`);
     else embed.setDescription(`Showing ${member}'s last \`${max}\` of \`${warns.warns.length}\` warns.`);

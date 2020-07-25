@@ -2,10 +2,10 @@ const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const statuses = {
-  online: ' <:online_2:735342262589980703> Online',
-  idle: '<:idle_2:735342167333011496> AFK',
-  offline: '<:offline_2:735341972352401449> Offline',
-  dnd: '<:dnd_2:735342097359568926> Do Not Disturb'
+  online: ' <:online:735341197450805279> Online',
+  idle: '<:idle:735341387842584648> AFK',
+  offline: '<:offline:735341676121554986> Offline',
+  dnd: '<:dnd:735341494537289768> Do Not Disturb'
 };
 const flags = {
   DISCORD_EMPLOYEE: '<:DISCORD_EMPLOYEE:735339014621626378> `Discord Employee`',
