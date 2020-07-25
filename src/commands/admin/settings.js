@@ -47,6 +47,7 @@ module.exports = class SettingsCommand extends Command {
         **Mute Role:** ${muteRole}
         **Auto Role:** ${autoRole}
         **Crown Role:** ${crownRole}
+        **Auto Kick:** ${(row.auto_kick) ? `After \`${row.auto_kick}\` warn(s)` : '`disabled`'}
         **Message Points:** \`${row.message_points}\`
         **Command Points:** \`${row.command_points}\`
         **Voice Points:** \`${row.voice_points}\`

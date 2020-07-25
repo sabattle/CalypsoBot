@@ -20,6 +20,8 @@ module.exports = class WarnCommand extends Command {
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 'Invalid argument. You cannot warn someone with an equal or higher role.');
 
+    const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id); // Get warn # for auto kick
+
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
     if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
@@ -51,5 +53,11 @@ module.exports = class WarnCommand extends Command {
     
     // Update modlog
     this.sendModlogMessage(message, reason, { Member: member, 'Warn Count': `\`${warns.warns.length}\`` });
+
+    // Check for auto kick
+    if (autoKick && warns.warns.length === autoKick) {
+      message.client.commands.get('kick')
+        .run(message, [member.id, `Warn limit reached. Automatically kicked by ${message.guild.me}.`]);
+    }
   }
 };

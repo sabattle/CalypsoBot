@@ -222,7 +222,7 @@ class Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const embed = new MessageEmbed()
       .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
-      .setTitle(`Error: \`${this.name}\``)
+      .setTitle(`<:fail:736449226120233031> Error: \`${this.name}\``)
       .setDescription(reason)
       .addField('Usage', `\`${prefix}${this.usage}\``)
       .setTimestamp()
