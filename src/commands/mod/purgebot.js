@@ -46,6 +46,17 @@ module.exports = class PurgeBotCommand extends Command {
     });
     await message.delete(); // Delete command message
 
+    if (messages.size === 0) return message.channel.send(
+      new MessageEmbed()
+        .setTitle('Purgebot')
+        .setDescription('Unable to find any bot messages.')
+        .addField('Channel', channel, true)
+        .addField('Found Messages', `\`${messages.size}\``, true)
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor)
+    ).then(msg => msg.delete({ timeout: 5000 }));
+
     channel.bulkDelete(messages, true).then(msgs => {
       const embed = new MessageEmbed()
         .setTitle('Purgebot')
