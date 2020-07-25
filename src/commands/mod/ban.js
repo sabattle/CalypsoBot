@@ -8,7 +8,7 @@ module.exports = class BanCommand extends Command {
       usage: 'ban <user mention/ID> [reason]',
       description: 'Bans a member from your server.',
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'BAN_MEMBERS'],
       userPermissions: ['BAN_MEMBERS'],
       examples: ['ban @Nettles']
     });
@@ -24,14 +24,14 @@ module.exports = class BanCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     await member.ban(reason);
 
     const embed = new MessageEmbed()
       .setTitle('Ban Member')
       .setDescription(`${member} was successfully banned.`)
-      .addField('Executor', message.member, true)
+      .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Reason', reason)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

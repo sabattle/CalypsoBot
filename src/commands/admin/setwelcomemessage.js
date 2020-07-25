@@ -39,7 +39,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     }
     let welcomeMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
-    if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(1021) + '...';
+    if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
     message.channel.send(embed
       .setDescription(oneLine`
         The \`welcome message\` was successfully updated. Please note that a \`welcome channel\` must also be set.

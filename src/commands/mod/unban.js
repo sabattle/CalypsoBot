@@ -10,7 +10,7 @@ module.exports = class UnbanCommand extends Command {
       usage: 'unban <user ID> [reason]',
       description: 'Unbans a member from your server.',
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'BAN_MEMBERS'],
       userPermissions: ['BAN_MEMBERS'],
       examples: ['unban 134672335474130944']
     });
@@ -24,13 +24,13 @@ module.exports = class UnbanCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     await message.guild.unban(user, reason);
     const embed = new MessageEmbed()
       .setTitle('Unban Member')
       .setDescription(`${user.tag} was successfully unbanned.`)
-      .addField('Executor', message.member, true)
+      .addField('Moderator', message.member, true)
       .addField('Member', user.tag, true)
       .addField('Reason', reason)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

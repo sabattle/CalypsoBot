@@ -15,9 +15,9 @@ module.exports = class PurgeCommand extends Command {
         Messages older than 2 weeks old cannot be deleted.
       `,
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES'],
-      examples: ['purge 20', 'purge 10 @Nettles ']
+      examples: ['purge 20', 'purge #general 10 ']
     });
   }
   async run(message, args) {
@@ -32,7 +32,7 @@ module.exports = class PurgeCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     await message.delete(); // Delete command message
     channel.bulkDelete(amount, true).then(messages => {

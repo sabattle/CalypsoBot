@@ -14,7 +14,7 @@ module.exports = class SlowmodeCommand extends Command {
         Provide a rate of 0 to disable.
       `,
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_CHANNELS'],
       userPermissions: ['MANAGE_CHANNELS'],
       examples: ['slowmode #general 2', 'slowmode 3']
     });
@@ -32,7 +32,7 @@ module.exports = class SlowmodeCommand extends Command {
 
     let reason = args.slice(index + 1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
     const status = (channel.rateLimitPerUser) ? 'enabled' : 'disabled';
@@ -46,7 +46,7 @@ module.exports = class SlowmodeCommand extends Command {
     if (rate === '0') {
       return message.channel.send(embed
         .setDescription(`\`${status}\` ➔ \`disabled\``)
-        .addField('Executor', message.member, true)
+        .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
         .addField('Reason', reason)
       );
@@ -59,7 +59,7 @@ module.exports = class SlowmodeCommand extends Command {
 
       return message.channel.send(embed
         .setDescription(`\`${status}\` ➔ \`enabled\``)
-        .addField('Executor', message.member, true)
+        .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
         .addField('Rate', `\`${rate}\``, true)
         .addField('Reason', reason)

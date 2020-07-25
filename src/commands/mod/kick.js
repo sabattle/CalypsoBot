@@ -8,7 +8,7 @@ module.exports = class KickCommand extends Command {
       usage: 'kick <user mention/ID> [reason]',
       description: 'Kicks a member from your server.',
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'KICK_MEMBERS'],
       userPermissions: ['KICK_MEMBERS'],
       examples: ['kick @Nettles']
     });
@@ -24,14 +24,14 @@ module.exports = class KickCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     await member.kick(reason);
 
     const embed = new MessageEmbed()
       .setTitle('Kick Member')
       .setDescription(`${member} was successfully kicked.`)
-      .addField('Executor', message.member, true)
+      .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Reason', reason)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

@@ -40,7 +40,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     
     let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
-    if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(1021) + '...';
+    if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(0, 1021) + '...';
     message.channel.send(embed
       .setDescription(oneLine`
         The \`leave message\` was successfully updated. Please note that a \`leave channel\` must also be set.

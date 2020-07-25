@@ -246,7 +246,7 @@ class Command {
       const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild);
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)
-        .addField('Executor', message.member, true)
+        .addField('Moderator', message.member, true)
         .setFooter(`Case #${caseNumber}`)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);

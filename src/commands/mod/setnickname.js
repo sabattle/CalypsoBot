@@ -45,7 +45,7 @@ module.exports = class SetNicknameCommand extends Command {
 
       let reason = message.content.split(nickname)[1];
       if (!reason) reason = 'No reason provided';
-      if (reason.length > 1024) reason = reason.slice(1021) + '...';
+      if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
       try {
 
@@ -56,7 +56,7 @@ module.exports = class SetNicknameCommand extends Command {
         const embed = new MessageEmbed()
           .setTitle('Set Nickname')
           .setDescription(`${member}'s nickname was succesfully updated.`)
-          .addField('Executor', message.member, true)
+          .addField('Moderator', message.member, true)
           .addField('Member', member, true)
           .addField('Nickname', nicknameStatus, true)
           .addField('Reason', reason)

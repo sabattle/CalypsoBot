@@ -8,7 +8,7 @@ module.exports = class UnmuteCommand extends Command {
       usage: 'unmute <user mention/ID>',
       description: 'Unmutes the specified user.',
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['unmute @Nettles']
     });
@@ -26,7 +26,7 @@ module.exports = class UnmuteCommand extends Command {
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     if (!member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is not muted.`);
     

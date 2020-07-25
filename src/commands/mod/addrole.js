@@ -27,7 +27,7 @@ module.exports = class AddRoleCommand extends Command {
     
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     if (!role) return this.sendErrorMessage(message, 'Invalid role. Please mention a role or provide a role ID.');
     else if (member.roles.cache.has(role.id)) // If member already has role
@@ -40,7 +40,7 @@ module.exports = class AddRoleCommand extends Command {
         const embed = new MessageEmbed()
           .setTitle('Add Role')
           .setDescription(`${role} was successfully added to ${member}.`)
-          .addField('Executor', message.member, true)
+          .addField('Moderator', message.member, true)
           .addField('Member', member, true)
           .addField('Role', role, true)
           .addField('Reason', reason)

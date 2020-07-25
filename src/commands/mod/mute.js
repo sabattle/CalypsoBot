@@ -9,7 +9,7 @@ module.exports = class MuteCommand extends Command {
       usage: 'mute <user mention/ID> <time> [reason]',
       description: 'Mutes a user for the specified amount of time (max is 10 days).',
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
       examples: ['mute @Nettles 10s', 'mute @Nettles 30m talks too much']
     });
@@ -39,7 +39,7 @@ module.exports = class MuteCommand extends Command {
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     if (member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is already muted!`);
 
@@ -53,7 +53,7 @@ module.exports = class MuteCommand extends Command {
     const muteEmbed = new MessageEmbed()
       .setTitle('Mute Member')
       .setDescription(`${member} has now been muted for **${ms(time, { long: true })}**.`)
-      .addField('Executor', message.member, true)
+      .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Time', `\`${ms(time)}\``, true)
       .addField('Reason', reason)

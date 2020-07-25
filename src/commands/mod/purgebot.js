@@ -16,7 +16,7 @@ module.exports = class PurgeBotCommand extends Command {
         Messages older than 2 weeks old cannot be deleted.
       `,
       type: client.types.MOD,
-      clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_MESSAGES'],
       userPermissions: ['MANAGE_MESSAGES'],
       examples: ['purgebot 20']
     });
@@ -33,7 +33,7 @@ module.exports = class PurgeBotCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(1021) + '...';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
 

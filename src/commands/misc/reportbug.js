@@ -35,7 +35,7 @@ module.exports = class ReportBugCommand extends Command {
     reportChannel.send(reportEmbed);
 
     // Send response
-    if (report.length > 1024) report = report.slice(1021) + '...';
+    if (report.length > 1024) report = report.slice(0, 1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Bug Report')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')

@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { stripIndent } = require('common-tags');
 
 module.exports = class PingCommand extends Command {
   constructor(client) {
@@ -16,7 +17,7 @@ module.exports = class PingCommand extends Command {
       .setColor(message.guild.me.displayHexColor);    
     const msg = await message.channel.send(embed);
     embed.setTitle('🏓 Pong!')
-      .setDescription(`
+      .setDescription(stripIndent`
         **Latency:** \`${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms\`
         **API Latency:** \`${Math.round(message.client.ws.ping)}ms\`
       `)

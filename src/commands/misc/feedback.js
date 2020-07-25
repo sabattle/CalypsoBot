@@ -32,7 +32,7 @@ module.exports = class FeedbackCommand extends Command {
     feedbackChannel.send(feedbackEmbed);
 
     // Send response
-    if (feedback.length > 1024) feedback = feedback.slice(1021) + '...';
+    if (feedback.length > 1024) feedback = feedback.slice(0, 1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Feedback')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
