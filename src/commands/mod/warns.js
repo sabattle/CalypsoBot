@@ -9,6 +9,7 @@ module.exports = class WarnsCommand extends Command {
       usage: 'warns <user mention/ID>',
       description: 'Displays a member\'s current warnings. A max of 5 warnings can be displayed.',
       type: client.types.MOD,
+      userPermissions: ['KICK_MEMBERS'],
       examples: ['warns @Nettles']
     });
   }

@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { oneLine } = require('common-tags');
 
 module.exports = class SetAutoKickCommand extends Command {
   constructor(client) {
@@ -7,7 +8,7 @@ module.exports = class SetAutoKickCommand extends Command {
       name: 'setautokick',
       aliases: ['setak', 'sak'],
       usage: 'setautokick <warn count>',
-      description: `
+      description: oneLine`
         Sets the amount of warns needed before Calypso will automatically kick someone from your server.
         Provide no warn count or a warn count of 0 to disable auto kick.
       `,

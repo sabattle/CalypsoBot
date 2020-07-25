@@ -48,47 +48,62 @@ module.exports = class PurgeCommand extends Command {
     if (member) {
       messages = (await channel.messages.fetch({ limit: amount })).filter(m => m.member.id === member.id);
     } else messages = amount;
+
+    if (messages.size === 0) { // No messages found
+
+      message.channel.send(
+        new MessageEmbed()
+          .setTitle('Purge')
+          .setDescription(`
+            Unable to find any messages from ${member}. 
+            This message will be deleted after \`10 seconds\`.
+          `)
+          .addField('Channel', channel, true)
+          .addField('Member', member )
+          .addField('Found Messages', `\`${messages.size}\``, true)
+          .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor)
+      ).then(msg => msg.delete({ timeout: 10000 })).catch(err => message.client.logger.error(err.stack));
+
+    } else { // Purge messages
+
+      channel.bulkDelete(messages, true).then(messages => {
+        const embed = new MessageEmbed()
+          .setTitle('Purge')
+          .setDescription(`
+            Successfully deleted **${messages.size}** message(s). 
+            This message will be deleted after \`10 seconds\`.
+          `)
+          .addField('Channel', channel, true)
+          .addField('Message Count', `\`${messages.size}\``, true)
+          .addField('Reason', reason)
+          .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+  
+        if (member) {
+          embed
+            .spliceFields(1, 1, { name: 'Found Messages', value:  `\`${messages.size}\``, inline: true})
+            .spliceFields(1, 0, { name: 'Member', value: member, inline: true});
+        }
+
+        message.channel.send(embed).then(msg => msg.delete({ timeout: 10000 }))
+          .catch(err => message.client.logger.error(err.stack));
+      });
+    }
     
-    if (messages.size === 0) return message.channel.send(
-      new MessageEmbed()
-        .setTitle('Purge')
-        .setDescription(`Unable to find any messages from ${member}.`)
-        .addField('Channel', channel, true)
-        .addField('Member', member )
-        .addField('Found Messages', `\`${messages.size}\``, true)
-        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-        .setTimestamp()
-        .setColor(message.guild.me.displayHexColor)
-    ).then(msg => msg.delete({ timeout: 5000 }));
+    // Update modlog
+    const fields = { 
+      Channel: channel
+    };
 
-    channel.bulkDelete(messages, true).then(messages => {
-      const embed = new MessageEmbed()
-        .setTitle('Purge')
-        .setDescription(`Successfully deleted **${messages.size}** messages.`)
-        .addField('Channel', channel, true)
-        .addField('Message Count', `\`${messages.size}\``, true)
-        .addField('Reason', reason)
-        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-        .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
+    if (member) {
+      fields['Member'] = member;
+      fields['Found Messages'] = `\`${messages.size}\``;
+    } else fields['Message Count'] = `\`${amount}\``;
 
-      if (member) {
-        embed
-          .spliceFields(1, 1, { name: 'Found Messages', value:  `\`${messages.size}\``, inline: true})
-          .spliceFields(1, 0, { name: 'Member', value: member, inline: true});
-      }
-      message.channel.send(embed).then(msg => msg.delete({ timeout: 5000 }));
-
-      // Update modlog
-      const fields = { 
-        Channel: channel
-      };
-      if (member) {
-        fields['Member'] = member;
-        fields['Found Messages'] = `\`${messages.size}\``;
-      } else fields['Message Count'] = `\`${messages.size}\``;
-      this.sendModlogMessage(message, reason, fields);
-    });
+    this.sendModlogMessage(message, reason, fields);
 
   }
 };
