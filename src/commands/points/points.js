@@ -1,15 +1,15 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 
-module.exports = class CurrentPointsCommand extends Command {
+module.exports = class PointsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'currentpoints',
-      aliases: ['currpoints', 'cp', 'p'],
-      usage: 'currentpoints <user mention/ID>',
-      description: 'Fetches a user\'s current points. If no user is given, your own points will be displayed.',
+      name: 'points',
+      aliases: ['currentpoints', 'p'],
+      usage: 'points <user mention/ID>',
+      description: 'Fetches a user\'s  points. If no user is given, your own points will be displayed.',
       type: client.types.POINTS,
-      examples: ['currentpoints @Nettles']
+      examples: ['points @Nettles']
     });
   }
   run(message, args) {

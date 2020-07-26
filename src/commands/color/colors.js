@@ -5,7 +5,7 @@ module.exports = class ColorsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'colors',
-      aliases: ['cols', 'c'],
+      aliases: ['colorlist', 'cols', 'cs'],
       usage: 'colors',
       description: 'Displays a list of all available colors.',
       type: client.types.COLOR
@@ -24,7 +24,7 @@ module.exports = class ColorsCommand extends Command {
     colors = colors.array()
       .sort((r1, r2) => (r1.position !== r2.position) ? r1.position - r2.position : r1.id - r2.id).reverse().join(' ');
     try {
-      message.channel.send(embed.setDescription(`${colors}\n\nType \`${prefix}changecolor <color name>\` to choose one.`));
+      message.channel.send(embed.setDescription(`${colors}\n\nType \`${prefix}color <color name>\` to choose one.`));
     } catch (err) {
       this.sendErrorMessage(message, 'Something went wrong. There may be too many colors to display.', err.message);
     }

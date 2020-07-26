@@ -272,8 +272,6 @@ class Command {
     // Name
     if (typeof options.name !== 'string') throw new TypeError('Command name is not a string');
     if (options.name !== options.name.toLowerCase()) throw new Error('Command name is not lowercase');
-    if (Object.values(client.types).map(t => t.toLowerCase()).includes(options.name)) 
-      throw new Error('Command name cannot be a type');
 
     // Aliases
     if (options.aliases) {
