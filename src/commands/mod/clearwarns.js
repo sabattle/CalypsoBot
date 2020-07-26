@@ -41,7 +41,7 @@ module.exports = class ClearWarnsCommand extends Command {
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
     message.client.logger.info(oneLine`
-      ${message.guild.name}: ${message.member.displayName} cleared ${member.displayName}'s warns
+      ${message.guild.name}: ${message.author.tag} cleared ${member.user.tag}'s warns
     `);
     
     // Update modlog

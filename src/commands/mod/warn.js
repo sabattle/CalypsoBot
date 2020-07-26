@@ -51,7 +51,7 @@ module.exports = class WarnCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
-    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} warned ${member.displayName}`);
+    message.client.logger.info(`${message.guild.name}: ${message.author.tag} warned ${member.user.tag}`);
     
     // Update modlog
     this.sendModlogMessage(message, reason, { Member: member, 'Warn Count': `\`${warns.warns.length}\`` });

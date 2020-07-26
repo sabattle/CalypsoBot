@@ -38,7 +38,7 @@ module.exports = class BanCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
-    message.client.logger.info(`${message.guild.name}: ${message.member.displayName} banned ${member.displayName}`);
+    message.client.logger.info(`${message.guild.name}: ${message.author.tag} banned ${member.user.tag}`);
         
     // Update modlog
     this.sendModlogMessage(message, reason, { Member: member});

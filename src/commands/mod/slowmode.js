@@ -44,7 +44,7 @@ module.exports = class SlowmodeCommand extends Command {
 
     // Slowmode disabled
     if (rate === '0') {
-      return message.channel.send(embed
+      message.channel.send(embed
         .setDescription(`\`${status}\` ➔ \`disabled\``)
         .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
@@ -54,10 +54,7 @@ module.exports = class SlowmodeCommand extends Command {
       // Slowmode enabled
     } else {
 
-      // Update modlog
-      this.sendModlogMessage(message, reason, { Channel: channel, Rate: `\`${rate}\`` });
-
-      return message.channel.send(embed
+      message.channel.send(embed
         .setDescription(`\`${status}\` ➔ \`enabled\``)
         .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
@@ -65,5 +62,8 @@ module.exports = class SlowmodeCommand extends Command {
         .addField('Reason', reason)
       );
     }
+
+    // Update modlog
+    this.sendModlogMessage(message, reason, { Channel: channel, Rate: `\`${rate}\`` });
   }
 };
