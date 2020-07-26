@@ -30,6 +30,7 @@ db.prepare(`
     auto_role_id TEXT,
     crown_role_id TEXT,
     auto_kick INTEGER,
+    points_enabled INTEGER NOT NULL,
     message_points INTEGER NOT NULL,
     command_points INTEGER NOT NULL,
     voice_points INTEGER NOT NULL, 
@@ -73,10 +74,11 @@ const settings = {
       welcome_channel_id,
       leave_channel_id,
       crown_channel_id,
+      points_enabled,
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1);
+    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
@@ -104,6 +106,8 @@ const settings = {
   updateCrownRoleId: db.prepare('UPDATE settings SET crown_role_id = ? WHERE guild_id = ?;'),
   selectAutoKick: db.prepare('SELECT auto_kick FROM settings WHERE guild_id = ?;'),
   updateAutoKick: db.prepare('UPDATE settings SET auto_kick = ? WHERE guild_id = ?;'),
+  selectPointsEnabled: db.prepare('SELECT points_enabled FROM settings WHERE guild_id = ?;'),
+  updatePointsEnabled: db.prepare('UPDATE settings SET points_enabled = ? WHERE guild_id = ?;'),
   selectMessagePoints: db.prepare('SELECT message_points FROM settings WHERE guild_id = ?;'),
   updateMessagePoints: db.prepare('UPDATE settings SET message_points = ? WHERE guild_id = ?;'),
   selectCommandPoints: db.prepare('SELECT command_points FROM settings WHERE guild_id = ?;'),

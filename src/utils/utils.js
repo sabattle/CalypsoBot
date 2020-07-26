@@ -67,24 +67,12 @@ function getOrdinalNumeral(number) {
 }
 
 /**
- * Checks if points are disabled on a server
+ * Checks if points are enabled on a server
  * @param {Client} client 
  * @param {Guild} guild
  */
-function checkPointsDisabled(client, guild, disabledCommands = null) {
-  
-  // Get disabled commands
-  if (!disabledCommands) {
-    disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(guild.id) || [];
-    if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
-  }
-
-  // Check if points are disabled
-  const commands = client.commands.array()
-    .filter(c => c.type === client.types.POINTS && !disabledCommands.includes(c.name));
-  if (commands.length === 0) return true;
-  else return false;
-
+function checkPointsEnabled(client, guild) {
+  return client.db.settings.selectPointsEnabled.pluck().get(guild.id);
 }
 
 /**
@@ -183,8 +171,6 @@ async function transferCrown(client, guild, crownRole) {
  */
 function scheduleCrown(client, guild) {
 
-  if (client.utils.checkPointsDisabled(client, guild)) return;
-
   const crownRoleId = client.db.settings.selectCrownRoleId.pluck().get(guild.id);
   let crownRole;
   if (crownRoleId) crownRole = guild.roles.cache.get(crownRoleId);
@@ -203,7 +189,7 @@ module.exports = {
   trimArray,
   trimStringFromArray,
   getOrdinalNumeral,
-  checkPointsDisabled,
+  checkPointsEnabled,
   getCaseNumber,
   transferCrown,
   scheduleCrown

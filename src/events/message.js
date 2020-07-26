@@ -10,8 +10,8 @@ module.exports = (client, message) => {
   let disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
   if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
   
-  // Check if points are disabled
-  const pointsDisabled = client.utils.checkPointsDisabled(client, message.guild, disabledCommands);
+  // Check if points enabled
+  const pointsEnabled = client.utils.checkPointsEnabled(client, message.guild);
 
   // Command handler
   const prefix = client.db.settings.selectPrefix.pluck().get(message.guild.id);
@@ -19,7 +19,7 @@ module.exports = (client, message) => {
   if (!prefixRegex.test(message.content)) {
 
     // Update points with messagePoints value
-    if (!pointsDisabled) {
+    if (pointsEnabled) {
       const messagePoints = client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
       client.db.users.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
     }
@@ -37,7 +37,7 @@ module.exports = (client, message) => {
     if (permission) {
 
       // Update points with commandPoints value
-      if (!pointsDisabled) {
+      if (pointsEnabled) {
         const commandPoints = client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
         client.db.users.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
       }

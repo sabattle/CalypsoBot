@@ -25,14 +25,6 @@ module.exports = class SettingsCommand extends Command {
     const muteRole = message.guild.roles.cache.get(row.mute_role_id) || '';
     const autoRole = message.guild.roles.cache.get(row.auto_role_id) || '';
     const crownRole = message.guild.roles.cache.get(row.crown_role_id) || '';
-    let welcomeMessage = 'disabled';
-    if (row.welcome_message) welcomeMessage = 'enabled';
-    let leaveMessage = 'disabled';
-    if (row.leave_message) leaveMessage = 'enabled';
-    let crownMessage = 'disabled';
-    if (row.crown_message) crownMessage = 'enabled';
-    let crownSchedule = '';
-    if (row.crown_schedule) crownSchedule = `\`${row.crown_schedule}\``;
     let disabledCommands = '';
     if (row.disabled_commands) disabledCommands = row.disabled_commands.split(' ').map(c => `\`${c}\``).join(' ');
     const settings = stripIndent`
@@ -48,13 +40,14 @@ module.exports = class SettingsCommand extends Command {
         **Auto Role:** ${autoRole}
         **Crown Role:** ${crownRole}
         **Auto Kick:** ${(row.auto_kick) ? `After \`${row.auto_kick}\` warn(s)` : '`disabled`'}
+        **Point Tracking**: \`${(row.points_enabled) ? 'enabled' : 'disabled'}\`
         **Message Points:** \`${row.message_points}\`
         **Command Points:** \`${row.command_points}\`
         **Voice Points:** \`${row.voice_points}\`
-        **Welcome Message:** \`${welcomeMessage}\`
-        **Leave Message:** \`${leaveMessage}\`
-        **Crown Message:** \`${crownMessage}\`
-        **Crown Schedule:** ${crownSchedule}
+        **Welcome Message:** \`${(row.welcome_message) ? 'enabled' : 'disabled'}\`
+        **Leave Message:** \`${(row.leave_message) ? 'enabled' : 'disabled'}\`
+        **Crown Message:** \`${(row.crown_message) ? 'enabled' : 'disabled'}\`
+        **Crown Schedule:** ${(row.crown_schedule) ? `\`${row.crown_schedule}\`` : ''}
         **Disabled Commands**: ${disabledCommands}
     `;
     const embed = new MessageEmbed()
