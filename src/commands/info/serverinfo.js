@@ -36,13 +36,20 @@ module.exports = class ServerInfoCommand extends Command {
   run(message) {
 
     // Trim roles
-    const roles = message.client.utils.trimArray(
+    let roles = message.client.utils.trimArray(
       message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0)
     );
+    roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
+    roles.sort((a, b) => b.position - a.position);
 
-    // Trim channels
-    const channels = message.client.utils.trimArray(
-      message.guild.channels.cache.array().filter(c => c.type === 'text')
+    // Trim text channels
+    const textChannels = message.client.utils.trimArray(
+      message.guild.channels.cache.array().filter(c => c.type === 'text').sort((a, b) => a.rawPosition - b.rawPosition)
+    );
+    
+    // Trim voice channels
+    const voiceChannels = message.client.utils.trimArray(
+      message.guild.channels.cache.array().filter(c => c.type === 'voice')
     );
     
     const embed = new MessageEmbed()
@@ -54,7 +61,9 @@ module.exports = class ServerInfoCommand extends Command {
       .addField('Members', `\`${message.guild.memberCount}\``, true)
       .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
       .addField('Role Count', `\`${roles.length}\``, true)
-      .addField('Text Channel Count', `\`${channels.length}\``, true)
+      .addField('Text Channel Count', `\`${textChannels.length}\``, true)
+      .addField('Voice Channel Count', `\`${voiceChannels.length}\``, true)
+      .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('AFK Channel', 
         (message.guild.afkChannel) ? `<:voice:735665114870710413> ${message.guild.afkChannel.name}` : '`None`', true
       )
@@ -63,10 +72,9 @@ module.exports = class ServerInfoCommand extends Command {
           `\`${moment.duration(message.guild.afkTimeout * 1000).asMinutes()} minutes\`` : '`None`', 
         true
       )
-      .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', roles.join(' '))
-      .addField('Text Channels', channels.join(' ') || '`None`')
+      .addField('Text Channels', textChannels.join(' ') || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

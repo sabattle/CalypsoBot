@@ -63,10 +63,10 @@ module.exports = class UserInfoCommand extends Command {
     }
     
     // Trim roles
-    const roles = message.client.utils.trimArray(
-      member.roles.cache.array().filter(r => r.name.indexOf('#') !== 0)
-    ).join(' ');
-
+    let roles = message.client.utils.trimArray(member.roles.cache.array().filter(r => r.name.indexOf('#') !== 0));
+    roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
+    roles.sort((a, b) => b.position - a.position).join(' ');
+    
     const embed = new MessageEmbed()
       .setTitle(`${member.displayName}'s Information`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

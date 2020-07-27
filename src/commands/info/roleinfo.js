@@ -15,17 +15,23 @@ module.exports = class RoleInfoCommand extends Command {
     });
   }
   run(message, args) {
+
     const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
     if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+
     const rolePermissions = role.permissions.toArray().sort((a, b) => {
       return Object.keys(permissions).indexOf(a) - Object.keys(permissions).indexOf(b);
     }).map(p => '`' + permissions[p] + '`');
+
+    // Reverse role position
+    const position = `\`${message.guild.roles.cache.size - role.position}\`/\`${message.guild.roles.cache.size}\``;
+
     const embed = new MessageEmbed()
       .setTitle('Role Information')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Role', role, true)
       .addField('Role ID', `\`${role.id}\``, true)
-      .addField('Position', `\`${role.position}\``, true)
+      .addField('Position', position, true)
       .addField('Hoisted', `\`${role.hoist}\``, true)
       .addField('Color', `\`${role.hexColor.toUpperCase()}\``, true)
       .addField('Members', `\`${role.members.size}\``, true)
