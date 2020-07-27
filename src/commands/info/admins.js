@@ -11,30 +11,29 @@ module.exports = class AdminsCommand extends Command {
     });
   }
   run(message) {
-    const embed = new MessageEmbed()
-      .setTitle('Admin List [0]')
-      .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
     
     // Get admin role
     const adminRoleId = message.client.db.settings.selectAdminRoleId.pluck().get(message.guild.id);
-    let adminRole;
+    let adminRole = '`None`';
     if (adminRoleId) adminRole = message.guild.roles.cache.get(adminRoleId);
-    else return message.channel.send(embed.setDescription('Sorry! The `admin role` is not set on this server.'));
 
     const admins = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === adminRole)) return true;
     }).array();
 
+    admins.sort((a, b) => (a.joinedAt > b.joinedAt) ? 1 : -1);
     let description = message.client.utils.trimStringFromArray(admins);
-    if (admins.length === 0) description = 'Sorry! No admins found.';
+    if (admins.length === 0) description = 'No admins found.';
 
-    embed.setTitle(`Admin List [${admins.length}]`)
+    const embed = new MessageEmbed()
+      .setTitle(`Admin List [${admins.length}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Admin Role', adminRole)
-      .addField('Admin Count', `**${admins.length}** out of **${message.guild.members.cache.size}** accounts`);
+      .addField('Admin Count', `**${admins.length}** out of **${message.guild.members.cache.size}** accounts`)
+      .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
     message.channel.send(embed);
   }
 };
