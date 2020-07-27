@@ -5,7 +5,7 @@ module.exports = class PointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'points',
-      aliases: ['currentpoints', 'p'],
+      aliases: ['p'],
       usage: 'points <user mention/ID>',
       description: 'Fetches a user\'s  points. If no user is given, your own points will be displayed.',
       type: client.types.POINTS,
@@ -18,13 +18,13 @@ module.exports = class PointsCommand extends Command {
       message.member;
     const points = message.client.db.users.selectPoints.pluck().get(member.id, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Current Points')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setTitle(`${member.displayName}'s Points`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .addField('Member', message.member, true)
       .addField('Points', `\`${points}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

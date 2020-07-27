@@ -18,13 +18,13 @@ module.exports = class TotalPointsCommand extends Command {
       message.member;
     const points = message.client.db.users.selectTotalPoints.pluck().get(member.id, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Total Points')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setTitle(`${member.displayName}'s Total Points`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .addField('Member', message.member, true)
       .addField('Points', `\`${points}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

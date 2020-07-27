@@ -36,14 +36,15 @@ module.exports = class GivePointsCommand extends Command {
     if (amount === 1) description = `Successfully transferred **${amount}** point to ${member}!`;
     else description = `Successfully transferred **${amount}** points to ${member}!`;
     const embed = new MessageEmbed()
-      .setTitle('Current Points')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setTitle(`${member.displayName}'s Points`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setDescription(description)
-      .addField('Member', member, true)
+      .addField('From', message.member, true)
+      .addField('To', member, true)
       .addField('Points', `\`${oldPoints}\` ➔ \`${amount + oldPoints}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

@@ -37,7 +37,7 @@ module.exports = class ServerInfoCommand extends Command {
 
     // Trim roles
     let roles = message.client.utils.trimArray(
-      message.guild.roles.cache.array().filter(r => r.name.indexOf('#') !== 0)
+      message.guild.roles.cache.array().filter(r => !r.name.startsWith('#'))
     );
     roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
     roles.sort((a, b) => b.position - a.position);

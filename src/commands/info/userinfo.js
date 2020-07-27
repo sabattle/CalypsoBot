@@ -63,9 +63,9 @@ module.exports = class UserInfoCommand extends Command {
     }
     
     // Trim roles
-    let roles = message.client.utils.trimArray(member.roles.cache.array().filter(r => r.name.indexOf('#') !== 0));
-    roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
-    roles.sort((a, b) => b.position - a.position).join(' ');
+    let roles = message.client.utils.trimArray(member.roles.cache.array().filter(r => !r.name.startsWith('#')));
+    roles = message.client.utils.removeElement(roles, message.guild.roles.everyone)
+      .sort((a, b) => b.position - a.position).join(' ');
     
     const embed = new MessageEmbed()
       .setTitle(`${member.displayName}'s Information`)
@@ -75,7 +75,7 @@ module.exports = class UserInfoCommand extends Command {
       .addField('ID', `\`${member.id}\``, true)
       .addField('Nickname', (member.nickname) ? member.nickname : '`None`', true)
       .addField('Status', statuses[member.presence.status], true)
-      .addField('Color', member.roles.color || '`None`', true)
+      .addField('Color Role', member.roles.color || '`None`', true)
       .addField('Highest Role', member.roles.highest, true)
       .addField('Joined server on', moment(member.joinedAt).format('MMM DD YYYY'), true)
       .addField('Joined Discord on', moment(member.user.createdAt).format('MMM DD YYYY'), true)

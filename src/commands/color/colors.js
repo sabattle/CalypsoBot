@@ -18,7 +18,7 @@ module.exports = class ColorsCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    let colors = message.guild.roles.cache.filter(c => c.name.indexOf('#') === 0);
+    let colors = message.guild.roles.cache.filter(c => c.name.startsWith('#'));
     if (colors.size === 0) 
       return message.channel.send(embed.setDescription('There are currently no colors set on this server.'));
     colors = colors.array().sort((a, b) => b.position - a.position).join(' ');

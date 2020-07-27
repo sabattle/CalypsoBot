@@ -24,13 +24,13 @@ module.exports = class PositionCommand extends Command {
     const pos = message.client.utils.getOrdinalNumeral(leaderboard.map(row => row.user_id).indexOf(member.id) + 1);
     const points = message.client.db.users.selectPoints.pluck().get(member.id, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Leaderboard Position')
-      .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setTitle(`${member.displayName}'s Position`)
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setDescription(`${member} is in **${pos}** place!`)
       .addField('Points', `\`${points}\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      .setColor(member.displayHexColor);
     message.channel.send(embed);
   }
 };

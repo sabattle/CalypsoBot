@@ -20,13 +20,14 @@ module.exports = class ColorCommand extends Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
     const embed = new MessageEmbed()
       .setTitle('Color Change')
-      .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
+      .setThumbnail(message.member.user.displayAvatarURL({ dynamic: true }))
       .addField('Member', message.member, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
-    const colors = message.guild.roles.cache.filter(c => c.name.indexOf('#') === 0);
+    const colors = message.guild.roles.cache.filter(c => c.name.startsWith('#'));
     const colorName = args.join(' ').toLowerCase();
-    const oldColor = message.member.roles.color || '`None`';
+    const oldColor = (message.member.roles.color && message.member.roles.color.name.startsWith('#')) ? 
+      message.member.roles.color : '`None`';
 
     // Clear if no color provided
     if (!colorName) {
