@@ -6,7 +6,7 @@ module.exports = class SetModlogChannelCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmodlogchannel',
-      aliases: ['setmlc', 'smlc'],
+      aliases: ['setmodlog', 'setmlc', 'smlc'],
       usage: 'setmodlogchannel <channel mention/ID>',
       description: oneLine`
         Sets the modlog text channel for your server. 

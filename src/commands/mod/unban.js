@@ -17,16 +17,16 @@ module.exports = class UnbanCommand extends Command {
   }
   async run(message, args) {
     const id = args[0];
-    if (!rgx.test(id)) return this.sendErrorMessage(message, 'Invalid argument. Please  provide a valid user ID.');
+    if (!rgx.test(id)) return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid user ID.');
     const bannedUsers = await message.guild.fetchBans();
-    const user = bannedUsers.get(id);
+    const user = bannedUsers.get(id).user;
     if (!user) return this.sendErrorMessage(message, 'Unable to find user. Please check the provided user ID.');
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';
     if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
-    await message.guild.unban(user, reason);
+    await message.guild.members.unban(user, reason);
     const embed = new MessageEmbed()
       .setTitle('Unban Member')
       .setDescription(`${user.tag} was successfully unbanned.`)
