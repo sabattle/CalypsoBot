@@ -194,10 +194,17 @@ class Client extends Discord.Client {
    */
   sendSystemErrorMessage(guild, error, errorMessage) {
 
-    // Get default channel
-    const defaultChannelId = this.db.settings.selectDefaultChannelId.pluck().get(guild.id);
-    let defaultChannel;
-    if (defaultChannelId) defaultChannel = guild.channels.cache.get(defaultChannelId);
+    // Get system channel
+    const systemChannelId = this.db.settings.selectSystemChannelId.pluck().get(guild.id);
+    let systemChannel;
+    if (systemChannelId) systemChannel = guild.channels.cache.get(systemChannelId);
+
+    if ( // Check channel and permissions
+      !systemChannel || 
+      !systemChannel.viewable || 
+      !guild.me.hasPermission('SEND_MESSAGES') || 
+      !guild.me.hasPermission('EMBED_LINKS')
+    ) return;
 
     const embed = new Discord.MessageEmbed()
       .setAuthor(`${guild.me.displayName}#${this.user.discriminator}`, this.user.displayAvatarURL())
@@ -205,7 +212,7 @@ class Client extends Discord.Client {
       .setDescription(errorMessage)
       .setTimestamp()
       .setColor(guild.me.displayHexColor);
-    defaultChannel.send(embed);
+    systemChannel.send(embed);
   }
 }
 

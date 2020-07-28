@@ -6,7 +6,7 @@ module.exports = class BlastCommand extends Command {
     super(client, {
       name: 'blast',
       usage: 'blast <message>',
-      description: 'Sends a message to every server that Calypso is in that has a default channel.',
+      description: 'Sends a message to every server that Calypso is in that has a system channel.',
       type: client.types.OWNER,
       ownerOnly: true,
       examples: ['blast Hello World!']
@@ -17,10 +17,10 @@ module.exports = class BlastCommand extends Command {
     const msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     const guilds = [];
     message.client.guilds.cache.forEach(guild => {
-      const id = message.client.db.settings.selectDefaultChannelId.pluck().get(guild.id);
-      let defaultChannel;
-      if (id) defaultChannel = guild.channels.cache.get(id);
-      if (defaultChannel) defaultChannel.send(msg);
+      const systemChannelId = message.client.db.settings.selectSystemChannelId.pluck().get(guild.id);
+      let systemChannel;
+      if (systemChannelId) systemChannel = guild.channels.cache.get(systemChannelId);
+      if (systemChannel) systemChannel.send(msg);
       else guilds.push(guild.name);
     });
   

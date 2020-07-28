@@ -15,7 +15,7 @@ module.exports = class SettingsCommand extends Command {
   }
   run(message) {
     const row = message.client.db.settings.selectRow.get(message.guild.id);
-    const defaultChannel = message.guild.channels.cache.get(row.default_channel_id) || '';
+    const systemChannel = message.guild.channels.cache.get(row.system_channel_id) || '';
     const welcomeChannel = message.guild.channels.cache.get(row.welcome_channel_id) || '';
     const leaveChannel = message.guild.channels.cache.get(row.leave_channel_id) || '';
     const crownChannel = message.guild.channels.cache.get(row.crown_channel_id) || '';
@@ -29,7 +29,7 @@ module.exports = class SettingsCommand extends Command {
     if (row.disabled_commands) disabledCommands = row.disabled_commands.split(' ').map(c => `\`${c}\``).join(' ');
     const settings = stripIndent`
         **Prefix:** \`${row.prefix}\`
-        **Default Channel:** ${defaultChannel}
+        **System Channel:** ${systemChannel}
         **Welcome Channel:** ${welcomeChannel}
         **Leave Channel:** ${leaveChannel}
         **Crown Channel:** ${crownChannel}

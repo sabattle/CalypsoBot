@@ -21,7 +21,9 @@ module.exports = class ColorsCommand extends Command {
     let colors = message.guild.roles.cache.filter(c => c.name.startsWith('#'));
     if (colors.size === 0) 
       return message.channel.send(embed.setDescription('There are currently no colors set on this server.'));
+      
     colors = colors.array().sort((a, b) => b.position - a.position).join(' ');
+    
     try {
       message.channel.send(embed.setDescription(`${colors}\n\nType \`${prefix}color <color name>\` to choose one.`));
     } catch (err) {

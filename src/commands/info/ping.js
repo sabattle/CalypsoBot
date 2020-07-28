@@ -16,9 +16,10 @@ module.exports = class PingCommand extends Command {
       .setDescription('Pinging...')
       .setColor(message.guild.me.displayHexColor);    
     const msg = await message.channel.send(embed);
+    const timestamp = (message.editedTimestamp) ? message.editedTimestamp : message.createdTimestamp; // Check if edited
     embed.setTitle('🏓 Pong!')
       .setDescription(stripIndent`
-        **Latency:** \`${Math.floor(msg.createdTimestamp - message.createdTimestamp)}ms\`
+        **Latency:** \`${Math.floor(msg.createdTimestamp - timestamp)}ms\`
         **API Latency:** \`${Math.round(message.client.ws.ping)}ms\`
       `)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
