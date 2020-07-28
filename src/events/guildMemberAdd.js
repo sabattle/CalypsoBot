@@ -26,6 +26,28 @@ module.exports = async (client, member) => {
   if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
   if (welcomeMessage && welcomeChannel) welcomeChannel.send(welcomeMessage);
 
+  // Assign random color
+  const randomColorEnabled = client.db.settings.selectRandomColorEnabled.pluck().get(member.guild.id);
+  if (randomColorEnabled) {
+    const prefix = client.db.settings.selectPrefix.pluck().get(member.guild.id);
+    const colors = member.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
+
+    if (colors.length === 0) return client.sendSystemErrorMessage(member.guild, 'random color', oneLine`
+      Something went wrong. Unable to give a random color to ${member}. 
+      There are currently no colors set on this server. Use \`${prefix}togglerandomcolor\` to disable this feature.
+    `);
+    
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    try {
+      await member.roles.add(color);
+    } catch (err) {
+      if (welcomeChannel) return client.sendSystemErrorMessage(member.guild, 'random color', oneLine`
+        Something went wrong. Unable to give ${color} to ${member}. 
+        Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
+      `, err.message);
+    }
+  }
+
   // Update users table
   client.db.users.insertRow.run(
     member.id, 
