@@ -80,7 +80,7 @@ const settings = {
       message_points,
       command_points,
       voice_points
-    ) VALUES (?, ?, '!', ?, ?, ?, ?, 1, 1, 1, 1, 1);
+    ) VALUES (?, ?, '!', ?, ?, ?, ?, 0, 1, 1, 1, 1);
   `),
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
