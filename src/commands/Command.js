@@ -163,7 +163,7 @@ class Command {
       missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
-          .setAuthor(`${message.author.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
+          .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
           .setTitle(`Missing User Permissions: \`${this.name}\``)
           .setDescription(`
             The \`${this.name}\` command requires you to have the following permissions: 

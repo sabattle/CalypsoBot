@@ -60,7 +60,7 @@ module.exports = class ServerInfoCommand extends Command {
       .addField('Region', region[message.guild.region], true)
       .addField('Members', `\`${message.guild.memberCount}\``, true)
       .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
-      .addField('Role Count', `\`${message.guild.roles.cache.size}\``, true)
+      .addField('Role Count', `\`${message.guild.roles.cache.size - 1}\``, true) // Don't count @everyone
       .addField('Text Channel Count', `\`${textChannels.length}\``, true)
       .addField('Voice Channel Count', `\`${voiceChannels.length}\``, true)
       .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
