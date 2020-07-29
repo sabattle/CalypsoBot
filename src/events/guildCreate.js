@@ -57,9 +57,10 @@ module.exports = async (client, guild) => {
   }
   
   if (fails > 0) {
+    const len = Object.keys(colors).length;
     const prefix = client.db.settings.selectPrefix.pluck().get(guild.id);
     client.sendSystemErrorMessage(guild, 'color create', oneLine`
-      Something went wrong. Unable to create \`${fails}\` of \`20\` default colors. 
+      Something went wrong. Unable to create \`${fails}\` of \`${len}\` default colors. 
       Please ensure I have the \`Manage Roles\` permission and that there are open role slots.
       You can attempt to generate default colors again at any point by using \`${prefix}createdefaultcolors\`.
     `);

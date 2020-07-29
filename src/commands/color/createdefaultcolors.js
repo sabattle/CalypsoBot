@@ -1,6 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const colors = require('../../utils/colors.json');
+const len = Object.keys(colors).length;
 const { oneLine } = require('common-tags');
 
 module.exports = class CreateDefaultColorsCommand extends Command {
@@ -10,7 +11,7 @@ module.exports = class CreateDefaultColorsCommand extends Command {
       aliases: ['cdc'],
       usage: 'createdefaultcolors',
       description: oneLine`
-        Generates the 20 default color roles that come with packaged with Calypso on your server. 
+        Generates the ${len} default color roles that come with packaged with Calypso on your server. 
         Color roles are denoted by the prefix \`#\`.
       `,
       type: client.types.COLOR,
@@ -48,10 +49,10 @@ module.exports = class CreateDefaultColorsCommand extends Command {
         }
       } 
     }
-    const fails = 20 - colorList.length;
+    const fails = len - colorList.length;
     embed // Build embed
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription(`Created \`${20 - fails}\` of  \`20\` default colors.`)
+      .setDescription(`Created \`${len - fails}\` of  \`${len}\` default colors.`)
       .addField('Colors Created', (colorList.length > 0) ? colorList.reverse().join(' ') : '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
