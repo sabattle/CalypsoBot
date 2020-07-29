@@ -19,9 +19,8 @@ module.exports = class ModsCommand extends Command {
 
     const mods = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === modRole)) return true;
-    }).array();
+    }).sort((a, b) => (a.joinedAt > b.joinedAt) ? 1 : -1).array();
 
-    mods.sort((a, b) => (a.joinedAt > b.joinedAt) ? 1 : -1);
     let description = message.client.utils.trimStringFromArray(mods);
     if (mods.length === 0) description = 'No mods found.';
 

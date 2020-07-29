@@ -12,20 +12,24 @@ module.exports = class ColorsCommand extends Command {
     });
   }
   run(message) {
-    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const embed = new MessageEmbed()
-      .setTitle('Available Colors')
-      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+   
     let colors = message.guild.roles.cache.filter(c => c.name.startsWith('#'));
-    if (colors.size === 0) 
-      return message.channel.send(embed.setDescription('There are currently no colors set on this server.'));
-      
-    colors = colors.array().sort((a, b) => b.position - a.position).join(' ');
-    
+    let description;
+    if (colors.size === 0) description = 'No colors found.';
+    else {
+      const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
+      const colorList = colors.sort((a, b) => b.position - a.position).array().join(' ');
+      description = `${colorList}\n\nType \`${prefix}color <color name>\` to choose one.`;
+    }
+
     try {
-      message.channel.send(embed.setDescription(`${colors}\n\nType \`${prefix}color <color name>\` to choose one.`));
+      const embed = new MessageEmbed()
+        .setTitle(`Available Colors [${colors.size}]`)
+        .setDescription(description)
+        .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+        .setTimestamp()
+        .setColor(message.guild.me.displayHexColor);
+      message.channel.send(embed);
     } catch (err) {
       this.sendErrorMessage(message, 'Something went wrong. There may be too many colors to display.', err.message);
     }

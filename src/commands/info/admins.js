@@ -19,9 +19,8 @@ module.exports = class AdminsCommand extends Command {
 
     const admins = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === adminRole)) return true;
-    }).array();
+    }).sort((a, b) => (a.joinedAt > b.joinedAt) ? 1 : -1).array();
 
-    admins.sort((a, b) => (a.joinedAt > b.joinedAt) ? 1 : -1);
     let description = message.client.utils.trimStringFromArray(admins);
     if (admins.length === 0) description = 'No admins found.';
 
