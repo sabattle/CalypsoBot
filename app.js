@@ -26,5 +26,4 @@ function init() {
 
 init();
 
-// Catch unhandled promises
-process.on('unhandledRejection', err => client.logger.error(JSON.stringify(err, null, 1)));
+process.on('unhandledRejection', err => client.logger.error(err));
