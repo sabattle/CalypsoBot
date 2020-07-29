@@ -26,6 +26,11 @@ module.exports = class SlowmodeCommand extends Command {
       channel = message.channel;
       index--;
     }
+
+    // Check type and viewable
+    if (channel.type != 'text' || !channel.viewable) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+      
     const rate = args[index];
     if (!rate || rate < 0 || rate > 59) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a rate limit between 0 and 59 seconds.');

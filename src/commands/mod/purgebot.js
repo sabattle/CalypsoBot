@@ -27,6 +27,11 @@ module.exports = class PurgeBotCommand extends Command {
     if (channel) {
       args.shift();
     } else channel = message.channel;
+
+    // Check type and viewable
+    if (channel.type != 'text' || !channel.viewable) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+
     const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > 100)
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');

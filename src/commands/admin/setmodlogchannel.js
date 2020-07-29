@@ -37,8 +37,9 @@ module.exports = class SetModlogChannelCommand extends Command {
     }
 
     const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please mention a text channel or provide a channel ID.');
+    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
+      Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+    `);
     message.client.db.settings.updateModlogChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ ${channel}`, true));
   }

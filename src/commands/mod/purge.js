@@ -28,6 +28,10 @@ module.exports = class PurgeCommand extends Command {
       args.shift();
     } else channel = message.channel;
 
+    // Check type and viewable
+    if (channel.type != 'text' || !channel.viewable) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+
     let member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
     if (member) {
       args.shift();

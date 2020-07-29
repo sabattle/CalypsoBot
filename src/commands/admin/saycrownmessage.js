@@ -20,6 +20,11 @@ module.exports = class SayCrownMessageCommand extends Command {
     const channel = this.getChannelFromMention(message, args[0]) || 
       message.guild.channels.cache.get(args[0]) || 
       message.channel;
+
+    // Check type and viewable
+    if (channel.type != 'text' || !channel.viewable) 
+      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+
     if (crownMessage) channel.send(crownMessage);
     else this.sendErrorMessage(message, 'There is currently no `crown message` set.');
   }

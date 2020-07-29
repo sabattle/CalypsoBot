@@ -119,7 +119,7 @@ class Command {
   }
 
   /**
-   * Gets channel from mention
+   * Gets text channel from mention
    * @param {Message} message 
    * @param {string} mention 
    */
