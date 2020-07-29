@@ -1,6 +1,7 @@
 const config = require('./config.json');
 const Client = require('./src/Client.js');
 const { Intents } = require('discord.js');
+
 global.__basedir = __dirname;
 
 // Client setup
@@ -24,3 +25,6 @@ function init() {
 }
 
 init();
+
+// Catch unhandled promises
+process.on('unhandledRejection', err => client.logger.error(JSON.stringify(err, null, 1)));
