@@ -24,12 +24,15 @@ module.exports = class SetLeaveChannelCommand extends Command {
     let status, oldStatus = (leaveChannelId && leaveMessage) ? '`enabled`' : '`disabled`';
 
     // Trim message
-    if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
-
+    if (leaveMessage) {
+      if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
+      leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
+    }
+    
     const embed = new MessageEmbed()
       .setTitle('Settings: `Leave Messages`')
       .setDescription('The `leave channel` was successfully updated. <:success:736449240728993802>')
-      .addField('Message', `\`\`\`${leaveMessage}\`\`\`` || '`None`')
+      .addField('Message', leaveMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

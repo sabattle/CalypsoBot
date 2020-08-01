@@ -32,7 +32,7 @@ module.exports = class SetCrownMessageCommand extends Command {
       .setTitle('Settings: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `crown message` was successfully updated. <:success:736449240728993802>')
-      .addField('Role', crownRole || '`None', true)
+      .addField('Role', crownRole || '`None`', true)
       .addField('Channel', crownChannel || '`None`', true)
       .addField('Schedule', `\`${(crownSchedule) ? crownSchedule : 'None'}\``, true)
       .addField('Status', status)

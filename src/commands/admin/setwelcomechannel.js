@@ -25,12 +25,15 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     let status, oldStatus = (welcomeChannelId && welcomeMessage) ? '`enabled`' : '`disabled`';
 
     // Trim message
-    if (welcomeMessage.length >= 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
-
+    if (welcomeMessage) {
+      if (welcomeMessage.length >= 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
+      welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
+    }
+    
     const embed = new MessageEmbed()
       .setTitle('Settings: `Welcome Messages`')
       .setDescription('The `welcome channel` was successfully updated. <:success:736449240728993802>')
-      .addField('Message', `\`\`\`${welcomeMessage}\`\`\`` || '`None`')
+      .addField('Message', welcomeMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
