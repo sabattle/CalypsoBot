@@ -165,7 +165,7 @@ class Command {
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
           .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
-          .setTitle(`Missing User Permissions: \`${this.name}\``)
+          .setTitle(`<:fail:736449226120233031> Missing User Permissions: \`${this.name}\``)
           .setDescription(stripIndent`
             The \`${this.name}\` command requires you to have the following permissions: 
           
@@ -200,7 +200,7 @@ class Command {
         .setAuthor(`
           ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
         )
-        .setTitle(`Missing Bot Permissions: \`${this.name}\``)
+        .setTitle(`<:fail:736449226120233031> Missing Bot Permissions: \`${this.name}\``)
         .setDescription(stripIndent`
           The \`${this.name}\` command requires me to have the following permissions: 
         

@@ -17,11 +17,11 @@ module.exports = async (client, member) => {
   }
 
   // Get welcome channel
-  const welcomeChannelId = client.db.settings.selectWelcomeChannelId.pluck().get(member.guild.id);
+  let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
+    client.db.settings.selectWelcomeMessages.get(member.guild.id);
   const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
   // Send welcome message
-  let welcomeMessage = client.db.settings.selectWelcomeMessage.pluck().get(member.guild.id);
   if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
   if (welcomeMessage && welcomeChannel && welcomeChannel.viewable) welcomeChannel.send(welcomeMessage);
 
