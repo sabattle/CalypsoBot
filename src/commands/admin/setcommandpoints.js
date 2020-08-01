@@ -26,7 +26,7 @@ module.exports = class SetCommandPointsCommand extends Command {
     const status = (pointTracking) ? '`enabled`' : '`disabled`';
     message.client.db.settings.updateCommandPoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Points System`')
+      .setTitle('Settings: `Points System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `command points` value was successfully updated. <:success:736449240728993802>')
       .addField('Message Points', `\`${messagePoints}\``, true)

@@ -22,7 +22,7 @@ module.exports = class SetModlogChannelCommand extends Command {
     let oldModlogChannel = '`None`';
     if (modlogChannelId) oldModlogChannel = message.guild.channels.cache.get(modlogChannelId);
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Modlog Channel`')
+      .setTitle('Settings: `Modlog Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `modlog channel` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

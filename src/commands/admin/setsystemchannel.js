@@ -22,7 +22,7 @@ module.exports = class SetSystemChannelCommand extends Command {
     let oldSystemChannel = '`None`';
     if (systemChannelId) oldSystemChannel = message.guild.channels.cache.get(systemChannelId);
     const embed = new MessageEmbed()
-      .setTitle('Setting: `System Channel`')
+      .setTitle('Settings: `System Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `system channel` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

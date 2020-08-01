@@ -18,7 +18,7 @@ module.exports = class SetAdminRoleCommand extends Command {
     let oldRole = message.guild.roles.cache.find(r => r.id === adminRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Admin Role`')
+      .setTitle('Settings: `Admin Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `admin role` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

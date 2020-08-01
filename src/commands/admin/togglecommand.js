@@ -49,7 +49,7 @@ module.exports = class ToggleCommandCommand extends Command {
 
     disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Disabled Commands`')
+      .setTitle('Settings: `Disabled Commands`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Disabled Commands', disabledCommands, true)

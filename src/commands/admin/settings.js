@@ -1,19 +1,23 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { stripIndent } = require('common-tags');
+const { stripIndent, oneLine } = require('common-tags');
 
 module.exports = class SettingsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'settings',
       aliases: ['setting', 'set', 's', 'config', 'conf'],
-      usage: 'settings',
-      description: 'Displays all the current settings for your server.',
+      usage: 'settings [category]',
+      description: oneLine`
+        Displays all the current settings for your server. 
+        If a category is provided, only settings belonging to it will be displayed.
+      `,
       type: client.types.ADMIN,
-      userPermissions: ['MANAGE_GUILD']
+      userPermissions: ['MANAGE_GUILD'],
+      examples: ['settings System']
     });
   }
-  run(message) {
+  run(message, args) {
 
     // Set values
     const row = message.client.db.settings.selectRow.get(message.guild.id);
@@ -35,7 +39,7 @@ module.exports = class SettingsCommand extends Command {
     const voicePoints = `\`${row.voice_points}\``;
     let verificationMessage = row.verification_message || '`None`';
     let welcomeMessage = row.welcome_message || '`None`';
-    let leaveMessage = row.leave_message || '`None`';
+    let leaveMessage = row.leave_message|| '`None`';
     let crownMessage = row.crown_message || '`None`';
     const crownSchedule = (row.crown_schedule) ? `\`${row.crown_schedule}\`` : '`None`';
     let disabledCommands = '`None`';
@@ -52,16 +56,114 @@ module.exports = class SettingsCommand extends Command {
     const pointsStatus = (row.point_tracking) ? '`enabled`' : '`disabled`';
     const crownStatus = (row.crown_role && row.crown_schedule) ? '`enabled`' : '`disabled`';
     
-    // Trim messages to 512 characters
-    if (verificationMessage != '`None`') 
-      verificationMessage = `\`\`\`${verificationMessage.slice(0, 509) + '...'}\`\`\``;
-    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage.slice(0, 509) + '...'}\`\`\``;
-    if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage.slice(0, 509) + '...'}\`\`\``;
-    if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage.slice(0, 509) + '...'}\`\`\``;
-
+    /** ------------------------------------------------------------------------------------------------
+     * CATEGORY CHECKS
+     * ------------------------------------------------------------------------------------------------ */
+    let setting = args.join().toLowerCase();
+    if (setting.endsWith('setting')) setting = setting.slice(0, -7);
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+      .setTimestamp()
+      .setColor(message.guild.me.displayHexColor);
+    switch (setting) {
+      case 'system':
+        return message.channel.send(embed
+          .setTitle('Settings: `System`')
+          .addField('Prefix', prefix, true)
+          .addField('System Channel', systemChannel, true)
+          .addField('Modlog Channel', modlogChannel, true)
+          .addField('Admin Role', adminRole, true)
+          .addField('Mod Role', modRole, true)
+          .addField('Mute Role', muteRole, true)
+          .addField('Auto Role', autoRole, true)
+          .addField('Auto Kick', autoKickStatus, true)
+          .addField('Random Color', randomColorStatus, true)
+        );
+      case 'verif':
+      case 'verification':
+        if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
+        embed
+          .setTitle('Settings: `Verification Messages`')
+          .addField('Role', verificationRole, true)
+          .addField('Channel', welcomeChannel, true)
+          .addField('Status', welcomeStatus, true);
+        if (verificationMessage.length > 1024) embed
+          .setDescription(verificationMessage)
+          .addField('Message', 'Message located above due to character limits.');
+        else embed.addField('Message', verificationMessage);
+        return message.channel.send(embed);
+      case 'welcome':
+      case 'welcomemessages':
+        if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
+        embed
+          .setTitle('Settings: `Welcome Messages`')
+          .addField('Channel', welcomeChannel, true)
+          .addField('Status', welcomeStatus, true);
+        if (welcomeMessage.length > 1024) embed
+          .setDescription(welcomeMessage)
+          .addField('Message', 'Message located above due to character limits.');
+        else embed.addField('Message', welcomeMessage);
+        return message.channel.send(embed);
+      case 'leave':
+      case 'leavemessages':
+        if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
+        embed
+          .setTitle('Settings: `Leave Messages`')
+          .addField('Channel', leaveChannel, true)
+          .addField('Status', leaveStatus, true);
+        if (leaveMessage.length > 1024) embed
+          .setDescription(leaveMessage)
+          .addField('Message', 'Message located above due to character limits.');
+        else embed.addField('Message', leaveMessage);
+        return message.channel.send(embed);
+      case 'points':
+      case 'pointssystem':
+        return message.channel.send(embed
+          .setTitle('Settings: `Points System`')
+          .addField('Message Points', messagePoints, true)
+          .addField('Command Points', commandPoints, true)
+          .addField('Voice Points', voicePoints, true)
+          .addField('Status', pointsStatus)
+        );
+      case 'crown':
+      case 'crownsystem':
+        if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage}\`\`\``;
+        embed
+          .setTitle('Settings: `Crown System`')
+          .addField('Role', crownRole, true)
+          .addField('Channel', crownChannel, true)
+          .addField('Schedule', crownSchedule, true)
+          .addField('Status', crownStatus);
+        if (crownMessage.length > 1024) embed
+          .setDescription(crownMessage)
+          .addField('Message', 'Message located above due to character limits.');
+        else embed.addField('Message', crownMessage);
+        return message.channel.send(embed);
+      case 'commands':
+      case 'disabledcommands':
+        return message.channel.send(embed
+          .setTitle('Settings: `Disabled Commands`')
+          .addField('Disabled Commands', disabledCommands)
+        );
+    }
+    if (setting)
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please enter a valid settings category. Use \`${row.prefix}settings\` for a list.
+      `);
+
+    /** ------------------------------------------------------------------------------------------------
+     * FULL SETTINGS
+     * ------------------------------------------------------------------------------------------------ */ 
+    // Trim messages to 512 characters
+    if (verificationMessage != '`None`')
+      verificationMessage = `\`\`\`${verificationMessage.slice(0, 503) + '...'}\`\`\``;
+    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage.slice(0, 503) + '...'}\`\`\``;
+    if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage.slice(0, 503) + '...'}\`\`\``;
+    if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage.slice(0, 503) + '...'}\`\`\``;
+
+    embed
+      .setTitle('Settings')
       // System Settings
       .addField('__**System**__', stripIndent`
         **Prefix:** ${prefix}
@@ -109,11 +211,7 @@ module.exports = class SettingsCommand extends Command {
         **Message:** ${crownMessage}
       `)
       // Disabled Commands
-      .addField('__**Disabled Commands**__', disabledCommands)
-      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
-
+      .addField('__**Disabled Commands**__', disabledCommands);
 
     message.channel.send(embed);
   }

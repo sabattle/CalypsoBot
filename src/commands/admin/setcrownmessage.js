@@ -29,12 +29,12 @@ module.exports = class SetCrownMessageCommand extends Command {
     const crownChannel = message.guild.channels.cache.get(crownChannelId);
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Crown System`')
+      .setTitle('Settings: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `crown message` was successfully updated. <:success:736449240728993802>')
       .addField('Role', crownRole || '`None', true)
       .addField('Channel', crownChannel || '`None`', true)
-      .addField('Schedule', `\`${crownSchedule}\`` || '`None`', true)
+      .addField('Schedule', `\`${(crownSchedule) ? crownSchedule : 'None'}\``, true)
       .addField('Status', status)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
@@ -49,8 +49,8 @@ module.exports = class SetCrownMessageCommand extends Command {
 
     let crownMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateCrownMessage.run(crownMessage, message.guild.id);
-    if (crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
-    message.channel.send(embed.addField('Message', crownMessage)
+    if (crownMessage.length >= 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
+    message.channel.send(embed.addField('Message', `\`\`\`${crownMessage}\`\`\``)
     );
   }
 };

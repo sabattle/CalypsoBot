@@ -28,7 +28,7 @@ module.exports = class ToggleRandomColorCommand extends Command {
     } 
     
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Random Color`')
+      .setTitle('Settings: `Random Color`')
       .setThumbnail(message.guild.iconURL())
       .setDescription(description)
       .addField('Status', status, true)

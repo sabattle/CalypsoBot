@@ -18,7 +18,7 @@ module.exports = class SetMuteRoleCommand extends Command {
     let oldRole = message.guild.roles.cache.find(r => r.id === muteRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Mute Role`')
+      .setTitle('Settings: `Mute Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `mute role` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

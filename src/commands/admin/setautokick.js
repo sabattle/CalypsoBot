@@ -25,7 +25,7 @@ module.exports = class SetAutoKickCommand extends Command {
       return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
       
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Auto Kick`')
+      .setTitle('Settings: `Auto Kick`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('`Auto kick` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

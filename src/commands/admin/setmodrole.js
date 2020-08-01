@@ -18,7 +18,7 @@ module.exports = class SetModRoleCommand extends Command {
     let oldRole = message.guild.roles.cache.find(r => r.id === modRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Mod Role`')
+      .setTitle('Settings: `Mod Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `mod role` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

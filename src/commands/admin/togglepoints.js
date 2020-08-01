@@ -32,13 +32,13 @@ module.exports = class TogglePointsCommand extends Command {
     } 
     
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Points System`')
+      .setTitle('Settings: `Points System`')
       .setThumbnail(message.guild.iconURL())
       .setDescription(description)
       .addField('Message Points', `\`${messagePoints}\``, true)
       .addField('Command Points', `\`${commandPoints}\``, true)
       .addField('Voice Points', `\`${voicePoints}\``, true)
-      .addField('Status', status, true)
+      .addField('Status', status)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

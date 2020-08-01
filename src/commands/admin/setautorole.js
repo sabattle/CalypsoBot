@@ -22,7 +22,7 @@ module.exports = class SetAutoRoleCommand extends Command {
     let oldRole = message.guild.roles.cache.find(r => r.id === autoRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Auto Role`')
+      .setTitle('Settings: `Auto Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `auto role` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

@@ -18,15 +18,18 @@ module.exports = class SetLeaveChannelCommand extends Command {
     });
   }
   run(message, args) {
-    const { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
+    let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
       message.client.db.settings.selectLeaveMessages.get(message.guild.id);
     const oldLeaveChannel = message.guild.channels.cache.get(leaveChannelId) || '`None`';
     let status, oldStatus = (leaveChannelId && leaveMessage) ? '`enabled`' : '`disabled`';
 
+    // Trim message
+    if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
+
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Leave Messages`')
+      .setTitle('Settings: `Leave Messages`')
       .setDescription('The `leave channel` was successfully updated. <:success:736449240728993802>')
-      .addField('Message', leaveMessage || '`None`')
+      .addField('Message', `\`\`\`${leaveMessage}\`\`\`` || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

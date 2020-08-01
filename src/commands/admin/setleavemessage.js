@@ -26,7 +26,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     let status, oldStatus = (leaveChannelId && oldLeaveMessage) ? '`enabled`' : '`disabled`';
 
     const embed = new MessageEmbed()
-      .setTitle('Setting: `Leave Messages`')
+      .setTitle('Settings: `Leave Messages`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription('The `leave message` was successfully updated. <:success:736449240728993802>')
       .addField('Channel', leaveChannel || '`None`', true)
@@ -49,7 +49,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     
     let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
-    if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(0, 1021) + '...';
+    if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
 
     // Check status
     if (oldStatus != '`enabled`' && leaveChannel && leaveMessage) status =  '`disabled` ➔ `enabled`';
@@ -57,7 +57,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
 
     message.channel.send(embed
       .addField('Status', status, true)
-      .addField('Message', leaveMessage)
+      .addField('Message', `\`\`\`${leaveMessage}\`\`\``)
     );
   }
 };
