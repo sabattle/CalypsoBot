@@ -10,7 +10,7 @@ module.exports = class SetAutoKickCommand extends Command {
       usage: 'setautokick <warn count>',
       description: oneLine`
         Sets the amount of warns needed before Calypso will automatically kick someone from your server.
-        Provide no warn count or a warn count of 0 to disable auto kick.
+        Provide no warn count or a warn count of 0 to disable \`auto kick\`.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

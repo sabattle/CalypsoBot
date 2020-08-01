@@ -24,7 +24,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
         ' Step syntax is also supported, for example: `*/30 * * * *` (every 30 minutes). ' +
         'For the day of the week, both 0 and 7 may represent Sunday. ' +
         'If you need additional help building your cron, please check out this website: <https://crontab.guru/#>. ' + 
-        `Enter no schedule to clear the current crown schedule.
+        `Enter no schedule to clear the current \`crown schedule\`.
+        A \`crown role\` must also be set to enable role rotation.
         **Please Note:** Not all months have the same amount of days.`,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

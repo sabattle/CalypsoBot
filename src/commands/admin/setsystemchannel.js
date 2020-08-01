@@ -9,8 +9,9 @@ module.exports = class SetSystemChannelCommand extends Command {
       aliases: ['setsc', 'ssc'],
       usage: 'setsystemchannel <channel mention/ID>',
       description: oneLine`
-        Sets the system text channel for your server, where Calypso's system messages will be sent. 
-        Provide no channel to clear the current system channel.
+        Sets the system text channel for your server. This is where Calypso's system messages will be sent. 
+        Provide no channel to clear the current \`system channel\`. Clearing this setting is **not recommended** 
+        as Calypso requires a \`system channel\` to notify you about important errors.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

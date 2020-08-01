@@ -11,7 +11,8 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       description: oneLine`
         Sets the message Calypso will say when someone joins your server.
         You may use \`?member\` to substitute for a user mention.
-        Enter no message to clear the current welcome message.
+        Enter no message to clear the current \`welcome message\`.
+        A \`welcome channel\` must also be set to enable welcome messages.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

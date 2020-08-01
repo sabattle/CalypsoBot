@@ -10,7 +10,7 @@ module.exports = class SetAutoRoleCommand extends Command {
       usage: 'setautorole <role mention/ID>',
       description: oneLine`
         Sets the role all new members will receive upon joining your server.
-        Provide no role to clear the current auto role.
+        Provide no role to clear the current \`auto role\`.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

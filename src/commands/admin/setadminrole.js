@@ -7,7 +7,7 @@ module.exports = class SetAdminRoleCommand extends Command {
       name: 'setadminrole',
       aliases: ['setar', 'sar'],
       usage: 'setadminrole <role mention/ID>',
-      description: 'Sets the admin role for your server. Provide no role to clear the current admin role.',
+      description: 'Sets the `admin role` for your server. Provide no role to clear the current `admin role`.',
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setadminrole @Admin']

@@ -11,7 +11,8 @@ module.exports = class SetLeaveMessageCommand extends Command {
       description: oneLine`
         Sets the message Calypso will say when someone leaves your server.
         You may use \`?member\` to substitute for a user mention.
-        Enter no message to clear the current leave message.
+        Enter no message to clear the current \`leave message\`.
+        A \`leave channel\` must also be set to enable leave messages.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

@@ -11,7 +11,8 @@ module.exports = class SetCrownMessageCommand extends Command {
       description: oneLine`
         Sets the message Calypso will say during the crown role rotation.
         You may use \`?member\` to substitute for a user mention and \`?role\` to substitute for the crown role.
-        Enter no message to clear the current crown message.
+        Enter no message to clear the current \`crown message\`.
+        A \`crown message\` will only be sent if a \`crown channel\`, \`crown role\`, and \`crown schedule\` are set.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],

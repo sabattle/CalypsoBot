@@ -10,7 +10,8 @@ module.exports = class SetWelcomeChannelCommand extends Command {
       usage: 'setwelcomechannel <channel mention/ID>',
       description: oneLine`
         Sets the welcome message text channel for your server. 
-        Provide no channel to clear the current welcome channel.
+        Provide no channel to clear the current \`welcome channel\`.
+        A \`welcome message\` must also be set to enable welcome messages.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
