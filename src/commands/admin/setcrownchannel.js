@@ -26,7 +26,7 @@ module.exports = class SetCrownChannelCommand extends Command {
       crown_schedule: crownSchedule 
     } = message.client.db.settings.selectCrown.get(message.guild.id);
     let status = (crownRoleId && crownSchedule) ? '`enabled`' : '`disabled`';
-    const crownRole = message.guild.roles.cache.find(r => r.id === crownRoleId);
+    const crownRole = message.guild.roles.cache.get(crownRoleId);
     const oldCrownChannel = message.guild.channels.cache.get(crownChannelId) || '`None`';
     
     // Trim message

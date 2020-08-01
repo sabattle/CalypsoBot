@@ -48,7 +48,7 @@ module.exports = class SettingsCommand extends Command {
 
     // Set statuses
     const verificationStatus = 
-      (row.verification_role_id && row.verification_channel_id && row.verificaton_message) ? '`enabled`' : '`disabled`';
+      (row.verification_role_id && row.verification_channel_id && row.verification_message) ? '`enabled`' : '`disabled`';
     const randomColorStatus = (row.random_color) ? '`enabled`' : '`disabled`';
     const autoKickStatus = (row.auto_kick) ? `After \`${row.auto_kick}\` warn(s)` : '`disabled`';
     const welcomeStatus = (row.welcome_message && row.welcome_channel_id) ? '`enabled`' : '`disabled`';
@@ -84,10 +84,10 @@ module.exports = class SettingsCommand extends Command {
       case 'verification':
         if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
         embed
-          .setTitle('Settings: `Verification Messages`')
+          .setTitle('Settings: `Verification`')
           .addField('Role', verificationRole, true)
-          .addField('Channel', welcomeChannel, true)
-          .addField('Status', welcomeStatus, true);
+          .addField('Channel', verificationChannel, true)
+          .addField('Status', verificationStatus, true);
         if (verificationMessage.length > 1024) embed
           .setDescription(verificationMessage)
           .addField('Message', 'Message located above due to character limits.');
