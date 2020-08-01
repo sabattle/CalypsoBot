@@ -8,8 +8,9 @@ module.exports = (client, message) => {
   let disabledCommands = client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
   if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
   
-  // Check if points enabled
-  const pointsEnabled = client.utils.checkPointsEnabled(client, message.guild);
+  // Get points
+  const { point_tracking: pointTracking, message_points: messagePoints, command_points: commandPoints } = 
+    client.db.settings.selectPoints.get(message.guild.id);
 
   // Command handler
   const prefix = client.db.settings.selectPrefix.pluck().get(message.guild.id);
@@ -28,10 +29,8 @@ module.exports = (client, message) => {
       if (permission) {
 
         // Update points with commandPoints value
-        if (pointsEnabled) {
-          const commandPoints = client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
+        if (pointTracking)
           client.db.users.updatePoints.run({ points: commandPoints }, message.author.id, message.guild.id);
-        }
         message.command = true; // Add flag for messageUpdate event
         return command.run(message, args); // Run command
       }
@@ -59,9 +58,6 @@ module.exports = (client, message) => {
   }
 
   // Update points with messagePoints value
-  if (pointsEnabled) {
-    const messagePoints = client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
-    client.db.users.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
-  }
+  if (pointTracking) client.db.users.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
 };
 

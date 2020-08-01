@@ -67,26 +67,12 @@ function getOrdinalNumeral(number) {
 }
 
 /**
- * Checks if points are enabled on a server
- * @param {Client} client 
- * @param {Guild} guild
- */
-function checkPointsEnabled(client, guild) {
-  return client.db.settings.selectPointsEnabled.pluck().get(guild.id);
-}
-
-/**
  * Gets the next moderation case number
  * @param {Client} client 
  * @param {Guild} guild
  */
-async function getCaseNumber(client, guild) {
+async function getCaseNumber(client, guild, modlogChannel) {
   
-  // Get modlog channel
-  const modlogChannelId = client.db.settings.selectModlogChannelId.pluck().get(guild.id);
-  let modlogChannel;
-  if (modlogChannelId) modlogChannel = guild.channels.cache.get(modlogChannelId);
-
   const message = (await modlogChannel.messages.fetch({ limit: 100 })).filter(m => m.member === guild.me &&
     m.embeds[0] &&
     m.embeds[0].type == 'rich' &&
@@ -110,12 +96,18 @@ async function getCaseNumber(client, guild) {
  * @param {Guild} guild
  * @param {Role} crownRole
  */
-async function transferCrown(client, guild, crownRole) {
+async function transferCrown(client, guild, crownRoleId) {
 
-  // Get crown message channel
-  const crownChannelId = client.db.settings.selectCrownChannelId.pluck().get(guild.id);
-  let crownChannel;
-  if (crownChannelId) crownChannel = guild.channels.cache.get(crownChannelId);
+  const crownRole = guild.roles.cache.get(crownRoleId);
+  
+  // If crown role is unable to be found
+  if (!crownRole) {
+    const prefix = client.db.settings.selectPrefix.pluck().get(guild.id);
+    return client.sendSystemErrorMessage(guild, 'schedule crown', oneLine`
+      Something went wrong. Unable to find the stored \`crown role\`. The role may have been modified or deleted. 
+      Please use \`${prefix}setcrownrole\` to set a new \`crown role\`.
+    `);
+  }
   
   const leaderboard = client.db.users.selectLeaderboard.all(guild.id);
   const winner = guild.members.cache.get(leaderboard[0].user_id);
@@ -152,16 +144,20 @@ async function transferCrown(client, guild, crownRole) {
     `, err.message);
   }
   
-  let crownMessage = client.db.settings.selectCrownMessage.pluck().get(guild.id);
+  // Get crown channel and crown channel
+  let { crown_channel_id: crownChannelId, crown_message: crownMessage } = 
+  client.db.settings.selectCrown.get(guild.id);
+  const crownChannel = guild.channels.cache.get(crownChannelId);
+
   if (crownMessage) {
     crownMessage = crownMessage.replace('?member', winner); // Member substituion
     crownMessage = crownMessage.replace('?role', crownRole); // Role substituion
   }
 
   // Send crown message
-  if (crownChannel && crownMessage) crownChannel.send(crownMessage);
+  if (crownChannel && crownChannel.viewable && crownMessage) crownChannel.send(crownMessage);
 
-  client.logger.info(`${guild.name}: Successfully assigned crown role to ${winner.user.tag} and reset server points`);
+  client.logger.info(`${guild.name}: Assigned crown role to ${winner.user.tag} and reset server points`);
 }
 
 /**
@@ -171,13 +167,11 @@ async function transferCrown(client, guild, crownRole) {
  */
 function scheduleCrown(client, guild) {
 
-  const crownRoleId = client.db.settings.selectCrownRoleId.pluck().get(guild.id);
-  let crownRole;
-  if (crownRoleId) crownRole = guild.roles.cache.get(crownRoleId);
-  const cron = client.db.settings.selectCrownSchedule.pluck().get(guild.id);
-  if (crownRole && cron) {
+  const { crown_role_id: crownRoleId, crown_schedule: cron } = client.db.settings.selectCrown.get(guild.id);
+
+  if (crownRoleId && cron) {
     guild.job = schedule.scheduleJob(cron, () => {
-      client.utils.transferCrown(client, guild, crownRole);
+      client.utils.transferCrown(client, guild, crownRoleId);
     });
     client.logger.info(`${guild.name}: Successfully scheduled job`);
   }
@@ -189,7 +183,6 @@ module.exports = {
   trimArray,
   trimStringFromArray,
   getOrdinalNumeral,
-  checkPointsEnabled,
   getCaseNumber,
   transferCrown,
   scheduleCrown

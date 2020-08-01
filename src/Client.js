@@ -196,8 +196,7 @@ class Client extends Discord.Client {
 
     // Get system channel
     const systemChannelId = this.db.settings.selectSystemChannelId.pluck().get(guild.id);
-    let systemChannel;
-    if (systemChannelId) systemChannel = guild.channels.cache.get(systemChannelId);
+    const systemChannel = guild.channels.cache.get(systemChannelId);
 
     if ( // Check channel and permissions
       !systemChannel || 

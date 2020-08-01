@@ -5,23 +5,33 @@ module.exports = class ToggleRandomColorCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'togglerandomcolor',
-      aliases: ['togglerc', 'trc'],
+      aliases: ['togglerc', 'togrc', 'trc'],
       usage: 'togglerandomcolor',
-      description: 'Enables or disables automatic random color role assigning when someone joins your server.',
+      description: `
+        Enables or disables random color role assigning when someone joins your server, or upon being verified.
+      `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD']
     });
   }
   run(message) {
-    let randomColorEnabled = message.client.db.settings.selectRandomColorEnabled.pluck().get(message.guild.id);
-    randomColorEnabled = 1 - randomColorEnabled; // Invert
-    message.client.db.settings.updateRandomColorEnabled.run(randomColorEnabled, message.guild.id);
-    const status = (randomColorEnabled == 1) ? '`disabled`	🡪 `enabled`' : '`enabled` 🡪 `disabled`';
+    let randomColor = message.client.db.settings.selectRandomColor.pluck().get(message.guild.id);
+    randomColor = 1 - randomColor; // Invert
+    message.client.db.settings.updateRandomColor.run(randomColor, message.guild.id);
+    let description, status;
+    if (randomColor == 1) {
+      status = '`disabled`	🡪 `enabled`';
+      description = '`Random color` has been successfully **enabled**. <:success:736449240728993802>';
+    } else {
+      status = '`enabled` 🡪 `disabled`';
+      description = '`Random color` has been successfully **disabled**. <:fail:736449226120233031>';   
+    } 
+    
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Random Color`')
       .setThumbnail(message.guild.iconURL())
-      .addField('Setting', 'Auto Random Color', true)
-      .addField('Current Status', status, true)
+      .setDescription(description)
+      .addField('Status', status, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -6,7 +6,7 @@ module.exports = class ToggleTypeCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'toggletype',
-      aliases: ['togglet', 'tt'],
+      aliases: ['togglet', 'togt', 'tt'],
       usage: 'toggletype <command type>',
       description: oneLine`
         Enables or disables the provided command type.
@@ -50,8 +50,9 @@ module.exports = class ToggleTypeCommand extends Command {
         for (const cmd of commands) {
           if (disabledCommands.includes(cmd.name)) message.client.utils.removeElement(disabledCommands, cmd.name);
         }
-        description = `
-          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **enabled**.
+        description = oneLine`
+          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully 
+          **enabled**. <:success:736449240728993802>
         `;
       
       // Disable type
@@ -59,8 +60,9 @@ module.exports = class ToggleTypeCommand extends Command {
         for (const cmd of commands) {
           if (!disabledCommands.includes(cmd.name)) disabledCommands.push(cmd.name);
         }
-        description = `
-          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully **disabled**.
+        description = oneLine`
+          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully 
+          **disabled**. <:fail:736449226120233031>
         `;
       }
     } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command type.');
@@ -69,11 +71,10 @@ module.exports = class ToggleTypeCommand extends Command {
 
     disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Disabled Commands`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
-      .addField('Setting', 'Disabled Commands', true)
-      .addField('Current Value', disabledCommands, true)
+      .addField('Disabled Commands', disabledCommands, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -21,8 +21,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
         │    └─────────────── hour (0 - 23)
         └──────────────────── minute (0 - 59)\`\`\`
         If you wish to use multiple values for any of the categories, please separate them with \`,\`.` +
-        ' Step syntax is also supported, for example: `*/5 * * * *` (every 5 minutes). ' +
-        'For the day of the week, both 0 and 7 may represent Sunday.' +
+        ' Step syntax is also supported, for example: `*/30 * * * *` (every 30 minutes). ' +
+        'For the day of the week, both 0 and 7 may represent Sunday. ' +
         'If you need additional help building your cron, please check out this website: <https://crontab.guru/#>. ' + 
         `Enter no schedule to clear the current crown schedule.
         **Please Note:** Not all months have the same amount of days.`,
@@ -32,39 +32,69 @@ module.exports = class SetCrownScheduleCommand extends Command {
     });
   }
   run(message, args) {
-    const oldCrownSchedule = message.client.db.settings.selectCrownSchedule.pluck().get(message.guild.id);
-    const status = (oldCrownSchedule) ? '`enabled`' : '`disabled`';
+    const { 
+      crown_role_id: crownRoleId, 
+      crown_channel_id: crownChannelId, 
+      crown_message: crownMessage, 
+      crown_schedule: oldCrownSchedule 
+    } = message.client.db.settings.selectCrown.get(message.guild.id);
+    let status, oldStatus = (crownRoleId && oldCrownSchedule) ? '`enabled`' : '`disabled`';
+    const crownRole = message.guild.roles.cache.find(r => r.id === crownRoleId);
+    const crownChannel = message.guild.channels.cache.get(crownChannelId);
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Crown Schedule', true)
+      .setDescription('The `crown schedule` was successfully updated. <:success:736449240728993802>')
+      .addField('Role', crownRole || '`None`', true)
+      .addField('Channel', crownChannel || '`None`', true)
+      .addField('Message', crownMessage || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+
+    // Clear schedule
     if (!message.content.includes(' ')) {
       message.client.db.settings.updateCrownSchedule.run(null, message.guild.id);
+      if (message.guild.job) message.guild.job.cancel(); // Cancel old job
+      
+      // Check status
+      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
+      else status = '`disabled`';
+      
       return message.channel.send(embed
-        .addField('Current Status', `${status} ➔ \`disabled\``, true)
-        .addField('New Crown Schedule', '`None`')
+        .spliceFields(2, 0, { name: 'Schedule', value: `\`${oldCrownSchedule || 'None'}\` ➔ \`None\``, inline: true })
+        .spliceFields(3, 0, { name: 'Status', value: status })
       );
     }
-    let cron = message.content.slice(message.content.indexOf(args[0]), message.content.length);
+
+    const crownSchedule = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     try {
-      parser.parseExpression(cron);
+      parser.parseExpression(crownSchedule);
     } catch (err) {
       return this.sendErrorMessage(message, oneLine`
         Invalid argument. Please try again with a valid cron expression. 
         If you need additional help building your cron, please check out this website: <https://crontab.guru/#>
       `);
     }
-    message.client.db.settings.updateCrownSchedule.run(cron, message.guild.id);
+
+    message.client.db.settings.updateCrownSchedule.run(crownSchedule, message.guild.id);
     if (message.guild.job) message.guild.job.cancel(); // Cancel old job
+
     // Schedule crown role rotation
     message.client.utils.scheduleCrown(message.client, message.guild);
+
+    // Check status
+    if (oldStatus != '`enabled`' && crownRoleId && crownSchedule) status =  '`disabled` ➔ `enabled`';
+    else status = oldStatus;
+
     message.channel.send(embed
-      .setDescription('Successfully updated the `crown schedule`. Please note that a `crown role` must also be set.')
-      .addField('Current Status', `${status} ➔ \`enabled\``, true)
-      .addField('New Crown Schedule', `\`${cron}\``)
+      .spliceFields(2, 0, { 
+        name: 'Schedule', 
+        value: `\`${oldCrownSchedule || 'None'}\` ➔ \`${crownSchedule}\``, 
+        inline: true 
+      })
+      .spliceFields(3, 0, { name: 'Status', value: status })
     );
   }
 };

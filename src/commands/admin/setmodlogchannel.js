@@ -22,10 +22,9 @@ module.exports = class SetModlogChannelCommand extends Command {
     let oldModlogChannel = '`None`';
     if (modlogChannelId) oldModlogChannel = message.guild.channels.cache.get(modlogChannelId);
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Modlog Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Modlog Channel', true)
-      .setDescription('The `modlog channel` was successfully updated.')
+      .setDescription('The `modlog channel` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -33,7 +32,7 @@ module.exports = class SetModlogChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateModlogChannelId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ \`None\``, true));
+      return message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ \`None\``));
     }
 
     const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
@@ -41,6 +40,6 @@ module.exports = class SetModlogChannelCommand extends Command {
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
     message.client.db.settings.updateModlogChannelId.run(channel.id, message.guild.id);
-    message.channel.send(embed.addField('Current Value', `${oldModlogChannel} ➔ ${channel}`, true));
+    message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ ${channel}`));
   }
 };

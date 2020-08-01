@@ -22,10 +22,9 @@ module.exports = class SetSystemChannelCommand extends Command {
     let oldSystemChannel = '`None`';
     if (systemChannelId) oldSystemChannel = message.guild.channels.cache.get(systemChannelId);
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `System Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `system channel` was successfully updated.')
-      .addField('Setting', 'System Channel', true)
+      .setDescription('The `system channel` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -33,7 +32,7 @@ module.exports = class SetSystemChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateSystemChannelId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Value', `${oldSystemChannel} ➔ \`None\``, true));
+      return message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ \`None\``));
     }
 
     const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
@@ -41,6 +40,6 @@ module.exports = class SetSystemChannelCommand extends Command {
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
     message.client.db.settings.updateSystemChannelId.run(channel.id, message.guild.id);
-    message.channel.send(embed.addField('Current Value', `${oldSystemChannel} ➔ ${channel}`, true));
+    message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${channel}`));
   }
 };

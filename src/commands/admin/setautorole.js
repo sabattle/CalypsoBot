@@ -22,10 +22,9 @@ module.exports = class SetAutoRoleCommand extends Command {
     let oldRole = message.guild.roles.cache.find(r => r.id === autoRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Auto Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `auto role` was successfully updated.')
-      .addField('Setting', 'Auto Role', true)
+      .setDescription('The `auto role` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -33,13 +32,13 @@ module.exports = class SetAutoRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateAutoRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Value', `${oldRole} ➔ \`None\``, true));
+      return message.channel.send(embed.addField('Role', `${oldRole} ➔ \`None\``));
     }
 
     // Update role
     const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
     if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
     message.client.db.settings.updateAutoRoleId.run(role.id, message.guild.id);
-    message.channel.send(embed.addField('Current Value', `${oldRole} ➔ ${role}`, true));
+    message.channel.send(embed.addField('Role', `${oldRole} ➔ ${role}`));
   }
 };

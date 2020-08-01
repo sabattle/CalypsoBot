@@ -19,33 +19,45 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     });
   }
   run(message, args) {
-    const oldWelcomeMessage = message.client.db.settings.selectWelcomeMessage.pluck().get(message.guild.id);
-    const status = (oldWelcomeMessage) ? '`enabled`' : '`disabled`';
+
+    const { welcome_channel_id: welcomeChannelId, welcome_message: oldWelcomeMessage } = 
+      message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
+    let welcomeChannel = message.guild.channels.cache.get(welcomeChannelId);
+    let status, oldStatus = (welcomeChannelId && oldWelcomeMessage) ? '`enabled`' : '`disabled`';
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Welcome Messages`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Welcome Message', true)
+      .setDescription('The `welcome message` was successfully updated. <:success:736449240728993802>')
+      .addField('Channel', welcomeChannel || '`None`', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
     if (!args[0]) {
       message.client.db.settings.updateWelcomeMessage.run(null, message.guild.id);
+
+      // Check status
+      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
+      else status = '`disabled`';
+
       return message.channel.send(embed
-        .setDescription('The `welcome message` was successfully updated.')
-        .addField('Current Status', `${status} ➔ \`disabled\``, true)
-        .addField('New Message', '`None`')
+        .addField('Status', status, true)
+        .addField('Message', '`None`')
       );
     }
+    
     let welcomeMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
+
+    // Check status
+    if (oldStatus != '`enabled`' && welcomeChannel && welcomeMessage) status =  '`disabled` ➔ `enabled`';
+    else status = oldStatus;
+
     message.channel.send(embed
-      .setDescription(oneLine`
-        The \`welcome message\` was successfully updated. Please note that a \`welcome channel\` must also be set.
-      `)
-      .addField('Current Status', `${status} ➔ \`enabled\``, true)
-      .addField('New Message', welcomeMessage)
+      .addField('Status', status, true)
+      .addField('Message', welcomeMessage)
     );
   }
 };

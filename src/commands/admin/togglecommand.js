@@ -6,7 +6,7 @@ module.exports = class ToggleCommandCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'togglecommand',
-      aliases: ['togglec', 'tc'],
+      aliases: ['togglec', 'togc', 'tc'],
       usage: 'togglecommand <command>',
       description: oneLine`
         Enables or disables the provided command. 
@@ -37,23 +37,22 @@ module.exports = class ToggleCommandCommand extends Command {
     // Disable command
     if (!disabledCommands.includes(command.name)) {
       disabledCommands.push(command.name); // Add to array if not present
-      description = `The \`${command.name}\` command has been successfully **disabled**.`;
+      description = `The \`${command.name}\` command has been successfully **disabled**. <:fail:736449226120233031>`;
     
     // Enable command
     } else {
       message.client.utils.removeElement(disabledCommands, command.name);
-      description = `The \`${command.name}\` command has been successfully **enabled**.`;
+      description = `The \`${command.name}\` command has been successfully **enabled**. <:success:736449240728993802>`;
     }
 
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);
 
     disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Disabled Commands`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
-      .addField('Setting', 'Disabled Commands', true)
-      .addField('Current Value', disabledCommands, true)
+      .addField('Disabled Commands', disabledCommands, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

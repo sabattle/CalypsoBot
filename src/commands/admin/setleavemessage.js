@@ -19,34 +19,45 @@ module.exports = class SetLeaveMessageCommand extends Command {
     });
   }
   run(message, args) {
-    const oldLeaveMessage = message.client.db.settings.selectLeaveMessage.pluck().get(message.guild.id);
-    const status = (oldLeaveMessage) ? '`enabled`' : '`disabled`';
+
+    const { leave_channel_id: leaveChannelId, leave_message: oldLeaveMessage } = 
+      message.client.db.settings.selectLeaveMessages.get(message.guild.id);
+    const leaveChannel = message.guild.channels.cache.get(leaveChannelId);
+    let status, oldStatus = (leaveChannelId && oldLeaveMessage) ? '`enabled`' : '`disabled`';
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Leave Messages`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Leave Message', true)
+      .setDescription('The `leave message` was successfully updated. <:success:736449240728993802>')
+      .addField('Channel', leaveChannel || '`None`', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    
+
     if (!args[0]) {
       message.client.db.settings.updateLeaveMessage.run(null, message.guild.id);
+
+      // Check status
+      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
+      else status = '`disabled`';
+
       return message.channel.send(embed
-        .setDescription('The `leave message` was successfully updated.')
-        .addField('Current Status', `${status} ➔ \`disabled\``, true)
-        .addField('New Message', '`None`')
+        .addField('Status', status, true)
+        .addField('Message', '`None`')
       );
     }
     
     let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length > 1024) leaveMessage = leaveMessage.slice(0, 1021) + '...';
+
+    // Check status
+    if (oldStatus != '`enabled`' && leaveChannel && leaveMessage) status =  '`disabled` ➔ `enabled`';
+    else status = oldStatus;
+
     message.channel.send(embed
-      .setDescription(oneLine`
-        The \`leave message\` was successfully updated. Please note that a \`leave channel\` must also be set.
-      `)
-      .addField('Current Status', `${status} ➔ \`enabled\``, true)
-      .addField('New Message', leaveMessage)
+      .addField('Status', status, true)
+      .addField('Message', leaveMessage)
     );
   }
 };

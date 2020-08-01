@@ -18,13 +18,17 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     });
   }
   run(message, args) {
-    const welcomeChannelId = message.client.db.settings.selectWelcomeChannelId.pluck().get(message.guild.id);
-    let oldWelcomeChannel = '`None`';
-    if (welcomeChannelId) oldWelcomeChannel = message.guild.channels.cache.get(welcomeChannelId);
+
+    const { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
+      message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
+    const oldWelcomeChannel = message.guild.channels.cache.get(welcomeChannelId) || '`None`';
+    let status, oldStatus = (welcomeChannelId && welcomeMessage) ? '`enabled`' : '`disabled`';
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Welcome Messages`')
+      .setDescription('The `welcome channel` was successfully updated. <:success:736449240728993802>')
+      .addField('Message', welcomeMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Welcome Channel', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -32,9 +36,14 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateWelcomeChannelId.run(null, message.guild.id);
+
+      // Check status
+      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
+      else status = '`disabled`';
+      
       return message.channel.send(embed
-        .setDescription('The `welcome channel` was successfully updated.')
-        .addField('Current Value', `${oldWelcomeChannel} ➔ \`None\``, true)
+        .spliceFields(0, 0, { name: 'Channel', value: `${oldWelcomeChannel} ➔ \`None\``, inline: true })
+        .spliceFields(1, 0, { name: 'Status', value: status, inline: true })
       );
     }
 
@@ -42,12 +51,15 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
+
+    // Check status
+    if (oldStatus != '`enabled`' && channel && welcomeMessage) status =  '`disabled` ➔ `enabled`';
+    else status = oldStatus;
+
     message.client.db.settings.updateWelcomeChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed
-      .setDescription(oneLine`
-        The \`welcome channel\` was successfully updated. Please note that a \`welcome message\` must also be set.
-      `)
-      .addField('Current Value', `${oldWelcomeChannel} ➔ ${channel}`, true)
+      .spliceFields(0, 0, { name: 'Channel', value: `${oldWelcomeChannel} ➔ ${channel}`, inline: true})
+      .spliceFields(1, 0, { name: 'Status', value: status, inline: true})
     );
   }
 };

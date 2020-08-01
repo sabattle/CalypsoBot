@@ -19,34 +19,38 @@ module.exports = class SetCrownMessageCommand extends Command {
     });
   }
   run(message, args) {
-    const oldCrownMessage = message.client.db.settings.selectCrownMessage.pluck().get(message.guild.id);
-    const status = (oldCrownMessage) ? '`enabled`' : '`disabled`';
+    const { 
+      crown_role_id: crownRoleId, 
+      crown_channel_id: crownChannelId, 
+      crown_schedule: crownSchedule 
+    } = message.client.db.settings.selectCrown.get(message.guild.id);
+    const status = (crownRoleId && crownSchedule) ? '`enabled`' : '`disabled`';
+    const crownRole = message.guild.roles.cache.find(r => r.id === crownRoleId) || '`None`';
+    const crownChannel = message.guild.channels.cache.get(crownChannelId);
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Crown Message', true)
+      .setDescription('The `crown message` was successfully updated. <:success:736449240728993802>')
+      .addField('Role', crownRole || '`None', true)
+      .addField('Channel', crownChannel || '`None`', true)
+      .addField('Schedule', `\`${crownSchedule}\`` || '`None`', true)
+      .addField('Status', status)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
+    // Clear message
     if (!args[0]) {
       message.client.db.settings.updateCrownMessage.run(null, message.guild.id);
-      return message.channel.send(embed
-        .setDescription('The `crown message` was successfully updated.')
-        .addField('Current Status', `${status} ➔ \`disabled\``, true)
-        .addField('New Message', '`None`')
+      return message.channel.send(embed.addField('Message', '`None`')
       );
     }
+
     let crownMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateCrownMessage.run(crownMessage, message.guild.id);
     if (crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
-    message.channel.send(embed
-      .setDescription(oneLine`
-        The \`crown message\` was successfully updated.
-        Please note that a \`crown role\`, \`crown channel\`, and \`crown schedule\` must also be set.
-      `)
-      .addField('Current Status', `${status} ➔ \`enabled\``, true)
-      .addField('New Message', crownMessage)
+    message.channel.send(embed.addField('Message', crownMessage)
     );
   }
 };

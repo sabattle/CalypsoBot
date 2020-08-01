@@ -4,9 +4,8 @@ module.exports = (client, member) => {
   let leaveMessage = client.db.settings.selectLeaveMessage.pluck().get(member.guild.id);
   if (leaveMessage) leaveMessage = leaveMessage.replace('?member', member); // Member substituion
   const leaveChannelId = client.db.settings.selectLeaveChannelId.pluck().get(member.guild.id);
-  let leaveChannel;
-  if (leaveChannelId) leaveChannel = member.guild.channels.cache.get(leaveChannelId);
-  if (leaveMessage && leaveChannel) leaveChannel.send(leaveMessage);
+  const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
+  if (leaveMessage && leaveChannel && leaveChannel.viewable) leaveChannel.send(leaveMessage);
 
   // Update users table
   client.db.users.updateCurrentMember.run(0, member.id, member.guild.id);

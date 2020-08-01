@@ -18,17 +18,16 @@ module.exports = async (client, member) => {
 
   // Get welcome channel
   const welcomeChannelId = client.db.settings.selectWelcomeChannelId.pluck().get(member.guild.id);
-  let welcomeChannel;
-  if (welcomeChannelId) welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
+  const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
   // Send welcome message
   let welcomeMessage = client.db.settings.selectWelcomeMessage.pluck().get(member.guild.id);
   if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
-  if (welcomeMessage && welcomeChannel) welcomeChannel.send(welcomeMessage);
+  if (welcomeMessage && welcomeChannel && welcomeChannel.viewable) welcomeChannel.send(welcomeMessage);
 
   // Assign random color
-  const randomColorEnabled = client.db.settings.selectRandomColorEnabled.pluck().get(member.guild.id);
-  if (randomColorEnabled) {
+  const randomColor = client.db.settings.selectRandomColor.pluck().get(member.guild.id);
+  if (randomColor) {
     const prefix = client.db.settings.selectPrefix.pluck().get(member.guild.id);
     const colors = member.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
 

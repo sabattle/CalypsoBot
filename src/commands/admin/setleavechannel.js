@@ -18,13 +18,16 @@ module.exports = class SetLeaveChannelCommand extends Command {
     });
   }
   run(message, args) {
-    const leaveChannelId = message.client.db.settings.selectLeaveChannelId.pluck().get(message.guild.id);
-    let oldLeaveChannel = '`None`';
-    if (leaveChannelId) oldLeaveChannel = message.guild.channels.cache.get(leaveChannelId);
+    const { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
+      message.client.db.settings.selectLeaveMessages.get(message.guild.id);
+    const oldLeaveChannel = message.guild.channels.cache.get(leaveChannelId) || '`None`';
+    let status, oldStatus = (leaveChannelId && leaveMessage) ? '`enabled`' : '`disabled`';
+
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Leave Messages`')
+      .setDescription('The `leave channel` was successfully updated. <:success:736449240728993802>')
+      .addField('Message', leaveMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Setting', 'Leave Channel', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -32,9 +35,14 @@ module.exports = class SetLeaveChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateLeaveChannelId.run(null, message.guild.id);
+
+      // Check status
+      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
+      else status = '`disabled`';
+      
       return message.channel.send(embed
-        .setDescription('The `leave channel` was successfully updated.')
-        .addField('Current Value', `${oldLeaveChannel} ➔ \`None\``, true)
+        .spliceFields(0, 0, { name: 'Channel', value: `${oldLeaveChannel} ➔ \`None\``, inline: true })
+        .spliceFields(1, 0, { name: 'Status', value: status, inline: true })
       );
     }
 
@@ -42,12 +50,15 @@ module.exports = class SetLeaveChannelCommand extends Command {
     if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
+
+    // Check status
+    if (oldStatus != '`enabled`' && channel && leaveMessage) status =  '`disabled` ➔ `enabled`';
+    else status = oldStatus;
+
     message.client.db.settings.updateLeaveChannelId.run(channel.id, message.guild.id);
     message.channel.send(embed
-      .setDescription(oneLine`
-        The \`leave channel\` was successfully updated. Please note that a \`leave message\` must also be set.
-      `)
-      .addField('Current Value', `${oldLeaveChannel} ➔ ${channel}`, true)
+      .spliceFields(0, 0, { name: 'Channel', value: `${oldLeaveChannel} ➔ ${channel}`, inline: true})
+      .spliceFields(1, 0, { name: 'Status', value: status, inline: true})
     );
   }
 };

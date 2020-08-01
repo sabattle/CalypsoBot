@@ -23,11 +23,10 @@ module.exports = class SetPrefixCommand extends Command {
       );
     message.client.db.settings.updatePrefix.run(prefix, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Prefix`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `prefix` was successfully updated.')
-      .addField('Setting', 'Prefix', true)
-      .addField('Current Value', `\`${oldPrefix}\` ➔ \`${prefix}\``, true)
+      .setDescription('The `prefix` was successfully updated. <:success:736449240728993802>')
+      .addField('Prefix', `\`${oldPrefix}\` ➔ \`${prefix}\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

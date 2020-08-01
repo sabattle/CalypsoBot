@@ -5,7 +5,7 @@ module.exports = class TogglePointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'togglepoints',
-      aliases: ['togglep'],
+      aliases: ['togglep', 'togp'],
       usage: 'togglepoints',
       description: 'Enables or disables Calypso\'s point tracking.',
       type: client.types.ADMIN,
@@ -13,15 +13,32 @@ module.exports = class TogglePointsCommand extends Command {
     });
   }
   run(message) {
-    let pointsEnabled = message.client.db.settings.selectPointsEnabled.pluck().get(message.guild.id);
-    pointsEnabled = 1 - pointsEnabled; // Invert
-    message.client.db.settings.updatePointsEnabled.run(pointsEnabled, message.guild.id);
-    const status = (pointsEnabled == 1) ? '`disabled`	🡪 `enabled`' : '`enabled` 🡪 `disabled`';
+    let { 
+      point_tracking: pointTracking, 
+      message_points: messagePoints, 
+      command_points: commandPoints,
+      voice_points: voicePoints 
+    } = message.client.db.settings.selectPoints.get(message.guild.id);
+    pointTracking = 1 - pointTracking; // Invert
+    message.client.db.settings.updatePointTracking.run(pointTracking, message.guild.id);
+
+    let description, status;
+    if (pointTracking == 1) {
+      status = '`disabled`	🡪 `enabled`';
+      description = '`Points` have been successfully **enabled**. <:success:736449240728993802>';
+    } else {
+      status = '`enabled` 🡪 `disabled`';
+      description = '`Points` have been successfully **disabled**. <:fail:736449226120233031>';   
+    } 
+    
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Points System`')
       .setThumbnail(message.guild.iconURL())
-      .addField('Setting', 'Points', true)
-      .addField('Current Status', status, true)
+      .setDescription(description)
+      .addField('Message Points', `\`${messagePoints}\``, true)
+      .addField('Command Points', `\`${commandPoints}\``, true)
+      .addField('Voice Points', `\`${voicePoints}\``, true)
+      .addField('Status', status, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

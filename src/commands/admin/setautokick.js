@@ -19,16 +19,15 @@ module.exports = class SetAutoKickCommand extends Command {
   }
   run(message, args) {
 
-    const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id) || 'None';
+    const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id) || 'disabled';
     const amount = args[0];
     if (amount && (!Number.isInteger(Number(amount)) || amount < 0)) 
       return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
       
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Auto Kick`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('`Auto kick` was successfully updated.')
-      .addField('Setting', 'Auto Kick', true)
+      .setDescription('`Auto kick` was successfully updated. <:success:736449240728993802>')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
@@ -36,10 +35,10 @@ module.exports = class SetAutoKickCommand extends Command {
     // Clear if no args provided
     if (args.length === 0 || amount == 0) {
       message.client.db.settings.updateAutoKick.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Current Value', `\`${autoKick}\` ➔ \`None\``, true));
+      return message.channel.send(embed.addField('Status', `\`${autoKick}\` ➔ \`disabled\``));
     }
 
     message.client.db.settings.updateAutoKick.run(amount, message.guild.id);
-    message.channel.send(embed.addField('Current Value', `\`${autoKick}\` ➔ \`${amount}\``, true));
+    message.channel.send(embed.addField('Status', `\`${autoKick}\` ➔ \`${amount}\``));
   }
 };

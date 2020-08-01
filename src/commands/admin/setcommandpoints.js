@@ -17,14 +17,22 @@ module.exports = class SetCommandPointsCommand extends Command {
     const amount = args[0];
     if (!amount || !Number.isInteger(Number(amount)) || amount < 0) 
       return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
-    const commandPoints = message.client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
+    const { 
+      point_tracking: pointTracking, 
+      message_points: messagePoints, 
+      command_points: commandPoints,
+      voice_points: voicePoints 
+    } = message.client.db.settings.selectPoints.get(message.guild.id);
+    const status = (pointTracking) ? '`enabled`' : '`disabled`';
     message.client.db.settings.updateCommandPoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Server Settings')
+      .setTitle('Setting: `Points System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `command points` value was successfully updated.')
-      .addField('Setting', 'Command Points', true)
-      .addField('Current Value', `\`${commandPoints}\` ➔ \`${amount}\``, true)
+      .setDescription('The `command points` value was successfully updated. <:success:736449240728993802>')
+      .addField('Message Points', `\`${messagePoints}\``, true)
+      .addField('Command Points', `\`${commandPoints}\` ➔ \`${amount}\``, true)
+      .addField('Voice Points', `\`${voicePoints}\``, true)
+      .addField('Status', status)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

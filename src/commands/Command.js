@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { stripIndent } = require('common-tags');
 const permissions = require('../utils/permissions.json');
 
 /**
@@ -165,7 +166,7 @@ class Command {
         const embed = new MessageEmbed()
           .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
           .setTitle(`Missing User Permissions: \`${this.name}\``)
-          .setDescription(`
+          .setDescription(stripIndent`
             The \`${this.name}\` command requires you to have the following permissions: 
           
             ${missingPermissions.map(p => `\`${p}\``).join(' ')}
@@ -200,7 +201,7 @@ class Command {
           ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
         )
         .setTitle(`Missing Bot Permissions: \`${this.name}\``)
-        .setDescription(`
+        .setDescription(stripIndent`
           The \`${this.name}\` command requires me to have the following permissions: 
         
           ${missingPermissions.map(p => `\`${p}\``).join(' ')}
@@ -240,10 +241,9 @@ class Command {
    */
   async sendModlogMessage(message, reason, fields = {}) {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    let modlogChannel;
-    if (modlogChannelId) modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-    if (modlogChannel) {
-      const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild);
+    const modlogChannel = message.guild.channels.cache.get(modlogChannelId);
+    if (modlogChannel && modlogChannel.viewable) {
+      const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild, modlogChannel);
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)
         .addField('Moderator', message.member, true)
