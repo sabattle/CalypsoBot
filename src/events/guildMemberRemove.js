@@ -1,10 +1,10 @@
 module.exports = (client, member) => {
 
   // Send leave message
-  let { leave_channel_id: leaveChannelId, leave_message_id: leaveMessage } = 
+  let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
     client.db.settings.selectLeaveMessages.get(member.guild.id);
-  if (leaveMessage) leaveMessage = leaveMessage.replace('?member', member); // Member substituion
   const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
+  if (leaveMessage) leaveMessage = leaveMessage.replace('?member', member); // Member substituion
   if (leaveMessage && leaveChannel && leaveChannel.viewable) leaveChannel.send(leaveMessage);
 
   // Update users table
