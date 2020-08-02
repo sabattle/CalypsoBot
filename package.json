@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "ascii-table": "0.0.9",
-    "better-sqlite3": "^5.0.1",
+    "better-sqlite3": "^7.1.0",
     "common-tags": "^1.8.0",
     "discord.js": "^12.2.0",
     "he": "^1.2.0",
