@@ -38,6 +38,7 @@ db.prepare(`
     command_points INTEGER DEFAULT 1 NOT NULL,
     voice_points INTEGER DEFAULT 1 NOT NULL, 
     verification_message TEXT,
+    verification_message_id TEXT,
     welcome_message TEXT,
     leave_message TEXT,
     crown_message TEXT,
@@ -86,7 +87,7 @@ const settings = {
   selectSystemChannelId: db.prepare('SELECT system_channel_id FROM settings WHERE guild_id = ?;'),
   selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
   selectVerification: db.prepare(`
-    SELECT verification_role_id, verification_channel_id, verification_message 
+    SELECT verification_role_id, verification_channel_id, verification_message, verification_message_id 
     FROM settings
     WHERE guild_id = ?;
   `),
@@ -114,11 +115,11 @@ const settings = {
   updatePrefix: db.prepare('UPDATE settings SET prefix = ? WHERE guild_id = ?;'),
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
   updateSystemChannelId: db.prepare('UPDATE settings SET system_channel_id = ? WHERE guild_id = ?;'),
+  updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
+  updateVerificationChannelId: db.prepare('UPDATE settings SET verification_channel_id = ? WHERE guild_id = ?;'),
   updateWelcomeChannelId: db.prepare('UPDATE settings SET welcome_channel_id = ? WHERE guild_id = ?;'),
   updateLeaveChannelId: db.prepare('UPDATE settings SET leave_channel_id = ? WHERE guild_id = ?;'),
   updateCrownChannelId: db.prepare('UPDATE settings SET crown_channel_id = ? WHERE guild_id = ?;'),
-  updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
-  updateVerificationChannelId: db.prepare('UPDATE settings SET verification_channel_id = ? WHERE guild_id = ?;'),
   updateAdminRoleId: db.prepare('UPDATE settings SET admin_role_id = ? WHERE guild_id = ?;'),
   updateModRoleId: db.prepare('UPDATE settings SET mod_role_id = ? WHERE guild_id = ?;'),
   updateMuteRoleId: db.prepare('UPDATE settings SET mute_role_id = ? WHERE guild_id = ?;'),
@@ -131,10 +132,11 @@ const settings = {
   updateMessagePoints: db.prepare('UPDATE settings SET message_points = ? WHERE guild_id = ?;'),
   updateCommandPoints: db.prepare('UPDATE settings SET command_points = ? WHERE guild_id = ?;'),
   updateVoicePoints: db.prepare('UPDATE settings SET voice_points = ? WHERE guild_id = ?;'),
+  updateVerificationMessage: db.prepare('UPDATE settings SET verification_message = ? WHERE guild_id = ?;'),
+  updateVerificationMessageId: db.prepare('UPDATE settings SET verification_message_id = ? WHERE guild_id = ?;'),
   updateWelcomeMessage: db.prepare('UPDATE settings SET welcome_message = ? WHERE guild_id = ?;'),
   updateLeaveMessage: db.prepare('UPDATE settings SET leave_message = ? WHERE guild_id = ?;'),
   updateCrownMessage: db.prepare('UPDATE settings SET crown_message = ? WHERE guild_id = ?;'),
-  updateVerificationMessage: db.prepare('UPDATE settings SET verification_message = ? WHERE guild_id = ?;'),
   updateCrownSchedule: db.prepare('UPDATE settings SET crown_schedule = ? WHERE guild_id = ?;'),
   updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;')
 };

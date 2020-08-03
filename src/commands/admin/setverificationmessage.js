@@ -19,17 +19,21 @@ module.exports = class SetVerificationMessageCommand extends Command {
       examples: ['setverificationmessage Please read the server rules, then react to this message.']
     });
   }
-  run(message, args) {
+  async run(message, args) {
 
     let { 
       verification_role_id: verificationRoleId,
       verification_channel_id: verificationChannelId, 
-      verification_message: oldVerificationMessage 
+      verification_message: oldVerificationMessage,
+      verification_message_id: verificationMessageId 
     } = message.client.db.settings.selectVerification.get(message.guild.id);
     const verificationRole = message.guild.roles.cache.get(verificationRoleId);
     const verificationChannel = message.guild.channels.cache.get(verificationChannelId);
-    let status, oldStatus = (verificationRoleId && verificationChannelId && oldVerificationMessage) 
-      ? '`enabled`' : '`disabled`';
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(
+      verificationRoleId && verificationChannelId && oldVerificationMessage
+    );
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Verification`')
@@ -43,13 +47,16 @@ module.exports = class SetVerificationMessageCommand extends Command {
 
     if (!args[0]) {
       message.client.db.settings.updateVerificationMessage.run(null, message.guild.id);
+      message.client.db.settings.updateVerificationMessageId.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      await verificationChannel.messages.delete(verificationMessageId);
+
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
 
       return message.channel.send(embed
-        .addField('Status', status, true)
+        .addField('Status', statusUpdate, true)
         .addField('Message', '`None`')
       );
     }
@@ -58,16 +65,28 @@ module.exports = class SetVerificationMessageCommand extends Command {
     message.client.db.settings.updateVerificationMessage.run(verificationMessage, message.guild.id);
     if (verificationMessage.length >= 1018) verificationMessage = verificationMessage.slice(0, 1015) + '...';
 
-    // Check status
-    if (oldStatus != '`enabled`' && verificationRole && verificationChannel && verificationMessage) 
-      status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(verificationRole && verificationChannel && verificationMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
     message.channel.send(embed
-      .addField('Status', status, true)
+      .addField('Status', statusUpdate, true)
       .addField('Message', `\`\`\`${verificationMessage}\`\`\``)
     );
 
-    // Verif stuff
+    // Update verification
+    if (status === 'enabled') {
+      if (verificationChannel.viewable) {
+        await verificationChannel.messages.delete(verificationMessageId);
+        const msg = await verificationChannel.send(new MessageEmbed()
+          .setDescription(verificationMessage.slice(3, -3))
+          .setColor(message.guild.me.displayHexColor)
+        );
+        await msg.react('✅');
+        message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
+      } else {
+        return;
+      }
+    }
   }
 };

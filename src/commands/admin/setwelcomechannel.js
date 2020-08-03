@@ -23,7 +23,9 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
       message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
     const oldWelcomeChannel = message.guild.channels.cache.get(welcomeChannelId) || '`None`';
-    let status, oldStatus = (welcomeChannelId && welcomeMessage) ? '`enabled`' : '`disabled`';
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(welcomeChannelId, welcomeMessage);
 
     // Trim message
     if (welcomeMessage) {
@@ -44,29 +46,30 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     if (args.length === 0) {
       message.client.db.settings.updateWelcomeChannelId.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
       
       return message.channel.send(embed
         .spliceFields(0, 0, { name: 'Channel', value: `${oldWelcomeChannel} ➔ \`None\``, inline: true })
-        .spliceFields(1, 0, { name: 'Status', value: status, inline: true })
+        .spliceFields(1, 0, { name: 'Status', value: statusUpdate, inline: true })
       );
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
-      Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
-    `);
+    const welcomeChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!welcomeChannel || welcomeChannel.type != 'text' || !welcomeChannel.viewable)
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+      `);
 
-    // Check status
-    if (oldStatus != '`enabled`' && channel && welcomeMessage) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(welcomeChannel, welcomeMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
-    message.client.db.settings.updateWelcomeChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateWelcomeChannelId.run(welcomeChannel.id, message.guild.id);
     message.channel.send(embed
-      .spliceFields(0, 0, { name: 'Channel', value: `${oldWelcomeChannel} ➔ ${channel}`, inline: true})
-      .spliceFields(1, 0, { name: 'Status', value: status, inline: true})
+      .spliceFields(0, 0, { name: 'Channel', value: `${oldWelcomeChannel} ➔ ${welcomeChannel}`, inline: true})
+      .spliceFields(1, 0, { name: 'Status', value: statusUpdate, inline: true})
     );
   }
 };

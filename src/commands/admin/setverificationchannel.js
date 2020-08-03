@@ -20,17 +20,21 @@ module.exports = class SetVerificationChannelCommand extends Command {
       examples: ['setverificationchannel #verification']
     });
   }
-  run(message, args) {
+  async run(message, args) {
 
     let { 
       verification_role_id: verificationRoleId,
       verification_channel_id: verificationChannelId, 
-      verification_message: verificationMessage 
+      verification_message: verificationMessage,
+      verification_message_id: verificationMessageId 
     } = message.client.db.settings.selectVerification.get(message.guild.id);
     const verificationRole = message.guild.roles.cache.get(verificationRoleId);
     const oldVerificationChannel = message.guild.channels.cache.get(verificationChannelId) || '`None`';
-    let status, oldStatus = (verificationRoleId && verificationChannelId && verificationMessage) 
-      ? '`enabled`' : '`disabled`';
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(
+      verificationRoleId && verificationChannelId && verificationMessage
+    );
 
     // Trim message
     if (verificationMessage) {
@@ -51,33 +55,54 @@ module.exports = class SetVerificationChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateVerificationChannelId.run(null, message.guild.id);
+      message.client.db.settings.updateVerificationMessageId.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      await oldVerificationChannel.messages.delete(verificationMessageId); // Delete old message
+
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
       
       return message.channel.send(embed
         .spliceFields(1, 0, { name: 'Channel', value: `${oldVerificationChannel} ➔ \`None\``, inline: true })
-        .spliceFields(2, 0, { name: 'Status', value: status, inline: true })
+        .spliceFields(2, 0, { name: 'Status', value: statusUpdate, inline: true })
       );
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
-      Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
-    `);
+    const verificationChannel = 
+      this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!verificationChannel || verificationChannel.type != 'text' || !verificationChannel.viewable)
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+      `);
 
-    // Check status
-    if (oldStatus != '`enabled`' && verificationRole && channel && verificationMessage) 
-      status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(verificationRole && verificationChannel && verificationMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
-    message.client.db.settings.updateVerificationChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateVerificationChannelId.run(verificationChannel.id, message.guild.id);
     message.channel.send(embed
-      .spliceFields(1, 0, { name: 'Channel', value: `${oldVerificationChannel} ➔ ${channel}`, inline: true})
-      .spliceFields(2, 0, { name: 'Status', value: status, inline: true})
+      .spliceFields(1, 0, { 
+        name: 'Channel', 
+        value: `${oldVerificationChannel} ➔ ${verificationChannel}`, 
+        inline: true
+      })
+      .spliceFields(2, 0, { name: 'Status', value: statusUpdate, inline: true})
     );
 
-    // Verif stuff
+    // Update verification
+    if (status === 'enabled') {
+      if (verificationChannel.viewable) {
+        await oldVerificationChannel.messages.delete(verificationMessageId);
+        const msg = await verificationChannel.send(new MessageEmbed()
+          .setDescription(verificationMessage.slice(3, -3))
+          .setColor(message.guild.me.displayHexColor)
+        );
+        await msg.react('✅');
+        message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
+      } else {
+        return;
+      }
+    }
   }
 };

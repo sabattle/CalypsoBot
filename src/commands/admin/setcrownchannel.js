@@ -25,9 +25,11 @@ module.exports = class SetCrownChannelCommand extends Command {
       crown_message: crownMessage, 
       crown_schedule: crownSchedule 
     } = message.client.db.settings.selectCrown.get(message.guild.id);
-    let status = (crownRoleId && crownSchedule) ? '`enabled`' : '`disabled`';
     const crownRole = message.guild.roles.cache.get(crownRoleId);
     const oldCrownChannel = message.guild.channels.cache.get(crownChannelId) || '`None`';
+
+    // Get status
+    const status = message.client.utils.getStatus(crownRoleId, crownSchedule);
     
     // Trim message
     if (crownMessage) {
@@ -41,7 +43,7 @@ module.exports = class SetCrownChannelCommand extends Command {
       .setDescription('The `crown role` was successfully updated. <:success:736449240728993802>')
       .addField('Role', crownRole || '`None`', true)
       .addField('Schedule', `\`${(crownSchedule) ? crownSchedule : 'None'}\``, true)
-      .addField('Status', status)
+      .addField('Status', `\`${status}\``)
       .addField('Message', crownMessage || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
@@ -53,19 +55,19 @@ module.exports = class SetCrownChannelCommand extends Command {
       return message.channel.send(embed.spliceFields(1, 0, { 
         name: 'Channel', 
         value: `${oldCrownChannel} ➔ \`None\``, 
-        inline: true 
+        inline: true
       }));
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
+    const crownChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!crownChannel || crownChannel.type != 'text' || !crownChannel.viewable) return this.sendErrorMessage(message, `
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
 
-    message.client.db.settings.updateCrownChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateCrownChannelId.run(crownChannel.id, message.guild.id);
     message.channel.send(embed.spliceFields(1, 0, { 
       name: 'Channel', 
-      value: `${oldCrownChannel} ➔ ${channel}`, 
+      value: `${oldCrownChannel} ➔ ${crownChannel}`, 
       inline: true 
     }));
   }

@@ -15,7 +15,7 @@ module.exports = class SetModRoleCommand extends Command {
   }
   run(message, args) {
     const modRoleId = message.client.db.settings.selectModRoleId.pluck().get(message.guild.id);
-    let oldRole = message.guild.roles.cache.find(r => r.id === modRoleId) || '`None`';
+    const oldModRole = message.guild.roles.cache.find(r => r.id === modRoleId) || '`None`';
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Mod Role`')
@@ -28,13 +28,14 @@ module.exports = class SetModRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateModRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Role', `${oldRole} ➔ \`None\``));
+      return message.channel.send(embed.addField('Role', `${oldModRole} ➔ \`None\``));
     }
 
     // Update role
-    const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
-    message.client.db.settings.updateModRoleId.run(role.id, message.guild.id);
-    message.channel.send(embed.addField('Role', `${oldRole} ➔ ${role}`));
+    const modRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
+    if (!modRole)
+      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    message.client.db.settings.updateModRoleId.run(modRole.id, message.guild.id);
+    message.channel.send(embed.addField('Role', `${oldModRole} ➔ ${modRole}`));
   }
 };

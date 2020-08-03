@@ -2,10 +2,13 @@ const { oneLine } = require('common-tags');
 
 module.exports = async (client, member) => {
 
-  // Set auto role
+  /** ------------------------------------------------------------------------------------------------
+   * AUTO ROLE
+   * ------------------------------------------------------------------------------------------------ */ 
+  // Get auto role
   const autoRoleId = client.db.settings.selectAutoRoleId.pluck().get(member.guild.id);
-  if (autoRoleId) {
-    const autoRole = member.guild.roles.cache.get(autoRoleId);
+  const autoRole = member.guild.roles.cache.get(autoRoleId);
+  if (autoRole) {
     try {
       await member.roles.add(autoRole);
     } catch (err) {
@@ -16,27 +19,36 @@ module.exports = async (client, member) => {
     }
   }
 
+  /** ------------------------------------------------------------------------------------------------
+   * WELCOME MESSAGES
+   * ------------------------------------------------------------------------------------------------ */ 
   // Get welcome channel
   let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
     client.db.settings.selectWelcomeMessages.get(member.guild.id);
   const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
   // Send welcome message
-  if (welcomeMessage) welcomeMessage = welcomeMessage.replace('?member', member); // Member substituion
-  if (welcomeMessage && welcomeChannel && welcomeChannel.viewable) welcomeChannel.send(welcomeMessage);
+  if (welcomeChannel && welcomeChannel.viewable && welcomeMessage) {
+    welcomeChannel.send(welcomeMessage);
+    welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
+  }
 
+  /** ------------------------------------------------------------------------------------------------
+   * RANDOM COLOR
+   * ------------------------------------------------------------------------------------------------ */ 
   // Assign random color
   const randomColor = client.db.settings.selectRandomColor.pluck().get(member.guild.id);
   if (randomColor) {
     const prefix = client.db.settings.selectPrefix.pluck().get(member.guild.id);
     const colors = member.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
 
+    // Check length
     if (colors.length === 0) return client.sendSystemErrorMessage(member.guild, 'random color', oneLine`
       Something went wrong. Unable to give a random color to ${member}. 
       There are currently no colors set on this server. Use \`${prefix}togglerandomcolor\` to disable this feature.
     `);
 
-    const color = colors[Math.floor(Math.random() * colors.length)];
+    const color = colors[Math.floor(Math.random() * colors.length)]; // Get color
     try {
       await member.roles.add(color);
     } catch (err) {
@@ -47,6 +59,9 @@ module.exports = async (client, member) => {
     }
   }
 
+  /** ------------------------------------------------------------------------------------------------
+   * USERS TABLE
+   * ------------------------------------------------------------------------------------------------ */ 
   // Update users table
   client.db.users.insertRow.run(
     member.id, 

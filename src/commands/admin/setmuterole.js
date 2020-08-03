@@ -15,7 +15,7 @@ module.exports = class SetMuteRoleCommand extends Command {
   }
   run(message, args) {
     const muteRoleId = message.client.db.settings.selectMuteRoleId.pluck().get(message.guild.id);
-    let oldRole = message.guild.roles.cache.find(r => r.id === muteRoleId) || '`None`';
+    const oldMuteRole = message.guild.roles.cache.find(r => r.id === muteRoleId) || '`None`';
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Mute Role`')
@@ -28,13 +28,14 @@ module.exports = class SetMuteRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateMuteRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Role', `${oldRole} ➔ \`None\``));
+      return message.channel.send(embed.addField('Role', `${oldMuteRole} ➔ \`None\``));
     }
 
     // Update role
-    const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
-    message.client.db.settings.updateMuteRoleId.run(role.id, message.guild.id);
-    message.channel.send(embed.addField('Role', `${oldRole} ➔ ${role}`));
+    const muteRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
+    if (!muteRole)
+      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    message.client.db.settings.updateMuteRoleId.run(muteRole.id, message.guild.id);
+    message.channel.send(embed.addField('Role', `${oldMuteRole} ➔ ${muteRole}`));
   }
 };

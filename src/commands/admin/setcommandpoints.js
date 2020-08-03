@@ -23,7 +23,7 @@ module.exports = class SetCommandPointsCommand extends Command {
       command_points: commandPoints,
       voice_points: voicePoints 
     } = message.client.db.settings.selectPoints.get(message.guild.id);
-    const status = (pointTracking) ? '`enabled`' : '`disabled`';
+    const status = message.client.utils.getStatus(pointTracking);
     message.client.db.settings.updateCommandPoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Settings: `Points System`')
@@ -32,7 +32,7 @@ module.exports = class SetCommandPointsCommand extends Command {
       .addField('Message Points', `\`${messagePoints}\``, true)
       .addField('Command Points', `\`${commandPoints}\` ➔ \`${amount}\``, true)
       .addField('Voice Points', `\`${voicePoints}\``, true)
-      .addField('Status', status)
+      .addField('Status', `\`${status}\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -23,7 +23,7 @@ module.exports = class SetMessagePointsCommand extends Command {
       command_points: commandPoints,
       voice_points: voicePoints 
     } = message.client.db.settings.selectPoints.get(message.guild.id);
-    const status = (pointTracking) ? '`enabled`' : '`disabled`';
+    const status = message.client.utils.getStatus(pointTracking);
     message.client.db.settings.updateMessagePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Settings: `Points System`')

@@ -19,8 +19,7 @@ module.exports = class SetModlogChannelCommand extends Command {
   }
   run(message, args) {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    let oldModlogChannel = '`None`';
-    if (modlogChannelId) oldModlogChannel = message.guild.channels.cache.get(modlogChannelId);
+    const oldModlogChannel = message.guild.channels.cache.get(modlogChannelId) || '`None`';
     const embed = new MessageEmbed()
       .setTitle('Settings: `Modlog Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -35,11 +34,12 @@ module.exports = class SetModlogChannelCommand extends Command {
       return message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ \`None\``));
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
-      Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
-    `);
-    message.client.db.settings.updateModlogChannelId.run(channel.id, message.guild.id);
-    message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ ${channel}`));
+    const modlogChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!modlogChannel || modlogChannel.type != 'text' || !modlogChannel.viewable) 
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+      `);
+    message.client.db.settings.updateModlogChannelId.run(modlogChannel.id, message.guild.id);
+    message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ ${modlogChannel}`));
   }
 };

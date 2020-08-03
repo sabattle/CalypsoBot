@@ -39,9 +39,11 @@ module.exports = class SetCrownScheduleCommand extends Command {
       crown_message: crownMessage, 
       crown_schedule: oldCrownSchedule 
     } = message.client.db.settings.selectCrown.get(message.guild.id);
-    let status, oldStatus = (crownRoleId && oldCrownSchedule) ? '`enabled`' : '`disabled`';
     const crownRole = message.guild.roles.cache.get(crownRoleId);
     const crownChannel = message.guild.channels.cache.get(crownChannelId);
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(crownRoleId, crownSchedule);
 
     // Trim message
     if (crownMessage) {
@@ -65,13 +67,13 @@ module.exports = class SetCrownScheduleCommand extends Command {
       message.client.db.settings.updateCrownSchedule.run(null, message.guild.id);
       if (message.guild.job) message.guild.job.cancel(); // Cancel old job
       
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
       
       return message.channel.send(embed
         .spliceFields(2, 0, { name: 'Schedule', value: `\`${oldCrownSchedule || 'None'}\` ➔ \`None\``, inline: true })
-        .spliceFields(3, 0, { name: 'Status', value: status })
+        .spliceFields(3, 0, { name: 'Status', value: statusUpdate })
       );
     }
 
@@ -91,9 +93,9 @@ module.exports = class SetCrownScheduleCommand extends Command {
     // Schedule crown role rotation
     message.client.utils.scheduleCrown(message.client, message.guild);
 
-    // Check status
-    if (oldStatus != '`enabled`' && crownRoleId && crownSchedule) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(crownRole, crownSchedule);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
     message.channel.send(embed
       .spliceFields(2, 0, { 
@@ -101,7 +103,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
         value: `\`${oldCrownSchedule || 'None'}\` ➔ \`${crownSchedule}\``, 
         inline: true 
       })
-      .spliceFields(3, 0, { name: 'Status', value: status })
+      .spliceFields(3, 0, { name: 'Status', value: statusUpdate })
     );
   }
 };

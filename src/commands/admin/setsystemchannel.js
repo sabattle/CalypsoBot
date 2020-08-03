@@ -20,8 +20,7 @@ module.exports = class SetSystemChannelCommand extends Command {
   }
   run(message, args) {
     const systemChannelId = message.client.db.settings.selectSystemChannelId.pluck().get(message.guild.id);
-    let oldSystemChannel = '`None`';
-    if (systemChannelId) oldSystemChannel = message.guild.channels.cache.get(systemChannelId);
+    const oldSystemChannel = message.guild.channels.cache.get(systemChannelId) || '`None`';
     const embed = new MessageEmbed()
       .setTitle('Settings: `System Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -36,11 +35,12 @@ module.exports = class SetSystemChannelCommand extends Command {
       return message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ \`None\``));
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
-      Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
-    `);
-    message.client.db.settings.updateSystemChannelId.run(channel.id, message.guild.id);
-    message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${channel}`));
+    const systemChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!systemChannel || systemChannel.type != 'text' || !systemChannel.viewable)
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+      `);
+    message.client.db.settings.updateSystemChannelId.run(systemChannel.id, message.guild.id);
+    message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${systemChannel}`));
   }
 };

@@ -34,6 +34,7 @@ module.exports = class SettingsCommand extends Command {
     const autoRole = message.guild.roles.cache.get(row.auto_role_id) || '`None`';
     const verificationRole = message.guild.roles.cache.get(row.verification_role_id) || '`None`';
     const crownRole = message.guild.roles.cache.get(row.crown_role_id) || '`None`';
+    const autoKick = (row.auto_kick) ? `After \`${row.auto_kick}\` warn(s)` : '`disabled`';
     const messagePoints = `\`${row.message_points}\``;
     const commandPoints = `\`${row.command_points}\``;
     const voicePoints = `\`${row.voice_points}\``;
@@ -46,15 +47,15 @@ module.exports = class SettingsCommand extends Command {
     if (row.disabled_commands) 
       disabledCommands = row.disabled_commands.split(' ').map(c => `\`${c}\``).join(' ');
 
-    // Set statuses
-    const verificationStatus = 
-      (row.verification_role_id && row.verification_channel_id && row.verification_message) ? '`enabled`' : '`disabled`';
-    const randomColorStatus = (row.random_color) ? '`enabled`' : '`disabled`';
-    const autoKickStatus = (row.auto_kick) ? `After \`${row.auto_kick}\` warn(s)` : '`disabled`';
-    const welcomeStatus = (row.welcome_message && row.welcome_channel_id) ? '`enabled`' : '`disabled`';
-    const leaveStatus = (row.leave_message && row.leave_channel_id) ? '`enabled`' : '`disabled`';
-    const pointsStatus = (row.point_tracking) ? '`enabled`' : '`disabled`';
-    const crownStatus = (row.crown_role && row.crown_schedule) ? '`enabled`' : '`disabled`';
+    // Get statuses
+    const verificationStatus = `\`${message.client.utils.getStatus(
+      row.verification_role_id && row.verification_channel_id && row.verification_message
+    )}\``;
+    const randomColor = `\`${message.client.utils.getStatus(row.random_color)}\``;
+    const welcomeStatus = `\`${message.client.utils.getStatus(row.welcome_message && row.welcome_channel_id)}\``;
+    const leaveStatus = `\`${message.client.utils.getStatus(row.leave_message && row.leave_channel_id)}\``;
+    const pointsStatus = `\`${message.client.utils.getStatus(row.point_tracking)}\``;
+    const crownStatus = `\`${message.client.utils.getStatus(row.crown_role && row.crown_schedule)}\``;
     
     /** ------------------------------------------------------------------------------------------------
      * CATEGORY CHECKS
@@ -77,8 +78,8 @@ module.exports = class SettingsCommand extends Command {
           .addField('Mod Role', modRole, true)
           .addField('Mute Role', muteRole, true)
           .addField('Auto Role', autoRole, true)
-          .addField('Auto Kick', autoKickStatus, true)
-          .addField('Random Color', randomColorStatus, true)
+          .addField('Auto Kick', autoKick, true)
+          .addField('Random Color', randomColor, true)
         );
       case 'verif':
       case 'verification':
@@ -156,11 +157,14 @@ module.exports = class SettingsCommand extends Command {
      * FULL SETTINGS
      * ------------------------------------------------------------------------------------------------ */ 
     // Trim messages to 512 characters
-    if (verificationMessage != '`None`')
-      verificationMessage = `\`\`\`${verificationMessage.slice(0, 503) + '...'}\`\`\``;
-    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage.slice(0, 503) + '...'}\`\`\``;
-    if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage.slice(0, 503) + '...'}\`\`\``;
-    if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage.slice(0, 503) + '...'}\`\`\``;
+    if (verificationMessage.length > 512) verificationMessage = verificationMessage.slice(0, 503) + '...';
+    if (welcomeMessage.length > 512) welcomeMessage = welcomeMessage.slice(0, 503) + '...';
+    if (leaveMessage.length > 512) leaveMessage = leaveMessage.slice(0, 503) + '...';
+    if (crownMessage.length > 512) crownMessage = crownMessage.slice(0, 503) + '...';
+    if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
+    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${verificationMessage}\`\`\``;
+    if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
+    if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage}\`\`\``;
 
     embed
       .setTitle('Settings')
@@ -173,8 +177,8 @@ module.exports = class SettingsCommand extends Command {
         **Mod Role:** ${modRole}
         **Mute Role:** ${muteRole}
         **Auto Role:** ${autoRole}
-        **Auto Kick:** ${autoKickStatus}
-        **Random Color:** ${randomColorStatus}
+        **Auto Kick:** ${autoKick}
+        **Random Color:** ${randomColor}
       `)
       // Verification Settings
       .addField('__**Verification**__', stripIndent`

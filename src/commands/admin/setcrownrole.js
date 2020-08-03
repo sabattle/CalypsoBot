@@ -25,9 +25,11 @@ module.exports = class SetCrownRoleCommand extends Command {
       crown_message: crownMessage, 
       crown_schedule: crownSchedule 
     } = message.client.db.settings.selectCrown.get(message.guild.id);
-    let status, oldStatus = (crownRoleId && crownSchedule) ? '`enabled`' : '`disabled`';
-    const oldRole = message.guild.roles.cache.get(crownRoleId) || '`None`';
+    const oldCrownRole = message.guild.roles.cache.get(crownRoleId) || '`None`';
     const crownChannel = message.guild.channels.cache.get(crownChannelId);
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(crownRoleId, crownSchedule);
 
     // Trim message
     if (crownMessage) {
@@ -51,27 +53,29 @@ module.exports = class SetCrownRoleCommand extends Command {
       message.client.db.settings.updateCrownRoleId.run(null, message.guild.id);
       if (message.guild.job) message.guild.job.cancel(); // Cancel old job
       
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
 
       return message.channel.send(embed
-        .spliceFields(0, 0, { name: 'Role', value: `${oldRole} ➔ \`None\``, inline: true })
-        .spliceFields(3, 0, { name: 'Status', value: status })
+        .spliceFields(0, 0, { name: 'Role', value: `${oldCrownRole} ➔ \`None\``, inline: true })
+        .spliceFields(3, 0, { name: 'Status', value: statusUpdate })
       );
     }
 
     // Update role
-    const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
-    message.client.db.settings.updateCrownRoleId.run(role.id, message.guild.id);
+    const crownRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
+    if (!crownRole)
+      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    message.client.db.settings.updateCrownRoleId.run(crownRole.id, message.guild.id);
 
-    // Check status
-    if (oldStatus != '`enabled`' && role && crownSchedule) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(crownRole, crownSchedule);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
+
     message.channel.send(embed
-      .spliceFields(0, 0, { name: 'Role', value: `${oldRole} ➔ ${role}`, inline: true })
-      .spliceFields(3, 0, { name: 'Status', value: status })
+      .spliceFields(0, 0, { name: 'Role', value: `${oldCrownRole} ➔ ${crownRole}`, inline: true })
+      .spliceFields(3, 0, { name: 'Status', value: statusUpdate })
     );
 
     // Schedule crown role rotation

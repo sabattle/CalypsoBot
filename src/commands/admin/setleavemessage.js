@@ -24,7 +24,9 @@ module.exports = class SetLeaveMessageCommand extends Command {
     const { leave_channel_id: leaveChannelId, leave_message: oldLeaveMessage } = 
       message.client.db.settings.selectLeaveMessages.get(message.guild.id);
     const leaveChannel = message.guild.channels.cache.get(leaveChannelId);
-    let status, oldStatus = (leaveChannelId && oldLeaveMessage) ? '`enabled`' : '`disabled`';
+    
+    // Get status
+    const oldStatus = message.client.utils.getStatus(leaveChannelId, oldLeaveMessage);
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Leave Messages`')
@@ -38,12 +40,12 @@ module.exports = class SetLeaveMessageCommand extends Command {
     if (!args[0]) {
       message.client.db.settings.updateLeaveMessage.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
 
       return message.channel.send(embed
-        .addField('Status', status, true)
+        .addField('Status', statusUpdate, true)
         .addField('Message', '`None`')
       );
     }
@@ -52,12 +54,12 @@ module.exports = class SetLeaveMessageCommand extends Command {
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
     if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
 
-    // Check status
-    if (oldStatus != '`enabled`' && leaveChannel && leaveMessage) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
-
+    // Update status
+    const status =  message.client.utils.getStatus(leaveChannel, leaveMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
+    
     message.channel.send(embed
-      .addField('Status', status, true)
+      .addField('Status', statusUpdate, true)
       .addField('Message', `\`\`\`${leaveMessage}\`\`\``)
     );
   }

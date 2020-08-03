@@ -24,7 +24,9 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const { welcome_channel_id: welcomeChannelId, welcome_message: oldWelcomeMessage } = 
       message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
     let welcomeChannel = message.guild.channels.cache.get(welcomeChannelId);
-    let status, oldStatus = (welcomeChannelId && oldWelcomeMessage) ? '`enabled`' : '`disabled`';
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(welcomeChannelId, oldWelcomeMessage);
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Welcome Messages`')
@@ -38,12 +40,12 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     if (!args[0]) {
       message.client.db.settings.updateWelcomeMessage.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
 
       return message.channel.send(embed
-        .addField('Status', status, true)
+        .addField('Status', statusUpdate, true)
         .addField('Message', '`None`')
       );
     }
@@ -52,12 +54,12 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
     if (welcomeMessage.length >= 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
 
-    // Check status
-    if (oldStatus != '`enabled`' && welcomeChannel && welcomeMessage) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(welcomeChannel, welcomeMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
     message.channel.send(embed
-      .addField('Status', status, true)
+      .addField('Status', statusUpdate, true)
       .addField('Message', `\`\`\`${welcomeMessage}\`\`\``)
     );
   }

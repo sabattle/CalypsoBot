@@ -91,6 +91,17 @@ async function getCaseNumber(client, guild, modlogChannel) {
 }
 
 /**
+ * Gets current status
+ * @param {...*} args
+ */
+function getStatus(...args) {
+  for (const arg of args) {
+    if (!arg) return 'disabled';
+  }
+  return 'enabled';
+}
+
+/**
  * Transfers crown from one member to another
  * @param {Client} client 
  * @param {Guild} guild
@@ -103,7 +114,7 @@ async function transferCrown(client, guild, crownRoleId) {
   // If crown role is unable to be found
   if (!crownRole) {
     const prefix = client.db.settings.selectPrefix.pluck().get(guild.id);
-    return client.sendSystemErrorMessage(guild, 'schedule crown', oneLine`
+    return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
       Something went wrong. Unable to find the stored \`crown role\`. The role may have been modified or deleted. 
       Please use \`${prefix}setcrownrole\` to set a new \`crown role\`.
     `);
@@ -146,16 +157,15 @@ async function transferCrown(client, guild, crownRoleId) {
   
   // Get crown channel and crown channel
   let { crown_channel_id: crownChannelId, crown_message: crownMessage } = 
-  client.db.settings.selectCrown.get(guild.id);
+    client.db.settings.selectCrown.get(guild.id);
   const crownChannel = guild.channels.cache.get(crownChannelId);
 
-  if (crownMessage) {
-    crownMessage = crownMessage.replace('?member', winner); // Member substituion
-    crownMessage = crownMessage.replace('?role', crownRole); // Role substituion
-  }
-
   // Send crown message
-  if (crownChannel && crownChannel.viewable && crownMessage) crownChannel.send(crownMessage);
+  if (crownChannel && crownChannel.viewable && crownMessage) {
+    crownMessage = crownMessage.replace('?member', winner); // Member substitution
+    crownMessage = crownMessage.replace('?role', crownRole); // Role substitution
+    crownChannel.send(crownMessage);
+  }
 
   client.logger.info(`${guild.name}: Assigned crown role to ${winner.user.tag} and reset server points`);
 }
@@ -184,6 +194,7 @@ module.exports = {
   trimStringFromArray,
   getOrdinalNumeral,
   getCaseNumber,
+  getStatus,
   transferCrown,
   scheduleCrown
 };

@@ -22,7 +22,9 @@ module.exports = class SetLeaveChannelCommand extends Command {
     let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
       message.client.db.settings.selectLeaveMessages.get(message.guild.id);
     const oldLeaveChannel = message.guild.channels.cache.get(leaveChannelId) || '`None`';
-    let status, oldStatus = (leaveChannelId && leaveMessage) ? '`enabled`' : '`disabled`';
+
+    // Get status
+    const oldStatus = message.client.utils.getStatus(leaveChannelId, leaveMessage);
 
     // Trim message
     if (leaveMessage) {
@@ -43,29 +45,29 @@ module.exports = class SetLeaveChannelCommand extends Command {
     if (args.length === 0) {
       message.client.db.settings.updateLeaveChannelId.run(null, message.guild.id);
 
-      // Check status
-      if (oldStatus != '`disabled`') status = '`enabled` ➔ `disabled`'; 
-      else status = '`disabled`';
+      // Update status
+      const status = 'disabled';
+      const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``; 
       
       return message.channel.send(embed
         .spliceFields(0, 0, { name: 'Channel', value: `${oldLeaveChannel} ➔ \`None\``, inline: true })
-        .spliceFields(1, 0, { name: 'Status', value: status, inline: true })
+        .spliceFields(1, 0, { name: 'Status', value: statusUpdate, inline: true })
       );
     }
 
-    const channel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!channel || channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, `
+    const leaveChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
+    if (!leaveChannel || leaveChannel.type != 'text' || !leaveChannel.viewable) return this.sendErrorMessage(message, `
       Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
     `);
 
-    // Check status
-    if (oldStatus != '`enabled`' && channel && leaveMessage) status =  '`disabled` ➔ `enabled`';
-    else status = oldStatus;
+    // Update status
+    const status =  message.client.utils.getStatus(leaveChannel, leaveMessage);
+    const statusUpdate = (oldStatus != status) ? `\`${oldStatus}\` ➔ \`${status}\`` : `\`${oldStatus}\``;
 
-    message.client.db.settings.updateLeaveChannelId.run(channel.id, message.guild.id);
+    message.client.db.settings.updateLeaveChannelId.run(leaveChannel.id, message.guild.id);
     message.channel.send(embed
-      .spliceFields(0, 0, { name: 'Channel', value: `${oldLeaveChannel} ➔ ${channel}`, inline: true})
-      .spliceFields(1, 0, { name: 'Status', value: status, inline: true})
+      .spliceFields(0, 0, { name: 'Channel', value: `${oldLeaveChannel} ➔ ${leaveChannel}`, inline: true})
+      .spliceFields(1, 0, { name: 'Status', value: statusUpdate, inline: true})
     );
   }
 };
