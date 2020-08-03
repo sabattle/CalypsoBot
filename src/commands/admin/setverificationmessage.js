@@ -78,7 +78,11 @@ module.exports = class SetVerificationMessageCommand extends Command {
     // Update verification
     if (status === 'enabled') {
       if (verificationChannel.viewable) {
-        await verificationChannel.messages.delete(verificationMessageId);
+        try {
+          await verificationChannel.messages.fetch(verificationMessageId);
+        } catch (err) { // Message was deleted
+          message.client.logger.error(err);
+        }
         const msg = await verificationChannel.send(new MessageEmbed()
           .setDescription(verificationMessage)
           .setColor(message.guild.me.displayHexColor)
