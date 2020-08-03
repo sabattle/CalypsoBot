@@ -57,7 +57,8 @@ module.exports = class SetVerificationChannelCommand extends Command {
       message.client.db.settings.updateVerificationChannelId.run(null, message.guild.id);
       message.client.db.settings.updateVerificationMessageId.run(null, message.guild.id);
 
-      await oldVerificationChannel.messages.delete(verificationMessageId); // Delete old message
+      if (oldVerificationChannel && verificationMessageId)
+        await oldVerificationChannel.messages.delete(verificationMessageId);
 
       // Update status
       const status = 'disabled';
@@ -101,7 +102,10 @@ module.exports = class SetVerificationChannelCommand extends Command {
         await msg.react('✅');
         message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
       } else {
-        return;
+        return message.client.sendSystemErrorMessage(message.guild, 'verification', oneLine`
+          Something went wrong. Unable to send the \`verification message\` to ${verificationChannel}. 
+          Please ensure I have permission to access that text channel.
+        `);
       }
     }
   }
