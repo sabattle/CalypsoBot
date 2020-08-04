@@ -1,18 +1,22 @@
+const { MessageEmbed } = require('discord.js');
+
 module.exports = (client, member) => {
 
   /** ------------------------------------------------------------------------------------------------
    * LEAVE MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  // Send leave message
-  let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
-    client.db.settings.selectLeaveMessages.get(member.guild.id);
-  const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
+  if (member.guild.me.hasPermission('SEND_MESSAGES') && member.guild.me.hasPermission('EMBED_LINKS')) {
+    // Send leave message
+    let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
+      client.db.settings.selectLeaveMessages.get(member.guild.id);
+    const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
 
-  if (leaveChannel && leaveChannel.viewable && leaveMessage) {
-    leaveMessage = leaveMessage.replace('?member', member); // Member substitution
-    leaveChannel.send(leaveMessage);
+    if (leaveChannel && leaveChannel.viewable && leaveMessage) {        
+      leaveMessage = leaveMessage.replace('?member', member); // Member substitution
+      leaveChannel.send(new MessageEmbed().setDescription(leaveMessage).setColor(member.guild.me.displayHexColor));
+    }
   }
-
+  
   /** ------------------------------------------------------------------------------------------------
    * USERS TABLE
    * ------------------------------------------------------------------------------------------------ */ 

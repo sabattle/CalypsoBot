@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
 module.exports = async (client, member) => {
@@ -22,17 +23,18 @@ module.exports = async (client, member) => {
   /** ------------------------------------------------------------------------------------------------
    * WELCOME MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  // Get welcome channel
-  let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
-    client.db.settings.selectWelcomeMessages.get(member.guild.id);
-  const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
+  if (member.guild.me.hasPermission('SEND_MESSAGES') && member.guild.me.hasPermission('EMBED_LINKS')) {
+    // Get welcome channel
+    let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
+      client.db.settings.selectWelcomeMessages.get(member.guild.id);
+    const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
-  // Send welcome message
-  if (welcomeChannel && welcomeChannel.viewable && welcomeMessage) {
-    welcomeChannel.send(welcomeMessage);
-    welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
+    // Send welcome message
+    if (welcomeChannel && welcomeChannel.viewable && welcomeMessage) {
+      welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
+      welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
+    }
   }
-
   /** ------------------------------------------------------------------------------------------------
    * RANDOM COLOR
    * ------------------------------------------------------------------------------------------------ */ 

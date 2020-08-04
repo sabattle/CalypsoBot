@@ -162,7 +162,7 @@ module.exports = class SettingsCommand extends Command {
     if (leaveMessage.length > 512) leaveMessage = leaveMessage.slice(0, 503) + '...';
     if (crownMessage.length > 512) crownMessage = crownMessage.slice(0, 503) + '...';
     if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
-    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${verificationMessage}\`\`\``;
+    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
     if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
     if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage}\`\`\``;
 
