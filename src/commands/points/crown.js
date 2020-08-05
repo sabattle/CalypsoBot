@@ -12,13 +12,9 @@ module.exports = class CrownCommand extends Command {
     });
   }
   run(message) {
-    const crownRoleId = message.client.db.settings.selectCrownRoleId.pluck().get(message.guild.id);
-    let crownRole = '`None`';
-
-    
-
-    if (crownRoleId) crownRole = message.guild.roles.cache.get(crownRoleId);
-    const crownSchedule = message.client.db.settings.selectCrownSchedule.pluck().get(message.guild.id);
+    const { crown_role_id: crownRoleId, crown_schedule: crownSchedule } = 
+      message.client.db.settings.selectCrown.get(message.guild.id);
+    const crownRole = message.guild.roles.cache.get(crownRoleId) || '`None`';
     const crowned = message.guild.members.cache.filter(m => {
       if (m.roles.cache.find(r => r === crownRole)) return true;
     }).array();

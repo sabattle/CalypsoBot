@@ -49,8 +49,13 @@ module.exports = class SetVerificationMessageCommand extends Command {
       message.client.db.settings.updateVerificationMessage.run(null, message.guild.id);
       message.client.db.settings.updateVerificationMessageId.run(null, message.guild.id);
 
-      if (verificationChannel && verificationMessageId)
-        await verificationChannel.messages.delete(verificationMessageId);
+      if (verificationChannel && verificationMessageId) {
+        try {
+          await verificationChannel.messages.delete(verificationMessageId);
+        } catch (err) { // Message was deleted
+          message.client.logger.error(err);
+        }
+      }
 
       // Update status
       const status = 'disabled';
