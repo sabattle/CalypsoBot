@@ -8,7 +8,8 @@ module.exports = class AdminsCommand extends Command {
       name: 'admins',
       usage: 'admins',
       description: 'Displays a list of all current admins.',
-      type: client.types.INFO
+      type: client.types.INFO,
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS']
     });
   }
   run(message) {
@@ -42,9 +43,9 @@ module.exports = class AdminsCommand extends Command {
     // Reaction Menu
     } else {
 
-      let n = 0;
+      let n = 0, interval = max;
       embed
-        .setTitle(`Admin List [${n + 1} - ${max}]`)
+        .setTitle(`Admin List [1 - ${max}]`)
         .setThumbnail(message.guild.iconURL({ dynamic: true }))
         .setFooter(
           'Expires after two minutes.\n' + message.member.displayName,  
@@ -56,9 +57,9 @@ module.exports = class AdminsCommand extends Command {
 
       const previous = () => {
         if (n === 0) return;
-        n -= 25;
-        max -= 25;
-        if (max < 25) max = 25;
+        n -= interval;
+        max -= interval;
+        if (max <= n + interval) max = n + interval;
         return new MessageEmbed(json)
           .setTitle(`Admin List [${n + 1} - ${max}]`)
           .setDescription(admins.slice(n, max).join('\n'));
@@ -66,8 +67,8 @@ module.exports = class AdminsCommand extends Command {
 
       const next = () => {
         if (max === admins.length) return;
-        n += 25;
-        max += 25;
+        n += interval;
+        max += interval;
         if (max >= admins.length) max = admins.length;
         return new MessageEmbed(json)
           .setTitle(`Admin List [${n + 1} - ${max}]`)

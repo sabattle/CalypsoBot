@@ -15,6 +15,7 @@ module.exports = class SetVerificationRoleCommand extends Command {
         and a \`verification message\` must be set to enable server verification.
       `,
       type: client.types.ADMIN,
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
       userPermissions: ['MANAGE_GUILD'],
       examples: ['setverificationrole @Verified']
     });

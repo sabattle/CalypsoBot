@@ -18,8 +18,7 @@ module.exports = class BlastCommand extends Command {
     const guilds = [];
     message.client.guilds.cache.forEach(guild => {
       const systemChannelId = message.client.db.settings.selectSystemChannelId.pluck().get(guild.id);
-      let systemChannel;
-      if (systemChannelId) systemChannel = guild.channels.cache.get(systemChannelId);
+      const systemChannel = guild.channels.cache.get(systemChannelId);
       if (systemChannel) systemChannel.send(msg);
       else guilds.push(guild.name);
     });

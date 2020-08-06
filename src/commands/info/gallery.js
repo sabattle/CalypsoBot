@@ -17,6 +17,7 @@ module.exports = class GalleryCommand extends Command {
       usage: 'gallery',
       description: 'Displays a gallery of Calypso\'s art.',
       type: client.types.INFO,
+      clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS']
     });
   }
   run(message) {
@@ -32,18 +33,18 @@ module.exports = class GalleryCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     const json = embed.toJSON();
-    const goBack = () => {
+    const previous = () => {
       (n <= 0) ? n = art.length - 1 : n--;
       return new MessageEmbed(json).setImage(art[n]);
     };
-    const goForward = () => {
+    const next = () => {
       (n >= art.length - 1) ? n = 0 : n++;
       return new MessageEmbed(json).setImage(art[n]);
     };
 
     const reactions = {
-      '◀️': goBack,
-      '▶️': goForward,
+      '◀️': previous,
+      '▶️': next,
     };
     const menu = new ReactionMenu(message.channel, message.member, embed, reactions);
     setInterval(async () => {
