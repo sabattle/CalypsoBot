@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const ReactionMenu = require('../ReactionMenu.js');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class EmojisCommand extends Command {
@@ -22,11 +23,57 @@ module.exports = class EmojisCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
-    // Trim array
-    let description = message.client.utils.trimStringFromArray(emojis);
-    if (description.length === 0) description = 'Sorry! No emojis found 😢';
-    else embed.setThumbnail(message.guild.iconURL({ dynamic: true }));
+    let max = 25;
+    if (emojis.length === 0) message.channel.send(embed.setDescription('Sorry! No emojis found 😢'));
+    else if (emojis.length <= max) {
+      const range = (emojis.length == 1) ? '[1]' : `[1 - ${emojis.length}]`;
+      message.channel.send(embed
+        .setTitle(`Emoji List ${range}`)
+        .setDescription(emojis.join('\n'))
+        .setThumbnail(message.guild.iconURL({ dynamic: true }))
+      );
+    
+    // Reaction Menu
+    } else {
 
-    message.channel.send(embed.setDescription(description));
+      let n = 0;
+      embed
+        .setTitle(`Emoji List [1 - ${max}]`)
+        .setThumbnail(message.guild.iconURL({ dynamic: true }))
+        .setFooter(
+          'Expires after two minutes.\n' + message.member.displayName,  
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setDescription(emojis.slice(n, max).join('\n'));
+
+      const json = embed.toJSON();
+
+      const previous = () => {
+        if (n === 0) return;
+        n -= 25;
+        max -= 25;
+        if (max < 25) max = 25;
+        return new MessageEmbed(json)
+          .setTitle(`Emoji List [${n + 1} - ${max}]`)
+          .setDescription(emojis.slice(n, max).join('\n'));
+      };
+
+      const next = () => {
+        if (max === emojis.length) return;
+        n += 25;
+        max += 25;
+        if (max >= emojis.length) max = emojis.length;
+        return new MessageEmbed(json)
+          .setTitle(`Emoji List [${n + 1} - ${max}]`)
+          .setDescription(emojis.slice(n, max).join('\n'));
+      };
+
+      const reactions = {
+        '◀️': previous,
+        '▶️': next,
+      };
+
+      new ReactionMenu(message.channel, message.member, embed, reactions);
+    }
   }
 };
