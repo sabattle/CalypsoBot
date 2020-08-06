@@ -18,7 +18,9 @@ module.exports = class YoutubeCommand extends Command {
     const apiKey = message.client.apiKeys.googleApi;
     const videoName = args.join(' ');
     if (!videoName) return this.sendErrorMessage(message, 'Invalid Argument. Please provide a YouTube video name.');
-    let result = await search(videoName, { maxResults: 1, key: apiKey, type: 'video' })
+    const searchOptions = { maxResults: 1, key: apiKey, type: 'video' };
+    if (!message.channel.nsfw) searchOptions['safeSearch'] = 'strict';
+    let result = await search(videoName, searchOptions)
       .catch(err => {
         message.client.logger.error(err);
         return this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
@@ -30,11 +32,12 @@ module.exports = class YoutubeCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle(decodedTitle)
       .setURL(result.link)
+      .setThumbnail('https://cdn1.iconfinder.com/data/icons/logotypes/32/youtube-512.png')
       .setDescription(result.description)
-      .setImage(result.thumbnails.high.url)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    if (message.channel.nsfw) embed.setImage(result.thumbnails.high.url);
     message.channel.send(embed);
   }
 };
