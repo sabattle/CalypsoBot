@@ -6,7 +6,7 @@ module.exports = class SetVerificationRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setverificationrole',
-      aliases: ['setverifrole', 'setverifr', 'setvr', 'svr'],
+      aliases: ['setvr', 'svr'],
       usage: 'setverificationrole <role mention/ID>',
       description: oneLine`
         Sets the role Calypso will give members who are verified.

@@ -6,7 +6,7 @@ module.exports = class SetVerificationChannelCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setverificationchannel',
-      aliases: ['setverifchannel', 'setverifc', 'setvc', 'svc'],
+      aliases: ['setvc', 'svc'],
       usage: 'setverificationchannel <channel mention/ID>',
       description: oneLine`
         Sets the verification text channel for your server. If set, unverified members will start here.

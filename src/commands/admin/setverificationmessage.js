@@ -6,7 +6,7 @@ module.exports = class SetVerificationMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setverificationmessage',
-      aliases: ['setverifmessage', 'setverifm', 'setvm', 'svm'],
+      aliases: ['setvm', 'svm'],
       usage: 'setverificationmessage <message>',
       description: oneLine`
         Sets the message Calypso will post in the \`verification channel\`.

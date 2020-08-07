@@ -48,10 +48,10 @@ module.exports = async (client, guild) => {
     }
   }
 
-  // Assign seagrass color
+  // Self-assign color
   try {
-    const seagrass = guild.roles.cache.find(r => r.name === '#Seagrass');
-    await guild.me.roles.add(seagrass);
+    const calypsoColor = guild.roles.cache.find(r => r.name === '#Seagrass');
+    if (calypsoColor) await guild.me.roles.add(calypsoColor);
   } catch (err) {
     client.logger.error(err.stack);
   }
