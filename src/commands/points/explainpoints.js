@@ -19,9 +19,8 @@ module.exports = class ExplainPointsCommand extends Command {
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const messagePoints = message.client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
-    const commandPoints = message.client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
-    const voicePoints = message.client.db.settings.selectVoicePoints.pluck().get(message.guild.id);
+    const { message_points: messagePoints, command_points: commandPoints, voice_points: voicePoints } 
+      = message.client.db.settings.selectPoints.get(message.guild.id);
 
     // Points per
     let pointsPer = stripIndent`

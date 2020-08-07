@@ -15,9 +15,8 @@ module.exports = class PointPerCommand extends Command {
   run(message) {
     
     // Get points values
-    const messagePoints = message.client.db.settings.selectMessagePoints.pluck().get(message.guild.id);
-    const commandPoints = message.client.db.settings.selectCommandPoints.pluck().get(message.guild.id);
-    const voicePoints = message.client.db.settings.selectVoicePoints.pluck().get(message.guild.id);
+    const { message_points: messagePoints, command_points: commandPoints, voice_points: voicePoints } 
+      = message.client.db.settings.selectPoints.get(message.guild.id);
     const description = stripIndent`
       **Message Points**: \`${messagePoints} per message\`
       **Command Points**: \`${commandPoints} per command\`
