@@ -33,14 +33,14 @@ class Client extends Discord.Client {
      * @type {Object}
      */
     this.types = {
-      INFO: 'Info',
-      FUN: 'Fun',
-      COLOR: 'Color',
-      POINTS: 'Points',
-      MISC: 'Misc',
-      MOD: 'Mod',
-      ADMIN: 'Admin',
-      OWNER: 'Owner'
+      INFO: 'info',
+      FUN: 'fun',
+      COLOR: 'color',
+      POINTS: 'points',
+      MISC: 'misc',
+      MOD: 'mod',
+      ADMIN: 'admin',
+      OWNER: 'owner'
     };
 
     /** 

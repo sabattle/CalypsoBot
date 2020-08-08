@@ -11,7 +11,7 @@ module.exports = class ToggleCommandCommand extends Command {
       description: oneLine`
         Enables or disables the provided command. 
         Disabled commands will no longer be able to be used, and will no longer show up with the \`help\` command.
-        \`${client.types.ADMIN}\` commands cannot be disabled.
+        \`${client.utils.capitalize(client.types.ADMIN)}\` commands cannot be disabled.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
@@ -20,13 +20,17 @@ module.exports = class ToggleCommandCommand extends Command {
   }
   run(message, args) {
 
+    const { ADMIN, OWNER } = message.client.types;
+
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
-    if (!command || (command && command.type == message.client.types.OWNER)) 
+    if (!command || (command && command.type == OWNER)) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command.');
 
-    if (command.type === message.client.types.ADMIN) 
+    const { capitalize } = message.client.utils;
+
+    if (command.type === ADMIN) 
       return this.sendErrorMessage(message, `
-        Invalid argument. \`${message.client.types.ADMIN}\` commands cannot be disabled.
+        Invalid argument. \`${capitalize(ADMIN)}\` commands cannot be disabled.
       `);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];

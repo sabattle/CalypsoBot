@@ -13,7 +13,7 @@ module.exports = class ToggleTypeCommand extends Command {
         Commands of the provided type will disabled unless they are all already disabled,
         in which case they will be enabled. 
         Disabled commands will no longer be able to be used, and will no longer show up with the \`help\` command.
-        \`${client.types.ADMIN}\` commands cannot be disabled.
+        \`${client.utils.capitalize(client.types.ADMIN)}\` commands cannot be disabled.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
@@ -22,14 +22,16 @@ module.exports = class ToggleTypeCommand extends Command {
   }
   run(message, args) {
 
-    if (args.length === 0 || args[0].toLowerCase() === message.client.types.OWNER.toLowerCase())
+    const { ADMIN, OWNER } = message.client.types;
+
+    if (args.length === 0 || args[0].toLowerCase() === OWNER)
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command type.');
     
     const type = args[0].toLowerCase();
     
-    if (type === message.client.types.ADMIN.toLowerCase()) 
+    if (type === ADMIN) 
       return this.sendErrorMessage(message, `
-        Invalid argument. \`${message.client.types.ADMIN}\` commands cannot be disabled.
+        Invalid argument. \`${capitalize(ADMIN)}\` commands cannot be disabled.
       `);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
@@ -38,12 +40,12 @@ module.exports = class ToggleTypeCommand extends Command {
     let description;
 
     // Map types
-    const typeListOrig = Object.values(message.client.types);
-    const typeList = typeListOrig.map(t => t.toLowerCase());
-    const commands = message.client.commands.array().filter(c => c.type.toLowerCase() === type);
+    const types = Object.values(message.client.types);
+    const commands = message.client.commands.array().filter(c => c.type === type);
+    const { capitalize } = message.client.utils;
 
     // Disable type
-    if (typeList.includes(type)) {
+    if (types.includes(type)) {
 
       // Enable type
       if (disabledCommands.length === commands.length) {
@@ -51,7 +53,7 @@ module.exports = class ToggleTypeCommand extends Command {
           if (disabledCommands.includes(cmd.name)) message.client.utils.removeElement(disabledCommands, cmd.name);
         }
         description = oneLine`
-          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully 
+          All \`${capitalize(type)}\` type commands have been successfully 
           **enabled**. <:success:736449240728993802>
         `;
       
@@ -61,7 +63,7 @@ module.exports = class ToggleTypeCommand extends Command {
           if (!disabledCommands.includes(cmd.name)) disabledCommands.push(cmd.name);
         }
         description = oneLine`
-          All \`${typeListOrig[typeList.indexOf(type)]}\` type commands have been successfully 
+          All \`${capitalize(type)}\` type commands have been successfully 
           **disabled**. <:fail:736449226120233031>
         `;
       }

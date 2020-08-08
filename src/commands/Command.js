@@ -63,7 +63,7 @@ class Command {
      * The user permissions needed
      * @type {Array<string>}
      */
-    this.userPermssions = options.userPermissions || null;
+    this.userPermissions = options.userPermissions || null;
 
     /**
      * Examples of how the command is used
@@ -138,6 +138,8 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkPermissions(message, ownerOverride = true) {
+    if (!message.guild.me.hasPermission('SEND_MESSAGES') || !message.guild.me.hasPermission('EMBED_LINKS')) 
+      return false;
     const clientPermission = this.checkClientPermissions(message);
     const userPermission = this.checkUserPermissions(message, ownerOverride);
     if (clientPermission && userPermission) return true;
@@ -151,7 +153,7 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkUserPermissions(message, ownerOverride = true) {
-    if (!this.ownerOnly && !this.userPermssions) return true;
+    if (!this.ownerOnly && !this.userPermissions) return true;
     if (ownerOverride && this.client.isOwner(message.author)) return true;
     if (this.ownerOnly && !this.client.isOwner(message.author)) {
       return false;
@@ -159,8 +161,8 @@ class Command {
     
     if (message.member.hasPermission('ADMINISTRATOR')) return true;
     let missingPermissions = [];
-    if (this.userPermssions) {
-      missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermssions);
+    if (this.userPermissions) {
+      missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermissions);
       missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
@@ -187,8 +189,6 @@ class Command {
    */
   checkClientPermissions(message) {
     if (message.guild.me.hasPermission('ADMINISTRATOR')) return true;
-    if (!message.guild.me.hasPermission('SEND_MESSAGES') || !message.guild.me.hasPermission('EMBED_LINKS')) 
-      return false;
     let missingPermissions = [];
     this.clientPermissions.forEach(perm => {
       if (message.guild.me.hasPermission(perm)) return true;

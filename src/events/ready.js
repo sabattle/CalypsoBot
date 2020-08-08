@@ -50,7 +50,7 @@ module.exports = async (client) => {
     const verificationChannel = guild.channels.cache.get(verificationChannelId);
     if (verificationChannel) {
       try {
-        await verificationChannel.messages.fetch(verificationMessageId);
+        if (verificationChannel.viewable) await verificationChannel.messages.fetch(verificationMessageId);
       } catch (err) { // Message was deleted
         client.logger.error(err);
       }

@@ -2,6 +2,7 @@
 *.sqlite*
 node_modules
 logs/*
+emojis
 .vscode
 .directory
 config.json
