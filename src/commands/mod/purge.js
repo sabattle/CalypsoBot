@@ -30,7 +30,9 @@ module.exports = class PurgeCommand extends Command {
 
     // Check type and viewable
     if (channel.type != 'text' || !channel.viewable) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
+      `);
 
     let member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
     if (member) {
@@ -40,6 +42,12 @@ module.exports = class PurgeCommand extends Command {
     const amount = parseInt(args[0]);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > 100)
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');
+
+    // Check channel permissions
+    if (!channel.permissionsFor(message.guild.me).has(['MANAGE_MESSAGES']))
+      return this.sendErrorMessage(message, `
+        Invalid channel: ${channel}. I do not have permission to manage messages in the ${channel} channel.
+      `);
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided';

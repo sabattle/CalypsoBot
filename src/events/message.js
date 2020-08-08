@@ -36,8 +36,7 @@ module.exports = (client, message) => {
       }
     } else if ( 
       (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) &&
-      message.guild.me.hasPermission('SEND_MESSAGES') && 
-      message.guild.me.hasPermission('EMBED_LINKS')
+      message.channel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
     ) {
       const embed = new MessageEmbed()
         .setTitle('Hi, I\'m Calypso. Need help?')

@@ -29,11 +29,19 @@ module.exports = class SlowmodeCommand extends Command {
 
     // Check type and viewable
     if (channel.type != 'text' || !channel.viewable) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide an accessible text channel.');
+      return this.sendErrorMessage(message, `
+        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
+      `);
       
     const rate = args[index];
     if (!rate || rate < 0 || rate > 59) 
       return this.sendErrorMessage(message, 'Invalid argument. Please provide a rate limit between 0 and 59 seconds.');
+
+    // Check channel permissions
+    if (!channel.permissionsFor(message.guild.me).has(['MANAGE_CHANNELS']))
+      return this.sendErrorMessage(message, `
+        Invalid channel: ${channel}. I do not have permission to manage the ${channel} channel.
+      `);
 
     let reason = args.slice(index + 1).join(' ');
     if (!reason) reason = 'No reason provided';

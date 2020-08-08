@@ -80,7 +80,7 @@ module.exports = class SetVerificationChannelCommand extends Command {
       this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
     if (!verificationChannel || verificationChannel.type != 'text' || !verificationChannel.viewable)
       return this.sendErrorMessage(message, `
-        Invalid argument. Please mention an accessible text channel or provide a valid channel ID.
+        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
       `);
 
     // Update status

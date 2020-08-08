@@ -19,8 +19,19 @@ module.exports = class BlastCommand extends Command {
     message.client.guilds.cache.forEach(guild => {
       const systemChannelId = message.client.db.settings.selectSystemChannelId.pluck().get(guild.id);
       const systemChannel = guild.channels.cache.get(systemChannelId);
-      if (systemChannel) systemChannel.send(msg);
-      else guilds.push(guild.name);
+      if (
+        systemChannel && 
+        systemChannel.viewable &&
+        systemChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
+      ) {
+        const embed = new MessageEmbed()
+          .setTitle('Calypso System Message')
+          .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
+          .setDescription(msg)
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        systemChannel.send(embed);
+      } else guilds.push(guild.name);
     });
   
     if (guilds.length > 0) {

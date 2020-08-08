@@ -27,7 +27,7 @@ module.exports = class GalleryCommand extends Command {
       .setDescription('All art courtesy of **CommradeFido#5286**.')
       .setImage(art[n])
       .setFooter(
-        'Expires after two minutes.\n' + message.member.displayName,  
+        'Expires after three minutes.\n' + message.member.displayName,  
         message.author.displayAvatarURL({ dynamic: true })
       )
       .setTimestamp()
@@ -46,14 +46,7 @@ module.exports = class GalleryCommand extends Command {
       '◀️': previous,
       '▶️': next,
     };
-    const menu = new ReactionMenu(message.channel, message.member, embed, reactions);
-    setInterval(async () => {
-      await menu.message.edit(new MessageEmbed()
-        .setTitle('Art Gallery')
-        .setDescription('Sorry! The gallery has expired.')
-        .setColor(message.guild.me.displayHexColor)
-      );
-    }, menu.timeout); 
+    new ReactionMenu(message.channel, message.member, embed, reactions, 180000);
     
   }
 };

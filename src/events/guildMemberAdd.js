@@ -23,18 +23,22 @@ module.exports = async (client, member) => {
   /** ------------------------------------------------------------------------------------------------
    * WELCOME MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  if (member.guild.me.hasPermission('SEND_MESSAGES') && member.guild.me.hasPermission('EMBED_LINKS')) {
-    // Get welcome channel
-    let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
-      client.db.settings.selectWelcomeMessages.get(member.guild.id);
-    const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
+  // Get welcome channel
+  let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
+    client.db.settings.selectWelcomeMessages.get(member.guild.id);
+  const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
-    // Send welcome message
-    if (welcomeChannel && welcomeChannel.viewable && welcomeMessage) {
-      welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
-      welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
-    }
+  // Send welcome message
+  if (
+    welcomeChannel &&
+    welcomeChannel.viewable &&
+    welcomeChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
+    welcomeMessage
+  ) {
+    welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
+    welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
   }
+  
   /** ------------------------------------------------------------------------------------------------
    * RANDOM COLOR
    * ------------------------------------------------------------------------------------------------ */ 

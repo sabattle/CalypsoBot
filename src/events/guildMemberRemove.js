@@ -7,16 +7,20 @@ module.exports = (client, member) => {
   /** ------------------------------------------------------------------------------------------------
    * LEAVE MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  if (member.guild.me.hasPermission('SEND_MESSAGES') && member.guild.me.hasPermission('EMBED_LINKS')) {
-    // Send leave message
-    let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
-      client.db.settings.selectLeaveMessages.get(member.guild.id);
-    const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
-
-    if (leaveChannel && leaveChannel.viewable && leaveMessage) {        
-      leaveMessage = leaveMessage.replace('?member', member); // Member substitution
-      leaveChannel.send(new MessageEmbed().setDescription(leaveMessage).setColor(member.guild.me.displayHexColor));
-    }
+  
+  // Send leave message
+  let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
+    client.db.settings.selectLeaveMessages.get(member.guild.id);
+  const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
+  
+  if (
+    leaveChannel &&
+    leaveChannel.viewable &&
+    leaveChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
+    leaveMessage
+  ) {
+    leaveMessage = leaveMessage.replace('?member', member); // Member substitution
+    leaveChannel.send(new MessageEmbed().setDescription(leaveMessage).setColor(member.guild.me.displayHexColor));
   }
   
   /** ------------------------------------------------------------------------------------------------

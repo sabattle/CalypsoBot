@@ -201,8 +201,7 @@ class Client extends Discord.Client {
     if ( // Check channel and permissions
       !systemChannel || 
       !systemChannel.viewable || 
-      !guild.me.hasPermission('SEND_MESSAGES') || 
-      !guild.me.hasPermission('EMBED_LINKS')
+      !systemChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
     ) return;
 
     const embed = new Discord.MessageEmbed()

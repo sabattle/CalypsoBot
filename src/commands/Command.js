@@ -138,8 +138,7 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkPermissions(message, ownerOverride = true) {
-    if (!message.guild.me.hasPermission('SEND_MESSAGES') || !message.guild.me.hasPermission('EMBED_LINKS')) 
-      return false;
+    if (!message.channel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])) return false;
     const clientPermission = this.checkClientPermissions(message);
     const userPermission = this.checkUserPermissions(message, ownerOverride);
     if (clientPermission && userPermission) return true;
@@ -160,9 +159,8 @@ class Command {
     }
     
     if (message.member.hasPermission('ADMINISTRATOR')) return true;
-    let missingPermissions = [];
     if (this.userPermissions) {
-      missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermissions);
+      const missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermissions);
       missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
@@ -188,12 +186,7 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkClientPermissions(message) {
-    if (message.guild.me.hasPermission('ADMINISTRATOR')) return true;
-    let missingPermissions = [];
-    this.clientPermissions.forEach(perm => {
-      if (message.guild.me.hasPermission(perm)) return true;
-      else missingPermissions.push(perm);
-    });
+    const missingPermissions = message.channel.permissionsFor(message.guild.me).missing(this.clientPermissions);
     missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
     if (missingPermissions.length !== 0) {
       const embed = new MessageEmbed()
@@ -210,6 +203,7 @@ class Command {
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
       return false;
+
     } else return true;
   }
   
@@ -242,7 +236,11 @@ class Command {
   async sendModlogMessage(message, reason, fields = {}) {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     const modlogChannel = message.guild.channels.cache.get(modlogChannelId);
-    if (modlogChannel && modlogChannel.viewable) {
+    if (
+      modlogChannel && 
+      modlogChannel.viewable &&
+      modlogChannel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
+    ) {
       const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild, modlogChannel);
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)

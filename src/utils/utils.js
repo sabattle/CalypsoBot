@@ -156,19 +156,23 @@ async function transferCrown(client, guild, crownRoleId) {
     `, err.message);
   }
   
-  if (guild.me.hasPermission('SEND_MESSAGES') && guild.me.hasPermission('EMBED_LINKS')) {
-    // Get crown channel and crown channel
-    let { crown_channel_id: crownChannelId, crown_message: crownMessage } = 
-      client.db.settings.selectCrown.get(guild.id);
-    const crownChannel = guild.channels.cache.get(crownChannelId);
+  // Get crown channel and crown channel
+  let { crown_channel_id: crownChannelId, crown_message: crownMessage } = 
+    client.db.settings.selectCrown.get(guild.id);
+  const crownChannel = guild.channels.cache.get(crownChannelId);
 
-    // Send crown message
-    if (crownChannel && crownChannel.viewable && crownMessage) {
-      crownMessage = crownMessage.replace('?member', winner); // Member substitution
-      crownMessage = crownMessage.replace('?role', crownRole); // Role substitution
-      crownChannel.send(new MessageEmbed().setDescription(crownMessage).setColor(guild.me.displayHexColor));
-    }
+  // Send crown message
+  if (
+    crownChannel &&
+    crownChannel.viewable &&
+    crownChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
+    crownMessage
+  ) {
+    crownMessage = crownMessage.replace('?member', winner); // Member substitution
+    crownMessage = crownMessage.replace('?role', crownRole); // Role substitution
+    crownChannel.send(new MessageEmbed().setDescription(crownMessage).setColor(guild.me.displayHexColor));
   }
+
   client.logger.info(`${guild.name}: Assigned crown role to ${winner.user.tag} and reset server points`);
 }
 
