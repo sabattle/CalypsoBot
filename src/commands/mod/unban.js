@@ -23,8 +23,8 @@ module.exports = class UnbanCommand extends Command {
     if (!user) return this.sendErrorMessage(message, 'Unable to find user. Please check the provided user ID.');
 
     let reason = args.slice(1).join(' ');
-    if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
+    if (!reason) reason = 'No reason provided.';
+    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
 
     await message.guild.members.unban(user, reason);
     const embed = new MessageEmbed()
@@ -32,7 +32,7 @@ module.exports = class UnbanCommand extends Command {
       .setDescription(`${user.tag} was successfully unbanned.`)
       .addField('Moderator', message.member, true)
       .addField('Member', user.tag, true)
-      .addField('Reason', reason)
+      .addField('Reason', `\`\`\`${reason}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

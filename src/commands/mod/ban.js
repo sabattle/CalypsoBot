@@ -23,8 +23,8 @@ module.exports = class BanCommand extends Command {
     if (!member.bannable) return this.sendErrorMessage(message, `Unable to ban ${member}.`);
 
     let reason = args.slice(1).join(' ');
-    if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
+    if (!reason) reason = 'No reason provided.';
+    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
     
     await member.ban(reason);
 
@@ -33,7 +33,7 @@ module.exports = class BanCommand extends Command {
       .setDescription(`${member} was successfully banned.`)
       .addField('Moderator', message.member, true)
       .addField('Member', member, true)
-      .addField('Reason', reason)
+      .addField('Reason', `\`\`\`${reason}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

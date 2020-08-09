@@ -44,8 +44,8 @@ module.exports = class SlowmodeCommand extends Command {
       `);
 
     let reason = args.slice(index + 1).join(' ');
-    if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
+    if (!reason) reason = 'No reason provided.';
+    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
     
     await channel.setRateLimitPerUser(rate, reason); // set channel rate
     const status = (channel.rateLimitPerUser) ? 'enabled' : 'disabled';
@@ -61,7 +61,7 @@ module.exports = class SlowmodeCommand extends Command {
         .setDescription(`\`${status}\` ➔ \`disabled\``)
         .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
-        .addField('Reason', reason)
+        .addField('Reason', `\`\`\`${reason}\`\`\``)
       );
     
       // Slowmode enabled
@@ -72,7 +72,7 @@ module.exports = class SlowmodeCommand extends Command {
         .addField('Moderator', message.member, true)
         .addField('Channel', channel, true)
         .addField('Rate', `\`${rate}\``, true)
-        .addField('Reason', reason)
+        .addField('Reason', `\`\`\`${reason}\`\`\``)
       );
     }
 

@@ -38,8 +38,8 @@ module.exports = class MuteCommand extends Command {
       `);
 
     let reason = args.slice(2).join(' ');
-    if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
+    if (!reason) reason = 'No reason provided.';
+    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
 
     if (member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is already muted!`);
 
@@ -56,11 +56,12 @@ module.exports = class MuteCommand extends Command {
       .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Time', `\`${ms(time)}\``, true)
-      .addField('Reason', reason)
+      .addField('Reason', `\`\`\`${reason}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(muteEmbed);
+
     member.timeout = message.client.setTimeout(async () => {
       try {
         await member.roles.remove(muteRole);

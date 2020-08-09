@@ -25,8 +25,8 @@ module.exports = class ClearWarnsCommand extends Command {
       `);
 
     let reason = args.slice(1).join(' ');
-    if (!reason) reason = 'No reason provided';
-    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
+    if (!reason) reason = 'No reason provided.';
+    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
     
     message.client.db.users.updateWarns.run('', member.id, message.guild.id);
 
@@ -36,7 +36,7 @@ module.exports = class ClearWarnsCommand extends Command {
       .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Warn Count', '`0`', true)
-      .addField('Reason', reason)
+      .addField('Reason', `\`\`\`${reason}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

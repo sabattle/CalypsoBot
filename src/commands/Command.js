@@ -251,7 +251,7 @@ class Command {
       for (const field in fields) {
         embed.addField(field, fields[field], true);
       }
-      embed.addField('Reason', reason);
+      embed.addField('Reason', `\`\`\`${reason}\`\`\``);
       modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
     }
   }

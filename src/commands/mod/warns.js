@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const ReactionMenu = require('../ReactionMenu.js');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class WarnsCommand extends Command {
@@ -7,7 +8,7 @@ module.exports = class WarnsCommand extends Command {
       name: 'warns',
       aliases: ['warnings'],
       usage: 'warns <user mention/ID>',
-      description: 'Displays a member\'s current warnings. A max of 5 warnings can be displayed.',
+      description: 'Displays a member\'s current warnings. A max of 5 warnings can be displayed at one time.',
       type: client.types.MOD,
       userPermissions: ['KICK_MEMBERS'],
       examples: ['warns @Nettles']
@@ -24,21 +25,78 @@ module.exports = class WarnsCommand extends Command {
 
     const embed = new MessageEmbed()
       .setAuthor(member.user.tag, member.user.displayAvatarURL())
-      .setTitle(`Warn List [${count}]`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    
+    const buildEmbed = (current, embed) => {
+      const max = (count > current + 5) ? current + 5 : count;
+      let amount = 0;
+      for (let i = current; i < max; i++) {
+        embed // Build warning list
+          .addField('\u200b', `**Warn #${i + 1}**`)
+          .addField('Reason', `\`\`\`${warns.warns[i].reason}\`\`\``)
+          .addField(
+            'Moderator', 
+            message.guild.members.cache.get(warns.warns[i].mod) || '`Unable to find moderator`',
+            true
+          )
+          .addField('Date Issued', warns.warns[i].date, true);
+        amount += 1;
+      }
+      return embed
+        .setTitle(`Warn List [${(count === 1) ? '1' : `${current + 1} - ${max}`}]`)
+        .setDescription(`Showing \`${amount}\` of ${member}'s \`${count}\` total warns.`);
+    };
 
-    let max = (count > 5) ? 5 : count;
-    if (count == 0) embed.setDescription(`${member} currently has no warns.`);
-    else embed.setDescription(`Showing ${member}'s last \`${max}\` of \`${warns.warns.length}\` warns.`);
-    for (let i = 1; i <= max; i++) {
-      embed // Build warning list
-        .addField(`\`Warn #${i}\``, warns.warns[count - i].reason)
-        .addField('Moderator', message.guild.members.cache.get(warns.warns[count - i].mod) || '`Unable to find moderator`', true)
-        .addField('Date Issued', warns.warns[count - i].date, true);
+    if (count == 0) message.channel.send(embed
+      .setTitle('Warn List [0]')
+      .setDescription(`${member} currently has no warns.`)
+    );
+    else if (count < 5) message.channel.send(buildEmbed(0, embed));
+    else {
+
+      let n = 0;
+      const json = embed.setFooter(
+        'Expires after three minutes.\n' + message.member.displayName, 
+        message.author.displayAvatarURL({ dynamic: true })
+      ).toJSON();
+      
+      const first = () => {
+        if (n === 0) return;
+        n = 0;
+        return buildEmbed(n, new MessageEmbed(json));
+      };
+
+      const previous = () => {
+        if (n === 0) return;
+        n -= 5;
+        if (n < 0) n = 0;
+        return buildEmbed(n, new MessageEmbed(json));
+      };
+
+      const next = () => {
+        if (n === count) return;
+        n += 5;
+        if (n >= count) n = count - (count % 5);
+        return buildEmbed(n, new MessageEmbed(json));
+      };
+
+      const last = () => {
+        if (n === count) return;
+        n = count - (count % 5);
+        return buildEmbed(n, new MessageEmbed(json));
+      };
+
+      const reactions = {
+        '⏪': first,
+        '◀️': previous,
+        '▶️': next,
+        '⏩': last
+      };
+
+      new ReactionMenu(message.channel, message.member, buildEmbed(n, new MessageEmbed(json)), reactions, 180000);
+
     }
-
-    message.channel.send(embed);
   }
 };
