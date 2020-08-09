@@ -1,15 +1,19 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { stripIndent } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class AliasesCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'aliases',
       aliases: ['alias', 'ali', 'a'],
-      usage: 'aliases',
-      description: 'Displays a list of all current aliases per command.',
-      type: client.types.INFO
+      usage: 'aliases [command type]',
+      description: oneLine`
+        Displays a list of all current aliases per the given command type. 
+        If no command type is given, the amount of aliases for every type will be displayed.
+      `,
+      type: client.types.INFO,
+      examples: ['aliases Fun']
     });
   }
   run(message, args) {
@@ -74,7 +78,7 @@ module.exports = class AliasesCommand extends Command {
         .setTitle('Calypso\'s Alias Types')
         .setDescription(stripIndent`
           **Prefix:** \`${prefix}\`
-          **More Information:** \`${prefix}aliases [type]\`
+          **More Information:** \`${prefix}aliases [command type]\`
         `)
         .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
         .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
