@@ -106,7 +106,7 @@ questions:
 - question: (Dark Souls II) What weapon do you receive in exchange for the Old Paledrake Soul and 10,000 souls?
   answers:
   - Moonlight Greatsword
-  - question: (Dark Souls II) What weapon do you receive in exchange for the Soul of the Rotten and 5,000 souls?
+- question: (Dark Souls II) What weapon do you receive in exchange for the Soul of the Rotten and 5,000 souls?
   answers:
   - Butcher's Knife
 - question: (Dark Souls II) Name one of the two NPCs able to trade Boss Souls.
@@ -122,7 +122,7 @@ questions:
   answers:
   - Slave Knight Gael
   - Gael
-  - question: (Dark Souls II) In Dark Souls, you had humanity. In Dark Souls III, you had embers. What is the name of the equivalent item in Dark Souls II?
+- question: (Dark Souls II) In Dark Souls, you had humanity. In Dark Souls III, you had embers. What is the name of the equivalent item in Dark Souls II?
   answers:
   - Human Effigy
 - question: (Dark Souls III) What is the name of the NPC who asks you to kill Darkeater Midir?
