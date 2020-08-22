@@ -55,65 +55,16 @@ module.exports = class LeaderboardCommand extends Command {
     // Reaction Menu
     } else {
 
-      let n = 0, interval = max;
       embed
-        .setTitle(`Points Leaderboard [1 - ${max}]`)
+        .setTitle('Points Leaderboard')
         .setThumbnail(message.guild.iconURL({ dynamic: true }))
         .setFooter(
           'Expires after two minutes.\n' + `${message.member.displayName}'s position: ${position + 1}`,  
           message.author.displayAvatarURL({ dynamic: true })
-        )
-        .setDescription(members.slice(n, max).join('\n'));
-
-      const json = embed.toJSON();
+        );
       
-      const first = () => {
-        if (n === 0) return;
-        n = 0;
-        max = interval;
-        return new MessageEmbed(json)
-          .setTitle(`Points Leaderboard [${n + 1} - ${max}]`)
-          .setDescription(members.slice(n, max).join('\n'));
-      };
+      new ReactionMenu(message.channel, message.member, embed, members, max);
 
-      const previous = () => {
-        if (n === 0) return;
-        n -= interval;
-        max -= interval;
-        if (max <= n + interval) max = n + interval;
-        return new MessageEmbed(json)
-          .setTitle(`Points Leaderboard [${n + 1} - ${max}]`)
-          .setDescription(members.slice(n, max).join('\n'));
-      };
-
-      const next = () => {
-        if (max === members.length) return;
-        n += interval;
-        max += interval;
-        if (max >= members.length) max = members.length;
-        return new MessageEmbed(json)
-          .setTitle(`Points Leaderboard [${n + 1} - ${max}]`)
-          .setDescription(members.slice(n, max).join('\n'));
-      };
-
-      const last = () => {
-        if (max === members.length) return;
-        n = members.length - (members.length % interval);
-        max = members.length;
-        return new MessageEmbed(json)
-          .setTitle(`Points Leaderboard [${n + 1} - ${max}]`)
-          .setDescription(members.slice(n, max).join('\n'));
-      };
-
-      const reactions = {
-        '⏪': first,
-        '◀️': previous,
-        '▶️': next,
-        '⏩': last
-      };
-
-      new ReactionMenu(message.channel, message.member, embed, reactions);
-    }
-   
+    } 
   }
 };

@@ -55,7 +55,7 @@ module.exports = class SettingsCommand extends Command {
     const welcomeStatus = `\`${message.client.utils.getStatus(row.welcome_message && row.welcome_channel_id)}\``;
     const leaveStatus = `\`${message.client.utils.getStatus(row.leave_message && row.leave_channel_id)}\``;
     const pointsStatus = `\`${message.client.utils.getStatus(row.point_tracking)}\``;
-    const crownStatus = `\`${message.client.utils.getStatus(row.crown_role && row.crown_schedule)}\``;
+    const crownStatus = `\`${message.client.utils.getStatus(row.crown_role_id && row.crown_schedule)}\``;
     
     /** ------------------------------------------------------------------------------------------------
      * CATEGORY CHECKS
