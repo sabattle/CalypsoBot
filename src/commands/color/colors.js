@@ -6,7 +6,7 @@ module.exports = class ColorsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'colors',
-      aliases: ['colorlist', 'cols', 'cs'],
+      aliases: ['colorlist', 'colours', 'cols', 'cs'],
       usage: 'colors',
       description: 'Displays a list of all available colors.',
       type: client.types.COLOR,
@@ -26,9 +26,9 @@ module.exports = class ColorsCommand extends Command {
 
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
 
-    let max = 50;
+    const interval = 50;
     if (colors.length === 0) message.channel.send(embed.setDescription('No colors found.'));
-    else if (colors.length <= max) {
+    else if (colors.length <= interval) {
       const range = (colors.length == 1) ? '[1]' : `[1 - ${colors.length}]`;
       message.channel.send(embed
         .setTitle(`Available Colors ${range}`)
@@ -38,45 +38,51 @@ module.exports = class ColorsCommand extends Command {
     // Reaction Menu
     } else {
 
-      let n = 0, interval = max;
+      let n = 0;
+      const { getRange } = message.client.utils;
       embed
-        .setTitle(`Available Colors [1 - ${max}]`)
+        .setTitle('Available Colors ' + getRange(colors, n, interval))
         .setThumbnail(message.guild.iconURL({ dynamic: true }))
         .setFooter(
           'Expires after two minutes.\n' + message.member.displayName,  
           message.author.displayAvatarURL({ dynamic: true })
         )
-        .setDescription(`${colors.slice(n, max).join(' ')}\n\nType \`${prefix}color <color name>\` to choose one.`);
+        .setDescription(`
+          ${colors.slice(n, n + interval).join(' ')}\n\nType \`${prefix}color <color name>\` to choose one.
+        `);
 
       const json = embed.toJSON();
 
       const previous = () => {
         if (n === 0) return;
         n -= interval;
-        max -= interval;
-        if (max <= n + interval) max = n + interval;
         return new MessageEmbed(json)
-          .setTitle(`Available Colors [${n + 1} - ${max}]`)
-          .setDescription(`${colors.slice(n, max).join(' ')}\n\nType \`${prefix}color <color name>\` to choose one.`);
+          .setTitle('Available Colors ' + getRange(colors, n, interval))
+          .setDescription(`
+            ${colors.slice(n, n + interval).join(' ')}\n\nType \`${prefix}color <color name>\` to choose one.
+          `);
       };
 
       const next = () => {
-        if (max === colors.length) return;
+        const cap = colors.length - (colors.length % interval);
+        if (n === cap || n + interval === colors.length) return;
         n += interval;
-        max += interval;
-        if (max >= colors.length) max = colors.length;
+        if (n >= colors.length) n = cap;
+        const max = (colors.length > n + interval) ? n + interval : colors.length;
         return new MessageEmbed(json)
-          .setTitle(`Available Colors [${n + 1} - ${max}]`)
+          .setTitle('Available Colors ' + getRange(colors, n, interval))
           .setDescription(`${colors.slice(n, max).join(' ')}\n\nType \`${prefix}color <color name>\` to choose one.`);
       };
 
       const reactions = {
         '◀️': previous,
         '▶️': next,
+        '⏹️': null,
       };
 
-      new ReactionMenu(message.channel, message.member, embed, reactions);
+      const menu = new ReactionMenu(message.client, message.channel, message.member, embed, null, null, reactions);
       
+      menu.reactions['⏹️'] = menu.stop.bind(menu);
     }
   }
 };

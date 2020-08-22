@@ -45,8 +45,21 @@ module.exports = class GalleryCommand extends Command {
     const reactions = {
       '◀️': previous,
       '▶️': next,
+      '⏹️': null,
     };
-    new ReactionMenu(message.channel, message.member, embed, reactions, 180000);
+
+    const menu = new ReactionMenu(
+      message.client,
+      message.channel,
+      message.member,
+      embed,
+      null,
+      null,
+      reactions,
+      180000
+    );
+
+    menu.reactions['⏹️'] = menu.stop.bind(menu);
     
   }
 };

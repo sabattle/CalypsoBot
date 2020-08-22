@@ -55,6 +55,20 @@ function trimStringFromArray(arr, maxLen = 2048, joinChar = '\n') {
 }
 
 /**
+ * Gets current array window range
+ * @param {Array} arr
+ * @param {int} current
+ * @param {int} interval
+ */
+function getRange(arr, current, interval) {
+  const max = (arr.length > current + interval) ? current + interval : arr.length;
+  current = current + 1;
+  const range = (arr.length == 1 || arr.length == current || interval == 1) ? `[${current}]` : `[${current} - ${max}]`;
+  return range;
+}
+
+
+/**
  * Gets the ordinal numeral of a number
  * @param {int} number
  */
@@ -198,6 +212,7 @@ module.exports = {
   removeElement,
   trimArray,
   trimStringFromArray,
+  getRange,
   getOrdinalNumeral,
   getCaseNumber,
   getStatus,

@@ -44,8 +44,9 @@ module.exports = class WarnsCommand extends Command {
           .addField('Date Issued', warns.warns[i].date, true);
         amount += 1;
       }
+
       return embed
-        .setTitle(`Warn List [${(count === 1) ? '1' : `${current + 1} - ${max}`}]`)
+        .setTitle('Warn List ' + this.client.utils.getRange(warns.warns, current, 5))
         .setDescription(`Showing \`${amount}\` of ${member}'s \`${count}\` total warns.`);
     };
 
@@ -76,15 +77,18 @@ module.exports = class WarnsCommand extends Command {
       };
 
       const next = () => {
-        if (n === count) return;
+        const cap = count - (count % 5);
+        if (n === cap || n + 5 === count) return;
         n += 5;
-        if (n >= count) n = count - (count % 5);
+        if (n >= count) n = cap;
         return buildEmbed(n, new MessageEmbed(json));
       };
 
       const last = () => {
-        if (n === count) return;
-        n = count - (count % 5);
+        const cap = count - (count % 5);
+        if (n === cap || n + 5 === count) return;
+        n = cap;
+        if (n === count) n -= 5;
         return buildEmbed(n, new MessageEmbed(json));
       };
 
@@ -92,10 +96,22 @@ module.exports = class WarnsCommand extends Command {
         '⏪': first,
         '◀️': previous,
         '▶️': next,
-        '⏩': last
+        '⏩': last,
+        '⏹️': null,
       };
 
-      new ReactionMenu(message.channel, message.member, buildEmbed(n, new MessageEmbed(json)), reactions, 180000);
+      const menu = new ReactionMenu(
+        message.client,
+        message.channel, 
+        message.member, 
+        buildEmbed(n, new MessageEmbed(json)), 
+        null,
+        null,
+        reactions, 
+        180000
+      );
+
+      menu.reactions['⏹️'] = menu.stop.bind(menu);
 
     }
   }

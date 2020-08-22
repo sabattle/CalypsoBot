@@ -31,9 +31,9 @@ module.exports = class ModsCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
 
-    let max = 25;
+    const interval = 25;
     if (mods.length === 0) message.channel.send(embed.setDescription('No mods found.'));
-    else if (mods.length <= max) {
+    else if (mods.length <= interval) {
       const range = (mods.length == 1) ? '[1]' : `[1 - ${mods.length}]`;
       message.channel.send(embed
         .setTitle(`Mod List ${range}`)
@@ -43,44 +43,15 @@ module.exports = class ModsCommand extends Command {
     // Reaction Menu
     } else {
 
-      let n = 0, interval = max;
       embed
-        .setTitle(`Mod List [1 - ${max}]`)
+        .setTitle('Mod List')
         .setThumbnail(message.guild.iconURL({ dynamic: true }))
         .setFooter(
           'Expires after two minutes.\n' + message.member.displayName,  
           message.author.displayAvatarURL({ dynamic: true })
-        )
-        .setDescription(mods.slice(n, max).join('\n'));
+        );
 
-      const json = embed.toJSON();
-
-      const previous = () => {
-        if (n === 0) return;
-        n -= interval;
-        max -= interval;
-        if (max <= n + interval) max = n + interval;
-        return new MessageEmbed(json)
-          .setTitle(`Mod List [${n + 1} - ${max}]`)
-          .setDescription(mods.slice(n, max).join('\n'));
-      };
-
-      const next = () => {
-        if (max === mods.length) return;
-        n += interval;
-        max += interval;
-        if (max >= mods.length) max = mods.length;
-        return new MessageEmbed(json)
-          .setTitle(`Mod List [${n + 1} - ${max}]`)
-          .setDescription(mods.slice(n, max).join('\n'));
-      };
-
-      const reactions = {
-        '◀️': previous,
-        '▶️': next,
-      };
-
-      new ReactionMenu(message.channel, message.member, embed, reactions);
+      new ReactionMenu(message.client, message.channel, message.member, embed, mods, interval);
     }
   }
 };

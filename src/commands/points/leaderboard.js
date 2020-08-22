@@ -12,7 +12,7 @@ module.exports = class LeaderboardCommand extends Command {
       description: oneLine`
         Displays the server points leaderboard of the provided member count. 
         If no member count is given, the leaderboard will default to size 10.
-        The max leaderboard size is 25, and minimum size is 5.
+        The max leaderboard size is 25.
       `,
       type: client.types.POINTS,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'ADD_REACTIONS'],
@@ -22,7 +22,6 @@ module.exports = class LeaderboardCommand extends Command {
   async run(message, args) {
     let max = parseInt(args[0]);
     if (!max || max < 0) max = 10;
-    else if (max < 5) max = 5;
     else if (max > 25) max = 25;
     let leaderboard = message.client.db.users.selectLeaderboard.all(message.guild.id);
     const position = leaderboard.map(row => row.user_id).indexOf(message.author.id);
@@ -47,8 +46,9 @@ module.exports = class LeaderboardCommand extends Command {
     
 
     if (members.length <= max) {
+      const range = (members.length == 1) ? '[1]' : `[1 - ${members.length}]`;
       message.channel.send(embed
-        .setTitle(`Points Leaderboard [1 - ${members.length}]`)
+        .setTitle(`Points Leaderboard ${range}`)
         .setDescription(members.join('\n'))
       );
 
@@ -63,7 +63,7 @@ module.exports = class LeaderboardCommand extends Command {
           message.author.displayAvatarURL({ dynamic: true })
         );
       
-      new ReactionMenu(message.channel, message.member, embed, members, max);
+      new ReactionMenu(message.client, message.channel, message.member, embed, members, max);
 
     } 
   }

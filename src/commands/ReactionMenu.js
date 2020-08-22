@@ -7,6 +7,7 @@ module.exports = class ReactionMenu {
 
   /**
    * Create new ReactionMenu
+   * @param {Client} client
    * @param {TextChannel} channel
    * @param {GuildMember} member
    * @param {MessageEmbed} embed
@@ -15,13 +16,19 @@ module.exports = class ReactionMenu {
    * @param {Object} reactions
    * @param {int} timeout 
    */
-  constructor(channel, member, embed, arr = null, interval = 10, reactions = {
+  constructor(client, channel, member, embed, arr = null, interval = 10, reactions = {
     '⏪': this.first.bind(this), 
     '◀️': this.previous.bind(this), 
     '▶️': this.next.bind(this), 
     '⏩': this.last.bind(this), 
     '⏹️': this.stop.bind(this)
   }, timeout = 120000) {
+
+    /**
+     * The Calypso Client
+     * @type {Client}
+     */
+    this.client = client;
 
     /**
      * The text channel
@@ -69,7 +76,7 @@ module.exports = class ReactionMenu {
      * The max length of the array
      * @type {int}
      */
-    this.max = arr.length;
+    this.max = (this.arr) ? arr.length : null;
 
     /**
      * The reactions for menu
@@ -92,11 +99,17 @@ module.exports = class ReactionMenu {
     const first = new MessageEmbed(this.json);
     const description = (this.arr) ? this.arr.slice(this.current, this.interval) : null;
     if (description) first
-      .setTitle(this.embed.title + ` [1 - ${this.interval}]`)
+      .setTitle(this.embed.title + ' ' + this.client.utils.getRange(this.arr, this.current, this.interval))
       .setDescription(description);
 
     this.channel.send(first).then(message => {
+
+      /**
+       * The menu message
+       * @type {Message}
+     */
       this.message = message;
+
       this.addReactions();
       this.createCollector();
     });
@@ -145,7 +158,7 @@ module.exports = class ReactionMenu {
     if (this.current === 0) return;
     this.current = 0;
     return new MessageEmbed(this.json)
-      .setTitle(this.embed.title + ` [${this.current + 1} - ${this.current + this.interval}]`)
+      .setTitle(this.embed.title + ' ' + this.client.utils.getRange(this.arr, this.current, this.interval))
       .setDescription(this.arr.slice(this.current, this.current + this.interval));
   }
 
@@ -157,7 +170,7 @@ module.exports = class ReactionMenu {
     this.current -= this.interval;
     if (this.current < 0) this.current = 0;
     return new MessageEmbed(this.json)
-      .setTitle(this.embed.title + ` [${this.current + 1} - ${this.current + this.interval}]`)
+      .setTitle(this.embed.title + ' ' + this.client.utils.getRange(this.arr, this.current, this.interval))
       .setDescription(this.arr.slice(this.current, this.current + this.interval));
   }
 
@@ -166,12 +179,12 @@ module.exports = class ReactionMenu {
    */
   next() {
     const cap = this.max - (this.max % this.interval);
-    if (this.current === cap) return;
+    if (this.current === cap || this.current + this.interval === this.max) return;
     this.current += this.interval;
-    let max = this.current + this.interval;
-    if (max >= this.max) max = this.max;
+    if (this.current >= this.max) this.current = cap;
+    const max = (this.current + this.interval >= this.max) ? this.max : this.current + this.interval;
     return new MessageEmbed(this.json)
-      .setTitle(this.embed.title + ` [${this.current + 1} - ${max}]`)
+      .setTitle(this.embed.title + ' ' + this.client.utils.getRange(this.arr, this.current, this.interval))
       .setDescription(this.arr.slice(this.current, max));
   }
 
@@ -180,10 +193,11 @@ module.exports = class ReactionMenu {
    */
   last() {
     const cap = this.max - (this.max % this.interval);
-    if (this.current === cap) return;
+    if (this.current === cap || this.current + this.interval === this.max) return;
     this.current = cap;
+    if (this.current === this.max) this.current -= this.interval;
     return new MessageEmbed(this.json)
-      .setTitle(this.embed.title + ` [${this.current + 1} - ${this.max}]`)
+      .setTitle(this.embed.title + ' ' + this.client.utils.getRange(this.arr, this.current, this.interval))
       .setDescription(this.arr.slice(this.current, this.max));
   }
 

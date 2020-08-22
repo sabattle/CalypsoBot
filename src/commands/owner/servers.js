@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const ReactionMenu = require('../ReactionMenu.js');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class ServersCommand extends Command {
@@ -18,15 +19,17 @@ module.exports = class ServersCommand extends Command {
       return `\`${guild.id}\` - **${guild.name}** - \`${guild.members.cache.size}\` members`;
     });
 
-    // Trim array
-    const description = message.client.utils.trimStringFromArray(servers);
-
     const embed = new MessageEmbed()
-      .setTitle(`Server List [${servers.length}]`)
-      .setDescription(description)
+      .setTitle('Server List')
       .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    message.channel.send(embed);
+
+    if (servers.length <= 10) {
+      const range = (servers.length == 1) ? '[1]' : `[1 - ${servers.length}]`;
+      message.channel.send(embed.setTitle(`Server List ${range}`).setDescription(servers.join('\n')));
+    } else {
+      new ReactionMenu(message.client, message.channel, message.member, embed, servers);
+    }
   }
 };
