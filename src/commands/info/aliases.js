@@ -63,7 +63,7 @@ module.exports = class AliasesCommand extends Command {
         .setColor(message.guild.me.displayHexColor);
 
     } else if (type) {
-      return this.sendErrorMessage(message, `Unable to find type: \`${args[0]}\`. Please enter a valid type.`);
+      return this.sendErrorMessage(message, 0, 'Unable to find command type, please check provided type');
 
     } else {
 

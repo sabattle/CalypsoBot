@@ -16,13 +16,14 @@ module.exports = class LeaveGuildCommand extends Command {
   }
   async run(message, args) {
     const guildId = args[0];
-    if (!rgx.test(guildId)) return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid server ID.');
+    if (!rgx.test(guildId))
+      return this.sendErrorMessage(message, 0, 'Please provide a valid server ID');
     const guild = message.client.guilds.cache.get(guildId);
-    if (!guild) return this.sendErrorMessage(message, 'Unable to find server. Please check the provided ID.');
+    if (!guild) return this.sendErrorMessage(message, 0, 'Unable to find server, please check the provided ID');
     await guild.leave();
     const embed = new MessageEmbed()
       .setTitle('Leave Guild')
-      .setDescription(`I have sucessfully left **${guild.name}**.`)
+      .setDescription(`I have successfully left **${guild.name}**.`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetNicknameCommand extends Command {
   constructor(client) {
@@ -22,10 +22,11 @@ module.exports = class SetNicknameCommand extends Command {
   async run(message, args) {
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
+    if (!member)
+      return this.sendErrorMessage(message, 0, 'Please mention a user or provide a valid user ID');
     if (member.roles.highest.position >= message.member.roles.highest.position && member != message.member)
-      return this.sendErrorMessage(message, `
-        Invalid argument. You cannot change the nickname of someone with an equal or higher role.
+      return this.sendErrorMessage(message, 0, stripIndent`
+        You cannot change the nickname of someone with an equal or higher role
       `);
 
     let nickname;
@@ -36,11 +37,10 @@ module.exports = class SetNicknameCommand extends Command {
       nickname = args[1];
     }
   
-    if (!nickname) return this.sendErrorMessage(message, 'Invalid nickname. Please provide a valid nickname.');
+    if (!nickname) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
     else if (nickname.length > 32) {
-      return this.sendErrorMessage(message, `
-        Invalid nickname. Please ensure the nickname is no larger than 32 characters.
-      `);
+      return this.sendErrorMessage(message, 0, 'Please ensure the nickname is no larger than 32 characters');
+      
     } else {
 
       let reason = message.content.split(nickname)[1];
@@ -55,7 +55,7 @@ module.exports = class SetNicknameCommand extends Command {
         await member.setNickname(nickname);
         const embed = new MessageEmbed()
           .setTitle('Set Nickname')
-          .setDescription(`${member}'s nickname was succesfully updated.`)
+          .setDescription(`${member}'s nickname was successfully updated.`)
           .addField('Moderator', message.member, true)
           .addField('Member', member, true)
           .addField('Nickname', nicknameStatus, true)
@@ -70,7 +70,7 @@ module.exports = class SetNicknameCommand extends Command {
 
       } catch (err) {
         message.client.logger.error(err.stack);
-        this.sendErrorMessage(message, 'Something went wrong. Please check the role hierarchy.', err.message);
+        this.sendErrorMessage(message, 1, 'Please check the role hierarchy', err.message);
       }
     }  
   }

@@ -22,7 +22,7 @@ module.exports = class SetAutoKickCommand extends Command {
     const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id) || 'disabled';
     const amount = args[0];
     if (amount && (!Number.isInteger(Number(amount)) || amount < 0)) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
+      return this.sendErrorMessage(message, 0, 'Please enter a positive integer');
       
     const embed = new MessageEmbed()
       .setTitle('Settings: `Auto Kick`')

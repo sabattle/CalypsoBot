@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetSystemChannelCommand extends Command {
   constructor(client) {
@@ -37,8 +37,8 @@ module.exports = class SetSystemChannelCommand extends Command {
 
     const systemChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
     if (!systemChannel || systemChannel.type != 'text' || !systemChannel.viewable)
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
+      return this.sendErrorMessage(message, 0, stripIndent`
+        Please mention an accessible text channel or provide a valid text channel ID
       `);
     message.client.db.settings.updateSystemChannelId.run(systemChannel.id, message.guild.id);
     message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${systemChannel}`));

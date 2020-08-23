@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js');
-const { stripIndent } = require('common-tags');
 const permissions = require('../utils/permissions.json');
 
 /**
@@ -82,6 +81,12 @@ class Command {
      * @type {boolean}
      */
     this.disabled = options.disabled || false;
+
+    /**
+     * Array of error types
+     * @type {Array<string>}
+     */
+    this.errorTypes = ['Invalid Argument', 'Command Failure'];
   }
 
   /**
@@ -89,6 +94,7 @@ class Command {
    * @param {Message} message 
    * @param {string[]} args 
    */
+  // eslint-disable-next-line no-unused-vars
   run(message, args) {
     throw new Error(`The ${this.name} command has no run() method`);
   }
@@ -166,11 +172,7 @@ class Command {
         const embed = new MessageEmbed()
           .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
           .setTitle(`<:fail:736449226120233031> Missing User Permissions: \`${this.name}\``)
-          .setDescription(stripIndent`
-            The \`${this.name}\` command requires you to have the following permissions: 
-          
-            ${missingPermissions.map(p => `\`${p}\``).join(' ')}
-          `)
+          .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);
         message.channel.send(embed);
@@ -194,11 +196,7 @@ class Command {
           ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
         )
         .setTitle(`<:fail:736449226120233031> Missing Bot Permissions: \`${this.name}\``)
-        .setDescription(stripIndent`
-          The \`${this.name}\` command requires me to have the following permissions: 
-        
-          ${missingPermissions.map(p => `\`${p}\``).join(' ')}
-        `)
+        .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       message.channel.send(embed);
@@ -210,15 +208,17 @@ class Command {
   /**
    * Creates and sends command failure embed
    * @param {Message} message
+   * @param {int} errorType
    * @param {string} reason 
    * @param {string} errorMessage 
    */
-  sendErrorMessage(message, reason, errorMessage = null) {
+  sendErrorMessage(message, errorType, reason, errorMessage = null) {
+    errorType = this.errorTypes[errorType];
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const embed = new MessageEmbed()
       .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
       .setTitle(`<:fail:736449226120233031> Error: \`${this.name}\``)
-      .setDescription(reason)
+      .setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
       .addField('Usage', `\`${prefix}${this.usage}\``)
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

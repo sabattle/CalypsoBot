@@ -1,4 +1,4 @@
-const { oneLine } = require('common-tags');
+const { stripIndent } = require('common-tags');
 
 module.exports = async (client, messageReaction, user) => {
 
@@ -15,10 +15,9 @@ module.exports = async (client, messageReaction, user) => {
     try {
       await member.roles.add(verificationRole);
     } catch (err) {
-      return client.sendSystemErrorMessage(member.guild, 'verification', oneLine`
-      Something went wrong. Unable to give ${verificationRole} to ${member}. 
-      Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
-    `, err.message);
+      return client.sendSystemErrorMessage(member.guild, 'verification', stripIndent`
+        Unable to assign verification role, please check the role hierarchy and ensure I have the Manage Roles permission
+      `, err.message);
     }
   }
 };

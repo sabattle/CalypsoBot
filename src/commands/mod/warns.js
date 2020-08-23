@@ -17,7 +17,8 @@ module.exports = class WarnsCommand extends Command {
   run(message, args) {
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.'); 
+    if (!member) 
+      return this.sendErrorMessage(message, 0, 'Please mention a user or provide a valid user ID');
 
     let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };
     if (typeof(warns) == 'string') warns = JSON.parse(warns);

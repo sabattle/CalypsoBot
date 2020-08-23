@@ -25,14 +25,11 @@ module.exports = class ToggleTypeCommand extends Command {
     const { ADMIN, OWNER } = message.client.types;
 
     if (args.length === 0 || args[0].toLowerCase() === OWNER)
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command type.');
+      return this.sendErrorMessage(message, 0, 'Please provide a valid command type');
     
     const type = args[0].toLowerCase();
     
-    if (type === ADMIN) 
-      return this.sendErrorMessage(message, `
-        Invalid argument. \`${capitalize(ADMIN)}\` commands cannot be disabled.
-      `);
+    if (type === ADMIN) return this.sendErrorMessage(message, 0, `${capitalize(ADMIN)} commands cannot be disabled`);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
@@ -67,7 +64,7 @@ module.exports = class ToggleTypeCommand extends Command {
           **disabled**. <:fail:736449226120233031>
         `;
       }
-    } else return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command type.');
+    } else return this.sendErrorMessage(message, 0, 'Please provide a valid command type');
       
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);
 

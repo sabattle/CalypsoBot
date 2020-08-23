@@ -1,7 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const parser = require('cron-parser');
-const { oneLine, stripIndent } = require('common-tags');
+const { stripIndent } = require('common-tags');
 
 module.exports = class SetCrownScheduleCommand extends Command {
   constructor(client) {
@@ -82,10 +82,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     try {
       parser.parseExpression(crownSchedule);
     } catch (err) {
-      return this.sendErrorMessage(message, oneLine`
-        Invalid argument. Please try again with a valid cron expression. 
-        If you need additional help building your cron, please check out this website: <https://crontab.guru/#>
-      `);
+      return this.sendErrorMessage(message, 0, 'Please try again with a valid cron expression');
     }
 
     // Set minutes and seconds to 0

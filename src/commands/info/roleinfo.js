@@ -17,7 +17,8 @@ module.exports = class RoleInfoCommand extends Command {
   run(message, args) {
 
     const role = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!role) return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    if (!role)
+      return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
 
     const rolePermissions = role.permissions.toArray().sort((a, b) => {
       return Object.keys(permissions).indexOf(a) - Object.keys(permissions).indexOf(b);

@@ -18,8 +18,9 @@ module.exports = class ReportBugCommand extends Command {
   }
   run(message, args) {
     const reportChannel = message.client.channels.cache.get(message.client.bugReportChannelId);
-    if (!reportChannel) return this.sendErrorMessage(message, 'The `bugReportChannelId` property has not been set.');
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide bug report to send.');
+    if (!reportChannel)
+      return this.sendErrorMessage(message, 1, 'The bugReportChannelId property has not been set');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to send');
     let report = message.content.slice(message.content.indexOf(args[0]), message.content.length);
 
     // Send report

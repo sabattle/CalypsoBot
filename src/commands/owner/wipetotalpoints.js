@@ -15,7 +15,8 @@ module.exports = class WipeTotalPointsCommand extends Command {
   }
   run(message, args) {
     const member =  this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
+    if (!member)
+      return this.sendErrorMessage(message, 0, 'Please mention a user or provide a valid user ID');
     message.client.db.users.wipeTotalPoints.run(member.id, message.guild.id);
     const embed = new MessageEmbed()
       .setTitle('Wipe Total Points')

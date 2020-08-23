@@ -17,7 +17,7 @@ module.exports = class FindIdCommand extends Command {
       this.getRoleFromMention(message, args[0]) || 
       this.getChannelFromMention(message, args[0]);
     if (!target) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please mention a user, role, or text channel.');
+      return this.sendErrorMessage(message, 0, 'Please mention a user, role, or text channel');
     const id = target.id;
     const embed = new MessageEmbed()
       .setTitle('Find ID')

@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const schedule = require('node-schedule');
-const { oneLine } = require('common-tags');
+const { stripIndent } = require('common-tags');
 
 /**
  * Capitalizes a string
@@ -128,10 +128,8 @@ async function transferCrown(client, guild, crownRoleId) {
   
   // If crown role is unable to be found
   if (!crownRole) {
-    const prefix = client.db.settings.selectPrefix.pluck().get(guild.id);
-    return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
-      Something went wrong. Unable to find the stored \`crown role\`. The role may have been modified or deleted. 
-      Please use \`${prefix}setcrownrole\` to set a new \`crown role\`.
+    return client.sendSystemErrorMessage(guild, 'crown update', stripIndent`
+      Unable to transfer crown role, it may have been modified or deleted
     `);
   }
   
@@ -148,9 +146,8 @@ async function transferCrown(client, guild, crownRoleId) {
 
         quit = true;
         
-        return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
-          Something went wrong. Unable to remove ${crownRole} from ${member}. 
-          Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
+        return client.sendSystemErrorMessage(guild, 'crown update', stripIndent`
+          Unable to transfer crown role, please check the role hierarchy and ensure I have the Manage Roles permission
         `, err.message);
       } 
     }
@@ -164,9 +161,8 @@ async function transferCrown(client, guild, crownRoleId) {
     // Clear points
     client.db.users.wipeAllPoints.run(guild.id);
   } catch (err) {
-    return client.sendSystemErrorMessage(guild, 'crown update', oneLine`
-      Something went wrong. Unable to pass ${crownRole} to ${winner}. 
-      Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
+    return client.sendSystemErrorMessage(guild, 'crown update', stripIndent`
+      Unable to transfer crown role, please check the role hierarchy and ensure I have the Manage Roles permission
     `, err.message);
   }
   

@@ -21,7 +21,8 @@ module.exports = class RandomColorCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
     const colors = message.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
-    if (colors.length === 0) return this.sendErrorMessage(message, 'There are currently no colors set on this server.');
+    if (colors.length === 0)
+      return this.sendErrorMessage(message, 1, 'There are currently no colors set on this server');
     const color = colors[Math.floor(Math.random() * colors.length)];
     const oldColor = (message.member.roles.color && message.member.roles.color.name.startsWith('#')) ? 
       message.member.roles.color : '`None`';
@@ -32,7 +33,7 @@ module.exports = class RandomColorCommand extends Command {
       message.channel.send(embed.addField('Color', `${oldColor} ➔ ${color}`, true).setColor(color.hexColor));
     } catch (err) {
       message.client.logger.error(err.stack);
-      this.sendErrorMessage(message, 'Something went wrong. Please check the role hierarchy.', err.message);
+      this.sendErrorMessage(message, 1, 'Please check the role hierarchy', err.message);
     }
   }
 };

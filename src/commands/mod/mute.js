@@ -19,36 +19,35 @@ module.exports = class MuteCommand extends Command {
     const muteRoleId = message.client.db.settings.selectMuteRoleId.pluck().get(message.guild.id);
     let muteRole;
     if (muteRoleId) muteRole = message.guild.roles.cache.get(muteRoleId);
-    else return this.sendErrorMessage(message, 'There is currently no `mute role` set on this server.');
+    else return this.sendErrorMessage(message, 1, 'There is currently no mute role set on this server');
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
-    if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot mute yourself.');
-    if (member === message.guild.me) return this.sendErrorMessage(message, 'Invalid argument. You cannot mute me.');
+    if (!member) 
+      return this.sendErrorMessage(message, 0, 'Please mention a user or provide a valid user ID');
+    if (member === message.member)
+      return this.sendErrorMessage(message, 0, 'You cannot mute yourself');
+    if (member === message.guild.me) return this.sendErrorMessage(message, 0, 'You cannot mute me');
     if (member.roles.highest.position >= message.member.roles.highest.position)
-      return this.sendErrorMessage(message, 'Invalid argument. You cannot mute someone with an equal or higher role.');
+      return this.sendErrorMessage(message, 0, 'You cannot mute someone with an equal or higher role');
     if (!args[1])
-      return this.sendErrorMessage(message, `
-      Invalid argument. Please enter a length of time of 10 days or less (\`1s\`/\`m\`/\`h\`/\`d\`).
-    `);
+      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 10 days or less (1s/m/h/d)');
     let time = ms(args[1]);
     if (!time || time > 864000000) // Cap at 10 days, larger than 24.8 days causes integer overflow
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please enter a length of time of 10 days or less (\`1s\`/\`m\`/\`h\`/\`d\`).
-      `);
+      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 10 days or less (1s/m/h/d)');
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';
     if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
 
-    if (member.roles.cache.has(muteRoleId)) return this.sendErrorMessage(message, `${member} is already muted!`);
+    if (member.roles.cache.has(muteRoleId))
+      return this.sendErrorMessage(message, 0, 'Provided member is already muted');
 
     // Mute member
     try {
       await member.roles.add(muteRole);
     } catch (err) {
       message.client.logger.error(err.stack);
-      return this.sendErrorMessage(message, 'Something went wrong. Please check the role hierarchy.', err.message);
+      return this.sendErrorMessage(message, 1, 'Please check the role hierarchy', err.message);
     }
     const muteEmbed = new MessageEmbed()
       .setTitle('Mute Member')
@@ -62,6 +61,7 @@ module.exports = class MuteCommand extends Command {
       .setColor(message.guild.me.displayHexColor);
     message.channel.send(muteEmbed);
 
+    // Unmute member
     member.timeout = message.client.setTimeout(async () => {
       try {
         await member.roles.remove(muteRole);
@@ -73,7 +73,7 @@ module.exports = class MuteCommand extends Command {
         message.channel.send(unmuteEmbed);
       } catch (err) {
         message.client.logger.error(err.stack);
-        return this.sendErrorMessage(message, 'Something went wrong. Please check the role hierarchy.', err.message);
+        return this.sendErrorMessage(message, 1, 'Please check the role hierarchy', err.message);
       }
     }, time);
 

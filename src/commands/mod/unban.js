@@ -17,10 +17,10 @@ module.exports = class UnbanCommand extends Command {
   }
   async run(message, args) {
     const id = args[0];
-    if (!rgx.test(id)) return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid user ID.');
+    if (!rgx.test(id)) return this.sendErrorMessage(message, 0, 'Please provide a valid user ID');
     const bannedUsers = await message.guild.fetchBans();
     const user = bannedUsers.get(id).user;
-    if (!user) return this.sendErrorMessage(message, 'Unable to find user. Please check the provided user ID.');
+    if (!user) return this.sendErrorMessage(message, 0, 'Unable to find user, please check the provided ID');
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided.';

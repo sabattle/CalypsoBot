@@ -33,8 +33,7 @@ module.exports = class SetAdminRoleCommand extends Command {
 
     // Update role
     const adminRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!adminRole) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    if (!adminRole) return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
     message.client.db.settings.updateAdminRoleId.run(adminRole.id, message.guild.id);
     message.channel.send(embed.addField('Role', `${oldAdminRole} ➔ ${adminRole}`));
   }

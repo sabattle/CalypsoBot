@@ -53,16 +53,17 @@ module.exports = async (client, guild) => {
     const calypsoColor = guild.roles.cache.find(r => r.name === '#Seagrass');
     if (calypsoColor) await guild.me.roles.add(calypsoColor);
   } catch (err) {
-    client.logger.error(err.stack);
+    client.logger.error(err.message);
   }
   
-  if (fails > 0) {
-    const len = Object.keys(colors).length;
-    const prefix = client.db.settings.selectPrefix.pluck().get(guild.id);
+  const len = Object.keys(colors).length;
+  if (fails === len ) {
     client.sendSystemErrorMessage(guild, 'color create', oneLine`
-      Something went wrong. Unable to create \`${fails}\` of \`${len}\` default colors. 
-      Please ensure I have the \`Manage Roles\` permission and that there are open role slots.
-      You can attempt to generate default colors again at any point by using \`${prefix}createdefaultcolors\`.
+      Unable to create default colors, please ensure I have the Manage Roles permission
+    `);
+  } else if (fails > 0) {
+    client.sendSystemErrorMessage(guild, 'color create', oneLine`
+      Unable to create ${fails} of ${len} default colors, please ensure there are open role slots
     `);
   }
 

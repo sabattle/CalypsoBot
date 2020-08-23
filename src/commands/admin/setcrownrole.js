@@ -65,8 +65,7 @@ module.exports = class SetCrownRoleCommand extends Command {
 
     // Update role
     const crownRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!crownRole)
-      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    if (!crownRole) return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
     message.client.db.settings.updateCrownRoleId.run(crownRole.id, message.guild.id);
 
     // Update status

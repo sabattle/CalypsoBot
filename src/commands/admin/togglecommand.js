@@ -24,14 +24,12 @@ module.exports = class ToggleCommandCommand extends Command {
 
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
     if (!command || (command && command.type == OWNER)) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide a valid command.');
+      return this.sendErrorMessage(message, 0, 'Please provide a valid command');
 
     const { capitalize } = message.client.utils;
 
     if (command.type === ADMIN) 
-      return this.sendErrorMessage(message, `
-        Invalid argument. \`${capitalize(ADMIN)}\` commands cannot be disabled.
-      `);
+      return this.sendErrorMessage(message, 0, `${capitalize(ADMIN)} commands cannot be disabled`);
 
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');

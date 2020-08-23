@@ -34,7 +34,7 @@ module.exports = class ThouArtCommand extends Command {
       message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
+      this.sendErrorMessage(message, 1, 'Please try again in a few seconds', err.message);
     }
   }
 };

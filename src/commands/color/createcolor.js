@@ -19,8 +19,8 @@ module.exports = class CreateColorCommand extends Command {
   }
   async run(message, args) {
     let hex = args.shift();
-    if (args.length === 0 || !rgx.test(hex))
-      return this.sendErrorMessage(message, 'Invalid arguments. Please provide a color hex and a color name.');
+    if (!rgx.test(hex)) return this.sendErrorMessage(message, 0, 'Please provide a valid color hex and color name');
+    if (args.length === 0) return this.sendErrorMessage(message, 0, 'Please provide a color name');
     let colorName = args.join(' ');
     if (!colorName.startsWith('#')) colorName = '#' + colorName;
     if (!hex.startsWith('#')) hex = '#' + hex;
@@ -44,7 +44,7 @@ module.exports = class CreateColorCommand extends Command {
       message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      this.sendErrorMessage(message, 'Something went wrong. Please try again.', err.message);
+      this.sendErrorMessage(message, 1, 'Please try again in a few seconds', err.message);
     }
   }
 };

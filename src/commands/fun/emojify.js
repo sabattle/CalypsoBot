@@ -26,7 +26,7 @@ module.exports = class EmojifyCommand extends Command {
     });
   }
   run(message, args) {
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide a message to emojify.');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to emojify');
     let msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     msg = msg.split('').map(c => {
       if (c === ' ') return c;

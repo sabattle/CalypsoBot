@@ -16,7 +16,7 @@ module.exports = class SetCommandPointsCommand extends Command {
   run(message, args) {
     const amount = args[0];
     if (!amount || !Number.isInteger(Number(amount)) || amount < 0) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please enter a positive integer.');
+      return this.sendErrorMessage(message, 0, 'Please enter a positive integer');
     const { 
       point_tracking: pointTracking, 
       message_points: messagePoints, 

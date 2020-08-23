@@ -149,8 +149,8 @@ module.exports = class SettingsCommand extends Command {
         );
     }
     if (setting)
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please enter a valid settings category. Use \`${row.prefix}settings\` for a list.
+      return this.sendErrorMessage(message, 0, stripIndent`
+        Please enter a valid settings category, use ${row.prefix}settings for a list
       `);
 
     /** ------------------------------------------------------------------------------------------------

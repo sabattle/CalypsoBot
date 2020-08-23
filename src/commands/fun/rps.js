@@ -17,7 +17,7 @@ module.exports = class RockPaperScissorsCommand extends Command {
     let userChoice;
     if (args.length) userChoice = args[0].toLowerCase();
     if (!rps.includes(userChoice)) 
-      return this.sendErrorMessage(message, 'Please enter `rock`, `paper`, or `scissors`.');
+      return this.sendErrorMessage(message, 0, 'Please enter rock, paper, or scissors');
     userChoice = rps.indexOf(userChoice);
     const botChoice = Math.floor(Math.random()*3);
     let result;

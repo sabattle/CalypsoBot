@@ -15,7 +15,7 @@ module.exports = class TrumpTweetCommand extends Command {
   async run(message, args) {
 
     // Get message
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide a message to tweet.');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to tweet');
     let tweet = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     if (tweet.length > 68) tweet = tweet.slice(0, 65) + '...';
 
@@ -31,7 +31,7 @@ module.exports = class TrumpTweetCommand extends Command {
       message.channel.send(embed);
     } catch (err) {
       message.client.logger.error(err.stack);
-      this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
+      this.sendErrorMessage(message, 1, 'Please try again in a few seconds', err.message);
     }
   }
 };

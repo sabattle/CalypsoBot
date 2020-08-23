@@ -17,17 +17,17 @@ module.exports = class YoutubeCommand extends Command {
   async run(message, args) {
     const apiKey = message.client.apiKeys.googleApi;
     const videoName = args.join(' ');
-    if (!videoName) return this.sendErrorMessage(message, 'Invalid Argument. Please provide a YouTube video name.');
+    if (!videoName) return this.sendErrorMessage(message, 0, 'Please provide a YouTube video name');
     const searchOptions = { maxResults: 1, key: apiKey, type: 'video' };
     if (!message.channel.nsfw) searchOptions['safeSearch'] = 'strict';
     let result = await search(videoName, searchOptions)
       .catch(err => {
         message.client.logger.error(err);
-        return this.sendErrorMessage(message, 'Something went wrong. Please try again in a few seconds.', err.message);
+        return this.sendErrorMessage(message, 1, 'Please try again in a few seconds', err.message);
       });
     result = result.results[0];
     if (!result) 
-      return this.sendErrorMessage(message, 'Unable to find video. Please provide a different YouTube video name.');
+      return this.sendErrorMessage(message, 0, 'Unable to find video, please provide a different YouTube video name');
     const decodedTitle = he.decode(result.title);
     const embed = new MessageEmbed()
       .setTitle(decodedTitle)

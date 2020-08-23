@@ -49,7 +49,7 @@ module.exports = class HelpCommand extends Command {
       if (command.examples) embed.addField('Examples', command.examples.map(c => `\`${prefix}${c}\``).join('\n'));
 
     } else if (args.length > 0 && !all) {
-      return this.sendErrorMessage(message, `Unable to find command: \`${args[0]}\`. Please enter a valid command.`);
+      return this.sendErrorMessage(message, 0, 'Unable to find command, please check provided command');
 
     } else {
 

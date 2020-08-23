@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { stripIndent } = require('common-tags');
 
 module.exports = async (client, member) => {
 
@@ -13,9 +13,8 @@ module.exports = async (client, member) => {
     try {
       await member.roles.add(autoRole);
     } catch (err) {
-      return client.sendSystemErrorMessage(member.guild, 'auto role', oneLine`
-        Something went wrong. Unable to give ${autoRole} to ${member}. 
-        Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
+      client.sendSystemErrorMessage(member.guild, 'auto role', stripIndent`
+        Unable to assign auto role, please check the role hierarchy and ensure I have the Manage Roles permission
       `, err.message);
     }
   }
@@ -45,23 +44,18 @@ module.exports = async (client, member) => {
   // Assign random color
   const randomColor = client.db.settings.selectRandomColor.pluck().get(member.guild.id);
   if (randomColor) {
-    const prefix = client.db.settings.selectPrefix.pluck().get(member.guild.id);
     const colors = member.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
 
     // Check length
-    if (colors.length === 0) return client.sendSystemErrorMessage(member.guild, 'random color', oneLine`
-      Something went wrong. Unable to give a random color to ${member}. 
-      There are currently no colors set on this server. Use \`${prefix}togglerandomcolor\` to disable this feature.
-    `);
-
-    const color = colors[Math.floor(Math.random() * colors.length)]; // Get color
-    try {
-      await member.roles.add(color);
-    } catch (err) {
-      return client.sendSystemErrorMessage(member.guild, 'random color', oneLine`
-        Something went wrong. Unable to give ${color} to ${member}. 
-        Please check the role hierarchy and ensure I have the \`Manage Roles\` permission.
-      `, err.message);
+    if (colors.length > 0) {
+      const color = colors[Math.floor(Math.random() * colors.length)]; // Get color
+      try {
+        await member.roles.add(color);
+      } catch (err) {
+        client.sendSystemErrorMessage(member.guild, 'random color', stripIndent`
+          Unable to assign random color, please check the role hierarchy and ensure I have the Manage Roles permission
+        `, err.message);
+      }
     }
   }
 

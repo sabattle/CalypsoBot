@@ -13,7 +13,7 @@ module.exports = class BlastCommand extends Command {
     });
   }
   run(message, args) {
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide a message for me to say.');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to blast');
     const msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     const guilds = [];
     message.client.guilds.cache.forEach(guild => {

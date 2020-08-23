@@ -10,13 +10,14 @@ module.exports = class FeedbackCommand extends Command {
       usage: 'feedback <message>',
       description: 'Sends a message to the Calypso Support Server\'s feedback channel.',
       type: client.types.MISC,
-      examples: ['feedback we love Calypso!']
+      examples: ['feedback We love Calypso!']
     });
   }
   run(message, args) {
     const feedbackChannel = message.client.channels.cache.get(message.client.feedbackChannelId);
-    if (!feedbackChannel) return this.sendErrorMessage(message, 'The `feedbackChannelId` property has not been set.');
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide feedback to send.');
+    if (!feedbackChannel) 
+      return this.sendErrorMessage(message, 1, 'The feedbackChannelId property has not been set');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to send');
     let feedback = message.content.slice(message.content.indexOf(args[0]), message.content.length);
 
     // Send report

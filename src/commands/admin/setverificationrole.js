@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetVerificationRoleCommand extends Command {
   constructor(client) {
@@ -76,8 +76,7 @@ module.exports = class SetVerificationRoleCommand extends Command {
 
     // Update role
     const verificationRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
-    if (!verificationRole)
-      return this.sendErrorMessage(message, 'Invalid argument. Please mention a role or provide a role ID.');
+    if (!verificationRole) return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
     message.client.db.settings.updateVerificationRoleId.run(verificationRole.id, message.guild.id);
 
     // Update status
@@ -104,9 +103,8 @@ module.exports = class SetVerificationRoleCommand extends Command {
         await msg.react('✅');
         message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
       } else {
-        return message.client.sendSystemErrorMessage(message.guild, 'verification', oneLine`
-          Something went wrong. Unable to send the \`verification message\` to ${verificationChannel}. 
-          Please ensure I have permission to access that text channel.
+        return message.client.sendSystemErrorMessage(message.guild, 'verification', stripIndent`
+          Unable to send verification message, please ensure I have permission to access the verification channel
         `);
       }
     }

@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetVerificationChannelCommand extends Command {
   constructor(client) {
@@ -79,8 +79,8 @@ module.exports = class SetVerificationChannelCommand extends Command {
     const verificationChannel = 
       this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
     if (!verificationChannel || verificationChannel.type != 'text' || !verificationChannel.viewable)
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
+      return this.sendErrorMessage(message, 0, stripIndent`
+        Please mention an accessible text channel or provide a valid text channel ID
       `);
 
     // Update status
@@ -112,9 +112,8 @@ module.exports = class SetVerificationChannelCommand extends Command {
         await msg.react('✅');
         message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
       } else {
-        return message.client.sendSystemErrorMessage(message.guild, 'verification', oneLine`
-          Something went wrong. Unable to send the \`verification message\` to ${verificationChannel}. 
-          Please ensure I have permission to access that text channel.
+        return message.client.sendSystemErrorMessage(message.guild, 'verification', stripIndent`
+          Unable to send verification message, please ensure I have permission to access the verification channel
         `);
       }
     }

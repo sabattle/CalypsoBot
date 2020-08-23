@@ -1,6 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SlowmodeCommand extends Command {
   constructor(client) {
@@ -28,20 +28,18 @@ module.exports = class SlowmodeCommand extends Command {
     }
 
     // Check type and viewable
-    if (channel.type != 'text' || !channel.viewable) 
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
-      `);
+    if (channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, 0, stripIndent`
+      Please mention an accessible text channel or provide a valid text channel ID
+    `);
       
     const rate = args[index];
-    if (!rate || rate < 0 || rate > 59) 
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide a rate limit between 0 and 59 seconds.');
+    if (!rate || rate < 0 || rate > 59) return this.sendErrorMessage(message, 0, stripIndent`
+      Please provide a rate limit between 0 and 59 seconds
+    `);
 
     // Check channel permissions
     if (!channel.permissionsFor(message.guild.me).has(['MANAGE_CHANNELS']))
-      return this.sendErrorMessage(message, `
-        Invalid channel: ${channel}. I do not have permission to manage the ${channel} channel.
-      `);
+      return this.sendErrorMessage(message, 0, 'I do not have permission to manage the provided channel');
 
     let reason = args.slice(index + 1).join(' ');
     if (!reason) reason = 'No reason provided.';

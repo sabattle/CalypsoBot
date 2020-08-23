@@ -207,7 +207,7 @@ class Client extends Discord.Client {
     const embed = new Discord.MessageEmbed()
       .setAuthor(`${guild.me.displayName}#${this.user.discriminator}`, this.user.displayAvatarURL())
       .setTitle(`<:fail:736449226120233031> System Error: \`${error}\``)
-      .setDescription(errorMessage)
+      .setDescription(`\`\`\`diff\n- System Failure\n+ ${errorMessage}\`\`\``)
       .setTimestamp()
       .setColor(guild.me.displayHexColor);
     systemChannel.send(embed);

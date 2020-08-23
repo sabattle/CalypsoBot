@@ -1,5 +1,5 @@
 const Command = require('../Command.js');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SayCommand extends Command {
   constructor(client) {
@@ -21,23 +21,18 @@ module.exports = class SayCommand extends Command {
     } else channel = message.channel;
 
     // Check type and viewable
-    if (channel.type != 'text' || !channel.viewable) 
-      return this.sendErrorMessage(message, `
-        Invalid argument. Please mention an accessible text channel or provide a valid text channel ID.
-      `);
+    if (channel.type != 'text' || !channel.viewable) return this.sendErrorMessage(message, 0, stripIndent`
+      Please mention an accessible text channel or provide a valid text channel ID
+    `);
 
-    if (!args[0]) return this.sendErrorMessage(message, 'No message provided. Please provide a message for me to say.');
+    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message for me to say');
 
     // Check channel permissions
     if (!channel.permissionsFor(message.guild.me).has(['SEND_MESSAGES']))
-      return this.sendErrorMessage(message, `
-        Invalid channel: ${channel}. I do not have permission to send messages in ${channel}.
-      `);
+      return this.sendErrorMessage(message, 0, 'I do not have permission to send messages in the provided channel');
 
     if (!channel.permissionsFor(message.member).has(['SEND_MESSAGES']))
-      return this.sendErrorMessage(message, `
-        Invalid channel: ${channel}. You do not have permission to send messages in ${channel}.
-      `);
+      return this.sendErrorMessage(message, 0, 'You do not have permission to send messages in the provided channel');
 
     const msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     channel.send(msg, { disableMentions: 'everyone' });

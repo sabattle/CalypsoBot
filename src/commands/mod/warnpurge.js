@@ -18,16 +18,18 @@ module.exports = class WarnPurgeCommand extends Command {
   async run(message, args) {
 
     const member = this.getMemberFromMention(message, args[0]) || message.guild.members.cache.get(args[0]);
-    if (!member) return this.sendErrorMessage(message, 'Invalid argument. Please mention a user or provide a user ID.');
-    if (member === message.member) return this.sendErrorMessage(message, 'Invalid argument. You cannot warn yourself.'); 
-    if (member.roles.highest.position >= message.member.roles.highest.position)
-      return this.sendErrorMessage(message, 'Invalid argument. You cannot warn someone with an equal or higher role.');
+    if (!member) 
+      return this.sendErrorMessage(message, 0, 'Please mention a user or provide a valid user ID');
+    if (member === message.member) 
+      return this.sendErrorMessage(message, 0, 'You cannot warn yourself'); 
+    if (member.roles.highest.position >= message.member.roles.highest.position) 
+      return this.sendErrorMessage(message, 0, 'You cannot warn someone with an equal or higher role');
     
     const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id); // Get warn # for auto kick
 
     const amount = parseInt(args[1]);
     if (isNaN(amount) === true || !amount || amount < 0 || amount > 100)
-      return this.sendErrorMessage(message, 'Invalid argument. Please provide a message count between 1 and 100.');
+      return this.sendErrorMessage(message, 0, 'Please provide a message count between 1 and 100');
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';

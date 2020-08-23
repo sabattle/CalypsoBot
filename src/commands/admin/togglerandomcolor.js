@@ -7,9 +7,7 @@ module.exports = class ToggleRandomColorCommand extends Command {
       name: 'togglerandomcolor',
       aliases: ['togglerc', 'togrc', 'trc'],
       usage: 'togglerandomcolor',
-      description: `
-        Enables or disables random color role assigning when someone joins your server, or upon being verified.
-      `,
+      description: 'Enables or disables random color role assigning when someone joins your server.',
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD']
     });
