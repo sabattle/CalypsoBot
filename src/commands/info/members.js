@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const emojis = require('../../utils/emojis.json');
 const { stripIndent } = require('common-tags');
 
 module.exports = class MembersCommand extends Command {
@@ -21,13 +22,13 @@ module.exports = class MembersCommand extends Command {
       .setTitle(`Member Status [${message.guild.members.cache.size}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(stripIndent`
-        <:online:735341197450805279> **Online**: \`${online}\` members
+        ${emojis.online} **Online:** \`${online}\` members
 
-        <:dnd:735341494537289768> **Busy**: \`${dnd}\` members
+        ${emojis.dnd} **Busy:** \`${dnd}\` members
 
-        <:idle:735341387842584648> **AFK**: \`${afk}\` members
+        ${emojis.idle} **AFK:** \`${afk}\` members
 
-        <:offline:735341676121554986> **Offline**: \`${offline}\` members
+        ${emojis.offline} **Offline:** \`${offline}\` members
       `)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

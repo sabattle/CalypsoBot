@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 
 module.exports = class SetPrefixCommand extends Command {
   constructor(client) {
@@ -23,7 +24,7 @@ module.exports = class SetPrefixCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Prefix`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `prefix` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`prefix\` was successfully updated. ${success}`)
       .addField('Prefix', `\`${oldPrefix}\` ➔ \`${prefix}\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

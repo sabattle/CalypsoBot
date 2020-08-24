@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetLeaveChannelCommand extends Command {
@@ -34,7 +35,7 @@ module.exports = class SetLeaveChannelCommand extends Command {
     
     const embed = new MessageEmbed()
       .setTitle('Settings: `Leave Messages`')
-      .setDescription('The `leave channel` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`leave channel\` was successfully updated. ${success}`)
       .addField('Message', leaveMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

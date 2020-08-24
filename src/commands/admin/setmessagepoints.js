@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 
 module.exports = class SetMessagePointsCommand extends Command {
   constructor(client) {
@@ -28,7 +29,7 @@ module.exports = class SetMessagePointsCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Points System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `message points` value was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`message points\` value was successfully updated. ${success}`)
       .addField('Message Points', `\`${messagePoints}\` ➔ \`${amount}\``, true)
       .addField('Command Points', `\`${commandPoints}\``, true)
       .addField('Voice Points', `\`${voicePoints}\``, true)

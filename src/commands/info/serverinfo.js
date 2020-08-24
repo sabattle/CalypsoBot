@@ -1,6 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const { owner, voice } = require('../../utils/emojis.json');
 const region = {
   'us-central': 'US Central :flag_us:',
   'us-east': 'US East :flag_us:',
@@ -56,7 +57,7 @@ module.exports = class ServerInfoCommand extends Command {
       .setTitle(`${message.guild.name}'s Information`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('ID', `\`${message.guild.id}\``, true)
-      .addField('Owner <:owner:735338114230255616>', message.guild.owner, true)
+      .addField(`Owner ${owner}`, message.guild.owner, true)
       .addField('Region', region[message.guild.region], true)
       .addField('Members', `\`${message.guild.memberCount}\``, true)
       .addField('Bots', `\`${message.guild.members.cache.array().filter(b => b.user.bot).length}\``, true)
@@ -65,7 +66,7 @@ module.exports = class ServerInfoCommand extends Command {
       .addField('Voice Channel Count', `\`${voiceChannels.length}\``, true)
       .addField('Verification Level', verificationLevels[message.guild.verificationLevel], true)
       .addField('AFK Channel', 
-        (message.guild.afkChannel) ? `<:voice:735665114870710413> ${message.guild.afkChannel.name}` : '`None`', true
+        (message.guild.afkChannel) ? `${voice} ${message.guild.afkChannel.name}` : '`None`', true
       )
       .addField('AFK Timeout', 
         (message.guild.afkChannel) ? 

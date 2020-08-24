@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success, verify } = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetVerificationChannelCommand extends Command {
@@ -45,7 +46,7 @@ module.exports = class SetVerificationChannelCommand extends Command {
     
     const embed = new MessageEmbed()
       .setTitle('Settings: `Verification`')
-      .setDescription('The `verification channel` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`verification channel\` was successfully updated. ${success}`)
       .addField('Role', verificationRole || '`None`', true)
       .addField('Message', verificationMessage || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -109,7 +110,7 @@ module.exports = class SetVerificationChannelCommand extends Command {
           .setDescription(verificationMessage.slice(3, -3))
           .setColor(message.guild.me.displayHexColor)
         );
-        await msg.react('✅');
+        await msg.react(verify.split(':')[2].slice(0, -1));
         message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
       } else {
         return message.client.sendSystemErrorMessage(message.guild, 'verification', stripIndent`

@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const emojis = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class AliasesCommand extends Command {
@@ -34,14 +35,14 @@ module.exports = class AliasesCommand extends Command {
     const { capitalize } = message.client.utils;
 
     const emojiMap = {
-      [INFO]: `<:pin_unread:735343728679714907> ${capitalize(INFO)}`,
-      [FUN]: `<:add_reaction:735344430512341163> ${capitalize(FUN)}`,
-      [COLOR]: `<:channel:735665033333178389> ${capitalize(COLOR)}`,
-      [POINTS]: `<:members:735661916906717276> ${capitalize(POINTS)}`,
-      [MISC]: `<:mention:735344543125471242> ${capitalize(MISC)}`,
-      [MOD]: `<:moderation:735343938361360404> ${capitalize(MOD)}`,
-      [ADMIN]: `<:settings:735343627051728926> ${capitalize(ADMIN)}`,
-      [OWNER]: `<:owner:735338114230255616> ${capitalize(OWNER)}`
+      [INFO]: `${emojis.info} ${capitalize(INFO)}`,
+      [FUN]: `${emojis.fun} ${capitalize(FUN)}`,
+      [COLOR]: `${emojis.color} ${capitalize(COLOR)}`,
+      [POINTS]: `${emojis.points} ${capitalize(POINTS)}`,
+      [MISC]: `${emojis.misc} ${capitalize(MISC)}`,
+      [MOD]: `${emojis.mod} ${capitalize(MOD)}`,
+      [ADMIN]: `${emojis.admin} ${capitalize(ADMIN)}`,
+      [OWNER]: `${emojis.owner} ${capitalize(OWNER)}`
     };
     
     if (args[0] && types.includes(type) && (type != OWNER || message.client.isOwner(message.member))) {

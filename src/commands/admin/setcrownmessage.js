@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetCrownMessageCommand extends Command {
@@ -34,7 +35,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `crown message` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`crown message\` was successfully updated. ${success}`)
       .addField('Role', crownRole || '`None`', true)
       .addField('Channel', crownChannel || '`None`', true)
       .addField('Schedule', `\`${(crownSchedule) ? crownSchedule : 'None'}\``, true)

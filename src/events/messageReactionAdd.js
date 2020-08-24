@@ -1,8 +1,9 @@
+const { verify } = require('../utils/emojis.json');
 const { stripIndent } = require('common-tags');
 
 module.exports = async (client, messageReaction, user) => {
 
-  if (messageReaction.emoji.name != '✅' || client.user === user) return;
+  if (messageReaction.emoji.id != verify.split(':')[2].slice(0, -1) || client.user === user) return;
 
   const { verification_role_id: verificationRoleId, verification_message_id: verificationMessageId } = 
     client.db.settings.selectVerification.get(messageReaction.message.guild.id);

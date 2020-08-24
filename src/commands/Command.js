@@ -1,5 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const permissions = require('../utils/permissions.json');
+const { fail } = require('../utils/emojis.json');
 
 /**
  * Calypso's custom Command class
@@ -171,7 +172,7 @@ class Command {
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
           .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
-          .setTitle(`<:fail:736449226120233031> Missing User Permissions: \`${this.name}\``)
+          .setTitle(`${fail} Missing User Permissions: \`${this.name}\``)
           .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);
@@ -195,7 +196,7 @@ class Command {
         .setAuthor(`
           ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
         )
-        .setTitle(`<:fail:736449226120233031> Missing Bot Permissions: \`${this.name}\``)
+        .setTitle(`${fail} Missing Bot Permissions: \`${this.name}\``)
         .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
@@ -217,7 +218,7 @@ class Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const embed = new MessageEmbed()
       .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
-      .setTitle(`<:fail:736449226120233031> Error: \`${this.name}\``)
+      .setTitle(`${fail} Error: \`${this.name}\``)
       .setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
       .addField('Usage', `\`${prefix}${this.usage}\``)
       .setTimestamp()

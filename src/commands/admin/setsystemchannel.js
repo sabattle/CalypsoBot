@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetSystemChannelCommand extends Command {
@@ -24,7 +25,7 @@ module.exports = class SetSystemChannelCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `System Channel`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `system channel` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`system channel\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetAutoKickCommand extends Command {
@@ -27,7 +28,7 @@ module.exports = class SetAutoKickCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Auto Kick`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('`Auto kick` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`\`Auto kick\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success, fail } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = class ToggleCommandCommand extends Command {
@@ -39,12 +40,12 @@ module.exports = class ToggleCommandCommand extends Command {
     // Disable command
     if (!disabledCommands.includes(command.name)) {
       disabledCommands.push(command.name); // Add to array if not present
-      description = `The \`${command.name}\` command has been successfully **disabled**. <:fail:736449226120233031>`;
+      description = `The \`${command.name}\` command has been successfully **disabled**. ${fail}`;
     
     // Enable command
     } else {
       message.client.utils.removeElement(disabledCommands, command.name);
-      description = `The \`${command.name}\` command has been successfully **enabled**. <:success:736449240728993802>`;
+      description = `The \`${command.name}\` command has been successfully **enabled**. ${success}`;
     }
 
     message.client.db.settings.updateDisabledCommands.run(disabledCommands.join(' '), message.guild.id);

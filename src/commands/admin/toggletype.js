@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success, fail } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = class ToggleTypeCommand extends Command {
@@ -49,20 +50,14 @@ module.exports = class ToggleTypeCommand extends Command {
         for (const cmd of commands) {
           if (disabledCommands.includes(cmd.name)) message.client.utils.removeElement(disabledCommands, cmd.name);
         }
-        description = oneLine`
-          All \`${capitalize(type)}\` type commands have been successfully 
-          **enabled**. <:success:736449240728993802>
-        `;
+        description = `All \`${capitalize(type)}\` type commands have been successfully **enabled**. ${success}`;
       
       // Disable type
       } else {
         for (const cmd of commands) {
           if (!disabledCommands.includes(cmd.name)) disabledCommands.push(cmd.name);
         }
-        description = oneLine`
-          All \`${capitalize(type)}\` type commands have been successfully 
-          **disabled**. <:fail:736449226120233031>
-        `;
+        description = `All \`${capitalize(type)}\` type commands have been successfully **disabled**. ${fail}`;
       }
     } else return this.sendErrorMessage(message, 0, 'Please provide a valid command type');
       

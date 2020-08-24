@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success, verify } = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class SetVerificationMessageCommand extends Command {
@@ -39,7 +40,7 @@ module.exports = class SetVerificationMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Verification`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `verification message` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`verification message\` was successfully updated. ${success}`)
       .addField('Role', verificationRole || '`None`', true)
       .addField('Channel', verificationChannel || '`None`', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -93,7 +94,7 @@ module.exports = class SetVerificationMessageCommand extends Command {
           .setDescription(verificationMessage)
           .setColor(message.guild.me.displayHexColor)
         );
-        await msg.react('✅');
+        await msg.react(verify.split(':')[2].slice(0, -1));
         message.client.db.settings.updateVerificationMessageId.run(msg.id, message.guild.id);
       } else {
         return message.client.sendSystemErrorMessage(message.guild, 'verification', stripIndent`

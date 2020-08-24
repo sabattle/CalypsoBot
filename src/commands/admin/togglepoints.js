@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success, fail } = require('../../utils/emojis.json');
 
 module.exports = class TogglePointsCommand extends Command {
   constructor(client) {
@@ -25,10 +26,10 @@ module.exports = class TogglePointsCommand extends Command {
     let description, status;
     if (pointTracking == 1) {
       status = '`disabled`	🡪 `enabled`';
-      description = '`Points` have been successfully **enabled**. <:success:736449240728993802>';
+      description = `\`Points\` have been successfully **enabled**. ${success}`;
     } else {
       status = '`enabled` 🡪 `disabled`';
-      description = '`Points` have been successfully **disabled**. <:fail:736449226120233031>';   
+      description = `\`Points\` have been successfully **disabled**. ${fail}`;   
     } 
     
     const embed = new MessageEmbed()

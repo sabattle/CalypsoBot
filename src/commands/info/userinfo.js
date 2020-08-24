@@ -1,26 +1,27 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const emojis = require('../../utils/emojis.json');
 const statuses = {
-  online: ' <:online:735341197450805279> Online',
-  idle: '<:idle:735341387842584648> AFK',
-  offline: '<:offline:735341676121554986> Offline',
-  dnd: '<:dnd:735341494537289768> Do Not Disturb'
+  online: `${emojis.online} Online`,
+  idle: `${emojis.idle} AFK`,
+  offline: `${emojis.offline} Offline`,
+  dnd: `${emojis.dnd} Do Not Disturb`
 };
 const flags = {
-  DISCORD_EMPLOYEE: '<:DISCORD_EMPLOYEE:735339014621626378> `Discord Employee`',
-  DISCORD_PARTNER: '<:DISCORD_PARTNER:735339215746760784> `Discord Partner`',
-  BUGHUNTER_LEVEL_1: '<:BUGHUNTER_LEVEL_1:735339352913346591> `Bug Hunter (Level 1)`',
-  BUGHUNTER_LEVEL_2: '<:BUGHUNTER_LEVEL_2:735339420667871293> `Bug Hunter (Level 2)`',
-  HYPESQUAD_EVENTS: '<:HYPESQUAD_EVENTS:735339581087547392> `HypeSquad Events`',
-  HOUSE_BRAVERY: '<:HOUSE_BRAVERY:735339756283756655> `House of Bravery`',
-  HOUSE_BRILLIANCE: '<:HOUSE_BRILLIANCE:735339675102871642> `House of Brilliance`',
-  HOUSE_BALANCE: '<:HOUSE_BALANCE:735339871018942466> `House of Balance`',
-  EARLY_SUPPORTER: '<:EARLY_SUPPORTER:735340061226172589> `Early Supporter`',
+  DISCORD_EMPLOYEE: `${emojis.discord_employee} \`Discord Employee\``,
+  DISCORD_PARTNER: `${emojis.discord_partner} \`Discord Partner\``,
+  BUGHUNTER_LEVEL_1: `${emojis.bughunter_level_1} \`Bug Hunter (Level 1)\``,
+  BUGHUNTER_LEVEL_2: `${emojis.bughunter_level_2} \`Bug Hunter (Level 2)\``,
+  HYPESQUAD_EVENTS: `${emojis.hypesquad_events} \`HypeSquad Events\``,
+  HOUSE_BRAVERY: `${emojis.house_bravery} \`House of Bravery\``,
+  HOUSE_BRILLIANCE: `${emojis.house_brilliance} \`House of Brilliance\``,
+  HOUSE_BALANCE: `${emojis.house_balance} \`House of Balance\``,
+  EARLY_SUPPORTER: `${emojis.early_supporter} \`Early Supporter\``,
   TEAM_USER: 'Team User',
   SYSTEM: 'System',
-  VERIFIED_BOT: '<:VERIFIED_BOT:735345343037833267> `Verified Bot`',
-  VERIFIED_DEVELOPER: '<:VERIFIED_DEVELOPER:735340154310361202> `Verified Bot Developer`'
+  VERIFIED_BOT: `${emojis.verified_bot} \`Verified Bot\``,
+  VERIFIED_DEVELOPER: `${emojis.verified_developer} \`Verified Bot Developer\``
 };
 
 module.exports = class UserInfoCommand extends Command {

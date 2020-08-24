@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 
 module.exports = class SetModRoleCommand extends Command {
   constructor(client) {
@@ -20,7 +21,7 @@ module.exports = class SetModRoleCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Mod Role`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `mod role` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`mod role\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

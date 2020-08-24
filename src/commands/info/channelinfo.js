@@ -1,6 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const { voice } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 const channelTypes = {
   dm: 'DM',
@@ -49,7 +50,7 @@ module.exports = class ChannelInfoCommand extends Command {
         .spliceFields(6, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
     } else if (channel.type === 'voice') {
       embed // Voice embed
-        .spliceFields(0, 1, { name: 'Channel', value: `<:voice:735665114870710413> ${channel.name}`, inline: true })
+        .spliceFields(0, 1, { name: 'Channel', value: `${voice} ${channel.name}`, inline: true })
         .spliceFields(5, 0, { name: 'User Limit', value: `\`${channel.userLimit}\``, inline: true })
         .spliceFields(6, 0, { name: 'Full', value: `\`${channel.full}\``, inline: true });
       const members = channel.members.array();

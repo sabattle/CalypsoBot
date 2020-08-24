@@ -1,6 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const parser = require('cron-parser');
+const { success } = require('../../utils/emojis.json');
 const { stripIndent } = require('common-tags');
 
 module.exports = class SetCrownScheduleCommand extends Command {
@@ -51,7 +52,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
       crownMessage = `\`\`\`${crownMessage}\`\`\``;
     }
 
-    let description = 'The `crown schedule` was successfully updated. <:success:736449240728993802>';
+    let description = `The \`crown schedule\` was successfully updated. ${success}`;
     const embed = new MessageEmbed()
       .setTitle('Settings: `Crown System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

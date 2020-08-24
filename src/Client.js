@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const { readdir, readdirSync } = require('fs');
 const { join, resolve } = require('path');
 const AsciiTable = require('ascii-table');
+const { fail } = require('./utils/emojis.json');
 
 /**
  * Calypso's custom client
@@ -206,7 +207,7 @@ class Client extends Discord.Client {
 
     const embed = new Discord.MessageEmbed()
       .setAuthor(`${guild.me.displayName}#${this.user.discriminator}`, this.user.displayAvatarURL())
-      .setTitle(`<:fail:736449226120233031> System Error: \`${error}\``)
+      .setTitle(`${fail} System Error: \`${error}\``)
       .setDescription(`\`\`\`diff\n- System Failure\n+ ${errorMessage}\`\`\``)
       .setTimestamp()
       .setColor(guild.me.displayHexColor);

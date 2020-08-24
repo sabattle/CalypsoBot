@@ -1,5 +1,6 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
+const { success } = require('../../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = class SetWelcomeMessageCommand extends Command {
@@ -31,7 +32,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Settings: `Welcome Messages`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .setDescription('The `welcome message` was successfully updated. <:success:736449240728993802>')
+      .setDescription(`The \`welcome message\` was successfully updated. ${success}`)
       .addField('Channel', welcomeChannel || '`None`', true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
