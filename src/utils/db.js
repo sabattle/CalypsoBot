@@ -41,8 +41,8 @@ db.prepare(`
     verification_message_id TEXT,
     welcome_message TEXT,
     leave_message TEXT,
-    crown_message TEXT,
-    crown_schedule TEXT,
+    crown_message TEXT DEFAULT "?member has won ?role this week! Points have been reset, better luck next time!",
+    crown_schedule TEXT DEFAULT "0 * * 21 5",
     disabled_commands TEXT
   );
 `).run();
@@ -77,12 +77,18 @@ const settings = {
       system_channel_id,
       welcome_channel_id,
       leave_channel_id,
-      crown_channel_id
-    ) VALUES (?, ?, ?, ?, ?, ?);
+      crown_channel_id,
+      modlog_channel_id,
+      admin_role_id,
+      mod_role_id,
+      mute_role_id,
+      crown_role_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `),
 
   // Selects
   selectRow: db.prepare('SELECT * FROM settings WHERE guild_id = ?;'),
+  selectGuilds: db.prepare('SELECT guild_name, guild_id FROM settings'),
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
   selectSystemChannelId: db.prepare('SELECT system_channel_id FROM settings WHERE guild_id = ?;'),
   selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
@@ -138,7 +144,8 @@ const settings = {
   updateLeaveMessage: db.prepare('UPDATE settings SET leave_message = ? WHERE guild_id = ?;'),
   updateCrownMessage: db.prepare('UPDATE settings SET crown_message = ? WHERE guild_id = ?;'),
   updateCrownSchedule: db.prepare('UPDATE settings SET crown_schedule = ? WHERE guild_id = ?;'),
-  updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;')
+  updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;'),
+  deleteGuild: db.prepare('DELETE FROM settings WHERE guild_id = ?;')
 };
 
 // USERS TABLE
@@ -179,7 +186,8 @@ const users = {
   wipeAllPoints: db.prepare('UPDATE users SET points = 0 WHERE guild_id = ?;'),
   wipeAllTotalPoints: db.prepare('UPDATE users SET points = 0, total_points = 0 WHERE guild_id = ?;'),
   updateWarns: db.prepare('UPDATE users SET warns = ? WHERE user_id = ? AND guild_id = ?;'),
-  updateCurrentMember: db.prepare('UPDATE users SET current_member = ? WHERE user_id = ? AND guild_id = ?;')
+  updateCurrentMember: db.prepare('UPDATE users SET current_member = ? WHERE user_id = ? AND guild_id = ?;'),
+  deleteGuild: db.prepare('DELETE FROM users WHERE guild_id = ?;')
 };
 
 module.exports = {

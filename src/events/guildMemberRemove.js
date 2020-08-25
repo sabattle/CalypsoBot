@@ -4,10 +4,11 @@ module.exports = (client, member) => {
 
   if (member.user === client.user) return;
 
+  client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
+  
   /** ------------------------------------------------------------------------------------------------
    * LEAVE MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  
   // Send leave message
   let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
     client.db.settings.selectLeaveMessages.get(member.guild.id);
@@ -30,5 +31,4 @@ module.exports = (client, member) => {
   client.db.users.updateCurrentMember.run(0, member.id, member.guild.id);
   client.db.users.wipeTotalPoints.run(member.id, member.guild.id);
 
-  client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
 };

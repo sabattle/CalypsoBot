@@ -68,6 +68,8 @@ module.exports = class SetCrownScheduleCommand extends Command {
     if (!message.content.includes(' ')) {
       message.client.db.settings.updateCrownSchedule.run(null, message.guild.id);
       if (message.guild.job) message.guild.job.cancel(); // Cancel old job
+
+      message.client.logger.info(`${message.guild.name}: Cancelled job`);
       
       // Update status
       const status = 'disabled';

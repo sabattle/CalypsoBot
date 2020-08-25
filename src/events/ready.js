@@ -6,6 +6,23 @@ module.exports = async (client) => {
   client.logger.info('Updating database and scheduling jobs...');
   for (const guild of client.guilds.cache.values()) {
 
+    /** ------------------------------------------------------------------------------------------------
+     * FIND SETTINGS
+     * ------------------------------------------------------------------------------------------------ */ 
+    // Find modlog
+    const modlog = guild.channels.cache.find(c => c.name.replace('-', '') === 'modlog' || 
+      c.name.replace('-', '') === 'moderatorlog');
+
+    // Find admin and mod roles
+    const adminRole = 
+      guild.roles.cache.find(r => r.name.toLowerCase() === 'admin' || r.name.toLowerCase() === 'administrator');
+    const modRole = guild.roles.cache.find(r => r.name.toLowerCase() === 'mod' || r.name.toLowerCase() === 'moderator');
+    const muteRole = guild.roles.cache.find(r => r.name.toLowerCase() === 'muted');
+    const crownRole = guild.roles.cache.find(r => r.name === 'The Crown');
+
+    /** ------------------------------------------------------------------------------------------------
+     * UPDATE TABLES
+     * ------------------------------------------------------------------------------------------------ */ 
     // Update settings table
     client.db.settings.insertRow.run(
       guild.id,
@@ -13,7 +30,12 @@ module.exports = async (client) => {
       guild.systemChannelID, // Default channel
       guild.systemChannelID, // Welcome channel
       guild.systemChannelID, // Leave channel
-      guild.systemChannelID  // Crown Channel
+      guild.systemChannelID,  // Crown Channel
+      modlog ? modlog.id : null,
+      adminRole ? adminRole.id : null,
+      modRole ? modRole.id : null,
+      muteRole ? muteRole.id : null,
+      crownRole ? crownRole.id : null
     );
     
     // Update users table
@@ -28,7 +50,10 @@ module.exports = async (client) => {
         member.user.bot ? 1 : 0
       );
     });
-
+    
+    /** ------------------------------------------------------------------------------------------------
+     * CHECK DATABASE
+     * ------------------------------------------------------------------------------------------------ */ 
     // If member left
     const currentMemberIds = client.db.users.selectCurrentMembers.all(guild.id).map(row => row.user_id);
     for (const id of currentMemberIds) {
@@ -44,6 +69,9 @@ module.exports = async (client) => {
       if (guild.members.cache.has(id)) client.db.users.updateCurrentMember.run(1, id, guild.id);
     }
 
+    /** ------------------------------------------------------------------------------------------------
+     * VERIFICATION
+     * ------------------------------------------------------------------------------------------------ */ 
     // Fetch verification message
     const { verification_channel_id: verificationChannelId, verification_message_id: verificationMessageId } = 
       client.db.settings.selectVerification.get(guild.id);
@@ -56,9 +84,23 @@ module.exports = async (client) => {
       }
     }
 
+    /** ------------------------------------------------------------------------------------------------
+     * CROWN ROLE
+     * ------------------------------------------------------------------------------------------------ */ 
     // Schedule crown role rotation
     client.utils.scheduleCrown(client, guild);
 
+  }
+
+  // Remove left guilds
+  const dbGuilds = client.db.settings.selectGuilds.all();
+  const guilds = client.guilds.cache.array();
+  const leftGuilds = dbGuilds.filter(g1 => !guilds.some(g2 => g1.guild_id === g2.id));
+  for (const guild of leftGuilds) {
+    client.db.settings.deleteGuild.run(guild.guild_id);
+    client.db.users.deleteGuild.run(guild.guild_id);
+
+    client.logger.info(`Calypso has left ${guild.guild_name}`);
   }
 
   client.logger.info('Calypso is now online');

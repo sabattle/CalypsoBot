@@ -53,6 +53,8 @@ module.exports = class SetCrownRoleCommand extends Command {
     if (args.length === 0) {
       message.client.db.settings.updateCrownRoleId.run(null, message.guild.id);
       if (message.guild.job) message.guild.job.cancel(); // Cancel old job
+
+      message.client.logger.info(`${message.guild.name}: Cancelled job`);
       
       // Update status
       const status = 'disabled';
