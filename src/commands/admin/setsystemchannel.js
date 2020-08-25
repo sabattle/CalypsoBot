@@ -37,9 +37,9 @@ module.exports = class SetSystemChannelCommand extends Command {
     }
 
     const systemChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!systemChannel || systemChannel.type != 'text' || !systemChannel.viewable)
+    if (!systemChannel || (systemChannel.type != 'text' && systemChannel.type != 'news') || !systemChannel.viewable)
       return this.sendErrorMessage(message, 0, stripIndent`
-        Please mention an accessible text channel or provide a valid text channel ID
+        Please mention an accessible text or announcement channel or provide a valid text or announcement channel ID
       `);
     message.client.db.settings.updateSystemChannelId.run(systemChannel.id, message.guild.id);
     message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${systemChannel}`));

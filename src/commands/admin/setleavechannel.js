@@ -57,9 +57,9 @@ module.exports = class SetLeaveChannelCommand extends Command {
     }
 
     const leaveChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
-    if (!leaveChannel || leaveChannel.type != 'text' || !leaveChannel.viewable) 
+    if (!leaveChannel || (leaveChannel.type != 'text' && leaveChannel.type != 'news') || !leaveChannel.viewable) 
       return this.sendErrorMessage(message, 0, stripIndent`
-        Please mention an accessible text channel or provide a valid text channel ID
+        Please mention an accessible text or announcement channel or provide a valid text or announcement channel ID
       `);
 
     // Update status
