@@ -1,7 +1,22 @@
 module.exports = async (client) => {
   
-  // Update presence
-  client.user.setPresence({ status: 'online', activity: { name: 'your commands', type: 'LISTENING'} });
+  const activities = [
+    { name: 'your commands', type: 'LISTENING' }, 
+    { name: 'for @Calypso', type: 'WATCHING' },
+    { name: `${client.guilds.cache.size} servers`, type: 'WATCHING' },
+    { name: `${client.users.cache.size} users`, type: 'WATCHING' }
+  ];
+  
+  let activity = 0;
+
+  // Update activity every 30 seconds
+  setInterval(() => {
+    activities[2] = { name: `${client.guilds.cache.size} servers`, type: 'WATCHING' }; // Update server count
+    activities[3] = { name: `${client.users.cache.size} users`, type: 'WATCHING' }; // Update user count
+    if (activity > 3) activity = 0;
+    client.user.setActivity(activities[activity]);
+    activity++;
+  }, 30000);
 
   client.logger.info('Updating database and scheduling jobs...');
   for (const guild of client.guilds.cache.values()) {
@@ -10,8 +25,8 @@ module.exports = async (client) => {
      * FIND SETTINGS
      * ------------------------------------------------------------------------------------------------ */ 
     // Find modlog
-    const modlog = guild.channels.cache.find(c => c.name.replace('-', '') === 'modlog' || 
-      c.name.replace('-', '') === 'moderatorlog');
+    const modlog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'modlog' || 
+      c.name.replace('-', '').replace('s', '') === 'moderatorlog');
 
     // Find admin and mod roles
     const adminRole = 

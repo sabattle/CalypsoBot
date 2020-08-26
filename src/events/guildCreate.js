@@ -9,8 +9,8 @@ module.exports = async (client, guild) => {
    * CREATE/FIND SETTINGS
    * ------------------------------------------------------------------------------------------------ */ 
   // Find modlog
-  const modlog = 
-    guild.channels.cache.find(c => c.name.replace('-', '') === 'modlog' || c.name.replace('-', '') === 'moderatorlog');
+  const modlog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'modlog' || 
+    c.name.replace('-', '').replace('s', '') === 'moderatorlog');
 
   // Find admin and mod roles
   const adminRole = 

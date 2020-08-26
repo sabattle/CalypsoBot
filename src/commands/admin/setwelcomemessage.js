@@ -11,7 +11,10 @@ module.exports = class SetWelcomeMessageCommand extends Command {
       usage: 'setwelcomemessage <message>',
       description: oneLine`
         Sets the message Calypso will say when someone joins your server.
-        You may use \`?member\` to substitute for a user mention.
+        You may use \`?member\` to substitute for a user mention,
+        \`?username\` to substitute for someone's username,
+        \`?tag\` to substitute for someone's full Discord tag (username + discriminator),
+        and \`?size\` to substitute for your server's current member count.
         Enter no message to clear the current \`welcome message\`.
         A \`welcome channel\` must also be set to enable welcome messages.
       `,

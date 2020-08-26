@@ -5,7 +5,7 @@ module.exports = (client, member) => {
   if (member.user === client.user) return;
 
   client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
-  
+
   /** ------------------------------------------------------------------------------------------------
    * LEAVE MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
@@ -20,7 +20,11 @@ module.exports = (client, member) => {
     leaveChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
     leaveMessage
   ) {
-    leaveMessage = leaveMessage.replace('?member', member); // Member substitution
+    leaveMessage = leaveMessage
+      .replace('?member', member) // Member mention substitution
+      .replace('?username', member.user.username) // Username substitution
+      .replace('?tag', member.user.tag) // Tag substitution
+      .replace('?size', member.guild.members.cache.size); // Guild size substitution
     leaveChannel.send(new MessageEmbed().setDescription(leaveMessage).setColor(member.guild.me.displayHexColor));
   }
   

@@ -178,8 +178,11 @@ async function transferCrown(client, guild, crownRoleId) {
     crownChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
     crownMessage
   ) {
-    crownMessage = crownMessage.replace('?member', winner); // Member substitution
-    crownMessage = crownMessage.replace('?role', crownRole); // Role substitution
+    crownMessage = crownMessage
+      .replace('?member', winner) // Member substitution
+      .replace('?username', winner.user.username) // Username substitution
+      .replace('?tag', winner.user.tag) // Tag substitution
+      .replace('?role', crownRole); // Role substitution
     crownChannel.send(new MessageEmbed().setDescription(crownMessage).setColor(guild.me.displayHexColor));
   }
 

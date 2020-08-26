@@ -4,7 +4,7 @@ const { stripIndent } = require('common-tags');
 module.exports = async (client, member) => {
 
   client.logger.info(`${member.guild.name}: ${member.user.tag} has joined the server`);
-  
+
   /** ------------------------------------------------------------------------------------------------
    * AUTO ROLE
    * ------------------------------------------------------------------------------------------------ */ 
@@ -36,7 +36,11 @@ module.exports = async (client, member) => {
     welcomeChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
     welcomeMessage
   ) {
-    welcomeMessage = welcomeMessage.replace('?member', member); // Member substitution
+    welcomeMessage = welcomeMessage
+      .replace('?member', member) // Member mention substitution
+      .replace('?username', member.user.username) // Username substitution
+      .replace('?tag', member.user.tag) // Tag substitution
+      .replace('?size', member.guild.members.cache.size); // Guild size substitution
     welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
   }
   
