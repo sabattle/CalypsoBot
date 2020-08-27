@@ -56,7 +56,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
     
     let welcomeMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateWelcomeMessage.run(welcomeMessage, message.guild.id);
-    if (welcomeMessage.length > 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
+    if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
 
     // Update status
     const status =  message.client.utils.getStatus(welcomeChannel, welcomeMessage);
@@ -64,7 +64,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
 
     message.channel.send(embed
       .addField('Status', statusUpdate, true)
-      .addField('Message', `\`\`\`${welcomeMessage}\`\`\``)
+      .addField('Message', message.client.utils.replaceKeywords(welcomeMessage))
     );
   }
 };

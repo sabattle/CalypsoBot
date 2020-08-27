@@ -27,8 +27,8 @@ module.exports = class WarnCommand extends Command {
     const autoKick = message.client.db.settings.selectAutoKick.pluck().get(message.guild.id); // Get warn # for auto kick
 
     let reason = args.slice(1).join(' ');
-    if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
+    if (!reason) reason = '`None`';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };
     if (typeof(warns) == 'string') warns = JSON.parse(warns);
@@ -48,7 +48,7 @@ module.exports = class WarnCommand extends Command {
       .addField('Moderator', message.member, true)
       .addField('Member', member, true)
       .addField('Warn Count', `\`${warns.warns.length}\``, true)
-      .addField('Reason', `\`\`\`${reason}\`\`\``)
+      .addField('Reason', reason)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -117,6 +117,31 @@ function getStatus(...args) {
 }
 
 /**
+ * Surrounds welcome/leave message keywords with backticks
+ * @param {string} message
+ */
+function replaceKeywords(message) {
+  return message
+    .replace(/\?member/g, '`?member`')
+    .replace(/\?username/g, '`?username`')
+    .replace(/\?tag/g, '`?tag`')
+    .replace(/\?size/g, '`?size`');
+}
+
+/**
+ * Surrounds crown message keywords with backticks
+ * @param {string} message
+ */
+function replaceCrownKeywords(message) {
+  return message
+    .replace(/\?member/g, '`?member`')
+    .replace(/\?username/g, '`?username`')
+    .replace(/\?tag/g, '`?tag`')
+    .replace(/\?role/g, '`?role`')
+    .replace(/\?points/g, '`?points`');
+}
+
+/**
  * Transfers crown from one member to another
  * @param {Client} client 
  * @param {Guild} guild
@@ -135,6 +160,7 @@ async function transferCrown(client, guild, crownRoleId) {
   
   const leaderboard = client.db.users.selectLeaderboard.all(guild.id);
   const winner = guild.members.cache.get(leaderboard[0].user_id);
+  const points = client.db.users.selectPoints.pluck().get(winner.id, guild.id);
   let quit = false;
 
   // Remove role from losers
@@ -179,10 +205,11 @@ async function transferCrown(client, guild, crownRoleId) {
     crownMessage
   ) {
     crownMessage = crownMessage
-      .replace('?member', winner) // Member substitution
-      .replace('?username', winner.user.username) // Username substitution
-      .replace('?tag', winner.user.tag) // Tag substitution
-      .replace('?role', crownRole); // Role substitution
+      .replace(/`?\?member`?/g, winner) // Member mention substitution
+      .replace(/`?\?username`?/g, winner.user.username) // Username substitution
+      .replace(/`?\?tag`?/g, winner.user.tag) // Tag substitution
+      .replace(/`?\?role`?/g, crownRole) // Role substitution
+      .replace(/`?\?points`?/g, points); // Points substitution
     crownChannel.send(new MessageEmbed().setDescription(crownMessage).setColor(guild.me.displayHexColor));
   }
 
@@ -215,6 +242,8 @@ module.exports = {
   getOrdinalNumeral,
   getCaseNumber,
   getStatus,
+  replaceKeywords,
+  replaceCrownKeywords,
   transferCrown,
   scheduleCrown
 };

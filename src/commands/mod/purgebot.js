@@ -42,8 +42,8 @@ module.exports = class PurgeBotCommand extends Command {
       return this.sendErrorMessage(message, 0, 'I do not have permission to manage messages in the provided channel');
 
     let reason = args.slice(1).join(' ');
-    if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
+    if (!reason) reason = '`None`';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
 
@@ -83,7 +83,7 @@ module.exports = class PurgeBotCommand extends Command {
           `)
           .addField('Channel', channel, true)
           .addField('Found Messages', `\`${msgs.size}\``, true)
-          .addField('Reason', `\`\`\`${reason}\`\`\``)
+          .addField('Reason', reason)
           .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);

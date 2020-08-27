@@ -24,7 +24,7 @@ module.exports = class EmojisCommand extends Command {
       .setColor(message.guild.me.displayHexColor);
 
     const interval = 25;
-    if (emojis.length === 0) message.channel.send(embed.setDescription('Sorry! No emojis found 😢'));
+    if (emojis.length === 0) message.channel.send(embed.setDescription('No emojis found. 😢'));
     else if (emojis.length <= interval) {
       const range = (emojis.length == 1) ? '[1]' : `[1 - ${emojis.length}]`;
       message.channel.send(embed

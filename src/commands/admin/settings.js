@@ -83,37 +83,34 @@ module.exports = class SettingsCommand extends Command {
         );
       case 'verif':
       case 'verification':
-        if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
         embed
           .setTitle('Settings: `Verification`')
           .addField('Role', verificationRole, true)
           .addField('Channel', verificationChannel, true)
           .addField('Status', verificationStatus, true);
-        if (verificationMessage.length > 1018) embed
+        if (verificationMessage.length > 1024) embed
           .setDescription(verificationMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', verificationMessage);
         return message.channel.send(embed);
       case 'welcome':
       case 'welcomemessages':
-        if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
         embed
           .setTitle('Settings: `Welcome Messages`')
           .addField('Channel', welcomeChannel, true)
           .addField('Status', welcomeStatus, true);
-        if (welcomeMessage.length > 1018) embed
+        if (welcomeMessage.length > 1024) embed
           .setDescription(welcomeMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', welcomeMessage);
         return message.channel.send(embed);
       case 'leave':
       case 'leavemessages':
-        if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
         embed
           .setTitle('Settings: `Leave Messages`')
           .addField('Channel', leaveChannel, true)
           .addField('Status', leaveStatus, true);
-        if (leaveMessage.length > 1018) embed
+        if (leaveMessage.length > 1024) embed
           .setDescription(leaveMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', leaveMessage);
@@ -129,14 +126,13 @@ module.exports = class SettingsCommand extends Command {
         );
       case 'crown':
       case 'crownsystem':
-        if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage}\`\`\``;
         embed
           .setTitle('Settings: `Crown System`')
           .addField('Role', crownRole, true)
           .addField('Channel', crownChannel, true)
           .addField('Schedule', crownSchedule, true)
           .addField('Status', crownStatus);
-        if (crownMessage.length > 1018) embed
+        if (crownMessage.length > 1024) embed
           .setDescription(crownMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', crownMessage);
@@ -157,14 +153,10 @@ module.exports = class SettingsCommand extends Command {
      * FULL SETTINGS
      * ------------------------------------------------------------------------------------------------ */ 
     // Trim messages to 512 characters
-    if (verificationMessage.length > 512) verificationMessage = verificationMessage.slice(0, 503) + '...';
-    if (welcomeMessage.length > 512) welcomeMessage = welcomeMessage.slice(0, 503) + '...';
-    if (leaveMessage.length > 512) leaveMessage = leaveMessage.slice(0, 503) + '...';
-    if (crownMessage.length > 512) crownMessage = crownMessage.slice(0, 503) + '...';
-    if (verificationMessage != '`None`') verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
-    if (welcomeMessage != '`None`') welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
-    if (leaveMessage != '`None`') leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
-    if (crownMessage != '`None`') crownMessage = `\`\`\`${crownMessage}\`\`\``;
+    if (verificationMessage.length > 512) verificationMessage = verificationMessage.slice(0, 509) + '...';
+    if (welcomeMessage.length > 512) welcomeMessage = welcomeMessage.slice(0, 509) + '...';
+    if (leaveMessage.length > 512) leaveMessage = leaveMessage.slice(0, 509) + '...';
+    if (crownMessage.length > 512) crownMessage = crownMessage.slice(0, 509) + '...';
 
     embed
       .setTitle('Settings')

@@ -33,10 +33,7 @@ module.exports = class SetCrownChannelCommand extends Command {
     const status = message.client.utils.getStatus(crownRoleId, crownSchedule);
     
     // Trim message
-    if (crownMessage) {
-      if (crownMessage.length > 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
-      crownMessage = `\`\`\`${crownMessage}\`\`\``;
-    }
+    if (crownMessage && crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Crown System`')
@@ -45,7 +42,7 @@ module.exports = class SetCrownChannelCommand extends Command {
       .addField('Role', crownRole || '`None`', true)
       .addField('Schedule', `\`${(crownSchedule) ? crownSchedule : 'None'}\``, true)
       .addField('Status', `\`${status}\``)
-      .addField('Message', crownMessage || '`None`')
+      .addField('Message', message.client.utils.replaceCrownKeywords(crownMessage) || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

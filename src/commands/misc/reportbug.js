@@ -27,7 +27,7 @@ module.exports = class ReportBugCommand extends Command {
     const reportEmbed = new MessageEmbed()
       .setTitle('Bug Report')
       .setThumbnail(reportChannel.guild.iconURL({ dynamic: true }))
-      .setDescription(`\`\`\`${report}\`\`\``) 
+      .setDescription(report) 
       .addField('User', message.member, true)
       .addField('Server', message.guild.name, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -36,7 +36,7 @@ module.exports = class ReportBugCommand extends Command {
     reportChannel.send(reportEmbed);
 
     // Send response
-    if (report.length > 1018) report = report.slice(0, 1015) + '...';
+    if (report.length > 1024) report = report.slice(0, 1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Bug Report')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
@@ -46,7 +46,7 @@ module.exports = class ReportBugCommand extends Command {
         Additionally, feel free to submit an issue on [GitHub](https://github.com/sabattle/CalypsoBot/issues).
       `) 
       .addField('Member', message.member, true)
-      .addField('Message', `\`\`\`${report}\`\`\``)
+      .addField('Message', report)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -29,15 +29,12 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     const oldStatus = message.client.utils.getStatus(welcomeChannelId, welcomeMessage);
 
     // Trim message
-    if (welcomeMessage) {
-      if (welcomeMessage.length > 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
-      welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
-    }
-    
+    if (welcomeMessage && welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
+
     const embed = new MessageEmbed()
       .setTitle('Settings: `Welcome Messages`')
       .setDescription(`The \`welcome channel\` was successfully updated. ${success}`)
-      .addField('Message', welcomeMessage || '`None`')
+      .addField('Message', message.client.utils.replaceKeywords(welcomeMessage) || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

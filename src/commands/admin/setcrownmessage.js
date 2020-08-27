@@ -14,7 +14,8 @@ module.exports = class SetCrownMessageCommand extends Command {
         You may use \`?member\` to substitute for a user mention ,
         \`?username\` to substitute for someone's username,
         \`?tag\` to substitute for someone's full Discord tag (username + discriminator),
-        and \`?role\` to substitute for the crown role.
+        \`?role\` to substitute for the \`crown role\`,
+        and \`?points\` to substitute for the current points of the winner.
         Enter no message to clear the current \`crown message\`.
         A \`crown message\` will only be sent if a \`crown channel\`, \`crown role\`, and \`crown schedule\` are set.
       `,
@@ -56,8 +57,8 @@ module.exports = class SetCrownMessageCommand extends Command {
 
     let crownMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateCrownMessage.run(crownMessage, message.guild.id);
-    if (crownMessage.length > 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
-    message.channel.send(embed.addField('Message', `\`\`\`${crownMessage}\`\`\``)
+    if (crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
+    message.channel.send(embed.addField('Message', message.client.utils.replaceCrownKeywords(crownMessage))
     );
   }
 };

@@ -32,8 +32,8 @@ module.exports = class WarnPurgeCommand extends Command {
       return this.sendErrorMessage(message, 0, 'Please provide a message count between 1 and 100');
 
     let reason = args.slice(2).join(' ');
-    if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
+    if (!reason) reason = '`None`';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
     // Warn
     let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };

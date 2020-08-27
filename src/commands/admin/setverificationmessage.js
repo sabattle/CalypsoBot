@@ -71,7 +71,7 @@ module.exports = class SetVerificationMessageCommand extends Command {
     
     let verificationMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateVerificationMessage.run(verificationMessage, message.guild.id);
-    if (verificationMessage.length > 1018) verificationMessage = verificationMessage.slice(0, 1015) + '...';
+    if (verificationMessage.length > 1024) verificationMessage = verificationMessage.slice(0, 1021) + '...';
 
     // Update status
     const status =  message.client.utils.getStatus(verificationRole && verificationChannel && verificationMessage);
@@ -79,7 +79,7 @@ module.exports = class SetVerificationMessageCommand extends Command {
 
     message.channel.send(embed
       .addField('Status', statusUpdate, true)
-      .addField('Message', `\`\`\`${verificationMessage}\`\`\``)
+      .addField('Message', verificationMessage)
     );
 
     // Update verification

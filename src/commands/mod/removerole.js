@@ -25,8 +25,8 @@ module.exports = class RemoveRoleCommand extends Command {
     const role = this.getRoleFromMention(message, args[1]) || message.guild.roles.cache.get(args[1]);
 
     let reason = args.slice(2).join(' ');
-    if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
+    if (!reason) reason = '`None`';
+    if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
     if (!role) 
       return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
@@ -43,7 +43,7 @@ module.exports = class RemoveRoleCommand extends Command {
           .addField('Moderator', message.member, true)
           .addField('Member', member, true)
           .addField('Role', role, true)
-          .addField('Reason', `\`\`\`${reason}\`\`\``)
+          .addField('Reason', reason)
           .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);

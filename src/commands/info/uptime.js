@@ -22,7 +22,7 @@ module.exports = class UptimeCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Calypso\'s Uptime')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
-      .setDescription(`\`${days}\`, \`${hours}\`, \`${minutes}\`, and \`${seconds}\``)
+      .setDescription(`\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``)
       .addField('Date Launched', date) 
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

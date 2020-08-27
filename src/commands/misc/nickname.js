@@ -18,10 +18,11 @@ module.exports = class NicknameCommand extends Command {
 
     if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
     const nickname = message.content.slice(message.content.indexOf(args[0]), message.content.length);
-  
+
     if (nickname.length > 32) {
       return this.sendErrorMessage(message, 0, 'Please ensure the nickname is no larger than 32 characters');
-
+    } else if (message.member === message.guild.owner) {
+      return this.sendErrorMessage(message, 1, 'Unable to change the nickname of server owner');
     } else {
       try {
 

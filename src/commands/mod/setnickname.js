@@ -44,8 +44,8 @@ module.exports = class SetNicknameCommand extends Command {
     } else {
 
       let reason = message.content.slice(message.content.indexOf(nickname));
-      if (!reason) reason = 'No reason provided.';
-      if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
+      if (!reason) reason = '`None`';
+      if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 
       try {
 
@@ -59,7 +59,7 @@ module.exports = class SetNicknameCommand extends Command {
           .addField('Moderator', message.member, true)
           .addField('Member', member, true)
           .addField('Nickname', nicknameStatus, true)
-          .addField('Reason', `\`\`\`${reason}\`\`\``)
+          .addField('Reason', reason)
           .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);

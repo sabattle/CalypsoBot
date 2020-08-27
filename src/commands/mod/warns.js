@@ -35,8 +35,8 @@ module.exports = class WarnsCommand extends Command {
       let amount = 0;
       for (let i = current; i < max; i++) {
         embed // Build warning list
-          .addField('\u200b', `**Warn #${i + 1}**`)
-          .addField('Reason', `\`\`\`${warns.warns[i].reason}\`\`\``)
+          .addField('\u200b', `**Warn \`#${i + 1}\`**`)
+          .addField('Reason', warns.warns[i].reason)
           .addField(
             'Moderator', 
             message.guild.members.cache.get(warns.warns[i].mod) || '`Unable to find moderator`',

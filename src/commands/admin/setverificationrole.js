@@ -37,10 +37,8 @@ module.exports = class SetVerificationRoleCommand extends Command {
     );
 
     // Trim message
-    if (verificationMessage) {
-      if (verificationMessage.length > 1018) verificationMessage = verificationMessage.slice(0, 1015) + '...';
-      verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
-    }
+    if (verificationMessage && verificationMessage.length > 1024) 
+      verificationMessage = verificationMessage.slice(0, 1021) + '...';
 
     const embed = new MessageEmbed()
       .setTitle('Settings: `Verification`')

@@ -37,10 +37,10 @@ module.exports = async (client, member) => {
     welcomeMessage
   ) {
     welcomeMessage = welcomeMessage
-      .replace('?member', member) // Member mention substitution
-      .replace('?username', member.user.username) // Username substitution
-      .replace('?tag', member.user.tag) // Tag substitution
-      .replace('?size', member.guild.members.cache.size); // Guild size substitution
+      .replace(/`?\?member`?/g, member) // Member mention substitution
+      .replace(/`?\?username`?/g, member.user.username) // Username substitution
+      .replace(/`?\?tag`?/g, member.user.tag) // Tag substitution
+      .replace(/`?\?size`?/g, member.guild.members.cache.size); // Guild size substitution
     welcomeChannel.send(new MessageEmbed().setDescription(welcomeMessage).setColor(member.guild.me.displayHexColor));
   }
   

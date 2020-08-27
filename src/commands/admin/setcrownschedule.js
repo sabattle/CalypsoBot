@@ -47,10 +47,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
     const oldStatus = message.client.utils.getStatus(crownRoleId, oldCrownSchedule);
 
     // Trim message
-    if (crownMessage) {
-      if (crownMessage.length > 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
-      crownMessage = `\`\`\`${crownMessage}\`\`\``;
-    }
+    if (crownMessage && crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
 
     let description = `The \`crown schedule\` was successfully updated. ${success}`;
     const embed = new MessageEmbed()
@@ -59,7 +56,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
       .setDescription(description)
       .addField('Role', crownRole || '`None`', true)
       .addField('Channel', crownChannel || '`None`', true)
-      .addField('Message', crownMessage || '`None`')
+      .addField('Message', message.client.utils.replaceCrownKeywords(crownMessage) || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
