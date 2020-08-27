@@ -49,8 +49,8 @@ module.exports = class ServerInfoCommand extends Command {
     );
     
     // Get and sort text channels
-    const textChannels = 
-      message.guild.channels.cache.array().filter(c => c.type === 'text').sort((a, b) => a.rawPosition - b.rawPosition);
+    const textChannels = message.guild.channels.cache.array().filter(c => c.type === 'text' && c.viewable)
+      .sort((a, b) => a.rawPosition - b.rawPosition);
 
     const embed = new MessageEmbed()
       .setTitle(`${message.guild.name}'s Information`)
