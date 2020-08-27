@@ -93,6 +93,12 @@ class Client extends Discord.Client {
     this.feedbackChannelId = config.feedbackChannelId;
 
     /** 
+     * Calypso's server log channel ID
+     * @type {string}
+     */
+    this.serverLogChannelId = config.serverLogChannelId;
+
+    /** 
      * Utility functions
      * @type {Object}
      */

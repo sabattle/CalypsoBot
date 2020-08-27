@@ -1,9 +1,14 @@
+const { MessageEmbed } = require('discord.js');
 const colors = require('../utils/colors.json');
+const { success } = require('../utils/emojis.json');
 const { oneLine } = require('common-tags');
 
 module.exports = async (client, guild) => {
 
   client.logger.info(`Calypso has joined ${guild.name}`);
+  const serverLog = client.channels.cache.get(client.serverLogChannelId);
+  if (serverLog)
+    serverLog.send(new MessageEmbed().setDescription(`${client.user} has joined **${guild.name}** ${success}`));
 
   /** ------------------------------------------------------------------------------------------------
    * CREATE/FIND SETTINGS
