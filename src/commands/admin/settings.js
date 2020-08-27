@@ -89,7 +89,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Role', verificationRole, true)
           .addField('Channel', verificationChannel, true)
           .addField('Status', verificationStatus, true);
-        if (verificationMessage.length > 1024) embed
+        if (verificationMessage.length > 1018) embed
           .setDescription(verificationMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', verificationMessage);
@@ -101,7 +101,7 @@ module.exports = class SettingsCommand extends Command {
           .setTitle('Settings: `Welcome Messages`')
           .addField('Channel', welcomeChannel, true)
           .addField('Status', welcomeStatus, true);
-        if (welcomeMessage.length > 1024) embed
+        if (welcomeMessage.length > 1018) embed
           .setDescription(welcomeMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', welcomeMessage);
@@ -113,7 +113,7 @@ module.exports = class SettingsCommand extends Command {
           .setTitle('Settings: `Leave Messages`')
           .addField('Channel', leaveChannel, true)
           .addField('Status', leaveStatus, true);
-        if (leaveMessage.length > 1024) embed
+        if (leaveMessage.length > 1018) embed
           .setDescription(leaveMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', leaveMessage);
@@ -136,7 +136,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Channel', crownChannel, true)
           .addField('Schedule', crownSchedule, true)
           .addField('Status', crownStatus);
-        if (crownMessage.length > 1024) embed
+        if (crownMessage.length > 1018) embed
           .setDescription(crownMessage)
           .addField('Message', 'Message located above due to character limits.');
         else embed.addField('Message', crownMessage);

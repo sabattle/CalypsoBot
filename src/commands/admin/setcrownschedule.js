@@ -48,7 +48,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
 
     // Trim message
     if (crownMessage) {
-      if (crownMessage.length >= 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
+      if (crownMessage.length > 1018) crownMessage = crownMessage.slice(0, 1015) + '...';
       crownMessage = `\`\`\`${crownMessage}\`\`\``;
     }
 

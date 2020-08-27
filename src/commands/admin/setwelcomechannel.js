@@ -30,7 +30,7 @@ module.exports = class SetWelcomeChannelCommand extends Command {
 
     // Trim message
     if (welcomeMessage) {
-      if (welcomeMessage.length >= 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
+      if (welcomeMessage.length > 1018) welcomeMessage = welcomeMessage.slice(0, 1015) + '...';
       welcomeMessage = `\`\`\`${welcomeMessage}\`\`\``;
     }
     

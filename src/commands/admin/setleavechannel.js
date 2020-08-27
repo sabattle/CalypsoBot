@@ -29,7 +29,7 @@ module.exports = class SetLeaveChannelCommand extends Command {
 
     // Trim message
     if (leaveMessage) {
-      if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
+      if (leaveMessage.length > 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
       leaveMessage = `\`\`\`${leaveMessage}\`\`\``;
     }
     

@@ -5,7 +5,7 @@ module.exports = class AddRoleCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'addrole',
-      aliases: ['addr', 'ar'],
+      aliases: ['giverole', 'addr', 'ar'],
       usage: 'addrole <user mention/ID> <role mention/ID> [reason]',
       description: 'Adds the specified role to the provided user.',
       type: client.types.MOD,
@@ -26,7 +26,7 @@ module.exports = class AddRoleCommand extends Command {
     
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
+    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
 
     if (!role)
       return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');

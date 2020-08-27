@@ -24,7 +24,7 @@ module.exports = class FeedbackCommand extends Command {
     const feedbackEmbed = new MessageEmbed()
       .setTitle('Feedback')
       .setThumbnail(feedbackChannel.guild.iconURL({ dynamic: true }))
-      .setDescription(feedback) 
+      .setDescription(`\`\`\`${feedback}\`\`\``)
       .addField('User', message.member, true)
       .addField('Server', message.guild.name, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -33,7 +33,7 @@ module.exports = class FeedbackCommand extends Command {
     feedbackChannel.send(feedbackEmbed);
 
     // Send response
-    if (feedback.length > 1024) feedback = feedback.slice(0, 1021) + '...';
+    if (feedback.length > 1018) feedback = feedback.slice(0, 1021) + '...';
     const embed = new MessageEmbed()
       .setTitle('Feedback')
       .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
@@ -42,7 +42,7 @@ module.exports = class FeedbackCommand extends Command {
         Please join the [Calypso Support Server](https://discord.gg/pnYVdut) to further discuss your feedback.
       `) 
       .addField('Member', message.member, true)
-      .addField('Message', feedback)
+      .addField('Message', `\`\`\`${feedback}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

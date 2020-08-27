@@ -40,7 +40,7 @@ module.exports = class SetVerificationChannelCommand extends Command {
 
     // Trim message
     if (verificationMessage) {
-      if (verificationMessage.length >= 1018) verificationMessage = verificationMessage.slice(0, 1015) + '...';
+      if (verificationMessage.length > 1018) verificationMessage = verificationMessage.slice(0, 1015) + '...';
       verificationMessage = `\`\`\`${verificationMessage}\`\`\``;
     }
     

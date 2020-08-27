@@ -26,7 +26,7 @@ module.exports = class RemoveRoleCommand extends Command {
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
+    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
     
     if (!role) 
       return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');

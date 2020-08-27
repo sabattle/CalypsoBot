@@ -33,7 +33,7 @@ module.exports = class WarnPurgeCommand extends Command {
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
+    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
 
     // Warn
     let warns = message.client.db.users.selectWarns.pluck().get(member.id, message.guild.id) || { warns: [] };

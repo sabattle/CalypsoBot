@@ -37,7 +37,7 @@ module.exports = class MuteCommand extends Command {
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
+    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
 
     if (member.roles.cache.has(muteRoleId))
       return this.sendErrorMessage(message, 0, 'Provided member is already muted');

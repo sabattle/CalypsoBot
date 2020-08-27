@@ -27,7 +27,7 @@ module.exports = class BanCommand extends Command {
 
     let reason = args.slice(1).join(' ');
     if (!reason) reason = 'No reason provided.';
-    if (reason.length > 1024) reason = reason.slice(0, 1015) + '...';
+    if (reason.length > 1018) reason = reason.slice(0, 1015) + '...';
     
     await member.ban(reason);
 

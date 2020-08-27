@@ -56,7 +56,7 @@ module.exports = class SetLeaveMessageCommand extends Command {
     
     let leaveMessage = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     message.client.db.settings.updateLeaveMessage.run(leaveMessage, message.guild.id);
-    if (leaveMessage.length >= 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
+    if (leaveMessage.length > 1018) leaveMessage = leaveMessage.slice(0, 1015) + '...';
 
     // Update status
     const status =  message.client.utils.getStatus(leaveChannel, leaveMessage);
