@@ -2,12 +2,13 @@ module.exports = async (client) => {
   
   const activities = [
     { name: 'your commands', type: 'LISTENING' }, 
-    { name: 'for @Calypso', type: 'WATCHING' },
-    { name: `${client.guilds.cache.size} servers`, type: 'WATCHING' },
-    { name: `${client.users.cache.size} users`, type: 'WATCHING' }
+    { name: '@Calypso', type: 'LISTENING' }
   ];
-  
-  let activity = 0;
+
+  // Update presence
+  client.user.setPresence({ status: 'online', activity: activities[0] });
+
+  let activity = 1;
 
   // Update activity every 30 seconds
   setInterval(() => {

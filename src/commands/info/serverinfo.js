@@ -43,16 +43,15 @@ module.exports = class ServerInfoCommand extends Command {
     roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
     roles.sort((a, b) => b.position - a.position);
 
-    // Trim text channels
-    const textChannels = message.client.utils.trimArray(
-      message.guild.channels.cache.array().filter(c => c.type === 'text').sort((a, b) => a.rawPosition - b.rawPosition)
-    );
-    
     // Trim voice channels
     const voiceChannels = message.client.utils.trimArray(
       message.guild.channels.cache.array().filter(c => c.type === 'voice')
     );
     
+    // Get and sort text channels
+    const textChannels = 
+      message.guild.channels.cache.array().filter(c => c.type === 'text').sort((a, b) => a.rawPosition - b.rawPosition);
+
     const embed = new MessageEmbed()
       .setTitle(`${message.guild.name}'s Information`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -75,7 +74,7 @@ module.exports = class ServerInfoCommand extends Command {
       )
       .addField('Created On', moment(message.guild.createdAt).format('MMM DD YYYY'), true)
       .addField('Roles', roles.join(' '))
-      .addField('Text Channels', textChannels.join(' ') || '`None`')
+      .addField('Text Channels', message.client.utils.trimArray(textChannels).join(' ') || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
