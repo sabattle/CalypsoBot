@@ -15,7 +15,7 @@ db.pragma('journal_mode = wal');
  * ------------------------------------------------------------------------------------------------ */
 // BOT SETTINGS TABLE
 db.prepare(`
-  CREATE TABLE IF NOT EXISTS settings1 (
+  CREATE TABLE IF NOT EXISTS settings (
     guild_id TEXT PRIMARY KEY,
     guild_name TEXT,
     prefix TEXT DEFAULT "c!" NOT NULL,
