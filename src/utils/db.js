@@ -15,12 +15,13 @@ db.pragma('journal_mode = wal');
  * ------------------------------------------------------------------------------------------------ */
 // BOT SETTINGS TABLE
 db.prepare(`
-  CREATE TABLE IF NOT EXISTS settings (
+  CREATE TABLE IF NOT EXISTS settings1 (
     guild_id TEXT PRIMARY KEY,
     guild_name TEXT,
     prefix TEXT DEFAULT "c!" NOT NULL,
     system_channel_id TEXT,
     modlog_channel_id TEXT,
+    botlog_channel_id TEXT,
     verification_channel_id TEXT,
     welcome_channel_id TEXT,
     leave_channel_id TEXT,
@@ -42,7 +43,7 @@ db.prepare(`
     welcome_message TEXT DEFAULT "?member (**?tag**) has joined the server!",
     leave_message TEXT DEFAULT "?member (**?tag**) has left the server.",
     crown_message TEXT DEFAULT "?member has won ?role this week! Points have been reset, better luck next time!",
-    crown_schedule TEXT DEFAULT "0 * * 21 5",
+    crown_schedule TEXT DEFAULT "0 21 * * 5",
     disabled_commands TEXT
   );
 `).run();
@@ -92,6 +93,7 @@ const settings = {
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
   selectSystemChannelId: db.prepare('SELECT system_channel_id FROM settings WHERE guild_id = ?;'),
   selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
+  selectBotlogChannelId: db.prepare('SELECT botlog_channel_id FROM settings WHERE guild_id = ?;'),
   selectVerification: db.prepare(`
     SELECT verification_role_id, verification_channel_id, verification_message, verification_message_id 
     FROM settings
@@ -122,6 +124,7 @@ const settings = {
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
   updateSystemChannelId: db.prepare('UPDATE settings SET system_channel_id = ? WHERE guild_id = ?;'),
   updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
+  updateBotlogChannelId: db.prepare('UPDATE settings SET botlog_channel_id = ? WHERE guild_id = ?;'),
   updateVerificationChannelId: db.prepare('UPDATE settings SET verification_channel_id = ? WHERE guild_id = ?;'),
   updateWelcomeChannelId: db.prepare('UPDATE settings SET welcome_channel_id = ? WHERE guild_id = ?;'),
   updateLeaveChannelId: db.prepare('UPDATE settings SET leave_channel_id = ? WHERE guild_id = ?;'),
