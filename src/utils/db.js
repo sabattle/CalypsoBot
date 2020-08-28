@@ -39,8 +39,8 @@ db.prepare(`
     voice_points INTEGER DEFAULT 1 NOT NULL, 
     verification_message TEXT,
     verification_message_id TEXT,
-    welcome_message TEXT,
-    leave_message TEXT,
+    welcome_message TEXT DEFAULT "?member (**?tag**) has joined the server!",
+    leave_message TEXT DEFAULT "?member (**?tag**) has left the server.",
     crown_message TEXT DEFAULT "?member has won ?role this week! Points have been reset, better luck next time!",
     crown_schedule TEXT DEFAULT "0 * * 21 5",
     disabled_commands TEXT
