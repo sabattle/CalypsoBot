@@ -19,6 +19,8 @@ module.exports = class SettingsCommand extends Command {
   }
   run(message, args) {
 
+    const { replaceKeywords, replaceCrownKeywords } = message.client.utils;
+
     // Set values
     const row = message.client.db.settings.selectRow.get(message.guild.id);
     const prefix = `\`${row.prefix}\``;
@@ -38,10 +40,10 @@ module.exports = class SettingsCommand extends Command {
     const messagePoints = `\`${row.message_points}\``;
     const commandPoints = `\`${row.command_points}\``;
     const voicePoints = `\`${row.voice_points}\``;
-    let verificationMessage = row.verification_message || '`None`';
-    let welcomeMessage = row.welcome_message || '`None`';
-    let leaveMessage = row.leave_message|| '`None`';
-    let crownMessage = row.crown_message || '`None`';
+    let verificationMessage = (row.verification_message) ? replaceKeywords(row.verification_message) : '`None`';
+    let welcomeMessage = (row.welcome_message) ? replaceKeywords(row.welcome_message) : '`None`';
+    let leaveMessage = (row.leave_message) ? replaceKeywords(row.leave_message ) : '`None`';
+    let crownMessage = (row.crown_message) ? replaceCrownKeywords(row.crown_message) : '`None`';
     const crownSchedule = (row.crown_schedule) ? `\`${row.crown_schedule}\`` : '`None`';
     let disabledCommands = '`None`';
     if (row.disabled_commands) 
@@ -56,11 +58,11 @@ module.exports = class SettingsCommand extends Command {
     const leaveStatus = `\`${message.client.utils.getStatus(row.leave_message && row.leave_channel_id)}\``;
     const pointsStatus = `\`${message.client.utils.getStatus(row.point_tracking)}\``;
     const crownStatus = `\`${message.client.utils.getStatus(row.crown_role_id && row.crown_schedule)}\``;
-    
+
     /** ------------------------------------------------------------------------------------------------
      * CATEGORY CHECKS
      * ------------------------------------------------------------------------------------------------ */
-    let setting = args.join().toLowerCase();
+    let setting = args.join('').toLowerCase();
     if (setting.endsWith('setting')) setting = setting.slice(0, -7);
     const embed = new MessageEmbed()
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
@@ -68,6 +70,7 @@ module.exports = class SettingsCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     switch (setting) {
+      case 'sys':
       case 'system':
         return message.channel.send(embed
           .setTitle('Settings: `System`')
@@ -94,6 +97,7 @@ module.exports = class SettingsCommand extends Command {
         else embed.addField('Message', verificationMessage);
         return message.channel.send(embed);
       case 'welcome':
+      case 'welcomemessage':
       case 'welcomemessages':
         embed
           .setTitle('Settings: `Welcome Messages`')
@@ -105,6 +109,7 @@ module.exports = class SettingsCommand extends Command {
         else embed.addField('Message', welcomeMessage);
         return message.channel.send(embed);
       case 'leave':
+      case 'leavemessage':
       case 'leavemessages':
         embed
           .setTitle('Settings: `Leave Messages`')
@@ -116,6 +121,7 @@ module.exports = class SettingsCommand extends Command {
         else embed.addField('Message', leaveMessage);
         return message.channel.send(embed);
       case 'points':
+      case 'pointssys':
       case 'pointssystem':
         return message.channel.send(embed
           .setTitle('Settings: `Points System`')
@@ -125,6 +131,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Status', pointsStatus)
         );
       case 'crown':
+      case 'crownsys':
       case 'crownsystem':
         embed
           .setTitle('Settings: `Crown System`')
@@ -138,6 +145,7 @@ module.exports = class SettingsCommand extends Command {
         else embed.addField('Message', crownMessage);
         return message.channel.send(embed);
       case 'commands':
+      case 'disabled':
       case 'disabledcommands':
         return message.channel.send(embed
           .setTitle('Settings: `Disabled Commands`')
@@ -151,7 +159,8 @@ module.exports = class SettingsCommand extends Command {
 
     /** ------------------------------------------------------------------------------------------------
      * FULL SETTINGS
-     * ------------------------------------------------------------------------------------------------ */ 
+     * ------------------------------------------------------------------------------------------------ */
+
     // Trim messages to 512 characters
     if (verificationMessage.length > 512) verificationMessage = verificationMessage.slice(0, 509) + '...';
     if (welcomeMessage.length > 512) welcomeMessage = welcomeMessage.slice(0, 509) + '...';
@@ -160,6 +169,7 @@ module.exports = class SettingsCommand extends Command {
 
     embed
       .setTitle('Settings')
+      .setDescription(`**Specific Category:** \`${row.prefix}settings [category]\``)
       // System Settings
       .addField('__**System**__', stripIndent`
         **Prefix:** ${prefix}
