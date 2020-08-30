@@ -14,20 +14,18 @@ module.exports = class MembersCommand extends Command {
     });
   }
   run(message) {
-    const online = message.guild.members.cache.array().filter((m) => m.presence.status === 'online').length;
-    const offline = message.guild.members.cache.array().filter((m) => m.presence.status === 'offline').length;
-    const dnd = message.guild.members.cache.array().filter((m) => m.presence.status === 'dnd').length;
-    const afk = message.guild.members.cache.array().filter((m) => m.presence.status === 'idle').length;
+    const members = message.guild.members.cache.array();
+    const online = members.filter((m) => m.presence.status === 'online').length;
+    const offline =  members.filter((m) => m.presence.status === 'offline').length;
+    const dnd =  members.filter((m) => m.presence.status === 'dnd').length;
+    const afk =  members.filter((m) => m.presence.status === 'idle').length;
     const embed = new MessageEmbed()
       .setTitle(`Member Status [${message.guild.members.cache.size}]`)
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(stripIndent`
         ${emojis.online} **Online:** \`${online}\` members
-
         ${emojis.dnd} **Busy:** \`${dnd}\` members
-
         ${emojis.idle} **AFK:** \`${afk}\` members
-
         ${emojis.offline} **Offline:** \`${offline}\` members
       `)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

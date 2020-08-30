@@ -25,7 +25,7 @@ module.exports = class WarnsCommand extends Command {
     const count = warns.warns.length;
 
     const embed = new MessageEmbed()
-      .setAuthor(member.user.tag, member.user.displayAvatarURL())
+      .setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

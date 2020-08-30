@@ -60,7 +60,7 @@ module.exports = class SetCrownChannelCommand extends Command {
     const crownChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
     if (!crownChannel || (crownChannel.type != 'text' && crownChannel.type != 'news') || !crownChannel.viewable) 
       return this.sendErrorMessage(message, 0, stripIndent`
-      Please mention an accessible text or announcement channel or provide a valid text or announcement channel ID
+        Please mention an accessible text or announcement channel or provide a valid text or announcement channel ID
       `);
 
     message.client.db.settings.updateCrownChannelId.run(crownChannel.id, message.guild.id);

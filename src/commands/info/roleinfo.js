@@ -20,9 +20,13 @@ module.exports = class RoleInfoCommand extends Command {
     if (!role)
       return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
 
-    const rolePermissions = role.permissions.toArray().sort((a, b) => {
-      return Object.keys(permissions).indexOf(a) - Object.keys(permissions).indexOf(b);
-    }).map(p => '`' + permissions[p] + '`');
+    // Get role permissions
+    const rolePermissions = role.permissions.toArray();
+    const finalPermissions = [];
+    for (const permission in permissions) {
+      if (rolePermissions.includes(permission)) finalPermissions.push(`+ ${permissions[permission]}`);
+      else finalPermissions.push(`- ${permissions[permission]}`);
+    }
 
     // Reverse role position
     const position = `\`${message.guild.roles.cache.size - role.position}\`/\`${message.guild.roles.cache.size}\``;
@@ -33,12 +37,13 @@ module.exports = class RoleInfoCommand extends Command {
       .addField('Role', role, true)
       .addField('Role ID', `\`${role.id}\``, true)
       .addField('Position', position, true)
-      .addField('Hoisted', `\`${role.hoist}\``, true)
+      .addField('Mentionable', `\`${role.mentionable}\``, true)
+      .addField('Bot Role', `\`${role.managed}\``, true)
       .addField('Color', `\`${role.hexColor.toUpperCase()}\``, true)
       .addField('Members', `\`${role.members.size}\``, true)
-      .addField('Mentionable', `\`${role.mentionable}\``, true)
-      .addField('Created On', moment(role.createdAt).format('MMM DD YYYY'), true)
-      .addField('Permissions', (rolePermissions.length > 0) ? rolePermissions.join(' ') : '`None`')
+      .addField('Hoisted', `\`${role.hoist}\``, true)
+      .addField('Created On', `\`${moment(role.createdAt).format('MMM DD YYYY')}\``, true)
+      .addField('Permissions', `\`\`\`diff\n${finalPermissions.join('\n')}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(role.hexColor);

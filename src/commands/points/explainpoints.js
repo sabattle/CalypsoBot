@@ -8,13 +8,13 @@ module.exports = class ExplainPointsCommand extends Command {
       name: 'explainpoints',
       aliases: ['explainp', 'ep', 'howtopoints', 'h2points'],
       usage: 'explainpoints',
-      description: 'Explains the various aspects about Calypso\'s point system.',
+      description: 'Explains the various aspects about Calypso\'s points and crown systems.',
       type: client.types.POINTS
     });
   }
   run(message) {
 
-    // Get disabled commands
+    // Get disabled leaderboard
     let disabledCommands = message.client.db.settings.selectDisabledCommands.pluck().get(message.guild.id) || [];
     if (typeof(disabledCommands) === 'string') disabledCommands = disabledCommands.split(' ');
 
@@ -23,52 +23,62 @@ module.exports = class ExplainPointsCommand extends Command {
       = message.client.db.settings.selectPoints.get(message.guild.id);
 
     // Points per
-    let pointsPer = stripIndent`
-      **1.** Each message sent in a text channel is worth **${messagePoints}** point(s).
-      **2.** Each Calypso command used is worth **${commandPoints}** point(s). 
-      **3.** Each minute spent in voice chat is worth **${voicePoints}** point(s).
+    let earningPoints = 
+      stripIndent`You can earn points in the following ways: by sending **messages**, by using **commands**,` +
+      ' and by spending time in **voice chat**.';
+    if (!disabledCommands.includes('givepoints')) earningPoints += 
+      ` And if someone's feeling generous, they can give you points by using the \`${prefix}givepoints\` command.`;
+    
+    const pointsPer = stripIndent`
+      Message Points :: ${messagePoints} per message
+      Command Points :: ${commandPoints} per command
+      Voice Points   :: ${voicePoints} per minute
     `;
-    if (!disabledCommands.includes('givepoints'))
-      pointsPer = pointsPer + `\n**4.** Points can be given to others using the \`${prefix}givepoints\` command.`;
+
+    earningPoints += ` Here is this server's **points per action**:\n\`\`\`asciidoc\n${pointsPer}\`\`\``;
  
     if (!disabledCommands.includes('pointsper'))
-      pointsPer = pointsPer + `
-        \nTo quickly see your server's points per action again, you may use the command \`${prefix}pointsper\`.
+      earningPoints += `
+        To quickly see your server's points per action again, you may use the command \`${prefix}pointsper\`.
       `;
 
-    // Helpful commands
-    let helpfulCommands = '';
+    // Checking points
+    let checkingPoints = '';
 
-    if (!disabledCommands.includes('currentpoints'))
-      helpfulCommands = helpfulCommands + ` To see current points, use the command \`${prefix}currentpoints\`.`;
+    if (!disabledCommands.includes('points'))
+      checkingPoints += `\nTo see current points, use the \`${prefix}points\` command.`;
     
     if (!disabledCommands.includes('totalpoints'))
-      helpfulCommands = helpfulCommands + ` To see overall points, use \`${prefix}totalpoints\`.`;
+      checkingPoints += ` To see overall points, use the \`${prefix}totalpoints\` command.`;
+
+    // The Leaderboard
+    let leaderboard = '';
 
     if (!disabledCommands.includes('position'))
-      helpfulCommands = helpfulCommands + ` To check leaderboard standing, use the \`${prefix}position\` command.`;
+      leaderboard += ` To check leaderboard standing, use the \`${prefix}position\` command.`;
       
     if (!disabledCommands.includes('leaderboard'))
-      helpfulCommands = helpfulCommands + ` To see the leaderboard itself, use the \`${prefix}leaderboard\` command.`;
+      leaderboard += ` To see the leaderboard itself, use the \`${prefix}leaderboard\` command.`;
     
-    // Crown info
-    let crownInfo = stripIndent`
+    // The Crown
+    let crown = stripIndent`
       If a \`crown role\` and \`crown schedule\` are set, then the person with the most points that cycle will win!` +
       ` Additionally, everyone's points will be reset to **0** (total points will remain untouched).
     `;
 
     if (!disabledCommands.includes('crown'))
-      crownInfo = crownInfo + `\nTo see details about the server's **Crown**, use the \`${prefix}crown\` command.`;
+      crown += `\nUse the \`${prefix}crown\` command for server specific information.`;
 
     const embed = new MessageEmbed()
-      .setTitle('Points System')
+      .setTitle('Points and Crown Systems')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
-      .addField('Earning Points', pointsPer)
+      .addField('Earning Points', earningPoints)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
-    if (helpfulCommands) embed.addField('Helpful Commands', helpfulCommands);
-    embed.addField('Crown Info', crownInfo);
+    if (checkingPoints) embed.addField('Checking Points', checkingPoints);
+    if (leaderboard) embed.addField('The Leaderboard', leaderboard);
+    embed.addField('The Crown', crown);
     message.channel.send(embed);
   }
 };

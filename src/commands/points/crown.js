@@ -20,7 +20,7 @@ module.exports = class CrownCommand extends Command {
     }).array();
 
     let description = message.client.utils.trimStringFromArray(crowned);
-    if (crowned.length === 0) description = 'No one has the crown!`';
+    if (crowned.length === 0) description = 'No one has the crown!';
 
     const embed = new MessageEmbed()
       .setTitle(':crown:  Crowned Members  :crown:')

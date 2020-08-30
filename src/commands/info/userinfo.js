@@ -3,10 +3,10 @@ const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const emojis = require('../../utils/emojis.json');
 const statuses = {
-  online: `${emojis.online} Online`,
-  idle: `${emojis.idle} AFK`,
-  offline: `${emojis.offline} Offline`,
-  dnd: `${emojis.dnd} Do Not Disturb`
+  online: `${emojis.online} \`Online\``,
+  idle: `${emojis.idle} \`AFK\``,
+  offline: `${emojis.offline} \`Offline\``,
+  dnd: `${emojis.dnd} \`Do Not Disturb\``
 };
 const flags = {
   DISCORD_EMPLOYEE: `${emojis.discord_employee} \`Discord Employee\``,
@@ -71,15 +71,15 @@ module.exports = class UserInfoCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle(`${member.displayName}'s Information`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-      .addField('Username', member.user.username, true)
+      .addField('User', member, true)
       .addField('Discriminator', `\`#${member.user.discriminator}\``, true)
       .addField('ID', `\`${member.id}\``, true)
-      .addField('Nickname', (member.nickname) ? member.nickname : '`None`', true)
       .addField('Status', statuses[member.presence.status], true)
+      .addField('Bot', `\`${member.user.bot}\``, true)
       .addField('Color Role', member.roles.color || '`None`', true)
       .addField('Highest Role', member.roles.highest, true)
-      .addField('Joined server on', moment(member.joinedAt).format('MMM DD YYYY'), true)
-      .addField('Joined Discord on', moment(member.user.createdAt).format('MMM DD YYYY'), true)
+      .addField('Joined server on', `\`${moment(member.joinedAt).format('MMM DD YYYY')}\``, true)
+      .addField('Joined Discord on', `\`${moment(member.user.createdAt).format('MMM DD YYYY')}\``, true)
       .addField('Roles', roles || '`None`')
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()

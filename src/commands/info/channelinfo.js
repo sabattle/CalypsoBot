@@ -2,7 +2,7 @@ const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { voice } = require('../../utils/emojis.json');
-const { oneLine } = require('common-tags');
+const { oneLine, stripIndent } = require('common-tags');
 const channelTypes = {
   dm: 'DM',
   text: 'Text',
@@ -39,14 +39,16 @@ module.exports = class ChannelInfoCommand extends Command {
       .addField('Type', `\`${channelTypes[channel.type]}\``, true)
       .addField('Members', `\`${channel.members.size}\``, true)
       .addField('Bots', `\`${channel.members.array().filter(b => b.user.bot).length}\``, true)
-      .addField('Created On', moment(channel.createdAt).format('MMM DD YYYY'), true)
+      .addField('Created On', `\`${moment(channel.createdAt).format('MMM DD YYYY')}\``, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     if (channel.type === 'text') {
-      if (channel.topic) embed.setDescription(channel.topic);
       embed // Text embed
         .spliceFields(3, 0, { name: 'Rate Limit', value: `\`${channel.rateLimitPerUser}\``, inline: true })
+        .spliceFields(6, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
+    } else if (channel.type === 'news') {
+      embed // News embed
         .spliceFields(6, 0, { name: 'NSFW', value: `\`${channel.nsfw}\``, inline: true });
     } else if (channel.type === 'voice') {
       embed // Voice embed
@@ -56,7 +58,11 @@ module.exports = class ChannelInfoCommand extends Command {
       const members = channel.members.array();
       if (members.length > 0) 
         embed.addField('Members Joined', message.client.utils.trimArray(channel.members.array()).join(' '));
-    }
+    } else return this.sendErrorMessage(message, 0, stripIndent`
+      Please enter mention a valid text or announcement channel` +
+      ' or provide a valid text, announcement, or voice channel ID'
+    );
+    if (channel.topic) embed.addField('Topic', channel.topic);
     message.channel.send(embed);
   }
 };

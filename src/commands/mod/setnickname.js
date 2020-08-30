@@ -29,16 +29,13 @@ module.exports = class SetNicknameCommand extends Command {
         You cannot change the nickname of someone with an equal or higher role
       `);
 
-    let nickname;
+    if (!args[1]) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
+
+    let nickname = nickname = args[1];
     if (args[1].startsWith('"')) {
       nickname = message.content.slice(message.content.indexOf(args[1]) + 1);
-      nickname = nickname.slice(0, nickname.indexOf('"'));
-    } else {
-      nickname = args[1];
-    }
-  
-    if (!nickname) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
-    else if (nickname.length > 32) {
+      nickname = nickname.slice(0, nickname.indexOf('"'));  
+    } else if (nickname.length > 32) {
       return this.sendErrorMessage(message, 0, 'Please ensure the nickname is no larger than 32 characters');
       
     } else {
