@@ -30,6 +30,14 @@ module.exports = class SettingsCommand extends Command {
     const welcomeChannel = message.guild.channels.cache.get(row.welcome_channel_id) || '`None`';
     const leaveChannel = message.guild.channels.cache.get(row.leave_channel_id) || '`None`';
     const crownChannel = message.guild.channels.cache.get(row.crown_channel_id) || '`None`';
+    let modChannels = [];
+    if (row.mod_channel_ids) {
+      for (const channel of row.mod_channel_ids.split(' ')) {
+        modChannels.push(message.guild.channels.cache.get(channel));
+      }
+      modChannels = modChannels.join(' ');
+    }
+    if (modChannels.length === 0) modChannels = '`None`';
     const adminRole = message.guild.roles.cache.get(row.admin_role_id) || '`None`';
     const modRole = message.guild.roles.cache.get(row.mod_role_id) || '`None`';
     const muteRole = message.guild.roles.cache.get(row.mute_role_id) || '`None`';
@@ -83,6 +91,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Auto Role', autoRole, true)
           .addField('Auto Kick', autoKick, true)
           .addField('Random Color', randomColor, true)
+          .addField('Mod Channels', modChannels)
         );
       case 'verif':
       case 'verification':
@@ -181,6 +190,7 @@ module.exports = class SettingsCommand extends Command {
         **Auto Role:** ${autoRole}
         **Auto Kick:** ${autoKick}
         **Random Color:** ${randomColor}
+        **Mod Channels:** ${modChannels}
       `)
       // Verification Settings
       .addField('__**Verification**__', stripIndent`

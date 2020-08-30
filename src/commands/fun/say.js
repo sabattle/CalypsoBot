@@ -25,6 +25,13 @@ module.exports = class SayCommand extends Command {
       Please mention an accessible text channel or provide a valid text channel ID
     `);
 
+    // Get mod channels
+    let modChannelIds = message.client.db.settings.selectModChannelIds.pluck().get(message.guild.id) || [];
+    if (typeof(modChannelIds) === 'string') modChannelIds = modChannelIds.split(' ');
+    if (modChannelIds.includes(channel.id)) return this.sendErrorMessage(message, 0, stripIndent`
+      Provided channel is moderator only, please mention an accessible text channel or provide a valid text channel ID
+    `);
+
     if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message for me to say');
 
     // Check channel permissions

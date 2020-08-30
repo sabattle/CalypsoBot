@@ -21,7 +21,7 @@ module.exports = class BotInfoCommand extends Command {
       Version     :: ${pkg.version}
       Library     :: Discord.js v12.2.0
       Environment :: Node.js v12.16.3
-      Database    :: SQlite
+      Database    :: SQLite
     `;
     const embed = new MessageEmbed()
       .setTitle('Calypso\'s Bot Information')

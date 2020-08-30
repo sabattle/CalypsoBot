@@ -18,11 +18,28 @@ module.exports = (client, message) => {
 
   if (prefixRegex.test(message.content)) {
 
+    // Get mod channels
+    let modChannelIds = message.client.db.settings.selectModChannelIds.pluck().get(message.guild.id) || [];
+    if (typeof(modChannelIds) === 'string') modChannelIds = modChannelIds.split(' ');
+
     const [, match] = message.content.match(prefixRegex);
     const args = message.content.slice(match.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
     let command = client.commands.get(cmd) || client.aliases.get(cmd); // If command not found, check aliases
     if (command && !disabledCommands.includes(command.name)) {
+
+      // Check if mod channel
+      if (modChannelIds.includes(message.channel.id)) {
+        if (
+          command.type != client.types.MOD || (command.type == client.types.MOD && 
+          message.channel.permissionsFor(message.author).missing(command.userPermissions) != 0)
+        ) {
+          // Update points with messagePoints value
+          if (pointTracking)
+            client.db.users.updatePoints.run({ points: messagePoints }, message.author.id, message.guild.id);
+          return; // Return early so Calypso doesn't respond
+        }
+      }
 
       // Check permissions
       const permission = command.checkPermissions(message);
@@ -36,7 +53,8 @@ module.exports = (client, message) => {
       }
     } else if ( 
       (message.content === `<@${client.user.id}>` || message.content === `<@!${client.user.id}>`) &&
-      message.channel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
+      message.channel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
+      !modChannelIds.includes(message.channel.id)
     ) {
       const embed = new MessageEmbed()
         .setTitle('Hi, I\'m Calypso. Need help?')
