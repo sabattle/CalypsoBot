@@ -26,10 +26,10 @@ module.exports = class BotInfoCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle('Calypso\'s Bot Information')
       .setDescription(oneLine`
-        Calypso is a feature-rich Discord bot built with customizability in mind.
-        She comes packaged with a variety of commands and a 
-        multitude of settings that can be tailored to your specific needs.
-        Her codebase also serves as a base framework to easily create Discord bots of all kinds. 
+        Calypso is an open source, fully customizable Discord bot that is constantly growing.
+        She comes packaged with a variety of commands and 
+        a multitude of settings that can be tailored to your server's specific needs. 
+        Her codebase also serves as a base framework to easily create Discord bots of all kinds.
         She first went live on **February 22nd, 2018**.
       `)
       .addField('Prefix', `\`${prefix}\``, true)

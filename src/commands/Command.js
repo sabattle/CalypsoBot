@@ -171,7 +171,10 @@ class Command {
       missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
-          .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
+          .setAuthor(
+            `${message.member.displayName}#${message.author.discriminator}`, 
+            message.author.displayAvatarURL({ dynamic: true })
+          )
           .setTitle(`${fail} Missing User Permissions: \`${this.name}\``)
           .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
           .setTimestamp()
@@ -193,8 +196,9 @@ class Command {
     missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
     if (missingPermissions.length !== 0) {
       const embed = new MessageEmbed()
-        .setAuthor(`
-          ${message.guild.me.displayName}#${message.client.user.discriminator}`, message.client.user.displayAvatarURL()
+        .setAuthor(
+          `${message.guild.me.displayName}#${message.client.user.discriminator}`, 
+          message.client.user.displayAvatarURL({ dynamic: true })
         )
         .setTitle(`${fail} Missing Bot Permissions: \`${this.name}\``)
         .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
@@ -217,7 +221,10 @@ class Command {
     errorType = this.errorTypes[errorType];
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const embed = new MessageEmbed()
-      .setAuthor(`${message.member.displayName}#${message.author.discriminator}`, message.author.displayAvatarURL())
+      .setAuthor(
+        `${message.member.displayName}#${message.author.discriminator}`,
+        message.author.displayAvatarURL({ dynamic: true })
+      )
       .setTitle(`${fail} Error: \`${this.name}\``)
       .setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
       .addField('Usage', `\`${prefix}${this.usage}\``)
