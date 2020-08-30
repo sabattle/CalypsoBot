@@ -41,13 +41,8 @@ module.exports = class ServerInfoCommand extends Command {
   }
   run(message) {
 
-    // Get roles roles
+    // Get roles count
     const roleCount = message.guild.roles.cache.size - 1; // Don't count @everyone
-    let roles = message.client.utils.trimArray(
-      message.guild.roles.cache.array().filter(r => !r.name.startsWith('#'))
-    );
-    roles = message.client.utils.removeElement(roles, message.guild.roles.everyone);
-    roles.sort((a, b) => b.position - a.position);
     
     // Get member stats
     const members = message.guild.members.cache.array();
@@ -107,8 +102,6 @@ module.exports = class ServerInfoCommand extends Command {
       .addField('Partnered', `\`${message.guild.partnered}\``, true)
       .addField('Verified', `\`${message.guild.verified}\``, true)
       .addField('Created On', `\`${moment(message.guild.createdAt).format('MMM DD YYYY')}\``, true)
-      .addField('Roles', roles.join(' '))
-      .addField('Text Channels', message.client.utils.trimArray(textChannels).join(' ') || '`None`')
       .addField('Server Stats', `\`\`\`asciidoc\n${serverStats}\`\`\``)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
