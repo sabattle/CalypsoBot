@@ -32,7 +32,7 @@ module.exports = class SetNicknameCommand extends Command {
     if (!args[1]) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
 
     let nickname = nickname = args[1];
-    if (args[1].startsWith('"')) {
+    if (nickname.startsWith('"')) {
       nickname = message.content.slice(message.content.indexOf(args[1]) + 1);
       nickname = nickname.slice(0, nickname.indexOf('"'));  
     } else if (nickname.length > 32) {

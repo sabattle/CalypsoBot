@@ -33,7 +33,7 @@ module.exports = class TriviaCommand extends Command {
     const n = Math.floor(Math.random() * questions.length);
     const question = questions[n].question;
     const answers = questions[n].answers;
-    const origAnswers = [...answers];
+    const origAnswers = [...answers].map(a => `\`${a}\``);
     // Clean answers
     for (let i = 0; i < answers.length; i++) {
       answers[i] = answers[i].trim().toLowerCase().replace(/\.|'|-|\s/g, '');
@@ -47,6 +47,8 @@ module.exports = class TriviaCommand extends Command {
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
+    const url = question.match(/\bhttps?:\/\/\S+/gi);
+    if (url) questionEmbed.setImage(url[0]);
     message.channel.send(questionEmbed);
     let winner;
     const collector = new MessageCollector(message.channel, msg => {
@@ -68,7 +70,7 @@ module.exports = class TriviaCommand extends Command {
         message.channel.send(answerEmbed.setDescription(`Congratulations ${winner}, you gave the correct answer!`));
       else message.channel.send(answerEmbed
         .setDescription('Sorry, time\'s up! Better luck next time.')
-        .addField('Correct Answers', origAnswers.join(', '))
+        .addField('Correct Answers', origAnswers.join('\n'))
       );
     });
   }

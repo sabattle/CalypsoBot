@@ -9,7 +9,7 @@ module.exports = class FindIdCommand extends Command {
       usage: 'findid <user/role/channel mention>',
       description: 'Finds the ID of the mentioned user, role, or text channel.',
       type: client.types.INFO,
-      examples: ['findid @Calypso', 'findid #general']
+      examples: ['findid @Nettles', 'findid #general']
     });
   }
   run(message, args) {

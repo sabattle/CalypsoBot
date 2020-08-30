@@ -7,15 +7,14 @@ module.exports = class YoMommaCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'yomomma',
-      aliases: ['yourmom', 'ym'],
+      aliases: ['yourmom', 'yomamma', 'yomama', 'ym'],
       usage: 'yomomma [user mention/ID]',
       description: oneLine`
         Says a random "yo momma" joke to the specified user. 
         If no user is given, then the joke will be directed at you!
       `,
       type: client.types.FUN,
-      examples: ['yomomma @Calypso'],
-      disabled: true
+      examples: ['yomomma @Nettles']
     });
   }
   async run(message, args) {
@@ -26,8 +25,9 @@ module.exports = class YoMommaCommand extends Command {
       const res = await fetch('https://api.yomomma.info');
       let joke = (await res.json()).joke;
       joke = joke.charAt(0).toLowerCase() + joke.slice(1);
+      if (!joke.endsWith('!') && !joke.endsWith('.')) joke += '!';
       const embed = new MessageEmbed()
-        .setTitle('🤱  Yo Momma  🤱')
+        .setTitle('🍼  Yo Momma  🍼')
         .setDescription(`${member}, ${joke}`)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()

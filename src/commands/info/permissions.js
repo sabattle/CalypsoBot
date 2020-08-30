@@ -14,7 +14,7 @@ module.exports = class PermissionsCommand extends Command {
         If no user is given, your own permissions will be displayed.
       `,
       type: client.types.INFO,
-      examples: ['permissions @Calypso']
+      examples: ['permissions @Nettles']
     });
   }
   run(message, args) {

@@ -14,7 +14,7 @@ module.exports = class ThouArtCommand extends Command {
         If no user is given, then the insult will be directed at you!
       `,
       type: client.types.FUN,
-      examples: ['thouart @Calypso']
+      examples: ['thouart @Nettles']
     });
   }
   async run(message, args) {

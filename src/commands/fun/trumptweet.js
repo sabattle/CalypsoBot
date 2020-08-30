@@ -6,6 +6,7 @@ module.exports = class TrumpTweetCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'trumptweet',
+      aliases: ['trump'],
       usage: 'trumptweet <message>',
       description: 'Display\'s a custom tweet from Donald Trump with the message provided.',
       type: client.types.FUN,
@@ -23,7 +24,7 @@ module.exports = class TrumpTweetCommand extends Command {
       const res = await fetch('https://nekobot.xyz/api/imagegen?type=trumptweet&text=' + tweet);
       const img = (await res.json()).message;
       const embed = new MessageEmbed()
-        .setTitle(':flag_us:   Trump Tweet  :flag_us: ')
+        .setTitle(':flag_us:  Trump Tweet  :flag_us: ')
         .setImage(img)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
