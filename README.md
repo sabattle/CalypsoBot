@@ -62,10 +62,13 @@ Calypso also comes packed with a variety of features, such as:
 
   * **Auto role** assignment
   * Server **verification** via reactions
+  * **Welcome messages** and **farewell messages**
+  * **Logging** for mod commands and various events
+  * **Moderator Only** channels
   * **Auto kicking** when a warn limit is reached
   * Auto **random colors** when members join
   * Per **command disabling**
-  * And much more! There are over **25+** settings to tweak!
+  * And much more! There are over **30+** settings to tweak!
 
 
 ## Installation
@@ -89,14 +92,14 @@ You have to create a `config.json` file in order to run the bot (you can use the
   "ownerId": "your_ID_here",
   "bugReportChannelId": "bug_report_channel_ID_here",
   "feedbackChannelId": "feedback_channel_ID_here",
-  "serverLogChannelId": "server_log_channel_ID_here",
+  "serverLogId": "server_log_ID_here",
   "apiKeys": {
     "catApi": "your_API_key_here",
     "googleApi": "your_API_key_here"
   }
 }
 ```
-Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the `token` option. `ownerId` is your own Discord snowflake. `bugReportChannelId`, `feedbackChannelId`, and `serverLogChannelId` should be set to respective text channels on your own server. To get keys for supported APIs, vist:
+Visit the Discord [developer portal](https://discordapp.com/developers/applications/) to create an app and use the client token you are given for the `token` option. `ownerId` is your own Discord snowflake. `bugReportChannelId`, `feedbackChannelId`, and `serverLogId` should be set to respective text channels on your own server. To get keys for supported APIs, vist:
 
   * [TheCatAPI](https://thecatapi.com/)
   * [Google APIs](https://console.developers.google.com/apis/)

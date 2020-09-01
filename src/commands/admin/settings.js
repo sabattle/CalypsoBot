@@ -25,9 +25,12 @@ module.exports = class SettingsCommand extends Command {
     const row = message.client.db.settings.selectRow.get(message.guild.id);
     const prefix = `\`${row.prefix}\``;
     const systemChannel = message.guild.channels.cache.get(row.system_channel_id) || '`None`';
-    const modlogChannel = message.guild.channels.cache.get(row.modlog_channel_id) || '`None`';
-    const nicknameLogChannel = message.guild.channels.cache.get(row.nickname_log_channel_id) || '`None`';
-    const roleLogChannel = message.guild.channels.cache.get(row.nickname_log_channel_id) || '`None`';
+    const modLog = message.guild.channels.cache.get(row.mod_log_id) || '`None`';
+    const memberLog = message.guild.channels.cache.get(row.member_log_id) || '`None`';
+    const nicknameLog = message.guild.channels.cache.get(row.nickname_log_id) || '`None`';
+    const roleLog = message.guild.channels.cache.get(row.nickname_log_id) || '`None`';
+    const messageEditLog = message.guild.channels.cache.get(row.message_edit_log_id) || '`None`';
+    const messageDeleteLog = message.guild.channels.cache.get(row.message_delete_log_id) || '`None`';
     const verificationChannel = message.guild.channels.cache.get(row.verification_channel_id) || '`None`';
     const welcomeChannel = message.guild.channels.cache.get(row.welcome_channel_id) || '`None`';
     const farewellChannel = message.guild.channels.cache.get(row.farewell_channel_id) || '`None`';
@@ -106,9 +109,12 @@ module.exports = class SettingsCommand extends Command {
       case 'logging':
         return message.channel.send(embed
           .setTitle('Settings: `Logging`')
-          .addField('Modlog', modlogChannel, true)
-          .addField('Nickname Log', nicknameLogChannel, true)
-          .addField('Role Log', roleLogChannel, true)
+          .addField('Mod Log', modLog, true)
+          .addField('Member Log', memberLog, true)
+          .addField('Nickname Log', nicknameLog, true)
+          .addField('Role Log', roleLog, true)
+          .addField('Message Edit Log', messageEditLog, true)
+          .addField('Message Delete Log', messageDeleteLog, true)
         );
       case 'verif':
       case 'verification':
@@ -167,7 +173,7 @@ module.exports = class SettingsCommand extends Command {
       .setTitle('Settings')
       .setDescription(`**More Information:** \`${row.prefix}settings [category]\``)
       .addField('System', '`10` settings', true)
-      .addField('Logging', '`5` settings', true)
+      .addField('Logging', '`6` settings', true)
       .addField('Verification', '`3` settings', true)
       .addField('Welcomes', '`2` settings', true)
       .addField('Farewells', '`2` settings', true)

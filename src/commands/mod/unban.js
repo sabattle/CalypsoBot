@@ -40,7 +40,7 @@ module.exports = class UnbanCommand extends Command {
     message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.author.tag} unbanned ${user.tag}`);
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: user.tag });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: user.tag });
   }
 };

@@ -13,7 +13,7 @@ module.exports = (client, oldMember, newMember) => {
   // Nickname change
   if (oldMember.nickname != newMember.nickname) {
     // Get nickname log
-    const nicknameLogId = client.db.settings.selectNicknameLogChannelId.pluck().get(oldMember.guild.id);
+    const nicknameLogId = client.db.settings.selectNicknameLogId.pluck().get(oldMember.guild.id);
     const nicknameLog = oldMember.guild.channels.cache.get(nicknameLogId);
     if (
       nicknameLog &&
@@ -33,7 +33,7 @@ module.exports = (client, oldMember, newMember) => {
   // Role add
   if (oldMember.roles.cache.size < newMember.roles.cache.size) {
     // Get role log
-    const roleLogId = client.db.settings.selectRoleLogChannelId.pluck().get(oldMember.guild.id);
+    const roleLogId = client.db.settings.selectRoleLogId.pluck().get(oldMember.guild.id);
     const roleLog = oldMember.guild.channels.cache.get(roleLogId);
     if (
       roleLog &&
@@ -51,7 +51,7 @@ module.exports = (client, oldMember, newMember) => {
   // Role remove
   if (oldMember.roles.cache.size > newMember.roles.cache.size) {
     // Get role log
-    const roleLogId = client.db.settings.selectRoleLogChannelId.pluck().get(oldMember.guild.id);
+    const roleLogId = client.db.settings.selectRoleLogId.pluck().get(oldMember.guild.id);
     const roleLog = oldMember.guild.channels.cache.get(roleLogId);
     if (
       roleLog &&

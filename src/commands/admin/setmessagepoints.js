@@ -6,7 +6,7 @@ module.exports = class SetMessagePointsCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setmessagepoints',
-      aliases: ['setmp', 'smp'],
+      aliases: ['setmsgpoints', 'setmp', 'smp'],
       usage: 'setmessagepoints <point count>',
       description: 'Sets the amount of points earned per user message.',
       type: client.types.ADMIN,

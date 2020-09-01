@@ -96,7 +96,7 @@ class Client extends Discord.Client {
      * Calypso's server log channel ID
      * @type {string}
      */
-    this.serverLogChannelId = config.serverLogChannelId;
+    this.serverLogId = config.serverLogId;
 
     /** 
      * Utility functions

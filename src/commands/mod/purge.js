@@ -102,7 +102,7 @@ module.exports = class PurgeCommand extends Command {
       });
     }
     
-    // Update modlog
+    // Update mod log
     const fields = { 
       Channel: channel
     };
@@ -112,7 +112,7 @@ module.exports = class PurgeCommand extends Command {
       fields['Found Messages'] = `\`${messages.size}\``;
     } else fields['Message Count'] = `\`${amount}\``;
 
-    this.sendModlogMessage(message, reason, fields);
+    this.sendModLogMessage(message, reason, fields);
 
   }
 };

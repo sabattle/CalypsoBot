@@ -86,9 +86,9 @@ function getOrdinalNumeral(number) {
  * @param {Client} client 
  * @param {Guild} guild
  */
-async function getCaseNumber(client, guild, modlogChannel) {
+async function getCaseNumber(client, guild, modLog) {
   
-  const message = (await modlogChannel.messages.fetch({ limit: 100 })).filter(m => m.member === guild.me &&
+  const message = (await modLog.messages.fetch({ limit: 100 })).filter(m => m.member === guild.me &&
     m.embeds[0] &&
     m.embeds[0].type == 'rich' &&
     m.embeds[0].footer &&

@@ -43,7 +43,7 @@ module.exports = class BanCommand extends Command {
     message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.author.tag} banned ${member.user.tag}`);
         
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member});
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: member});
   }
 };

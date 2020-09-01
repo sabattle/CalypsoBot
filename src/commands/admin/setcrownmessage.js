@@ -7,7 +7,7 @@ module.exports = class SetCrownMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setcrownmessage',
-      aliases: ['setcm', 'scm'],
+      aliases: ['setcrownmsg', 'setcm', 'scm'],
       usage: 'setcrownmessage <message>',
       description: oneLine`
         Sets the message Calypso will say during the crown role rotation.

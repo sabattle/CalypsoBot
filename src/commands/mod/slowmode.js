@@ -74,7 +74,7 @@ module.exports = class SlowmodeCommand extends Command {
       );
     }
 
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Channel: channel, Rate: `\`${rate}\`` });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Channel: channel, Rate: `\`${rate}\`` });
   }
 };

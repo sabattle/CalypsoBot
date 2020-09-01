@@ -55,8 +55,8 @@ module.exports = class WarnCommand extends Command {
     message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.author.tag} warned ${member.user.tag}`);
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member, 'Warn Count': `\`${warns.warns.length}\`` });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: member, 'Warn Count': `\`${warns.warns.length}\`` });
 
     // Check for auto kick
     if (autoKick && warns.warns.length === autoKick) {

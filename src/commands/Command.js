@@ -236,20 +236,20 @@ class Command {
   }
 
   /**
-   * Creates and sends modlog embed
+   * Creates and sends mod log embed
    * @param {Message} message
    * @param {string} reason 
    * @param {Object} fields
    */
-  async sendModlogMessage(message, reason, fields = {}) {
-    const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
-    const modlogChannel = message.guild.channels.cache.get(modlogChannelId);
+  async sendModLogMessage(message, reason, fields = {}) {
+    const modLogId = message.client.db.settings.selectModLogId.pluck().get(message.guild.id);
+    const modLog = message.guild.channels.cache.get(modLogId);
     if (
-      modlogChannel && 
-      modlogChannel.viewable &&
-      modlogChannel.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
+      modLog && 
+      modLog.viewable &&
+      modLog.permissionsFor(message.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
     ) {
-      const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild, modlogChannel);
+      const caseNumber = await message.client.utils.getCaseNumber(message.client, message.guild, modLog);
       const embed = new MessageEmbed()
         .setTitle(`Action: \`${message.client.utils.capitalize(this.name)}\``)
         .addField('Moderator', message.member, true)
@@ -260,7 +260,7 @@ class Command {
         embed.addField(field, fields[field], true);
       }
       embed.addField('Reason', reason);
-      modlogChannel.send(embed).catch(err => message.client.logger.error(err.stack));
+      modLog.send(embed).catch(err => message.client.logger.error(err.stack));
     }
   }
 

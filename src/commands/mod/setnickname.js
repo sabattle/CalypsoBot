@@ -71,8 +71,8 @@ module.exports = class SetNicknameCommand extends Command {
           .setColor(message.guild.me.displayHexColor);
         message.channel.send(embed);
 
-        // Update modlog
-        this.sendModlogMessage(message, reason, { Member: member, Nickname: nicknameStatus });
+        // Update mod log
+        this.sendModLogMessage(message, reason, { Member: member, Nickname: nicknameStatus });
 
       } catch (err) {
         message.client.logger.error(err.stack);

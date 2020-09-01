@@ -7,7 +7,7 @@ module.exports = class SetWelcomeMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setwelcomemessage',
-      aliases: ['setwm', 'swm'],
+      aliases: ['setwelcomemsg', 'setwm', 'swm'],
       usage: 'setwelcomemessage <message>',
       description: oneLine`
         Sets the message Calypso will say when someone joins your server.

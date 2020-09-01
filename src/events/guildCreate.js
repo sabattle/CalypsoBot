@@ -6,15 +6,15 @@ const { oneLine } = require('common-tags');
 module.exports = async (client, guild) => {
 
   client.logger.info(`Calypso has joined ${guild.name}`);
-  const serverLog = client.channels.cache.get(client.serverLogChannelId);
+  const serverLog = client.channels.cache.get(client.serverLogId);
   if (serverLog)
     serverLog.send(new MessageEmbed().setDescription(`${client.user} has joined **${guild.name}** ${success}`));
 
   /** ------------------------------------------------------------------------------------------------
    * CREATE/FIND SETTINGS
    * ------------------------------------------------------------------------------------------------ */ 
-  // Find modlog
-  const modlog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'modlog' || 
+  // Find mod log
+  const modLog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'modlog' || 
     c.name.replace('-', '').replace('s', '') === 'moderatorlog');
 
   // Find admin and mod roles
@@ -82,7 +82,7 @@ module.exports = async (client, guild) => {
     guild.systemChannelID, // Welcome channel
     guild.systemChannelID, // Farewell channel
     guild.systemChannelID,  // Crown Channel
-    modlog ? modlog.id : null,
+    modLog ? modLog.id : null,
     adminRole ? adminRole.id : null,
     modRole ? modRole.id : null,
     muteRole ? muteRole.id : null,

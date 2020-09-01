@@ -49,7 +49,7 @@ module.exports = class UnmuteCommand extends Command {
       return this.sendErrorMessage(message, 1, 'Please check the role hierarchy', err.message);
     }
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: member });
   }
 };

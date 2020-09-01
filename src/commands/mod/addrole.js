@@ -49,8 +49,8 @@ module.exports = class AddRoleCommand extends Command {
           .setColor(message.guild.me.displayHexColor);
         message.channel.send(embed);
 
-        // Update modlog
-        this.sendModlogMessage(message, reason, { Member: member, Role: role });
+        // Update mod log
+        this.sendModLogMessage(message, reason, { Member: member, Role: role });
 
       } catch (err) {
         message.client.logger.error(err.stack);

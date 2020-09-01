@@ -93,7 +93,7 @@ module.exports = class PurgeBotCommand extends Command {
       });
     }
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Channel: channel, 'Found Messages': `\`${messages.size}\`` });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Channel: channel, 'Found Messages': `\`${messages.size}\`` });
   }
 };

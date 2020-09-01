@@ -7,7 +7,7 @@ module.exports = class SetFarewellMessageCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setfarewellmessage',
-      aliases: ['setlm', 'slm'],
+      aliases: ['setfarewellmsg', 'setlm', 'slm'],
       usage: 'setfarewellmessage <message>',
       description: oneLine`
         Sets the message Calypso will say when someone leaves your server.

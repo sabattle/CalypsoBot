@@ -44,7 +44,7 @@ module.exports = class ClearWarnsCommand extends Command {
       ${message.guild.name}: ${message.author.tag} cleared ${member.user.tag}'s warns
     `);
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member, 'Warn Count': '`0`' });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: member, 'Warn Count': '`0`' });
   }
 };

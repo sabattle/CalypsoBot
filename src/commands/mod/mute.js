@@ -77,7 +77,7 @@ module.exports = class MuteCommand extends Command {
       }
     }, time);
 
-    // Update modlog
-    this.sendModlogMessage(message, reason, { Member: member, Time: `\`${ms(time)}\`` });
+    // Update mod log
+    this.sendModLogMessage(message, reason, { Member: member, Time: `\`${ms(time)}\`` });
   }
 };

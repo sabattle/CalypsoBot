@@ -66,8 +66,8 @@ module.exports = class WarnPurgeCommand extends Command {
     message.channel.send(embed);
     message.client.logger.info(`${message.guild.name}: ${message.author.tag} warnpurged ${member.user.tag}`);
     
-    // Update modlog
-    this.sendModlogMessage(message, reason, { 
+    // Update mod log
+    this.sendModLogMessage(message, reason, { 
       Member: member, 
       'Warn Count': `\`${warns.warns.length}\``,
       'Found Messages': `\`${messages.size}\``
