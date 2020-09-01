@@ -22,7 +22,7 @@ module.exports = class SetWelcomeChannelCommand extends Command {
   run(message, args) {
 
     let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
-      message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
+      message.client.db.settings.selectWelcomes.get(message.guild.id);
     const oldWelcomeChannel = message.guild.channels.cache.get(welcomeChannelId) || '`None`';
 
     // Get status
@@ -32,7 +32,7 @@ module.exports = class SetWelcomeChannelCommand extends Command {
     if (welcomeMessage && welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
 
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Welcome Messages`')
+      .setTitle('Settings: `Welcomes`')
       .setDescription(`The \`welcome channel\` was successfully updated. ${success}`)
       .addField('Message', message.client.utils.replaceKeywords(welcomeMessage) || '`None`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))

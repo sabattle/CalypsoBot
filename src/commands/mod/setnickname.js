@@ -31,16 +31,25 @@ module.exports = class SetNicknameCommand extends Command {
 
     if (!args[1]) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
 
-    let nickname = nickname = args[1];
+    // Multi-word nickname
+    let nickname = args[1];
     if (nickname.startsWith('"')) {
       nickname = message.content.slice(message.content.indexOf(args[1]) + 1);
-      nickname = nickname.slice(0, nickname.indexOf('"'));  
-    } else if (nickname.length > 32) {
+      if (!nickname.includes('"')) 
+        return this.sendErrorMessage(message, 0, 'Please ensure the nickname is surrounded in quotes');
+      nickname = nickname.slice(0, nickname.indexOf('"'));
+      if (!nickname.replace(/\s/g, '').length) return this.sendErrorMessage(message, 0, 'Please provide a nickname');
+    }
+
+    if (nickname.length > 32) {
       return this.sendErrorMessage(message, 0, 'Please ensure the nickname is no larger than 32 characters');
       
     } else {
 
-      let reason = message.content.slice(message.content.indexOf(nickname));
+      let reason;
+      if (args[1].startsWith('"')) 
+        reason = message.content.slice(message.content.indexOf(nickname) + nickname.length + 1);
+      else reason = message.content.slice(message.content.indexOf(nickname) + nickname.length);
       if (!reason) reason = '`None`';
       if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
 

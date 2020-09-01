@@ -21,17 +21,18 @@ module.exports = class SetModChannelsCommand extends Command {
     });
   }
   run(message, args) {
+    const { trimArray  } = message.client.utils;
     const modChannelIds = message.client.db.settings.selectModChannelIds.pluck().get(message.guild.id);
     let oldModChannels = [];
     if (modChannelIds) {
       for (const channel of modChannelIds.split(' ')) {
         oldModChannels.push(message.guild.channels.cache.get(channel));
       }
-      oldModChannels = oldModChannels.join(' ');
+      oldModChannels = trimArray(oldModChannels).join(' ');
     }
     if (oldModChannels.length === 0) oldModChannels = '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Mod Channels`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`mod channels\` were successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -41,7 +42,7 @@ module.exports = class SetModChannelsCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateModChannelIds.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Channels', `${oldModChannels} ➔ \`None\``));
+      return message.channel.send(embed.addField('Mod Channels', `${oldModChannels} ➔ \`None\``));
     }
 
     let channels = [];
@@ -55,6 +56,6 @@ module.exports = class SetModChannelsCommand extends Command {
     channels = [...new Set(channels)];
     const channelIds = channels.map(c => c.id).join(' '); // Only keep unique IDs
     message.client.db.settings.updateModChannelIds.run(channelIds, message.guild.id);
-    message.channel.send(embed.addField('Channels', `${oldModChannels} ➔ ${channels.join(' ')}`));
+    message.channel.send(embed.addField('Mod Channels', `${oldModChannels} ➔ ${trimArray(channels).join(' ')}`));
   }
 };

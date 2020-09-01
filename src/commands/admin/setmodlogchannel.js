@@ -22,7 +22,7 @@ module.exports = class SetModlogChannelCommand extends Command {
     const modlogChannelId = message.client.db.settings.selectModlogChannelId.pluck().get(message.guild.id);
     const oldModlogChannel = message.guild.channels.cache.get(modlogChannelId) || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Modlog Channel`')
+      .setTitle('Settings: `Logging`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`modlog channel\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -32,7 +32,7 @@ module.exports = class SetModlogChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateModlogChannelId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ \`None\``));
+      return message.channel.send(embed.addField('Modlog', `${oldModlogChannel} ➔ \`None\``));
     }
 
     const modlogChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
@@ -41,6 +41,6 @@ module.exports = class SetModlogChannelCommand extends Command {
         Please mention an accessible text channel or provide a valid text channel ID
       `);
     message.client.db.settings.updateModlogChannelId.run(modlogChannel.id, message.guild.id);
-    message.channel.send(embed.addField('Channel', `${oldModlogChannel} ➔ ${modlogChannel}`));
+    message.channel.send(embed.addField('Modlog', `${oldModlogChannel} ➔ ${modlogChannel}`));
   }
 };

@@ -22,7 +22,7 @@ module.exports = class SetPrefixCommand extends Command {
       return this.sendErrorMessage(message, 0, 'Please ensure the prefix is no larger than 3 characters');
     message.client.db.settings.updatePrefix.run(prefix, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Prefix`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`prefix\` was successfully updated. ${success}`)
       .addField('Prefix', `\`${oldPrefix}\` ➔ \`${prefix}\``)

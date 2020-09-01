@@ -25,7 +25,7 @@ module.exports = class YoMommaCommand extends Command {
       const res = await fetch('https://api.yomomma.info');
       let joke = (await res.json()).joke;
       joke = joke.charAt(0).toLowerCase() + joke.slice(1);
-      if (!joke.endsWith('!') && !joke.endsWith('.')) joke += '!';
+      if (!joke.endsWith('!') && !joke.endsWith('.') && !joke.endsWith('"')) joke += '!';
       const embed = new MessageEmbed()
         .setTitle('🍼  Yo Momma  🍼')
         .setDescription(`${member}, ${joke}`)

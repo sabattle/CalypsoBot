@@ -27,10 +27,10 @@ module.exports = class ToggleRandomColorCommand extends Command {
     } 
     
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Random Color`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL())
       .setDescription(description)
-      .addField('Status', status, true)
+      .addField('Random Color', status, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

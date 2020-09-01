@@ -70,7 +70,7 @@ module.exports = class ExplainPointsCommand extends Command {
       crown += `\nUse the \`${prefix}crown\` command for server specific information.`;
 
     const embed = new MessageEmbed()
-      .setTitle('Points and Crown Systems')
+      .setTitle('Points and Crown')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .addField('Earning Points', earningPoints)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))

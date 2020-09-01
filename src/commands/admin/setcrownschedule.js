@@ -51,7 +51,7 @@ module.exports = class SetCrownScheduleCommand extends Command {
 
     let description = `The \`crown schedule\` was successfully updated. ${success}`;
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Crown System`')
+      .setTitle('Settings: `Crown`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Role', crownRole || '`None`', true)

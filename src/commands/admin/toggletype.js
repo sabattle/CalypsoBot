@@ -46,7 +46,7 @@ module.exports = class ToggleTypeCommand extends Command {
     if (types.includes(type)) {
 
       // Enable type
-      if (disabledCommands.length === commands.length) {
+      if (commands.every(c => disabledCommands.includes(c.name))) {
         for (const cmd of commands) {
           if (disabledCommands.includes(cmd.name)) message.client.utils.removeElement(disabledCommands, cmd.name);
         }
@@ -65,7 +65,7 @@ module.exports = class ToggleTypeCommand extends Command {
 
     disabledCommands = disabledCommands.map(c => `\`${c}\``).join(' ') || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Disabled Commands`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(description)
       .addField('Disabled Commands', disabledCommands, true)

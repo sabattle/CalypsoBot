@@ -19,7 +19,7 @@ module.exports = class BotInfoCommand extends Command {
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const tech = stripIndent`
       Version     :: ${pkg.version}
-      Library     :: Discord.js v12.2.0
+      Library     :: Discord.js v12.3.1
       Environment :: Node.js v12.16.3
       Database    :: SQLite
     `;

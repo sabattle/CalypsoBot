@@ -117,7 +117,7 @@ function getStatus(...args) {
 }
 
 /**
- * Surrounds welcome/leave message keywords with backticks
+ * Surrounds welcome/farewell message keywords with backticks
  * @param {string} message
  */
 function replaceKeywords(message) {

@@ -26,14 +26,14 @@ module.exports = class SetWelcomeMessageCommand extends Command {
   run(message, args) {
 
     const { welcome_channel_id: welcomeChannelId, welcome_message: oldWelcomeMessage } = 
-      message.client.db.settings.selectWelcomeMessages.get(message.guild.id);
+      message.client.db.settings.selectWelcomes.get(message.guild.id);
     let welcomeChannel = message.guild.channels.cache.get(welcomeChannelId);
 
     // Get status
     const oldStatus = message.client.utils.getStatus(welcomeChannelId, oldWelcomeMessage);
 
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Welcome Messages`')
+      .setTitle('Settings: `Welcomes`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`welcome message\` was successfully updated. ${success}`)
       .addField('Channel', welcomeChannel || '`None`', true)

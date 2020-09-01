@@ -21,11 +21,16 @@ db.prepare(`
     prefix TEXT DEFAULT "c!" NOT NULL,
     system_channel_id TEXT,
     modlog_channel_id TEXT,
-    botlog_channel_id TEXT,
+    member_log_channel_id TEXT,
+    nickname_log_channel_id TEXT,
+    role_log_channel_id TEXT,
+    message_edit_log_channel_id TEXT,
+    message_delete_log_channel_id TEXT,
     verification_channel_id TEXT,
     mod_channel_ids TEXT,
+    disabled_commands TEXT,
     welcome_channel_id TEXT,
-    leave_channel_id TEXT,
+    farewell_channel_id TEXT,
     crown_channel_id TEXT,
     admin_role_id TEXT,
     mod_role_id TEXT,
@@ -33,10 +38,6 @@ db.prepare(`
     auto_role_id TEXT,
     verification_role_id TEXT,
     crown_role_id TEXT,
-    log_message_delete INTEGER DEFAULT 0 NOT NULL,
-    log_message_edit INTEGER DEFAULT 0 NOT NULL,
-    log_role_change INTEGER DEFAULT 0 NOT NULL,
-    log_name_change INTEGER DEFAULT 0 NOT NULL,
     random_color INTEGER DEFAULT 0 NOT NULL,
     auto_kick INTEGER,
     point_tracking INTEGER DEFAULT 1 NOT NULL,
@@ -46,10 +47,9 @@ db.prepare(`
     verification_message TEXT,
     verification_message_id TEXT,
     welcome_message TEXT DEFAULT "?member (**?tag**) has joined the server!",
-    leave_message TEXT DEFAULT "?member (**?tag**) has left the server.",
+    farewell_message TEXT DEFAULT "?member (**?tag**) has left the server.",
     crown_message TEXT DEFAULT "?member has won ?role this week! Points have been reset, better luck next time!",
-    crown_schedule TEXT DEFAULT "0 21 * * 5",
-    disabled_commands TEXT
+    crown_schedule TEXT DEFAULT "0 21 * * 5"
   );
 `).run();
 
@@ -82,7 +82,7 @@ const settings = {
       guild_name,
       system_channel_id,
       welcome_channel_id,
-      leave_channel_id,
+      farewell_channel_id,
       crown_channel_id,
       modlog_channel_id,
       admin_role_id,
@@ -98,23 +98,24 @@ const settings = {
   selectPrefix: db.prepare('SELECT prefix FROM settings WHERE guild_id = ?;'),
   selectSystemChannelId: db.prepare('SELECT system_channel_id FROM settings WHERE guild_id = ?;'),
   selectModlogChannelId: db.prepare('SELECT modlog_channel_id FROM settings WHERE guild_id = ?;'),
-  selectBotlogChannelId: db.prepare('SELECT botlog_channel_id FROM settings WHERE guild_id = ?;'),
+  selectMemberLogChannelId: db.prepare('SELECT member_log_channel_id FROM settings WHERE guild_id = ?;'),
+  selectNicknameLogChannelId: db.prepare('SELECT nickname_log_channel_id FROM settings WHERE guild_id = ?;'),
+  selectRoleLogChannelId: db.prepare('SELECT role_log_channel_id FROM settings WHERE guild_id = ?;'),
+  selectMessageEditLogChannelId: db.prepare('SELECT message_edit_log_channel_id FROM settings WHERE guild_id = ?;'),
+  selectMessageDeleteChannelId: db.prepare('SELECT message_delete_log_channel_id FROM settings WHERE guild_id = ?;'),
   selectVerification: db.prepare(`
     SELECT verification_role_id, verification_channel_id, verification_message, verification_message_id 
     FROM settings
     WHERE guild_id = ?;
   `),
   selectModChannelIds: db.prepare('SELECT mod_channel_ids FROM settings WHERE guild_id = ?;'),
-  selectWelcomeMessages: db.prepare('SELECT welcome_channel_id, welcome_message FROM settings WHERE guild_id = ?;'),
-  selectLeaveMessages: db.prepare('SELECT leave_channel_id, leave_message FROM settings WHERE guild_id = ?;'),
+  selectDisabledCommands: db.prepare('SELECT disabled_commands FROM settings WHERE guild_id = ?;'),
+  selectWelcomes: db.prepare('SELECT welcome_channel_id, welcome_message FROM settings WHERE guild_id = ?;'),
+  selectFarewells: db.prepare('SELECT farewell_channel_id, farewell_message FROM settings WHERE guild_id = ?;'),
   selectAdminRoleId: db.prepare('SELECT admin_role_id FROM settings WHERE guild_id = ?;'),
   selectModRoleId: db.prepare('SELECT mod_role_id FROM settings WHERE guild_id = ?;'),
   selectMuteRoleId: db.prepare('SELECT mute_role_id FROM settings WHERE guild_id = ?;'),
   selectAutoRoleId: db.prepare('SELECT auto_role_id FROM settings WHERE guild_id = ?;'),
-  selectLogMessageDelete: db.prepare('SELECT log_message_delete FROM settings WHERE guild_id = ?;'),
-  selectLogMessageEdit: db.prepare('SELECT log_message_edit FROM settings WHERE guild_id = ?;'),
-  selectLogRoleChange: db.prepare('SELECT log_role_change FROM settings WHERE guild_id = ?;'),
-  selectLogNameChange: db.prepare('SELECT log_name_change FROM settings WHERE guild_id = ?;'),
   selectRandomColor: db.prepare('SELECT random_color FROM settings WHERE guild_id = ?;'),
   selectAutoKick: db.prepare('SELECT auto_kick FROM settings WHERE guild_id = ?;'),
   selectPoints: db.prepare(`
@@ -127,18 +128,24 @@ const settings = {
     FROM settings
     WHERE guild_id = ?;
   `),
-  selectDisabledCommands: db.prepare('SELECT disabled_commands FROM settings WHERE guild_id = ?;'),
 
   // Updates
   updatePrefix: db.prepare('UPDATE settings SET prefix = ? WHERE guild_id = ?;'),
   updateGuildName: db.prepare('UPDATE settings SET guild_name = ? WHERE guild_id = ?;'),
   updateSystemChannelId: db.prepare('UPDATE settings SET system_channel_id = ? WHERE guild_id = ?;'),
   updateModlogChannelId: db.prepare('UPDATE settings SET modlog_channel_id = ? WHERE guild_id = ?;'),
-  updateBotlogChannelId: db.prepare('UPDATE settings SET botlog_channel_id = ? WHERE guild_id = ?;'),
+  updateMemberLogChannelId: db.prepare('UPDATE settings SET member_log_channel_id = ? WHERE guild_id = ?;'),
+  updateNicknameLogChannelId: db.prepare('UPDATE settings SET nickname_log_channel_id = ? WHERE guild_id = ?;'),
+  updateRoleLogChannelId: db.prepare('UPDATE settings SET role_log_channel_id = ? WHERE guild_id = ?;'),
+  updateMessageEditLogChannelId: db.prepare('UPDATE settings SET message_edit_log_channel_id = ? WHERE guild_id = ?;'),
+  updateMessageDeleteLogChannelId: db.prepare(`
+    UPDATE settings SET message_delete_log_channel_id = ? WHERE guild_id = ?;
+  `),
   updateVerificationChannelId: db.prepare('UPDATE settings SET verification_channel_id = ? WHERE guild_id = ?;'),
   updateModChannelIds: db.prepare('UPDATE settings SET mod_channel_ids = ? WHERE guild_id = ?;'),
+  updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;'),
   updateWelcomeChannelId: db.prepare('UPDATE settings SET welcome_channel_id = ? WHERE guild_id = ?;'),
-  updateLeaveChannelId: db.prepare('UPDATE settings SET leave_channel_id = ? WHERE guild_id = ?;'),
+  updateFarewellChannelId: db.prepare('UPDATE settings SET farewell_channel_id = ? WHERE guild_id = ?;'),
   updateCrownChannelId: db.prepare('UPDATE settings SET crown_channel_id = ? WHERE guild_id = ?;'),
   updateAdminRoleId: db.prepare('UPDATE settings SET admin_role_id = ? WHERE guild_id = ?;'),
   updateModRoleId: db.prepare('UPDATE settings SET mod_role_id = ? WHERE guild_id = ?;'),
@@ -146,10 +153,6 @@ const settings = {
   updateAutoRoleId: db.prepare('UPDATE settings SET auto_role_id = ? WHERE guild_id = ?;'),
   updateVerificationRoleId: db.prepare('UPDATE settings SET verification_role_id = ? WHERE guild_id = ?;'),
   updateCrownRoleId: db.prepare('UPDATE settings SET crown_role_id = ? WHERE guild_id = ?;'),
-  updateLogMessageDelete: db.prepare('UPDATE settings SET log_message_delete = ? WHERE guild_id = ?;'),
-  updateLogMessageEdit: db.prepare('UPDATE settings SET log_message_edit = ? WHERE guild_id = ?;'),
-  updateLogRoleChange: db.prepare('UPDATE settings SET log_role_change = ? WHERE guild_id = ?;'),
-  updateLogNameChange: db.prepare('UPDATE settings SET log_name_change = ? WHERE guild_id = ?;'),
   updateRandomColor: db.prepare('UPDATE settings SET random_color = ? WHERE guild_id = ?;'), 
   updateAutoKick: db.prepare('UPDATE settings SET auto_kick = ? WHERE guild_id = ?;'), 
   updatePointTracking: db.prepare('UPDATE settings SET point_tracking = ? WHERE guild_id = ?;'),
@@ -159,10 +162,9 @@ const settings = {
   updateVerificationMessage: db.prepare('UPDATE settings SET verification_message = ? WHERE guild_id = ?;'),
   updateVerificationMessageId: db.prepare('UPDATE settings SET verification_message_id = ? WHERE guild_id = ?;'),
   updateWelcomeMessage: db.prepare('UPDATE settings SET welcome_message = ? WHERE guild_id = ?;'),
-  updateLeaveMessage: db.prepare('UPDATE settings SET leave_message = ? WHERE guild_id = ?;'),
+  updateFarewellMessage: db.prepare('UPDATE settings SET farewell_message = ? WHERE guild_id = ?;'),
   updateCrownMessage: db.prepare('UPDATE settings SET crown_message = ? WHERE guild_id = ?;'),
   updateCrownSchedule: db.prepare('UPDATE settings SET crown_schedule = ? WHERE guild_id = ?;'),
-  updateDisabledCommands: db.prepare('UPDATE settings SET disabled_commands = ? WHERE guild_id = ?;'),
   deleteGuild: db.prepare('DELETE FROM settings WHERE guild_id = ?;')
 };
 
@@ -194,6 +196,7 @@ const users = {
 
   // Updates
   updateGuildName: db.prepare('UPDATE users SET guild_name = ? WHERE guild_id = ?;'),
+  updateUser: db.prepare('UPDATE users SET user_name = ?, user_discriminator = ? WHERE user_id = ?;'),
   updatePoints: db.prepare(`
     UPDATE users 
     SET points = points + @points, total_points = total_points + @points

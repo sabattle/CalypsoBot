@@ -19,7 +19,7 @@ module.exports = class SetAdminRoleCommand extends Command {
     const oldAdminRole = message.guild.roles.cache.find(r => r.id === adminRoleId) || '`None`';
 
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Admin Role`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`admin role\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -29,13 +29,13 @@ module.exports = class SetAdminRoleCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateAdminRoleId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Role', `${oldAdminRole} ➔ \`None\``));
+      return message.channel.send(embed.addField('Admin Role', `${oldAdminRole} ➔ \`None\``));
     }
 
     // Update role
     const adminRole = this.getRoleFromMention(message, args[0]) || message.guild.roles.cache.get(args[0]);
     if (!adminRole) return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
     message.client.db.settings.updateAdminRoleId.run(adminRole.id, message.guild.id);
-    message.channel.send(embed.addField('Role', `${oldAdminRole} ➔ ${adminRole}`));
+    message.channel.send(embed.addField('Admin Role', `${oldAdminRole} ➔ ${adminRole}`));
   }
 };

@@ -36,7 +36,7 @@ module.exports = class SetCrownRoleCommand extends Command {
     if (crownMessage && crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
 
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Crown System`')
+      .setTitle('Settings: `Crown`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`crown role\` was successfully updated. ${success}`)
       .addField('Channel', crownChannel || '`None`', true)

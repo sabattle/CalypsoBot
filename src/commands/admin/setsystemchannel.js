@@ -23,7 +23,7 @@ module.exports = class SetSystemChannelCommand extends Command {
     const systemChannelId = message.client.db.settings.selectSystemChannelId.pluck().get(message.guild.id);
     const oldSystemChannel = message.guild.channels.cache.get(systemChannelId) || '`None`';
     const embed = new MessageEmbed()
-      .setTitle('Settings: `System Channel`')
+      .setTitle('Settings: `System`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`system channel\` was successfully updated. ${success}`)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
@@ -33,7 +33,7 @@ module.exports = class SetSystemChannelCommand extends Command {
     // Clear if no args provided
     if (args.length === 0) {
       message.client.db.settings.updateSystemChannelId.run(null, message.guild.id);
-      return message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ \`None\``));
+      return message.channel.send(embed.addField('System Channel', `${oldSystemChannel} ➔ \`None\``));
     }
 
     const systemChannel = this.getChannelFromMention(message, args[0]) || message.guild.channels.cache.get(args[0]);
@@ -42,6 +42,6 @@ module.exports = class SetSystemChannelCommand extends Command {
         Please mention an accessible text or announcement channel or provide a valid text or announcement channel ID
       `);
     message.client.db.settings.updateSystemChannelId.run(systemChannel.id, message.guild.id);
-    message.channel.send(embed.addField('Channel', `${oldSystemChannel} ➔ ${systemChannel}`));
+    message.channel.send(embed.addField('System Channel', `${oldSystemChannel} ➔ ${systemChannel}`));
   }
 };

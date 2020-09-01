@@ -9,8 +9,8 @@ module.exports = class SettingsCommand extends Command {
       aliases: ['set', 's', 'config', 'conf'],
       usage: 'settings [category]',
       description: oneLine`
-        Displays all the current settings for your server. 
-        If a category is provided, only settings belonging to it will be displayed.
+        Displays a list of all current settings for the given setting category. 
+        If no category is given, the amount of settings for every category will be displayed.
       `,
       type: client.types.ADMIN,
       userPermissions: ['MANAGE_GUILD'],
@@ -19,23 +19,25 @@ module.exports = class SettingsCommand extends Command {
   }
   run(message, args) {
 
-    const { replaceKeywords, replaceCrownKeywords } = message.client.utils;
+    const { trimArray, replaceKeywords, replaceCrownKeywords } = message.client.utils;
 
     // Set values
     const row = message.client.db.settings.selectRow.get(message.guild.id);
     const prefix = `\`${row.prefix}\``;
     const systemChannel = message.guild.channels.cache.get(row.system_channel_id) || '`None`';
     const modlogChannel = message.guild.channels.cache.get(row.modlog_channel_id) || '`None`';
+    const nicknameLogChannel = message.guild.channels.cache.get(row.nickname_log_channel_id) || '`None`';
+    const roleLogChannel = message.guild.channels.cache.get(row.nickname_log_channel_id) || '`None`';
     const verificationChannel = message.guild.channels.cache.get(row.verification_channel_id) || '`None`';
     const welcomeChannel = message.guild.channels.cache.get(row.welcome_channel_id) || '`None`';
-    const leaveChannel = message.guild.channels.cache.get(row.leave_channel_id) || '`None`';
+    const farewellChannel = message.guild.channels.cache.get(row.farewell_channel_id) || '`None`';
     const crownChannel = message.guild.channels.cache.get(row.crown_channel_id) || '`None`';
     let modChannels = [];
     if (row.mod_channel_ids) {
       for (const channel of row.mod_channel_ids.split(' ')) {
         modChannels.push(message.guild.channels.cache.get(channel));
       }
-      modChannels = modChannels.join(' ');
+      modChannels = trimArray(modChannels).join(' ');
     }
     if (modChannels.length === 0) modChannels = '`None`';
     const adminRole = message.guild.roles.cache.get(row.admin_role_id) || '`None`';
@@ -50,7 +52,7 @@ module.exports = class SettingsCommand extends Command {
     const voicePoints = `\`${row.voice_points}\``;
     let verificationMessage = (row.verification_message) ? replaceKeywords(row.verification_message) : '`None`';
     let welcomeMessage = (row.welcome_message) ? replaceKeywords(row.welcome_message) : '`None`';
-    let leaveMessage = (row.leave_message) ? replaceKeywords(row.leave_message ) : '`None`';
+    let farewellMessage = (row.farewell_message) ? replaceKeywords(row.farewell_message ) : '`None`';
     let crownMessage = (row.crown_message) ? replaceCrownKeywords(row.crown_message) : '`None`';
     const crownSchedule = (row.crown_schedule) ? `\`${row.crown_schedule}\`` : '`None`';
     let disabledCommands = '`None`';
@@ -63,9 +65,15 @@ module.exports = class SettingsCommand extends Command {
     )}\``;
     const randomColor = `\`${message.client.utils.getStatus(row.random_color)}\``;
     const welcomeStatus = `\`${message.client.utils.getStatus(row.welcome_message && row.welcome_channel_id)}\``;
-    const leaveStatus = `\`${message.client.utils.getStatus(row.leave_message && row.leave_channel_id)}\``;
+    const farewellStatus = `\`${message.client.utils.getStatus(row.farewell_message && row.farewell_channel_id)}\``;
     const pointsStatus = `\`${message.client.utils.getStatus(row.point_tracking)}\``;
     const crownStatus = `\`${message.client.utils.getStatus(row.crown_role_id && row.crown_schedule)}\``;
+    
+    // Trim messages to 1024 characters
+    if (verificationMessage.length > 1024) verificationMessage = verificationMessage.slice(0, 1021) + '...';
+    if (welcomeMessage.length > 1024) welcomeMessage = welcomeMessage.slice(0, 1021) + '...';
+    if (farewellMessage.length > 1024) farewellMessage = farewellMessage.slice(0, 1021) + '...';
+    if (crownMessage.length > 1024) crownMessage = crownMessage.slice(0, 1021) + '...';
 
     /** ------------------------------------------------------------------------------------------------
      * CATEGORY CHECKS
@@ -84,7 +92,6 @@ module.exports = class SettingsCommand extends Command {
           .setTitle('Settings: `System`')
           .addField('Prefix', prefix, true)
           .addField('System Channel', systemChannel, true)
-          .addField('Modlog Channel', modlogChannel, true)
           .addField('Admin Role', adminRole, true)
           .addField('Mod Role', modRole, true)
           .addField('Mute Role', muteRole, true)
@@ -92,6 +99,16 @@ module.exports = class SettingsCommand extends Command {
           .addField('Auto Kick', autoKick, true)
           .addField('Random Color', randomColor, true)
           .addField('Mod Channels', modChannels)
+          .addField('Disabled Commands', disabledCommands)
+        );
+      case 'log':
+      case 'logs':
+      case 'logging':
+        return message.channel.send(embed
+          .setTitle('Settings: `Logging`')
+          .addField('Modlog', modlogChannel, true)
+          .addField('Nickname Log', nicknameLogChannel, true)
+          .addField('Role Log', roleLogChannel, true)
         );
       case 'verif':
       case 'verification':
@@ -99,67 +116,43 @@ module.exports = class SettingsCommand extends Command {
           .setTitle('Settings: `Verification`')
           .addField('Role', verificationRole, true)
           .addField('Channel', verificationChannel, true)
-          .addField('Status', verificationStatus, true);
-        if (verificationMessage.length > 1024) embed
-          .setDescription(verificationMessage)
-          .addField('Message', 'Message located above due to character limits.');
-        else embed.addField('Message', verificationMessage);
+          .addField('Status', verificationStatus, true)
+          .addField('Message', verificationMessage);
         return message.channel.send(embed);
       case 'welcome':
-      case 'welcomemessage':
-      case 'welcomemessages':
+      case 'welcomes':
         embed
-          .setTitle('Settings: `Welcome Messages`')
+          .setTitle('Settings: `Welcomes`')
           .addField('Channel', welcomeChannel, true)
-          .addField('Status', welcomeStatus, true);
-        if (welcomeMessage.length > 1024) embed
-          .setDescription(welcomeMessage)
-          .addField('Message', 'Message located above due to character limits.');
-        else embed.addField('Message', welcomeMessage);
+          .addField('Status', welcomeStatus, true)
+          .addField('Message', welcomeMessage);
         return message.channel.send(embed);
-      case 'leave':
-      case 'leavemessage':
-      case 'leavemessages':
+      case 'farewell':
+      case 'farewells':
         embed
-          .setTitle('Settings: `Leave Messages`')
-          .addField('Channel', leaveChannel, true)
-          .addField('Status', leaveStatus, true);
-        if (leaveMessage.length > 1024) embed
-          .setDescription(leaveMessage)
-          .addField('Message', 'Message located above due to character limits.');
-        else embed.addField('Message', leaveMessage);
+          .setTitle('Settings: `Farewells`')
+          .addField('Channel', farewellChannel, true)
+          .addField('Status', farewellStatus, true)
+          .addField('Message', farewellMessage);
         return message.channel.send(embed);
+      case 'point':
       case 'points':
-      case 'pointssys':
-      case 'pointssystem':
         return message.channel.send(embed
-          .setTitle('Settings: `Points System`')
+          .setTitle('Settings: `Points`')
           .addField('Message Points', messagePoints, true)
           .addField('Command Points', commandPoints, true)
           .addField('Voice Points', voicePoints, true)
           .addField('Status', pointsStatus)
         );
       case 'crown':
-      case 'crownsys':
-      case 'crownsystem':
         embed
-          .setTitle('Settings: `Crown System`')
+          .setTitle('Settings: `Crown`')
           .addField('Role', crownRole, true)
           .addField('Channel', crownChannel, true)
           .addField('Schedule', crownSchedule, true)
-          .addField('Status', crownStatus);
-        if (crownMessage.length > 1024) embed
-          .setDescription(crownMessage)
-          .addField('Message', 'Message located above due to character limits.');
-        else embed.addField('Message', crownMessage);
+          .addField('Status', crownStatus)
+          .addField('Message', crownMessage);
         return message.channel.send(embed);
-      case 'commands':
-      case 'disabled':
-      case 'disabledcommands':
-        return message.channel.send(embed
-          .setTitle('Settings: `Disabled Commands`')
-          .addField('Disabled Commands', disabledCommands)
-        );
     }
     if (setting)
       return this.sendErrorMessage(message, 0, stripIndent`
@@ -170,64 +163,16 @@ module.exports = class SettingsCommand extends Command {
      * FULL SETTINGS
      * ------------------------------------------------------------------------------------------------ */
 
-    // Trim messages to 512 characters
-    if (verificationMessage.length > 512) verificationMessage = verificationMessage.slice(0, 509) + '...';
-    if (welcomeMessage.length > 512) welcomeMessage = welcomeMessage.slice(0, 509) + '...';
-    if (leaveMessage.length > 512) leaveMessage = leaveMessage.slice(0, 509) + '...';
-    if (crownMessage.length > 512) crownMessage = crownMessage.slice(0, 509) + '...';
-
     embed
       .setTitle('Settings')
-      .setDescription(`**Specific Category:** \`${row.prefix}settings [category]\``)
-      // System Settings
-      .addField('__**System**__', stripIndent`
-        **Prefix:** ${prefix}
-        **System Channel:** ${systemChannel}
-        **Modlog Channel:** ${modlogChannel}
-        **Admin Role:** ${adminRole}
-        **Mod Role:** ${modRole}
-        **Mute Role:** ${muteRole}
-        **Auto Role:** ${autoRole}
-        **Auto Kick:** ${autoKick}
-        **Random Color:** ${randomColor}
-        **Mod Channels:** ${modChannels}
-      `)
-      // Verification Settings
-      .addField('__**Verification**__', stripIndent`
-        **Status:** ${verificationStatus}
-        **Role:** ${verificationRole}
-        **Channel:** ${verificationChannel}
-        **Message:** ${verificationMessage}
-      `)
-      // Welcome Settings
-      .addField('__**Welcome Messages**__', stripIndent`
-        **Status:** ${welcomeStatus}
-        **Channel:** ${welcomeChannel}
-        **Message:** ${welcomeMessage}
-      `)
-      // Leave Settings
-      .addField('__**Leave Messages**__', stripIndent`
-        **Status:** ${leaveStatus}
-        **Channel:** ${leaveChannel}
-        **Message:** ${leaveMessage}
-      `)
-      // Point Settings
-      .addField('__**Points System**__', stripIndent`
-        **Status:** ${pointsStatus}
-        **Message Points:** ${messagePoints}
-        **Command Points:** ${commandPoints}
-        **Voice Points:** ${voicePoints}
-      `)
-      // Crown Settings
-      .addField('__**Crown System**__', stripIndent`
-        **Status:** ${crownStatus}
-        **Schedule:** ${crownSchedule}
-        **Role:** ${crownRole}
-        **Channel:** ${crownChannel}
-        **Message:** ${crownMessage}
-      `)
-      // Disabled Commands
-      .addField('__**Disabled Commands**__', disabledCommands);
+      .setDescription(`**More Information:** \`${row.prefix}settings [category]\``)
+      .addField('System', '`10` settings', true)
+      .addField('Logging', '`5` settings', true)
+      .addField('Verification', '`3` settings', true)
+      .addField('Welcomes', '`2` settings', true)
+      .addField('Farewells', '`2` settings', true)
+      .addField('Points', '`3` settings', true)
+      .addField('Crown', '`4` settings', true);
 
     message.channel.send(embed);
   }

@@ -37,7 +37,7 @@ module.exports = class SetCrownMessageCommand extends Command {
     const status = message.client.utils.getStatus(crownRoleId, crownSchedule);
 
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Crown System`')
+      .setTitle('Settings: `Crown`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`crown message\` was successfully updated. ${success}`)
       .addField('Role', crownRole || '`None`', true)

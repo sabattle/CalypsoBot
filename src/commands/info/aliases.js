@@ -10,7 +10,7 @@ module.exports = class AliasesCommand extends Command {
       aliases: ['alias', 'ali', 'a'],
       usage: 'aliases [command type]',
       description: oneLine`
-        Displays a list of all current aliases per the given command type. 
+        Displays a list of all current aliases for the given command type. 
         If no command type is given, the amount of aliases for every type will be displayed.
       `,
       type: client.types.INFO,

@@ -33,7 +33,7 @@ module.exports = class TogglePointsCommand extends Command {
     } 
     
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Points System`')
+      .setTitle('Settings: `Points`')
       .setThumbnail(message.guild.iconURL())
       .setDescription(description)
       .addField('Message Points', `\`${messagePoints}\``, true)

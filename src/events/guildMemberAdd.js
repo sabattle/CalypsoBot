@@ -26,7 +26,7 @@ module.exports = async (client, member) => {
    * ------------------------------------------------------------------------------------------------ */ 
   // Get welcome channel
   let { welcome_channel_id: welcomeChannelId, welcome_message: welcomeMessage } = 
-    client.db.settings.selectWelcomeMessages.get(member.guild.id);
+    client.db.settings.selectWelcomes.get(member.guild.id);
   const welcomeChannel = member.guild.channels.cache.get(welcomeChannelId);
 
   // Send welcome message

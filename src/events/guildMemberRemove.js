@@ -9,23 +9,23 @@ module.exports = (client, member) => {
   /** ------------------------------------------------------------------------------------------------
    * LEAVE MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
-  // Send leave message
-  let { leave_channel_id: leaveChannelId, leave_message: leaveMessage } = 
-    client.db.settings.selectLeaveMessages.get(member.guild.id);
-  const leaveChannel = member.guild.channels.cache.get(leaveChannelId);
+  // Send farewell message
+  let { farewell_channel_id: farewellChannelId, farewell_message: farewellMessage } = 
+    client.db.settings.selectFarewells.get(member.guild.id);
+  const farewellChannel = member.guild.channels.cache.get(farewellChannelId);
   
   if (
-    leaveChannel &&
-    leaveChannel.viewable &&
-    leaveChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
-    leaveMessage
+    farewellChannel &&
+    farewellChannel.viewable &&
+    farewellChannel.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS']) &&
+    farewellMessage
   ) {
-    leaveMessage = leaveMessage
+    farewellMessage = farewellMessage
       .replace(/`?\?member`?/g, member) // Member mention substitution
       .replace(/`?\?username`?/g, member.user.username) // Username substitution
       .replace(/`?\?tag`?/g, member.user.tag) // Tag substitution
       .replace(/`?\?size`?/g, member.guild.members.cache.size); // Guild size substitution
-    leaveChannel.send(new MessageEmbed().setDescription(leaveMessage).setColor(member.guild.me.displayHexColor));
+    farewellChannel.send(new MessageEmbed().setDescription(farewellMessage).setColor(member.guild.me.displayHexColor));
   }
   
   /** ------------------------------------------------------------------------------------------------

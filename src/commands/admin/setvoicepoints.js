@@ -27,7 +27,7 @@ module.exports = class SetVoicePointsVoice extends Command {
     const status = message.client.utils.getStatus(pointTracking);
     message.client.db.settings.updateVoicePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Points System`')
+      .setTitle('Settings: `Points`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`voice points\` value was successfully updated. ${success}`)
       .addField('Message Points', `\`${messagePoints}\``, true)

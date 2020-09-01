@@ -27,7 +27,7 @@ module.exports = class SetMessagePointsCommand extends Command {
     const status = message.client.utils.getStatus(pointTracking);
     message.client.db.settings.updateMessagePoints.run(amount, message.guild.id);
     const embed = new MessageEmbed()
-      .setTitle('Settings: `Points System`')
+      .setTitle('Settings: `Points`')
       .setThumbnail(message.guild.iconURL({ dynamic: true }))
       .setDescription(`The \`message points\` value was successfully updated. ${success}`)
       .addField('Message Points', `\`${messagePoints}\` ➔ \`${amount}\``, true)
