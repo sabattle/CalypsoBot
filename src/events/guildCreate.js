@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const colors = require('../utils/colors.json');
 const { success } = require('../utils/emojis.json');
-const { oneLine } = require('common-tags');
 
 module.exports = async (client, guild) => {
 
@@ -43,7 +42,7 @@ module.exports = async (client, guild) => {
               'SEND_MESSAGES': false,
               'ADD_REACTIONS': false
             });
-          else if (channel.type === 'voice') // Deny permissions in voice channels
+          else if (channel.type === 'voice' && channel.editable) // Deny permissions in voice channels
             await channel.updateOverwrite(muteRole, {
               'SPEAK': false,
               'STREAM': false
@@ -106,7 +105,7 @@ module.exports = async (client, guild) => {
    * DEFAULT COLORS
    * ------------------------------------------------------------------------------------------------ */ 
   // Create default colors
-  let fails = 0, position = 1;
+  let position = 1;
   for (let [key, value] of Object.entries(colors)){
     key = '#' + key;
     if (!guild.roles.cache.find(r => r.name === key)) {
@@ -122,7 +121,6 @@ module.exports = async (client, guild) => {
         position++; // Increment position to create roles in order
       } catch (err) {
         client.logger.error(err.message);
-        fails++;
       }
     }
   }
@@ -135,14 +133,4 @@ module.exports = async (client, guild) => {
     client.logger.error(err.message);
   }
   
-  const len = Object.keys(colors).length;
-  if (fails === len ) {
-    client.sendSystemErrorMessage(guild, 'color create', oneLine`
-      Unable to create default colors, please ensure I have the Manage Roles permission
-    `);
-  } else if (fails > 0) {
-    client.sendSystemErrorMessage(guild, 'color create', oneLine`
-      Unable to create ${fails} of ${len} default colors, please ensure there are open role slots
-    `);
-  }
 };
