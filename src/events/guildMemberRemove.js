@@ -7,6 +7,27 @@ module.exports = (client, member) => {
   client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
 
   /** ------------------------------------------------------------------------------------------------
+   * MEMBER LOG
+   * ------------------------------------------------------------------------------------------------ */
+  // Get member log
+  const memberLogId = client.db.settings.selectMemberLogId.pluck().get(member.guild.id);
+  const memberLog = member.guild.channels.cache.get(memberLogId);
+  if (
+    memberLog &&
+    memberLog.viewable &&
+    memberLog.permissionsFor(member.guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
+  ) {
+    const embed = new MessageEmbed()
+      .setTitle('Member Left')
+      .setAuthor(`${member.guild.name}`, member.guild.iconURL({ dynamic: true }))
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+      .setDescription(`${member} (**${member.user.tag}**)`)
+      .setTimestamp()
+      .setColor(member.guild.me.displayHexColor);
+    memberLog.send(embed);
+  }
+
+  /** ------------------------------------------------------------------------------------------------
    * FAREWELL MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
   // Send farewell message

@@ -15,10 +15,7 @@ module.exports = (client, messages) => {
 
     const embed = new MessageEmbed()
       .setTitle('Message Update: `Bulk Delete`')
-      .setAuthor(
-        `${message.guild.name}`,
-        message.guild.iconURL({ dynamic: true })
-      )
+      .setAuthor(`${message.guild.name}`, message.guild.iconURL({ dynamic: true }))
       .setDescription(`**${messages.size} messages** in ${message.channel} were deleted.`)
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);

@@ -7,7 +7,7 @@ module.exports = class SetFarewellChannelCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'setfarewellchannel',
-      aliases: ['setlc', 'slc'],
+      aliases: ['setfc', 'sfc'],
       usage: 'setfarewellchannel <channel mention/ID>',
       description: oneLine`
         Sets the farewell message text channel for your server. 
