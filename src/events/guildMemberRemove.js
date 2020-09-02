@@ -7,7 +7,7 @@ module.exports = (client, member) => {
   client.logger.info(`${member.guild.name}: ${member.user.tag} has left the server`);
 
   /** ------------------------------------------------------------------------------------------------
-   * LEAVE MESSAGES
+   * FAREWELL MESSAGES
    * ------------------------------------------------------------------------------------------------ */ 
   // Send farewell message
   let { farewell_channel_id: farewellChannelId, farewell_message: farewellMessage } = 

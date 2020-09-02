@@ -7,7 +7,7 @@ module.exports = class MuteCommand extends Command {
     super(client, {
       name: 'mute',
       usage: 'mute <user mention/ID> <time> [reason]',
-      description: 'Mutes a user for the specified amount of time (max is 10 days).',
+      description: 'Mutes a user for the specified amount of time (max is 14 days).',
       type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
@@ -30,10 +30,10 @@ module.exports = class MuteCommand extends Command {
     if (member.roles.highest.position >= message.member.roles.highest.position)
       return this.sendErrorMessage(message, 0, 'You cannot mute someone with an equal or higher role');
     if (!args[1])
-      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 10 days or less (1s/m/h/d)');
+      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 14 days or less (1s/m/h/d)');
     let time = ms(args[1]);
-    if (!time || time > 864000000) // Cap at 10 days, larger than 24.8 days causes integer overflow
-      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 10 days or less (1s/m/h/d)');
+    if (!time || time > 1209600000) // Cap at 14 days, larger than 24.8 days causes integer overflow
+      return this.sendErrorMessage(message, 0, 'Please enter a length of time of 14 days or less (1s/m/h/d)');
 
     let reason = args.slice(2).join(' ');
     if (!reason) reason = '`None`';

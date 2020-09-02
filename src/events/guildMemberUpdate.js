@@ -43,7 +43,7 @@ module.exports = (client, oldMember, newMember) => {
       const role = newMember.roles.cache.difference(oldMember.roles.cache).first();
       embed
         .setTitle('Member Update: `Role Add`')
-        .setDescription(`${newMember} was given the ${role} role.`);
+        .setDescription(`${newMember} was **given** the ${role} role.`);
       roleLog.send(embed);
     }
   }
@@ -61,7 +61,7 @@ module.exports = (client, oldMember, newMember) => {
       const role = oldMember.roles.cache.difference(newMember.roles.cache).first();
       embed
         .setTitle('Member Update: `Role Remove`')
-        .setDescription(`${newMember} was removed from ${role} role.`);
+        .setDescription(`${newMember} was **removed** from ${role} role.`);
       roleLog.send(embed);
     }
   }

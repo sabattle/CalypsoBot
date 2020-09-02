@@ -102,7 +102,7 @@ const settings = {
   selectNicknameLogId: db.prepare('SELECT nickname_log_id FROM settings WHERE guild_id = ?;'),
   selectRoleLogId: db.prepare('SELECT role_log_id FROM settings WHERE guild_id = ?;'),
   selectMessageEditLogId: db.prepare('SELECT message_edit_log_id FROM settings WHERE guild_id = ?;'),
-  selectMessageDeleteChannelId: db.prepare('SELECT message_delete_log_id FROM settings WHERE guild_id = ?;'),
+  selectMessageDeleteLogId: db.prepare('SELECT message_delete_log_id FROM settings WHERE guild_id = ?;'),
   selectVerification: db.prepare(`
     SELECT verification_role_id, verification_channel_id, verification_message, verification_message_id 
     FROM settings
