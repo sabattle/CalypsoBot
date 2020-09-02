@@ -85,11 +85,12 @@ const settings = {
       farewell_channel_id,
       crown_channel_id,
       mod_log_id,
+      member_log_id,
       admin_role_id,
       mod_role_id,
       mute_role_id,
       crown_role_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `),
 
   // Selects

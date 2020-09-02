@@ -16,6 +16,9 @@ module.exports = async (client, guild) => {
   const modLog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'modlog' || 
     c.name.replace('-', '').replace('s', '') === 'moderatorlog');
 
+  // Find member log
+  const memberLog = guild.channels.cache.find(c => c.name.replace('-', '').replace('s', '') === 'memberlog');
+
   // Find admin and mod roles
   const adminRole = 
     guild.roles.cache.find(r => r.name.toLowerCase() === 'admin' || r.name.toLowerCase() === 'administrator');
@@ -82,6 +85,7 @@ module.exports = async (client, guild) => {
     guild.systemChannelID, // Farewell channel
     guild.systemChannelID,  // Crown Channel
     modLog ? modLog.id : null,
+    memberLog ? memberLog.id : null,
     adminRole ? adminRole.id : null,
     modRole ? modRole.id : null,
     muteRole ? muteRole.id : null,
