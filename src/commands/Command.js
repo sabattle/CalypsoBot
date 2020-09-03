@@ -167,8 +167,8 @@ class Command {
     
     if (message.member.hasPermission('ADMINISTRATOR')) return true;
     if (this.userPermissions) {
-      const missingPermissions = message.channel.permissionsFor(message.author).missing(this.userPermissions);
-      missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
+      const missingPermissions =
+        message.channel.permissionsFor(message.author).missing(this.userPermissions).map(p => permissions[p]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
           .setAuthor(
@@ -192,8 +192,8 @@ class Command {
    * @param {boolean} ownerOverride 
    */
   checkClientPermissions(message) {
-    const missingPermissions = message.channel.permissionsFor(message.guild.me).missing(this.clientPermissions);
-    missingPermissions.forEach((perm, index) => missingPermissions[index] = permissions[perm]);
+    const missingPermissions =
+      message.channel.permissionsFor(message.guild.me).missing(this.clientPermissions).map(p => permissions[p]);
     if (missingPermissions.length !== 0) {
       const embed = new MessageEmbed()
         .setAuthor(
