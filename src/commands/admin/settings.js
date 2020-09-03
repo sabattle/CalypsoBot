@@ -25,6 +25,7 @@ module.exports = class SettingsCommand extends Command {
     const row = message.client.db.settings.selectRow.get(message.guild.id);
     const prefix = `\`${row.prefix}\``;
     const systemChannel = message.guild.channels.cache.get(row.system_channel_id) || '`None`';
+    const starboardChannel = message.guild.channels.cache.get(row.starboard_channel_id) || '`None`';
     const modLog = message.guild.channels.cache.get(row.mod_log_id) || '`None`';
     const memberLog = message.guild.channels.cache.get(row.member_log_id) || '`None`';
     const nicknameLog = message.guild.channels.cache.get(row.nickname_log_id) || '`None`';
@@ -89,12 +90,14 @@ module.exports = class SettingsCommand extends Command {
       .setTimestamp()
       .setColor(message.guild.me.displayHexColor);
     switch (setting) {
+      case 's':
       case 'sys':
       case 'system':
         return message.channel.send(embed
           .setTitle('Settings: `System`')
           .addField('Prefix', prefix, true)
           .addField('System Channel', systemChannel, true)
+          .addField('Starboard Channel', starboardChannel, true)
           .addField('Admin Role', adminRole, true)
           .addField('Mod Role', modRole, true)
           .addField('Mute Role', muteRole, true)
@@ -104,6 +107,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Mod Channels', modChannels)
           .addField('Disabled Commands', disabledCommands)
         );
+      case 'l':
       case 'log':
       case 'logs':
       case 'logging':
@@ -116,6 +120,8 @@ module.exports = class SettingsCommand extends Command {
           .addField('Message Edit Log', messageEditLog, true)
           .addField('Message Delete Log', messageDeleteLog, true)
         );
+      case 'v':
+      case 'ver':
       case 'verif':
       case 'verification':
         embed
@@ -125,6 +131,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Status', verificationStatus, true)
           .addField('Message', verificationMessage);
         return message.channel.send(embed);
+      case 'w':
       case 'welcome':
       case 'welcomes':
         embed
@@ -133,6 +140,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Status', welcomeStatus, true)
           .addField('Message', welcomeMessage);
         return message.channel.send(embed);
+      case 'f':
       case 'farewell':
       case 'farewells':
         embed
@@ -141,6 +149,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Status', farewellStatus, true)
           .addField('Message', farewellMessage);
         return message.channel.send(embed);
+      case 'p':
       case 'point':
       case 'points':
         return message.channel.send(embed
@@ -150,6 +159,7 @@ module.exports = class SettingsCommand extends Command {
           .addField('Voice Points', voicePoints, true)
           .addField('Status', pointsStatus)
         );
+      case 'c':
       case 'crown':
         embed
           .setTitle('Settings: `Crown`')
@@ -172,7 +182,7 @@ module.exports = class SettingsCommand extends Command {
     embed
       .setTitle('Settings')
       .setDescription(`**More Information:** \`${row.prefix}settings [category]\``)
-      .addField('System', '`10` settings', true)
+      .addField('System', '`11` settings', true)
       .addField('Logging', '`6` settings', true)
       .addField('Verification', '`3` settings', true)
       .addField('Welcomes', '`2` settings', true)
