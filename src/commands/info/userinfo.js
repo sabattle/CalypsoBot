@@ -10,7 +10,7 @@ const statuses = {
 };
 const flags = {
   DISCORD_EMPLOYEE: `${emojis.discord_employee} \`Discord Employee\``,
-  DISCORD_PARTNER: `${emojis.discord_partner} \`Discord Partner\``,
+  DISCORD_PARTNER: `${emojis.discord_partner} \`Partnered Server Owner\``,
   BUGHUNTER_LEVEL_1: `${emojis.bughunter_level_1} \`Bug Hunter (Level 1)\``,
   BUGHUNTER_LEVEL_2: `${emojis.bughunter_level_2} \`Bug Hunter (Level 2)\``,
   HYPESQUAD_EVENTS: `${emojis.hypesquad_events} \`HypeSquad Events\``,
@@ -21,7 +21,7 @@ const flags = {
   TEAM_USER: 'Team User',
   SYSTEM: 'System',
   VERIFIED_BOT: `${emojis.verified_bot} \`Verified Bot\``,
-  VERIFIED_DEVELOPER: `${emojis.verified_developer} \`Verified Bot Developer\``
+  VERIFIED_DEVELOPER: `${emojis.verified_developer} \`Early Verified Bot Developer\``
 };
 
 module.exports = class UserInfoCommand extends Command {
