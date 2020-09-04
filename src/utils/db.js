@@ -40,15 +40,15 @@ db.prepare(`
     verification_message TEXT,
     verification_message_id TEXT,
     welcome_channel_id TEXT,
-    welcome_message TEXT DEFAULT "?member (**?tag**) has joined the server!",
+    welcome_message TEXT,
     farewell_channel_id TEXT,
-    farewell_message TEXT DEFAULT "?member (**?tag**) has left the server.",
+    farewell_message TEXT,
     point_tracking INTEGER DEFAULT 1 NOT NULL,
     message_points INTEGER DEFAULT 1 NOT NULL,
     command_points INTEGER DEFAULT 1 NOT NULL,
     voice_points INTEGER DEFAULT 1 NOT NULL, 
-    crown_channel_id TEXT,
     crown_role_id TEXT,
+    crown_channel_id TEXT,
     crown_message TEXT DEFAULT "?member has won ?role this week! Points have been reset, better luck next time!",
     crown_schedule TEXT DEFAULT "0 21 * * 5"
   );
@@ -86,12 +86,11 @@ const settings = {
       farewell_channel_id,
       crown_channel_id,
       mod_log_id,
-      member_log_id,
       admin_role_id,
       mod_role_id,
       mute_role_id,
       crown_role_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
   `),
 
   // Selects
