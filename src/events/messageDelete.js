@@ -16,6 +16,12 @@ module.exports = (client, message) => {
   
   // Message delete
   if (message.content) {
+
+    // Dont send logs for starboard delete
+    const starboardChannelId = client.db.settings.selectStarboardChannelId.pluck().get(message.guild.id);
+    const starboardChannel = message.guild.channels.cache.get(starboardChannelId);
+    if (message.channel == starboardChannel) return;
+
     // Get message delete log
     const messageDeleteLogId = client.db.settings.selectMessageDeleteLogId.pluck().get(message.guild.id);
     const messageDeleteLog = message.guild.channels.cache.get(messageDeleteLogId);
@@ -36,7 +42,7 @@ module.exports = (client, message) => {
 
   // Embed delete
   } else { 
-    
+
     // Get message delete log
     const messageDeleteLogId = client.db.settings.selectMessageDeleteLogId.pluck().get(message.guild.id);
     const messageDeleteLog = message.guild.channels.cache.get(messageDeleteLogId);

@@ -23,6 +23,12 @@ module.exports = (client, oldMessage, newMessage) => {
 
   // Content change
   if (oldMessage.content != newMessage.content) {
+
+    // Dont send logs for starboard edits
+    const starboardChannelId = client.db.settings.selectStarboardChannelId.pluck().get(newMessage.guild.id);
+    const starboardChannel = newMessage.guild.channels.cache.get(starboardChannelId);
+    if (newMessage.channel == starboardChannel) return;
+    
     // Get message edit log
     const messageEditLogId = client.db.settings.selectMessageEditLogId.pluck().get(newMessage.guild.id);
     const messageEditLog = newMessage.guild.channels.cache.get(messageEditLogId);
