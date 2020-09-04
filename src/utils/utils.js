@@ -121,7 +121,8 @@ function getStatus(...args) {
  * @param {string} message
  */
 function replaceKeywords(message) {
-  return message
+  if (!message) return message;
+  else return message
     .replace(/\?member/g, '`?member`')
     .replace(/\?username/g, '`?username`')
     .replace(/\?tag/g, '`?tag`')
@@ -133,7 +134,8 @@ function replaceKeywords(message) {
  * @param {string} message
  */
 function replaceCrownKeywords(message) {
-  return message
+  if (!message) return message;
+  else return message
     .replace(/\?member/g, '`?member`')
     .replace(/\?username/g, '`?username`')
     .replace(/\?tag/g, '`?tag`')
