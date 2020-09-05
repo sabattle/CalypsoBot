@@ -64,7 +64,8 @@ Calypso also comes packed with a variety of features, such as:
   * Server **verification** via reactions
   * **Welcome messages** and **farewell messages**
   * **Logging** for mod commands and various events
-  * **Moderator Only** channels
+  * **Moderator only** channels
+  * A **starboard**
   * **Auto kicking** when a warn limit is reached
   * Auto **random colors** when members join
   * Per **command disabling**

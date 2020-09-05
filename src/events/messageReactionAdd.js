@@ -83,6 +83,8 @@ module.exports = async (client, messageReaction, user) => {
         const extension = message.embeds[0].url.split('.').pop();
         if (/(jpg|jpeg|png|gif)/gi.test(extension)) image = message.embeds[0].url;
       }
+      
+      if (!message.content && !image) return;
 
       const embed = new MessageEmbed()
         .setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true}))
