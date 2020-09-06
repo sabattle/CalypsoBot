@@ -14,10 +14,7 @@ module.exports = (client, oldMessage, newMessage) => {
   }
 
   const embed = new MessageEmbed()
-    .setAuthor(
-      `${newMessage.member.displayName}#${newMessage.author.discriminator}`,
-      newMessage.author.displayAvatarURL({ dynamic: true })
-    )
+    .setAuthor(`${newMessage.user.tag}`, newMessage.author.displayAvatarURL({ dynamic: true }))
     .setTimestamp()
     .setColor(newMessage.guild.me.displayHexColor);
 
@@ -28,7 +25,7 @@ module.exports = (client, oldMessage, newMessage) => {
     const starboardChannelId = client.db.settings.selectStarboardChannelId.pluck().get(newMessage.guild.id);
     const starboardChannel = newMessage.guild.channels.cache.get(starboardChannelId);
     if (newMessage.channel == starboardChannel) return;
-    
+
     // Get message edit log
     const messageEditLogId = client.db.settings.selectMessageEditLogId.pluck().get(newMessage.guild.id);
     const messageEditLog = newMessage.guild.channels.cache.get(messageEditLogId);

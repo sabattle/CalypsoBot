@@ -7,10 +7,7 @@ module.exports = (client, message) => {
   
   const embed = new MessageEmbed()
     .setTitle('Message Update: `Delete`')
-    .setAuthor(
-      `${message.member.displayName}#${message.author.discriminator}`,
-      message.author.displayAvatarURL({ dynamic: true })
-    )
+    .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
     .setTimestamp()
     .setColor(message.guild.me.displayHexColor);
   

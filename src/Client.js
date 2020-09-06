@@ -212,7 +212,7 @@ class Client extends Discord.Client {
     ) return;
 
     const embed = new Discord.MessageEmbed()
-      .setAuthor(`${guild.me.displayName}#${this.user.discriminator}`, this.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor(`${this.user.tag}`, this.user.displayAvatarURL({ dynamic: true }))
       .setTitle(`${fail} System Error: \`${error}\``)
       .setDescription(`\`\`\`diff\n- System Failure\n+ ${errorMessage}\`\`\``)
       .setTimestamp()

@@ -171,10 +171,7 @@ class Command {
         message.channel.permissionsFor(message.author).missing(this.userPermissions).map(p => permissions[p]);
       if (missingPermissions.length !== 0) {
         const embed = new MessageEmbed()
-          .setAuthor(
-            `${message.member.displayName}#${message.author.discriminator}`, 
-            message.author.displayAvatarURL({ dynamic: true })
-          )
+          .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
           .setTitle(`${fail} Missing User Permissions: \`${this.name}\``)
           .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
           .setTimestamp()
@@ -196,10 +193,7 @@ class Command {
       message.channel.permissionsFor(message.guild.me).missing(this.clientPermissions).map(p => permissions[p]);
     if (missingPermissions.length !== 0) {
       const embed = new MessageEmbed()
-        .setAuthor(
-          `${message.guild.me.displayName}#${message.client.user.discriminator}`, 
-          message.client.user.displayAvatarURL({ dynamic: true })
-        )
+        .setAuthor(`${this.client.user.tag}`, message.client.user.displayAvatarURL({ dynamic: true }))
         .setTitle(`${fail} Missing Bot Permissions: \`${this.name}\``)
         .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
         .setTimestamp()
@@ -221,10 +215,7 @@ class Command {
     errorType = this.errorTypes[errorType];
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
     const embed = new MessageEmbed()
-      .setAuthor(
-        `${message.member.displayName}#${message.author.discriminator}`,
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTitle(`${fail} Error: \`${this.name}\``)
       .setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
       .addField('Usage', `\`${prefix}${this.usage}\``)
