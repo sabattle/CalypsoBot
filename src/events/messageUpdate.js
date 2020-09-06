@@ -14,7 +14,7 @@ module.exports = (client, oldMessage, newMessage) => {
   }
 
   const embed = new MessageEmbed()
-    .setAuthor(`${newMessage.user.tag}`, newMessage.author.displayAvatarURL({ dynamic: true }))
+    .setAuthor(`${newMessage.author.tag}`, newMessage.author.displayAvatarURL({ dynamic: true }))
     .setTimestamp()
     .setColor(newMessage.guild.me.displayHexColor);
 
