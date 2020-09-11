@@ -33,7 +33,7 @@ module.exports = class SoftBanCommand extends Command {
     if (!reason) reason = '`None`';
     if (reason.length > 1024) reason = reason.slice(0, 1021) + '...';
     
-    await member.ban(reason);
+    await member.ban({ reason: reason });
     await message.guild.members.unban(member.user, reason);
 
     const embed = new MessageEmbed()
