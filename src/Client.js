@@ -5,32 +5,32 @@ const AsciiTable = require('ascii-table');
 const { fail } = require('./utils/emojis.json');
 
 /**
- * Calypso's custom client
+ * Cliente personalizado da Calypso
  * @extends Discord.Client
  */
 class Client extends Discord.Client {
 
   /**
-   * Create a new client
-   * @param {Object} config 
-   * @param {ClientOptions} options 
+    * Crie um novo cliente
+    * @param {Object} config
+    * @param {ClientOptions} opções
    */
   constructor(config, options = {}) {
     
     super(options);
 
     /**
-     * Create logger
+     * Criar logger
      */
     this.logger = require('./utils/logger.js');
 
     /**
-     * Create database
+     * Criar database
      */
     this.db = require('./utils/db.js');
 
     /**
-     * All possible command types
+     * Todos os tipos de comando possíveis
      * @type {Object}
      */
     this.types = {
@@ -45,7 +45,7 @@ class Client extends Discord.Client {
     };
 
     /** 
-     * Collection of bot commands
+     *  Coleção de comandos de bot
      * @type {Collection<string, Command>}
      */
     this.commands = new Discord.Collection();
@@ -194,10 +194,10 @@ class Client extends Discord.Client {
   }
 
   /**
-   * Creates and sends system failure embed
-   * @param {Guild} guild
-   * @param {string} error
-   * @param {string} errorMessage 
+* Cria e envia incorporação de falha do sistema
+    * guilda @param {Guild}
+    * @param {string} erro
+    * @param {string} errorMessage
    */
   sendSystemErrorMessage(guild, error, errorMessage) {
 
@@ -205,7 +205,7 @@ class Client extends Discord.Client {
     const systemChannelId = this.db.settings.selectSystemChannelId.pluck().get(guild.id);
     const systemChannel = guild.channels.cache.get(systemChannelId);
 
-    if ( // Check channel and permissions
+    if ( //checar permissoes
       !systemChannel || 
       !systemChannel.viewable || 
       !systemChannel.permissionsFor(guild.me).has(['SEND_MESSAGES', 'EMBED_LINKS'])
