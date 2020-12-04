@@ -12,15 +12,23 @@
 <div align=center>
 
   <a href="https://discord.gg/pnYVdut">
-    <img src="https://discordapp.com/api/guilds/709992782252474429/widget.png?style=shield" alt="shield.png">
+    <img src="https://discordapp.com/api/guilds/709992782252474429/widget.png?style=shield" alt="Support Server">
   </a>
 
   <a href="https://github.com/discordjs">
-    <img src="https://img.shields.io/badge/discord.js-v12.3.1-blue.svg?logo=npm" alt="shield.png">
+    <img src="https://img.shields.io/badge/discord.js-v12.3.1-blue.svg?logo=npm" alt="Discord.js">
   </a>
 
   <a href="https://github.com/sabattle/CalypsoBot/blob/develop/LICENSE">
-    <img src="https://img.shields.io/badge/license-GNU%20GPL%20v3-green" alt="shield.png">
+    <img src="https://img.shields.io/badge/license-GNU%20GPL%20v3-green" alt="LICENSE">
+  </a>
+  
+  <a href="https://github.com/sabattle/CalypsoBot/blob/develop/fork">
+  <img src="https://img.shields.io/github/forks/sabattle/CalypsoBot" alt="Forks">
+  </a>
+  
+  <a href="https://github.com/sabattle/CalypsoBot/stargazers">
+  <img src="https://img.shields.io/github/stars/sabattle/CalypsoBot" alt="Stars">
   </a>
 
 </div>
