@@ -3,6 +3,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = (client, oldMessage, newMessage) => {
 
   if (newMessage.webhookID) return; // Check for webhook
+  
+  if (newMessage.bot) return;//Do not log for if user is bot
 
   // Detect edited commands
   if (
