@@ -20,12 +20,13 @@ module.exports = class RandomColorCommand extends Command {
       .addField('Member', message.member, true)
       .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
       .setTimestamp();
-    const colors = message.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
+    let colors = message.guild.roles.cache.filter(c => c.name.startsWith('#')).array();
     if (colors.length === 0)
       return this.sendErrorMessage(message, 1, 'There are currently no colors set on this server');
-    const color = colors[Math.floor(Math.random() * colors.length)];
     const oldColor = (message.member.roles.color && message.member.roles.color.name.startsWith('#')) ? 
       message.member.roles.color : '`None`';
+    colors = this.utils.removeElement(colors, oldColor)
+    const color = colors[Math.floor(Math.random() * colors.length)];
 
     try {
       await message.member.roles.remove(colors);
