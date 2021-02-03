@@ -18,7 +18,6 @@ module.exports = class CovidCommand extends Command {
 
         const countries = args.join(" ");
 
-        //Credit to Sarastro#7725 for the command :)
         if(!args[0])  return this.sendErrorMessage(message, 0, 'Please Provide a Argument');
 
         if(args[0] === "all"){
@@ -56,9 +55,8 @@ module.exports = class CovidCommand extends Command {
                 .setColor(message.guild.me.displayHexColor);
                 message.channel.send(embed)
             }).catch(err => {
-              this.logError(message, err)
-                      message.client.logger.error(err.stack);
-          this.sendErrorMessage(message, 1, 'Invalid country provided', err.message);
+              message.client.logger.error(err.stack);
+              this.sendErrorMessage(message, 1, 'Invalid country provided', err.message);
             })
         }
     }

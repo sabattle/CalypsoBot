@@ -21,10 +21,7 @@ module.exports = class WeatherCommand extends Command {
     
     if(err) message.channel.send(err.message);
 
-    if(result.length === 0) {
-        message.channel.send('Please Enter a valid location!');
-        return undefined;
-    }
+    if(result.length === 0) return this.sendErrorMessage(message, 1, 'Please Enter a valid location!');
 
         var current = result[0].current;
         var location = result[0].location;
@@ -46,9 +43,8 @@ module.exports = class WeatherCommand extends Command {
             .setColor(message.guild.me.displayHexColor);
         message.channel.send({embed})
     });
-   } catch (error) {
-    this.logError(message, err)
-     message.channel.send('Please Enter a valid location!');
+   } catch (err) {
+    this.sendErrorMessage(message, 1, 'Please Enter a valid location!');
    }
   }
 }
