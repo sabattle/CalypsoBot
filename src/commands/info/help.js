@@ -73,9 +73,9 @@ module.exports = class HelpCommand extends Command {
 
       message.client.commands.forEach(command => {
         if (!disabledCommands.includes(command.name)) {
-          if (command.userPermissions && command.userPermissions.every(p => message.member.hasPermission(p)) && !all)
+          if (command.userPermissions && command.userPermissions.every(p => message.member.hasPermission(p)) && !all && !command.hidden)
             commands[command.type].push(`\`${command.name}\``);
-          else if (!command.userPermissions || all) {
+          else if (!command.userPermissions && !command.hidden || all && !command.hidden) {
             commands[command.type].push(`\`${command.name}\``);
           }
         }

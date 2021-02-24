@@ -82,7 +82,13 @@ class Command {
      * @type {boolean}
      */
     this.disabled = options.disabled || false;
-
+    
+    /**
+     * If command is hidden
+     * @type {boolean}
+     */
+    this.hidden = options.hidden || false;  
+    
     /**
      * Array of error types
      * @type {Array<string>}
