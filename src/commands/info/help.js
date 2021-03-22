@@ -1,6 +1,5 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-const emojis = require('../../utils/emojis.json');
 const { oneLine, stripIndent } = require('common-tags');
 
 module.exports = class HelpCommand extends Command {
@@ -27,7 +26,7 @@ module.exports = class HelpCommand extends Command {
     const all = (args[0] === 'all') ? args[0] : '';
     const embed = new MessageEmbed();
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const { INFO, FUN, COLOR, POINTS, MISC, MOD, ADMIN, OWNER } = message.client.types;
+    const { INFO, FUN, COLOR, MISC, MOD, ADMIN, OWNER } = message.client.types;
     const { capitalize } = message.client.utils;
     
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
@@ -39,13 +38,12 @@ module.exports = class HelpCommand extends Command {
       
       embed // Build specific command help embed
         .setTitle(`Command: \`${command.name}\``)
-        .setThumbnail('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso.png')
         .setDescription(command.description)
         .addField('Usage', `\`${prefix}${command.usage}\``, true)
         .addField('Type', `\`${capitalize(command.type)}\``, true)
         .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
+        .setColor('RANDOM');
       if (command.aliases) embed.addField('Aliases', command.aliases.map(c => `\`${c}\``).join(' '));
       if (command.examples) embed.addField('Examples', command.examples.map(c => `\`${prefix}${c}\``).join('\n'));
 
@@ -61,14 +59,13 @@ module.exports = class HelpCommand extends Command {
       }
 
       const emojiMap = {
-        [INFO]: `${emojis.info} ${capitalize(INFO)}`,
-        [FUN]: `${emojis.fun} ${capitalize(FUN)}`,
-        [COLOR]: `${emojis.color} ${capitalize(COLOR)}`,
-        [POINTS]: `${emojis.points} ${capitalize(POINTS)}`,
-        [MISC]: `${emojis.misc} ${capitalize(MISC)}`,
-        [MOD]: `${emojis.mod} ${capitalize(MOD)}`,
-        [ADMIN]: `${emojis.admin} ${capitalize(ADMIN)}`,
-        [OWNER]: `${emojis.owner} ${capitalize(OWNER)}`
+        [INFO]: `${capitalize(INFO)}`,
+        [FUN]: `${capitalize(FUN)}`,
+        [COLOR]: `${capitalize(COLOR)}`,
+        [MISC]: `${capitalize(MISC)}`,
+        [MOD]: `${capitalize(MOD)}`,
+        [ADMIN]: `${capitalize(ADMIN)}`,
+        [OWNER]: `${capitalize(OWNER)}`
       };
 
       message.client.commands.forEach(command => {
@@ -85,10 +82,8 @@ module.exports = class HelpCommand extends Command {
       const size = message.client.commands.size - commands[OWNER].length;
 
       embed // Build help embed
-        .setTitle('Calypso\'s Commands')
+        .setTitle('Help Panel')
         .setDescription(stripIndent`
-          **Prefix:** \`${prefix}\`
-          **More Information:** \`${prefix}help [command]\`
           ${(!all && size != total) ? `**All Commands:** \`${prefix}help all\`` : ''}
         `)
         .setFooter(
@@ -97,23 +92,14 @@ module.exports = class HelpCommand extends Command {
           message.author.displayAvatarURL({ dynamic: true })
         )
         .setTimestamp()
-        .setImage('https://raw.githubusercontent.com/sabattle/CalypsoBot/develop/data/images/Calypso_Title.png')
-        .setColor(message.guild.me.displayHexColor);
+        .setColor('RANDOM');
 
       for (const type of Object.values(message.client.types)) {
         if (type === OWNER && !message.client.isOwner(message.member)) continue;
         if (commands[type][0])
           embed.addField(`**${emojiMap[type]} [${commands[type].length}]**`, commands[type].join(' '));
+        }
       }
-
-      embed.addField(
-        '**Links**', 
-        '**[Invite Me](https://discordapp.com/oauth2/authorize?client_id=416451977380364288&scope=bot&permissions=403008599) | ' +
-        '[Support Server](https://discord.gg/pnYVdut) | ' +
-        '[Repository](https://github.com/sabattle/CalypsoBot)**'
-      );
-        
-    }
     message.channel.send(embed);
   }
 };

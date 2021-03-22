@@ -1,8 +1,8 @@
 module.exports = async (client) => {
   
   const activities = [
-    { name: 'your commands', type: 'LISTENING' }, 
-    { name: '@Calypso', type: 'LISTENING' }
+    { name: 'to !help', type: 'LISTENING' }, 
+    { name: 'to your commands', type: 'LISTENING' }
   ];
 
   // Update presence
@@ -98,15 +98,7 @@ module.exports = async (client) => {
       } catch (err) { // Message was deleted
         client.logger.error(err);
       }
-    }
-
-    /** ------------------------------------------------------------------------------------------------
-     * CROWN ROLE
-     * ------------------------------------------------------------------------------------------------ */ 
-    // Schedule crown role rotation
-    client.utils.scheduleCrown(client, guild);
-
-  }
+  }}
 
   // Remove left guilds
   const dbGuilds = client.db.settings.selectGuilds.all();
@@ -119,6 +111,5 @@ module.exports = async (client) => {
     client.logger.info(`Calypso has left ${guild.guild_name}`);
   }
 
-  client.logger.info('Calypso is now online');
-  client.logger.info(`Calypso is running on ${client.guilds.cache.size} server(s)`);
+  client.logger.info(`Ready to rock on ${client.guilds.cache.size} server\'s`);
 };
