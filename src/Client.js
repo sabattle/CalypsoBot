@@ -44,6 +44,29 @@ class Client extends Discord.Client {
       OWNER: 'owner'
     };
 
+//filters list
+this.filters = [
+  "8D",
+ "gate",
+  "haas",
+  "phaser",
+  "treble",
+  "tremolo",
+  "vibrato",
+  "reverse",
+  "karaoke",
+  "flanger",
+  "mcompand",
+  "pulsator",
+  "subboost",
+  "bassboost",
+  "vaporwave",
+  "nightcore",
+  "normalizer",
+  "surrounding",
+];
+
+
     /** 
      * Collection of bot commands
      * @type {Collection<string, Command>}
@@ -75,25 +98,25 @@ class Client extends Discord.Client {
     this.apiKeys = config.apiKeys;
 
     /** 
-     * Calypso's owner ID
+     * Bot's owner ID
      * @type {string}
      */
     this.ownerId = config.ownerId;
 
     /** 
-     * Calypso's bug report channel ID
+     * Bot's bug report channel ID
      * @type {string}
      */
     this.bugReportChannelId = config.bugReportChannelId;
 
     /** 
-     * Calypso's feedback channel ID
+     * Bot's feedback channel ID
      * @type {string}
      */
     this.feedbackChannelId = config.feedbackChannelId;
 
     /** 
-     * Calypso's server log channel ID
+     * Bot's server log channel ID
      * @type {string}
      */
     this.serverLogId = config.serverLogId;

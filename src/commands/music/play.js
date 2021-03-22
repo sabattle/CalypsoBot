@@ -20,6 +20,8 @@ return this.sendErrorMessage(message, 0, "Please join a voice channel to play mu
     )
       return this.sendErrorMessage(message, 0, "Please join the same voice channel as me.")
 
+      const queue = this.client.player.getQueue(message);
     this.client.player.play(message, args.join(" "), { firstResult: true });
+    return message.channel.send(`[${queue.tracks[0].title}](${queue.tracks[0].url})\n*Requested by ${queue.tracks[0].requestedBy}*\n`)
   }
 }

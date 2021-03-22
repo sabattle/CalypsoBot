@@ -1,7 +1,7 @@
 const config = require('./config.json');
 const Client = require('./src/Client.js');
 const { Intents, Collection } = require('discord.js');
-const player = require('discord-player')
+const {Player} = require('discord-player') //music using discord-player module
 
 global.__basedir = __dirname;
 
@@ -16,6 +16,11 @@ intents.add(
   'GUILD_MESSAGE_REACTIONS'
 );
 const client = new Client(config, { ws: { intents: intents } });
+
+//discord-player stuff here
+const player = new Player(client);
+client.player = player;
+
 
 // Initialize client
 function init() {
