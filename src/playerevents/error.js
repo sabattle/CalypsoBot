@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const config = require('../configs/config.json');
 
 module.exports = (client, error, message) => {
 	const embedNotPlaying = new Discord.MessageEmbed()

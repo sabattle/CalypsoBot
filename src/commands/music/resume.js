@@ -27,7 +27,7 @@ if(!queue){
 await this.client.player.resume(message);
 
 // Send the embed in the current channel
-message.channel.send('Resuming...');
+message.channel.send('⏯️ **Resuming**');
 }
 
 }

@@ -28,7 +28,7 @@ if(!queue){
 await this.client.player.pause(message);
 
 // Send the embed in the current channel
-message.channel.send("paused the player");
+message.channel.send('**Paused** ⏸️'); 
 
 }
 

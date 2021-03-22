@@ -30,8 +30,7 @@ const filterToUpdate = this.client.filters.find(
 );
 
 if (!filterToUpdate)
-return message.sendError(
-  "Invalid Filter",
+return this.sendErrorMessage(message, 0,
   "This filter doesn't exist. Filters you can use are: \n 8D \n gate \n haas \n phaser \n treble \n tremolo \n vibrato \n reverse \n karaoke \n flanger \n mcompand \n pulsator \n subboost \n bassboost \n vaporwave \n nightcore \n normalizer \n surrounding"
 );
 

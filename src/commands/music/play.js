@@ -24,6 +24,5 @@ return this.sendErrorMessage(message, 0, "Please join a voice channel to play mu
       return this.sendErrorMessage(message, 0, "Play function requires search query but received none!")
 
     this.client.player.play(message, args.join(" "), { firstResult: true });
-    return message.channel.send(`started playing ${track.title} bound to <#${message.channel.id}>`)
   }
 }

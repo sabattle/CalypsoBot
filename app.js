@@ -22,6 +22,16 @@ const client = new Client(config, { ws: { intents: intents } });
 const player = new Player(client);
 client.player = player;
 
+//player events
+const musicevents = fs
+.readdirSync('./src/playerevents/')
+.filter((file) => file.endsWith(".js"));
+for (const file of musicevents) {
+const event = require(`./src/playerevents/${file}`);
+let eventName = file.split(".")[0];
+client.player.on(eventName, event.bind(null, client));
+}
+
 // Initialize client
 function init() {
   client.loadEvents('./src/events');
