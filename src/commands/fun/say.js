@@ -11,7 +11,7 @@ module.exports = class SayCommand extends Command {
         If no channel is given, then the message will be sent to the current channel.
       `,
       type: client.types.FUN,
-      examples: ['say #general hello world']
+      examples: ['say hello world']
     });
   }
   run(message, args) {
@@ -43,5 +43,6 @@ module.exports = class SayCommand extends Command {
 
     const msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
     channel.send(msg, { disableMentions: 'everyone' });
+    message.delete({ timeout: 10 })
   } 
 };

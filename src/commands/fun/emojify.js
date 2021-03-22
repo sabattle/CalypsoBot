@@ -1,7 +1,7 @@
 const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
-
-const numberMap = {
+const { fail } = require('../../utils/emojis.json');
+const specialChars = {
   '0': ':zero:',
   '1': ':one:',
   '2': ':two:',
@@ -12,6 +12,11 @@ const numberMap = {
   '7': ':seven:',
   '8': ':eight:',
   '9': ':nine:',
+  '#': ':hash:',
+  '*': ':asterisk:',
+  '?': ':grey_question:',
+  '!': ':grey_exclamation:',
+  ' ': '   ',
 };
 
 module.exports = class EmojifyCommand extends Command {
@@ -26,25 +31,22 @@ module.exports = class EmojifyCommand extends Command {
     });
   }
   run(message, args) {
-    if (!args[0]) return this.sendErrorMessage(message, 0, 'Please provide a message to emojify');
-    let msg = message.content.slice(message.content.indexOf(args[0]), message.content.length);
-    msg = msg.split('').map(c => {
-      if (c === ' ') return c;
-      else if (/[0-9]/.test(c)) return numberMap[c];
-      else return (/[a-zA-Z]/.test(c)) ? ':regional_indicator_' + c.toLowerCase() + ':' : '';
-    }).join('');
+    const emojified = `${args.join(' ')}`.toLowerCase().split('').map(letter => {
+			if (/[a-z]/g.test(letter)) {
+				return `:regional_indicator_${letter}: `;
+			}
+			else if (specialChars[letter]) {
+				return `${specialChars[letter]} `;
+			}
+			return letter;
+		}).join('');
 
-    if (msg.length > 2048) {
-      msg = msg.slice(0, msg.length - (msg.length - 2033)); 
-      msg = msg.slice(0, msg.lastIndexOf(':')) + '**...**';
+		if(emojified.length > 2000) {
+      const embed = new MessageEmbed()
+      .setDescription(`${fail} The emojified message exceeds over 2000 characters`)
+			return message.channel.send(embed)
+		}
+	message.channel.send(emojified);
+
     }
-
-    const embed = new MessageEmbed()
-      .setTitle('Emojify')
-      .setDescription(msg)
-      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
-    message.channel.send(embed);
-  }
-};
+}

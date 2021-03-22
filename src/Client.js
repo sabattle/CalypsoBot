@@ -40,6 +40,7 @@ class Client extends Discord.Client {
       MISC: 'misc',
       MOD: 'mod',
       ADMIN: 'admin',
+      MUSIC: 'music',
       OWNER: 'owner'
     };
 

@@ -16,12 +16,6 @@ module.exports = class CoinFlipCommand extends Command {
     let result;
     if (n === 1) result = 'heads';
     else result = 'tails';
-    const embed = new MessageEmbed()
-      .setTitle('½  Coinflip  ½')
-      .setDescription(`I flipped a coin for you, ${message.member}. It was **${result}**!`)
-      .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
-      .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
-    message.channel.send(embed);
+    return message.channel.send(`<a:AnimePraise:794515258928005140> **${message.member.user.tag}**: It\'s ${result}`)
   }
 };

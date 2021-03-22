@@ -175,7 +175,7 @@ class Command {
           .setTitle(`${fail} Missing User Permissions: \`${this.name}\``)
           .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
           .setTimestamp()
-          .setColor(message.guild.me.displayHexColor);
+          .setColor('RANDOM');
         message.channel.send(embed);
         return false;
       }
@@ -197,7 +197,7 @@ class Command {
         .setTitle(`${fail} Missing Bot Permissions: \`${this.name}\``)
         .setDescription(`\`\`\`diff\n${missingPermissions.map(p => `- ${p}`).join('\n')}\`\`\``)
         .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
+        .setColor('RANDOM');
       message.channel.send(embed);
       return false;
 
@@ -220,7 +220,7 @@ class Command {
       .setDescription(`\`\`\`diff\n- ${errorType}\n+ ${reason}\`\`\``)
       .addField('Usage', `\`${prefix}${this.usage}\``)
       .setTimestamp()
-      .setColor(message.guild.me.displayHexColor);
+      .setColor('RANDOM');
     if (this.examples) embed.addField('Examples', this.examples.map(e => `\`${prefix}${e}\``).join('\n'));
     if (errorMessage) embed.addField('Error Message', `\`\`\`${errorMessage}\`\`\``);
     message.channel.send(embed);
@@ -246,7 +246,7 @@ class Command {
         .addField('Moderator', message.member, true)
         .setFooter(`Case #${caseNumber}`)
         .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
+        .setColor('RANDOM');
       for (const field in fields) {
         embed.addField(field, fields[field], true);
       }
