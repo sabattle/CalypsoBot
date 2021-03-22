@@ -1,3 +1,4 @@
+const fs = require('fs');
 const config = require('./config.json');
 const Client = require('./src/Client.js');
 const { Intents, Collection } = require('discord.js');
@@ -20,6 +21,17 @@ const client = new Client(config, { ws: { intents: intents } });
 //discord-player stuff here
 const player = new Player(client);
 client.player = player;
+
+//player events
+fs.readdir('./src/player events/', (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+      const event = require(`./player-events/${file}`);
+      let eventName = file.split(".")[0];
+      console.log(`Loading player event ${eventName}`);
+      client.player.on(eventName, event.bind(null, client));
+  });
+});
 
 // Initialize client
 function init() {

@@ -46,8 +46,7 @@ filterToUpdate
 this.client.player.setFilters(message, filtersUpdated);
 if (filtersUpdated[filterToUpdate])
 message.channel.send(
-  "Filter Being Added.",
-  "I am adding the filter the the song. Please wait. The longer the song is, the longer it takes."
+  "Filter Being Added,I am adding the filter the the song. Please wait. The longer the song is, the longer it takes."
 );
 else
 message.channel.send(
