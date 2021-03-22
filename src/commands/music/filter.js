@@ -11,7 +11,7 @@ module.exports = class FilterCommand extends Command {
     });
   }
 
-  async run (client, message, args) {
+  async run (message, args) {
 
 if (!message.member.voice.channel)
 return message.sendError(
@@ -19,13 +19,13 @@ return message.sendError(
   "Please join a voice channel to play music."
 );
 
-if (!client.player.getQueue(message))
+if (!this.client.player.getQueue(message))
 return message.sendError(
   "No Music is Playing.",
   "Please join a voice channel to play music."
 );
 
-const filterToUpdate = client.filters.find(
+const filterToUpdate = this.client.filters.find(
 (x) => x.toLowerCase() === args[0].toLowerCase()
 );
 
@@ -37,20 +37,20 @@ return message.sendError(
 
 const filtersUpdated = {};
 
-filtersUpdated[filterToUpdate] = client.player.getQueue(message).filters[
+filtersUpdated[filterToUpdate] = this.client.player.getQueue(message).filters[
 filterToUpdate
 ]
 ? false
 : true;
 
-client.player.setFilters(message, filtersUpdated);
+this.client.player.setFilters(message, filtersUpdated);
 if (filtersUpdated[filterToUpdate])
-message.sendSuccess(
+message.channel.send(
   "Filter Being Added.",
   "I am adding the filter the the song. Please wait. The longer the song is, the longer it takes."
 );
 else
-message.sendSuccess(
+message.channel.send(
   "Filter Being Removed.",
   "I am removing the filters. Please wait. The longer the song is, the longer this will take.");
 }};

@@ -12,7 +12,7 @@ module.exports = class SkipCommand extends Command {
   }
 
   async run (client, message, args) {
-if (!message.member.voice.channel)
+
 if (!message.member.voice.channel)
   return message.sendError(
     "Not in A Voice Channel.",

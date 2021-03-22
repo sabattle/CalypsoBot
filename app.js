@@ -21,7 +21,6 @@ const client = new Client(config, { ws: { intents: intents } });
 const player = new Player(client);
 client.player = player;
 
-
 // Initialize client
 function init() {
   client.loadEvents('./src/events');
