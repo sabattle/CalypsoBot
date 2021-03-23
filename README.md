@@ -1,4 +1,8 @@
-Calypso: a open source discord.js bot designed by Sebastian Battle 
+  <br>
+  Calypso Discord Bot
+  <br>
+  
+a open source discord.js bot designed by Sebastian Battle 
 This is my version of calypso where you can't see Points or name Calypso anywhere in the bot. 
 
 Credits goes these wonderful people helped me to reach way out here: 
