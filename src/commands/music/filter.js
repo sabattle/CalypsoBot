@@ -41,7 +41,7 @@ if (filtersUpdated[filterToUpdate])
 message.channel.send({
   embed: {
     color: 'RANDOM',
-    description: "Filter Being Added,I am adding the filter the the song. Please wait. The longer the song is, the longer it takes." 
+    description: "I am adding the filter to the song, Please wait. The longer the song is, the longer it takes." 
   }
 });
 
@@ -49,7 +49,7 @@ else
 message.channel.send({
   embed: {
     color: 'RANDOM',
-    description: "I am removing the filters. Please wait. The longer the song is, the longer this will take."
+    description: "I am removing the filter(s), Please wait. The longer the song is, the longer this will take."
   }
   });
 
