@@ -2,7 +2,7 @@ const fs = require('fs');
 const config = require('./config.json');
 const Client = require('./src/Client.js');
 const { Intents, Collection } = require('discord.js');
-const {Player} = require('discord-player') //music using discord-player module
+const {Player} = require('discord-player'); //music using discord-player module
 const moment = require("moment");
 
 moment.relativeTimeThreshold("s", 60);

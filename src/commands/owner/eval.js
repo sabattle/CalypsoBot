@@ -41,7 +41,7 @@ module.exports = class EvalCommand extends Command {
       message.channel.send({
         embed: {
           color : "RANDOM",
-          description: "stupid, i wont provide you information about my token!"
+          description: "zstupid, i wont provide you information about my token!"
         }
       });
     }
