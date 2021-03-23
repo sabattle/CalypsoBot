@@ -51,7 +51,7 @@ module.exports = class GendCommand extends Command {
           message
             .reply(
               "Giveaway will end in less than " +
-                global.client.giveawaysManager.options.updateCountdownEvery /
+                this.client.giveawaysManager.options.updateCountdownEvery /
                   1000 +
                 " seconds..."
             )

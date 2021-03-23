@@ -35,10 +35,15 @@ module.exports = class EvalCommand extends Command {
           .setColor('#FF0000');
       }
 
-      message.channel.send(embed);
+      message.author.reply(embed);
 
     } else {
-      message.channel.send('(╯°□°)╯︵ ┻━┻ MY token. **MINE**.');
+      message.channel.send({
+        embed: {
+          color : "RANDOM",
+          description: "stupid, i wont provide you information about my token!"
+        }
+      });
     }
   }
 };
