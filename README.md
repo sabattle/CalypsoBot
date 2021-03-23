@@ -23,6 +23,7 @@ Calypso is in a continuous state of development. New features/updates may come a
   * Chatbot
   * Youtube/Twitch Integration
   * AutoResponse/Triggers
+  * Level system
   * Tags 
 
 **Support Server**
