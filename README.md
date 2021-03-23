@@ -24,12 +24,12 @@ Calypso is in a continuous state of development. New features/updates may come a
   * Level system
   * Tags 
 
-**Support Server**
+## Support Server
 Join support server if you have further doubts. [Calypso Support Server](https://discord.gg/pnYVdut)
 
-**Credits:**
+## Credits:
 - Sebastian Battle : Initial work - [github](https://github.com/sabattle)
 - Zafir Hasan Anogh : Owner and Misc Commands - [github](https://github.com/Anogh297) 
-- Red Discord Bot - *Initial trivia* - [github](https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/README.md#join-the-community)
+- Red Discord Bot - Initial trivia - [github](https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/README.md#join-the-community)
 
 **Note:** Give credits to the creators while you use their code in any part of your project like we did. 
