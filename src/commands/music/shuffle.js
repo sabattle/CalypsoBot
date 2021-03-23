@@ -13,26 +13,13 @@ module.exports = class ShuffleCommand extends Command {
   }
 
 async run (message, args)  {
-    if (!message.member.voice.channel) return message.channel.send({
-        embed: {
-            color: '#FA1D2F',
-            description: 'you must be in voice channel to use this command.'
-        }
-    })
+    if (!message.member.voice.channel) return this.sendErrorMessage(message, 0, "Join a voicechannel first")
 
-    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send({
-        embed: {
-            color: '#ff0000',
-            description: 'Oh-oh! we are not in a same voice channel.'
-        }
-    })
+    if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) 
+    return this.sendErrorMessage(message, 0, "we are not in the same voicechannel.")
+    
 
-    if (!this.client.player.getQueue(message)) return message.channel.send({
-        embed: {
-            color: 'RANDOM',
-            description: '**Error**! Player is Empty.'
-        }
-    })
+    if (!this.client.player.getQueue(message)) return this.sendErrorMessage(message, 0, "Queue and player were empty.")
 
     this.client.player.shuffle(message);
 

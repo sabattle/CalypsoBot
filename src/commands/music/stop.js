@@ -22,11 +22,11 @@ module.exports = class StopCommand extends Command {
 
 
     const embed = new Discord.MessageEmbed()
-	.setTitle('Stopped !')
-	.setDescription(` Music **stopped** into this server !`)
-    .setFooter('Music System')
-    .setColor('RANDOM')
-	.setTimestamp();
+	    .setTitle('Stopped !')
+	    .setDescription(` Music **stopped** into this server !`)
+      .setFooter('Music System')
+      .setColor('RANDOM')
+    	.setTimestamp();
     message.channel.send(embed);
     }
 };

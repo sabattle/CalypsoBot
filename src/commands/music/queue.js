@@ -18,13 +18,13 @@ module.exports = class QueueCommand extends Command {
 
 		const voice = message.member.voice.channel;
 		if (!voice){
-			return message.channel.send("iam not in a voice channel");
+			return this.sendErrorMessage(message, 0, "Join a voicechannel first")
 		}
         
 		const queue = this.client.player.getQueue(message);
 
 		if(!queue){
-			return message.channel.send("no music playing");
+			return this.sendErrorMessage(message, 0, "Queue and player were empty");
 		}
 
 		if(queue.tracks.length === 1){

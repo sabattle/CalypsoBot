@@ -16,11 +16,11 @@ const queue = this.client.player.getQueue(message);
 
 const voice = message.member.voice.channel;
 if (!voice){
-    return this.sendErrorMessage(message, 0,"join a voice channel first!");
+    return this.sendErrorMessage(message, 0,"join a voice channel first.");
 }
 
 if(!queue){
-    return this.sendErrorMessage(message,0,"Queue is empty lol!");
+    return this.sendErrorMessage(message,0,"Queue and player were empty.");
 }
 
 // Gets the current song

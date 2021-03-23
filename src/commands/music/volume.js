@@ -13,42 +13,17 @@ module.exports = class PlayCommand extends Command {
   
 async run (message, args) {
 if (!message.member.voice.channel)
-return message.channel.send({
-    embed: {
-        color: '#FA1D2F',
-        description: `**you must be in a voice channel to use this command!**`,
-    },
-});
+return this.sendErrorMessage(message,0, 'Join a voice channel first!')
 
 if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id)
-return message.channel.send({
-    embed: {
-        color: '#FA1D2F',
-        description: `**you must be in a voice channel to use this command!**`,
-    },
-});
+return this.sendErrorMessage(message,0, 'we are not in same voicechannel')
 
-if (!this.client.player.getQueue(message)) return message.channel.send({
-embed: {
-    color: '#FA1D2F',
-    description: `**The __Queue__ is Empty** ;-;`
-}
-})
+if (!this.client.player.getQueue(message)) return this.sendErrorMessage(message,0, 'Queue and player were empty')
 
-if (!args[0] || isNaN(args[0])) return message.channel.send ({
-embed: {
-    color: '#FA1D2F',
-    description: 'Please enter a valid number.'
-}
-})
+if (!args[0] || isNaN(args[0])) return this.sendErrorMessage(message,0, 'volume must be a number between 1-200')
 
 
-if (Math.round(parseInt(args[0])) < 1 || Math.round(parseInt(args[0])) > 200) return message.channel.send ({
-embed: {
-    color: '#FA1D2F',
-    description: 'Please enter a valid number (between 1 and 200).'
-}
-})
+if (Math.round(parseInt(args[0])) < 1 || Math.round(parseInt(args[0])) > 200) return this.sendErrorMessage(message,0, 'Enter a valid number, 1-200')
 
 message.channel.send({
 embed: {

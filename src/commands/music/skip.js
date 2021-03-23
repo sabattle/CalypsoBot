@@ -14,28 +14,19 @@ module.exports = class SkipCommand extends Command {
   async run (client, message, args) {
 
 if (!message.member.voice.channel)
-  return message.sendError(
-    "Not in A Voice Channel.",
-    "Please join a voice channel to play music."
-  );
+  return this.sendErrorMessage(message, 0, "Join a voicechannel first")
 if (
 message.guild.me.voice.channel &&
 message.member.voice.channel.id !== message.guild.me.voice.channel.id
 )
-return message.sendError(
-  "Different Voice Channel.",
-  "Please join the same voice channel as me."
-);
+return this.sendErrorMessage(message, 0, "We are not in the same voice channel.")
 
 if (!client.player.getQueue(message))
-return message.sendError(
-  "No Music is Playing.",
-  "Please join a voice channel to play music."
-);
+return this.sendErrorMessage(message, 0, "Queue and player were empty.")
 
 const success = message.client.player.skip(message);
 
 if (success)
-message.channel.send("Skipped.", "I have successfully skipped that song.");
+message.channel.send("⏯️ **Skipped**");
 }
 };

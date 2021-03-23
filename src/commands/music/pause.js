@@ -17,11 +17,11 @@ const queue = this.client.player.getQueue(message);
 
 const voice = message.member.voice.channel;
 if (!voice){
-    return this.sendErrorMessage(message, 0,"music/play:NO_VOICE_CHANNEL");
+    return this.sendErrorMessage(message, 0,"Join a voicechannel first");
 }
 
 if(!queue){
-    return this.sendErrorMessage(message,0,"music:play:NOT_PLAYING");
+    return this.sendErrorMessage(message,0,"Queue is empty, try again later.");
 }
 
 // Gets the current song

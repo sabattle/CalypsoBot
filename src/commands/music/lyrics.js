@@ -47,7 +47,7 @@ async run (message, args)  {
     if(lyrics.length > 2048) {
       lyrics = lyrics.substr(0, 2031), "+"`https://www.musixmatch.com/search/${songName}`;
     } else if(!lyrics.length) {
-      return this.sendErrorMessage("Can't find lyrics :(");
+      return this.sendErrorMessage("an error  occured, No lyrics found for your query :(");
     }
 
     embed.setDescription(lyrics);
@@ -57,7 +57,7 @@ async run (message, args)  {
     message.channel.send({
       embed: {
         color: 'RANDOM',
-        description: `No lyrics found for \`${songName}\``
+        description: `an error  occured, No lyrics found for your query \`${songName}\``
       }
     });
   }
