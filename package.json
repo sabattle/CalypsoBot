@@ -16,6 +16,7 @@
     "discord-player": "^3.4.0",
     "discord.js": "^12.3.1",
     "he": "^1.2.0",
+    "mathjs": "^9.3.0",
     "minimist": ">=1.2.2",
     "moment": "^2.29.1",
     "ms": "^2.1.3",

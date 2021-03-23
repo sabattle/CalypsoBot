@@ -5,7 +5,7 @@ module.exports = class StopCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'stop',
-      aliases: ['dc'],
+      aliases: [],
       usage: 'stop',
       description: 'stops and clears the queue',
       type: client.types.MUSIC

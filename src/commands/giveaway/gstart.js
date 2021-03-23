@@ -7,7 +7,7 @@ module.exports = class GstartCommand extends Command {
     super(client, {
       name: 'gstart',
       aliases: [],
-      usage: 'gstart 1h 1w Nitro',
+      usage: 'gstart #general 1h 1 Nitro',
       description: 'Start\'s a giveaway',
       type: client.types.GIVEAWAY
     });

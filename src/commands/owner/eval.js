@@ -35,7 +35,7 @@ module.exports = class EvalCommand extends Command {
           .setColor('#FF0000');
       }
 
-      message.author.reply(embed);
+      message.channel.send(embed);
 
     } else {
       message.channel.send({
