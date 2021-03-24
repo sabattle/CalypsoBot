@@ -3,7 +3,8 @@ const config = require('./config.json');
 const Client = require('./src/Client.js');
 const { Intents, Collection } = require('discord.js');
 const {Player} = require('discord-player'); //music using discord-player module
-const moment = require('moment');
+const { GiveawaysManager } = require('discord-giveaways'); //for giveaways module
+const moment = require('moment'); 
 
 moment.relativeTimeThreshold('s', 60);
 moment.relativeTimeThreshold('ss', 5);
@@ -41,7 +42,6 @@ for (const file of musicevents) {
 }
 
 //load giveaways 
-const { GiveawaysManager } = require('discord-giveaways'); //for giveaways module
 client.giveawaysManager = new GiveawaysManager(client, {
   storage: './src/utils/giveaways.json',
   updateCountdownEvery: 5000,
