@@ -26,7 +26,7 @@ module.exports = class HelpCommand extends Command {
     const all = (args[0] === 'all') ? args[0] : '';
     const embed = new MessageEmbed();
     const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id); // Get prefix
-    const { INFO, FUN, COLOR, GIVEAWAY, MUSIC, MISC, MOD, ADMIN, OWNER } = message.client.types;
+    const { INFO, FUN, COLOR, GIVEAWAY, ECONOMY ,MUSIC, MISC, MOD, ADMIN, OWNER } = message.client.types;
     const { capitalize } = message.client.utils;
     
     const command = message.client.commands.get(args[0]) || message.client.aliases.get(args[0]);
@@ -62,6 +62,7 @@ module.exports = class HelpCommand extends Command {
         [INFO]: `${capitalize(INFO)}`,
         [FUN]: `${capitalize(FUN)}`,
         [COLOR]: `${capitalize(COLOR)}`,
+        [ECONOMY]: `${capitalize(ECONOMY)}`,
         [MUSIC]: `${capitalize(MUSIC)}`,
         [MISC]: `${capitalize(MISC)}`,
         [GIVEAWAY]: `${capitalize(GIVEAWAY)}`,
