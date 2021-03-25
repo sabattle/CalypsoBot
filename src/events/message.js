@@ -2,6 +2,9 @@ const { MessageEmbed } = require('discord.js');
 const { oneLine } = require('common-tags');
 
 module.exports = (client, message) => {
+  message.client.emit('messageafk', message)
+
+  
   if (message.channel.type === 'dm' || !message.channel.viewable || message.author.bot) return;
 
   // Get disabled commands

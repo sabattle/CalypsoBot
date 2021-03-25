@@ -11,12 +11,12 @@ module.exports = class PlayCommand extends Command {
     });
   }
 
-    async run (message, args, track) {
-    if (!message.member.voice.channel)
+    async run (message, args) {
+      
+      if (!message.member.voice.channel)
 return this.sendErrorMessage(message, 0, "Please join a voice channel to play music.")
     if (
-      message.guild.me.voice.channel &&
-      message.member.voice.channel.id !== message.guild.me.voice.channel.id
+      message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id
     )
       return this.sendErrorMessage(message, 0, "Please join the same voice channel as me.")
 

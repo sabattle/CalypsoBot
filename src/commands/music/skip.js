@@ -1,4 +1,5 @@
 const Command = require('../Command.js');
+const embedcolor = '#00ffff'
 
 module.exports = class SkipCommand extends Command {
   constructor(client) {
@@ -11,22 +12,16 @@ module.exports = class SkipCommand extends Command {
     });
   }
 
-  async run (client, message, args) {
+  async run ( message) {
+    const queue = this.client.player.getQueue(message);
 
-if (!message.member.voice.channel)
-  return this.sendErrorMessage(message, 0, "Join a voicechannel first")
-if (
-message.guild.me.voice.channel &&
-message.member.voice.channel.id !== message.guild.me.voice.channel.id
-)
-return this.sendErrorMessage(message, 0, "We are not in the same voice channel.")
-
-if (!client.player.getQueue(message))
-return this.sendErrorMessage(message, 0, "Queue and player were empty.")
-
-const success = message.client.player.skip(message);
-
-if (success)
-message.channel.send("⏯️ **Skipped**");
-}
-};
+    if (!message.member.voice.channel) return this.sendErrorMessage(message,0, "Join a voicechannel first");
+  
+      if (!queue) return this.sendErrorMessage(message, 0, "Queue is empty, nothing to skip");
+      if(!queue.tracks[0]) return this.sendErrorMessage(message, 0, "no next song to skip");
+  
+      this.client.player.skip(message);
+  
+      message.react('👌');
+      }
+  };
