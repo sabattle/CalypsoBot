@@ -5,15 +5,13 @@ module.exports = class ReminderCommand extends Command {
   constructor(client) {
     super(client, {
       name: "gstart",
-      aliases: [],
-      description: "Sets a reminder for you with the given time.",
-      usage: "reminder <Time (h | min | sec)> <Text>",
+      description: "Starts a interactive giveaway.",
+      usage: "gstart #general 1h 1 Nitro",
       type: client.types.GIVEAWAY
     });
   }
 
   async run (message, args) {
-    // If the member doesn't have enough permissions
     if(!message.member.hasPermission('MANAGE_MESSAGES') && !message.member.roles.cache.some((r) => r.name === "Giveaways")){
         return message.channel.send(':x: You need to have the manage messages permissions to start giveaways.');
     }
@@ -79,5 +77,6 @@ module.exports = class ReminderCommand extends Command {
     });
 
     message.channel.send(`Giveaway started in ${giveawayChannel}!`);
-    message.delete({ timeout: 10 })
-}}
+
+    }
+}

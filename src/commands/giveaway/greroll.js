@@ -5,7 +5,6 @@ module.exports = class GrerollCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'greroll',
-      aliases: [],
       usage: 'greroll <message_id>',
       description: 'Reroll\'s a giveaway',
       type: client.types.GIVEAWAY

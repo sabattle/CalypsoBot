@@ -32,6 +32,7 @@
     "quick.db": "^7.1.3",
     "random-js": "^2.1.0",
     "superagent": "^6.1.0",
+    "tiktok-search": "^2.0.3",
     "twemoji-parser": "^13.0.0",
     "winston": "^3.2.1",
     "yaml": "^1.8.3",
