@@ -1,35 +1,31 @@
 const Command = require('../Command.js');
-const math = require("mathjs");
-const Discord = require("discord.js");
+const fetch = require('node-fetch');
+const math = require("math-expression-evaluator")
+const Discord = require('discord.js')
 
-module.exports = class MathCommand extends Command {
+module.exports = class DogFactCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'math',
-      aliases: ['calc','calculate'],
-      usage: 'math 2+2',
-      description: 'ask the bot to calculate simple maths',
+      aliases: ['calc'],
+      usage: 'math 1+1, math 2*5',
+      description: 'It shows you the result of a mathematical operation.',
       type: client.types.MISC
     });
   }
-  async run (message, args) {
+  async run(message, args) {
+    const mathembed = new Discord.MessageEmbed()
+  
+  if (!args[0]) {
+return this.sendErrorMessage(message, 0, "what do you want me to calculate")
+  }
 
-    if(!args[0]) {
-        return this.sendErrorMessage(message, 0, "Iam sorry but I need something to calculate");
-    }
-
-    let result;
-    try {
-        result = math.evaluate(args.join(" ").replace(/[x]/gi, "*").replace(/[,]/g, ".").replace(/[÷]/gi, "/"));
-    } catch (e) {
-        return this.sendErrorMessage(message, 0,'comeon man, dont be dumb Input something valid to calculate');
-    }
-
-    const embed = new Discord.MessageEmbed()
-        .setColor("RANDOM")
-        .addField(('Input'), `\`\`\`js\n${args.join("").replace(/[x]/gi, "*").replace(/[,]/g, ".").replace(/[÷]/gi, "/")}\`\`\``)
-        .addField(('Result'), `\`\`\`js\n${result}\`\`\``)
-    message.channel.send(embed);
-
-}
-}
+  let resultado;
+  try {
+    resultado = math.eval(args.join(" "));
+  } catch (e) {
+return this.sendErrorMessage(message, 0, "Invalid argument")
+  }
+  await message.channel.send(`I think it is ${resultado}`);
+  }
+};
