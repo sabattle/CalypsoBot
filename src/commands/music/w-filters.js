@@ -27,9 +27,9 @@ return this.sendErrorMessage(message, 0, "Error, you must be in my voicechannel"
 
 const filtersStatuses = [[], []];
 
-Object.keys(this.client.filters).forEach((filterName) => {
-    const array = filtersStatuses[0].length > filtersStatuses[1].length ? filtersStatuses[1] : filtersStatuses[0];
-    array.push(this.client.filters[filterName] + " : " + (this.client.player.getQueue(message).filters[filterName] ? success : fail));
+this.client.filters.forEach((filterName) => {
+  const array = filtersStatuses[0].length > filtersStatuses[1].length ? filtersStatuses[1] : filtersStatuses[0];
+    array.push(filterName.charAt(0).toUpperCase() + filterName.slice(1) + " : " + (this.client.player.getQueue(message).filters[filterName] ? success : fail));
 });
 const embed = new MessageEmbed()
 .setAuthor('Now Playing')
