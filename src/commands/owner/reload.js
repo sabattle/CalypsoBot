@@ -12,8 +12,8 @@ module.exports = class ReloadCommand extends Command {
     });
   }
     async run(message, args) {
-    if(!args[0]) return this.sendErrorMessage("You must provide a category.")
-    if(!args[1]) return this.sendErrorMessage(message, 0, 'You must provide a command name.')
+    if(!args[0]) return this.sendErrorMessage(message, 0, "You must provide a category.")
+    if(!args[1]) return this.sendErrorMessage(message, 0, "You must provide a command name.")
 
     let commandCategory = args[0].toLowerCase()
     let commandName = args[1].toLowerCase() 
