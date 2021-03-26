@@ -6,8 +6,6 @@ const {Player} = require('discord-player'); //music using discord-player module
 const { GiveawaysManager } = require('discord-giveaways'); //for giveaways module
 const moment = require('moment'); 
 const db = require('quick.db');
-const { Canvas } = require('canvas-constructor');
-const { createCanvas, loadImage } = require('canvas')
 
 moment.relativeTimeThreshold('s', 60);
 moment.relativeTimeThreshold('ss', 5);

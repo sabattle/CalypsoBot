@@ -14,7 +14,7 @@ module.exports = class EvalCommand extends Command {
   }
   run(message, args) {
     const input = args.join(' ');
-    if (!input) return this.sendErrorMessage(message, 0, 'Please provide code to eval');
+    if (!input) return message.channel.send('Enter something to evaluate.');
     if(!input.toLowerCase().includes('token')) {
 
       const embed = new MessageEmbed();
