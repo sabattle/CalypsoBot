@@ -1,4 +1,3 @@
-const { cli } = require('winston/lib/winston/config');
 const Command = require('../Command.js');
 
 module.exports = class GendCommand extends Command {

@@ -40,6 +40,7 @@ class Client extends Discord.Client {
       ECONOMY: 'economy',
       GIVEAWAY: 'giveaway',
       VOUCH: 'vouch',
+      LEVELS: 'levels',
       MISC: 'misc',
       MOD: 'mod',
       ADMIN: 'admin',
