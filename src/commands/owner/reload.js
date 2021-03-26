@@ -1,13 +1,11 @@
-const { MessageEmbed } = require('discord.js');
 const Command = require('../Command.js');
-const { success } = require('../../utils/emojis.json');
+const {success} = require('../../utils/emojis.json')
 
 module.exports = class ReloadCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'reload',
       usage: 'reload <category> <command>',
-      aliases: ['rld'],
       description: 'Reloads a Command by category',
       type: client.types.OWNER,
       ownerOnly: true,
@@ -15,8 +13,8 @@ module.exports = class ReloadCommand extends Command {
     });
   }
     async run(message, args) {
-    if(!args[0]) return this.sendErrorMessage("You must provide a category.")
-    if(!args[1]) return this.sendErrorMessage(message, 0, 'You must provide a command name.')
+        if(!args[0]) return message.channel.send(`you must provide a category name`)
+        if(!args[1]) return message.channel.send('You must provide a command name.')
 
     let commandCategory = args[0].toLowerCase()
     let commandName = args[1].toLowerCase() 
@@ -42,8 +40,10 @@ module.exports = class ReloadCommand extends Command {
               await this.client.aliases.set(alias, command);
             });
           }
-        message.channel.send(`${success} okay! **${commandName}** command has been reloaded`)
-      }} catch(err) {
+
+          message.channel.send(`${success} okay! **${commandName}** command has been reloaded`)
+    }} catch(err) {
         return this.sendErrorMessage(message, 1, `Could not reload: ${commandName}`, err.stack);
-    }}
+    }
   }
+}

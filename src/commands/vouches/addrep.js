@@ -5,7 +5,7 @@ const {success} = require('../../utils/emojis.json')
 module.exports = class AddrepCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'addvouches',
+      name: 'addrep',
       aliases: ['arep'],
       usage: 'addrep <amount> <user>',
       description: 'add reputation points to a User',
@@ -20,6 +20,6 @@ module.exports = class AddrepCommand extends Command {
     
     db.add(`userthanks_${user.id}`, args[1])
     db.set(`cooldown_${message.author.id}`, Date.now())
-    return message.react(success)
+    return message.react('👌')
     
 }};

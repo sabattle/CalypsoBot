@@ -13,14 +13,11 @@ module.exports = class DelrepCommand extends Command {
     });
   }
   async run(message) {
- 
-
-    let user = message.mentions.users.first()
-    if(!user) return this.sendErrorMessage(message, 0, "mention a user to vouch")
-
+   let user = message.mentions.users.first()
+   let reps = await db.get(`userthanks_${user.id}`)
+   if(!user) return this.sendErrorMessage(message, 0, "mention a user to delete reputation")
     
-    db.delete(`userthanks_${user.id}`, 1)
-    db.set(`cooldown_${message.author.id}`, Date.now())
-    return message.react('👍')
+    db.delete(`userthanks_${user.id}`, reps)
+    return message.react('👌')
     
 }};

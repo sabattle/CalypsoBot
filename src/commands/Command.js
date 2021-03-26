@@ -213,7 +213,7 @@ class Command {
    */
   sendErrorMessage(message, errorType, reason, errorMessage = null) {
     errorType = this.errorTypes[errorType];
-    const prefix = message.client.db.settings.selectPrefix.pluck().get(message.guild.id);
+    const prefix = message.db.settings.selectPrefix.pluck().get(this.client.guild.id);
     const embed = new MessageEmbed()
       .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
       .setTitle(`${fail} Error: \`${this.name}\``)

@@ -3,18 +3,20 @@ const ms = require("parse-ms");
 const db = require('quick.db');
 const Discord = require('discord.js');
 
+
 module.exports = class VouchCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'vouch',
-      usage: 'vouch @user',
-      description: 'Vouch a User',
+      name: 'reputation',
+      aliases: ['rep'],
+      usage: 'rep @user',
+      description: 'Give a reputation to a user',
       type: client.types.VOUCH
     });
   }
   async run(message) {
 
-    let timeout =  10;
+    let timeout =  1800000;
 
 let bump = await db.fetch(`cooldown_${message.author.id}`)
 if (bump !== null && timeout - (Date.now() - bump) > 0) {
@@ -30,6 +32,6 @@ if(user.id === message.author.id) return this.sendErrorMessage(message, 0, "you 
 
 db.add(`userthanks_${user.id}`, 1)
 db.set(`cooldown_${message.author.id}`, Date.now())
-return message.react('👍')
+return message.react('👌')
 }
 };

@@ -1,14 +1,13 @@
 const Command = require('../Command.js');
-const ms = require("parse-ms");
 const db = require('quick.db');
 const Discord = require('discord.js');
-const MessageEmbed = require('discord.js')
 
-module.exports = class MyVouchCommand extends Command {
+module.exports = class ReputationsCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'vouches',
-      usage: 'vouches @user',
+      name: 'reputations',
+      aliases: ['reps'],
+      usage: 'reputations @user',
       description: ' Shows vouches of a User',
       type: client.types.VOUCH
     });
