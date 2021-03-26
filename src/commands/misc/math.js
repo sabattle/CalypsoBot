@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const math = require("math-expression-evaluator")
 const Discord = require('discord.js')
 
-module.exports = class DogFactCommand extends Command {
+module.exports = class MathCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'math',
@@ -26,6 +26,6 @@ return this.sendErrorMessage(message, 0, "what do you want me to calculate")
   } catch (e) {
 return this.sendErrorMessage(message, 0, "Invalid argument")
   }
-  await message.channel.send(`I think it is ${resultado}`);
+  await message.channel.send(`<:think_thonk:817017508984389663> **|** ${message.author.username} the answer is : **${resultado}**`);
   }
 };

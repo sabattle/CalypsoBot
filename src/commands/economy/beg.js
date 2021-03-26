@@ -7,7 +7,6 @@ module.exports = class BegCommand extends Command {
     constructor(client) {
       super(client, {
         name: 'beg',
-        aliases: ['bg'],
         usage: 'beg',
         description: 'beg for some coins',
         type: client.types.ECONOMY

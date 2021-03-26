@@ -26,8 +26,9 @@ if (daily !== null && timeout - (Date.now() - daily) > 0) {
     let time = ms(timeout - (Date.now() - daily));
 
     let timeEmbed = new MessageEmbed()
-        .setColor("GREEN")
-        .setDescription(`❌ You've already collected your daily reward\n\nCollect it again in ${time.hours}h ${time.minutes}m ${time.seconds}s `);
+        .setAuthor("Spam isn't cool fam")
+        .setColor("Random")
+        .setDescription(`I'm not made of money dude, wait **${time.hours}h, ${time.minutes}m, ${time.seconds}s**`);
     message.channel.send(timeEmbed)
 } else {
     let moneyEmbed = new MessageEmbed()

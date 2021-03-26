@@ -9,7 +9,6 @@ module.exports = class WorkCommand extends Command {
     constructor(client) {
       super(client, {
         name: 'work',
-        aliases: ['wk'],
         usage: 'work',
         description: 'work for some coins',
         type: client.types.ECONOMY

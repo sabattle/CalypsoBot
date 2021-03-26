@@ -39,6 +39,7 @@ class Client extends Discord.Client {
       COLOR: 'color',
       ECONOMY: 'economy',
       GIVEAWAY: 'giveaway',
+      VOUCH: 'vouch',
       MISC: 'misc',
       MOD: 'mod',
       ADMIN: 'admin',
