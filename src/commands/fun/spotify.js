@@ -8,8 +8,8 @@ module.exports = class SpotifyCommand extends Command {
       aliases: ['spy'],
       usage: 'spotify',
       description: 'shows info about someone who is listening to spotify',
-      type: client.types.FUN,
-      examples: ['spotify @User']
+      examples: ['spotify @User'],
+      type: client.types.FUN
     });
   }
      async run (message, args) {
@@ -19,25 +19,30 @@ module.exports = class SpotifyCommand extends Command {
         return this.sendErrorMessage(message, 0, "User isnt listening to spotify")
       }
        
-      if (user.presence.activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets !== null) {
+user.presence.activities.forEach((activity) => {
 
-        let trackIMG = `https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`;
-        let trackURL = `https://open.spotify.com/track/${activity.syncID}`;
-        let trackName = activity.details;
-        let trackAuthor = activity.state;
-        let trackAlbum = activity.assets.largeText;
-        trackAuthor = trackAuthor.replace(/;/g, ",")
+if (activity.type === 'LISTENING' && activity.name === 'Spotify' && activity.assets !== null) {
 
-        const embed = new MessageEmbed()
-        .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
-        .setColor("GREEN")
-        .setThumbnail(trackIMG)
-        .addField('Song Name', trackName, true)
-        .addField('Album', trackAlbum, true)
-        .addField('Author', trackAuthor, false)
-        .addField('Listen to Track', `${trackURL}`, false)
-        .setTimestamp()
-        .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
-        message.channel.send(embed);
-        }
-    }}
+                let trackIMG = `https://i.scdn.co/image/${activity.assets.largeImage.slice(8)}`;
+                let trackURL = `https://open.spotify.com/track/${activity.syncID}`;
+
+                let trackName = activity.details;
+                let trackAuthor = activity.state;
+                let trackAlbum = activity.assets.largeText;
+
+                trackAuthor = trackAuthor.replace(/;/g, ",")
+
+                const embed = new MessageEmbed()
+                    .setAuthor('Spotify Track Info', 'https://cdn.discordapp.com/emojis/408668371039682560.png')
+                    .setColor("GREEN")
+                    .setThumbnail(trackIMG)
+                    .addField('Song Name', trackName, true)
+                    .addField('Album', trackAlbum, true)
+                    .addField('Author', trackAuthor, false)
+                    .addField('Listen to Track', `${trackURL}`, false)
+                    .setFooter(user.displayName, user.user.displayAvatarURL({ dynamic: true }))
+                message.channel.send(embed);
+            }
+        })
+    }
+}
