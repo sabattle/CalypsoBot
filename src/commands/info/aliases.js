@@ -48,7 +48,7 @@ module.exports = class AliasesCommand extends Command {
     if (args[0] && types.includes(type) && (type != OWNER || message.client.isOwner(message.member))) {
       
       message.client.commands.forEach(command => {
-        if (command.aliases && command.type === type && !disabledCommands.includes(command.name)) 
+        if (command.aliases && command.type === type && !disabledCommands.includes(command.name) && !command.hidden) 
           aliases[command.type].push(`**${command.name}:** ${command.aliases.map(a => `\`${a}\``).join(' ')}`);
       });
 
