@@ -13,6 +13,7 @@ A open source discord.js bot designed by Sebastian Battle.This is my version of 
 * [CalypsoBot](https://github.com/sabattle/CalypsoBot)
 * [Anogh CalypsoBot](https://github.com/Anogh297/CalypsoBot)
 * [MDCYT AnyBot](https://github.com/MDCYT/Any-Bot)
+* [Dragonized pizza](https://github.com/Dragonizedpizza) - [music(play), Giveaway(gstart)]
 
 
 ## To-Do
