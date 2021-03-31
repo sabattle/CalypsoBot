@@ -18,7 +18,8 @@ A open source discord.js bot designed by Sebastian Battle.This is my version of 
 
 ## To-Do
 
-Calypso is in a continuous state of development. New features/updates may come at any time. Some pending ideas are:
+Calypso is in a continuous state of development. New features/updates may come at any time.
+Some pending ideas are:
 
   * Chatbot
   * Youtube/Twitch Integration
@@ -26,8 +27,13 @@ Calypso is in a continuous state of development. New features/updates may come a
   * Level system
   * Tags 
 
+## Come Say hi to me :D
+</br></br>
+<a href="https://discord.gg/sWfMBbabna"><img src="https://invidget.switchblade.xyz/sWfMBbabna"/></a>
+<br><br>
+
 ## Support Server
-Join support server if you have further doubts. [Calypso Support Server](https://discord.gg/pnYVdut)
+
 
 ## Credits:
 - Sebastian Battle : Initial work - [github](https://github.com/sabattle)
