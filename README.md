@@ -27,12 +27,12 @@ Some pending ideas are:
   * Level system
   * Tags 
 
-## Come Say hi to me :D
+## Support Server (come say hi to me 😸 )
 </br></br>
 <a href="https://discord.gg/sWfMBbabna"><img src="https://invidget.switchblade.xyz/sWfMBbabna"/></a>
 <br><br>
 
-## Support Server
+
 
 
 ## Credits:
