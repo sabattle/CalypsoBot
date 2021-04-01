@@ -1,3 +1,10 @@
+<h1 align="center">
+
+  <br>
+  Calypso Discord Bot
+  <br>
+
+</h1>
 <p align="center">
   <a href="http://forthebadge.com/">
     <img src="http://forthebadge.com/images/badges/built-with-love.svg"/>
@@ -9,14 +16,6 @@
     <img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" />
   </a>
 </p>
-
-<h1 align="center">
-
-  <br>
-  Calypso Discord Bot
-  <br>
-
-</h1>
 
 
 
