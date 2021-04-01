@@ -41,6 +41,6 @@ Some pending ideas are:
 - Red Discord Bot - Initial trivia - [github](https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/README.md#join-the-community)
 
 ## Things to do
-⭐Star my repo if you have used it
-🌟Follow me on Github
-🌠Join my server 😊
+* ⭐Star my repo if you have used it
+* 🌟Follow me on Github
+* 🌠Join my server 😊
