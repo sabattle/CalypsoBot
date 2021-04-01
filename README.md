@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://standardjs.com/">
-    <img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" />
+    <img src="https://forthebadge.com/images/badges/made-with-javascript.svg" />
   </a>
 </p>
 
