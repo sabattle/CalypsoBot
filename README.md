@@ -40,5 +40,7 @@ Some pending ideas are:
 - Zafir Hasan Anogh : Owner and Misc Commands - [github](https://github.com/Anogh297) 
 - Red Discord Bot - Initial trivia - [github](https://github.com/Cog-Creators/Red-DiscordBot/blob/V3/develop/README.md#join-the-community)
 
-## Note
-⭐Star my repo if you have used it [start it, i dont need any credits if you use my code]
+## Things to do
+⭐Star my repo if you have used it
+🌟Follow me on Github
+🌠Join my server 😊
