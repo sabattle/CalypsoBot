@@ -1,3 +1,15 @@
+<p align="center">
+  <a href="http://forthebadge.com/">
+    <img src="http://forthebadge.com/images/badges/built-with-love.svg"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://standardjs.com/">
+    <img src="https://cdn.rawgit.com/feross/standard/master/badge.svg" />
+  </a>
+</p>
+
 <h1 align="center">
 
   <br>
@@ -5,6 +17,8 @@
   <br>
 
 </h1>
+
+
 
 A open source discord.js bot designed by Sebastian Battle.This is my version of calypso where you can't see Points or name Calypso anywhere in the bot. Credits goes these wonderful people helped me to reach way out here. Wiki on how to start the bot can be found [here](https://github.com/sabattle/CalypsoBot#installation)
 
