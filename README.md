@@ -29,7 +29,7 @@ Some pending ideas are:
 
 ## Support Server (come say hi to me 😸 )
 </br></br>
-<a href="https://discord.gg/sWfMBbabna"><img src="https://invidget.switchblade.xyz/sWfMBbabna"/></a>
+<a href="https://discord.gg/sWfMBbabna"><img src="https://invidget.switchblade.xyz/6mkRXJgvG9"/></a>
 <br><br>
 
 
