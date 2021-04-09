@@ -1,4 +1,6 @@
-const Command = require('../Command.js');
+*//use at your own risk i havent completed the code yet!*
+
+  const Command = require('../Command.js');
 const { MessageEmbed } = require('discord.js');
 const db = require('quick.db')
 
