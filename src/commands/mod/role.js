@@ -4,14 +4,14 @@ const { MessageEmbed } = require('discord.js');
 module.exports = class AddRoleCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'addrole',
-      aliases: ['giverole', 'addr', 'ar'],
+      name: 'role',
+      aliases: ['ro'],
       usage: 'addrole <user mention/ID> <role mention/ID> [reason]',
-      description: 'Adds the specified role to the provided user.',
+      description: 'Add/remove the specified role to the provided user.',
       type: client.types.MOD,
       clientPermissions: ['SEND_MESSAGES', 'EMBED_LINKS', 'MANAGE_ROLES'],
       userPermissions: ['MANAGE_ROLES'],
-      examples: ['addrole @Nettles @Member']
+      examples: ['role @Nettles @Member']
     });
   }
   async run(message, args) {
@@ -30,14 +30,28 @@ module.exports = class AddRoleCommand extends Command {
 
     if (!role)
       return this.sendErrorMessage(message, 0, 'Please mention a role or provide a valid role ID');
-    else if (member.roles.cache.has(role.id)) // If member already has role
-      return this.sendErrorMessage(message, 0, 'User already has the provided role');
+
+      else if (member.roles.cache.has(role.id)) // checks If member already has role so you remove it but if he didn't you add it
+
+      await member.roles.remove(role)
+
+      const re_embed = new MessageEmbed()
+          .setTitle('remove Role')
+          .setDescription(`${role} was successfully removed to ${member}.`)
+          .addField('Moderator', message.member, true)
+          .addField('Member', member, true)
+          .addField('Role', role, true)
+          .addField('Reason', reason)
+          .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        message.channel.send(re_embed);
     else {
       try {
 
         // Add role
         await member.roles.add(role);
-        const embed = new MessageEmbed()
+        const addembed = new MessageEmbed()
           .setTitle('Add Role')
           .setDescription(`${role} was successfully added to ${member}.`)
           .addField('Moderator', message.member, true)
@@ -47,7 +61,7 @@ module.exports = class AddRoleCommand extends Command {
           .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
           .setTimestamp()
           .setColor(message.guild.me.displayHexColor);
-        message.channel.send(embed);
+        message.channel.send(addembed);
 
         // Update mod log
         this.sendModLogMessage(message, reason, { Member: member, Role: role });
