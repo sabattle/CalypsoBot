@@ -13,7 +13,7 @@ module.exports = class FoxCommand extends Command {
   }
   async run(message) {
     try {
-      const res = await fetch('https://randomfox.ca/floof/');
+      const res = await fetch('https://foxapi.dev/foxes/');
       const img = (await res.json()).image;
       const embed = new MessageEmbed()
         .setTitle('🦊  What does the fox say?  🦊')
