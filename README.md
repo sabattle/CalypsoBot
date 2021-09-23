@@ -50,7 +50,7 @@ If you liked this repository, feel free to leave a star ⭐ to help promote Caly
 
 - **Administration:** A huge amount of settings to customize with commands like `setprefix`, `setwelcomemessage`, and `setverificationrole`
 - **Moderation:** Commands such as `kick`, `ban`, and `mute` to assist your staff.
-- **Fun & Games:** Tons of fun commands like `trivia`, `meme`, `emojify`, and a variety of animal pic commands like `cat`, `dog`, and `fox`
+- **Fun & Games:** Tons of fun commands like `trivia`, `meme`, `emojify`, and a variety of animal pic commands like `cat`, `dog`, and `fox`.
 - **Information:** Commands like `userinfo` and `serverinfo` for general use.
 - **Points:** A unique points system with a rotating winner that has commands like `leaderboard`, `givepoints`, and `crown`.
 - **Color:** Change your Discord color with commands like `color`, `createcolor` and `randomcolor`
@@ -104,32 +104,32 @@ You have to create a `config.json` file in order to run the bot (you can use the
 }
 ```
 
-Visit the Discord [developer portal](https://discord.com/developers/applications/) to create an app, then make a bot and use the client token you are given for the `token` option. `ownerId` is your own Discord ID. `bugReportChannelId`, `feedbackChannelId`, and `serverLogId` should be set to their respective text channels on your own server. To get keys for supported APIs, vist:
+Visit the [Discord developer portal](https://discord.com/developers/applications/) to create an app and use the client token you are given for the `token` option. `ownerId` is your own Discord ID. `bugReportChannelId`, `feedbackChannelId`, and `serverLogId` should be set to their respective text channels on your own server. To get keys for the supported APIs, vist:
 
 - [TheCatAPI](https://thecatapi.com/)
 - [Google API](https://console.developers.google.com/apis/)
 
-After your `config.json` file is built, you have to enable all of the `Privileged Intents` on your Discord [developer portal](https://discord.com/developers/applications/). You can find these intents under the "Bot" section. For more information on Gateway Intents, check out [this link](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper).
+After you filled in your `config.json` file, you have enable the `Privileged Intents` on your [Discord developer portal](https://discord.com/developers/applications/). You can find these intents under the "Bot" section, and there are two ticks you have to switch on. For more information on Gateway Intents, check out [this link](https://discordjs.guide/popular-topics/intents.html#the-intents-bit-field-wrapper).
 
-Once you're done, feel free to launch Calypso using the command `node app.js` or `nodemon app.js`. If you're on Linux, you can also kick off using the `start.sh` script. If you need additional help setting up, join the [Calypso Support Server](https://discord.gg/pnYVdut)!
+Once you're done, feel free to launch Calypso using the command `node app.js` or `nodemon app.js`. If you're on Linux, you can also launch the bot using the `start.sh` script. If you need additional help setting up, join the [Calypso Support Server](https://discord.gg/pnYVdut)!
 
-**Important Note:** Do not use Heroku to host Calypso! Calypso uses SQLite as it's database which backs up its data store on disk. Heroku clears its contents often, so your database will be wiped. Read more [here](https://devcenter.heroku.com/articles/sqlite3).
+**Important Note:** Do not use Heroku to host Calypso! Calypso uses SQLite as it's database which backs up its data store on disk. Heroku clears its contents often, so your database will be wiped. Read more [here](https://devcenter.heroku.com/articles/sqlite3#disk-backed-storage).
 
 ### Emojis
 
-If you are **self-hosting** Calypso, you may notice that some emojis for certain commands are not displaying. This is because Calypso uses **custom emojis** for a variety of her commands. These emojis will have to be added to your own server, and you will have to change the corresponding IDs in the `emojis.json` util if you would like to use them. Or, you can replace the emojis in `emojis.json` with ones you already have access to. If you would like to use Calypso's original custom emojis, hop into the [Calypso Support Server](https://discord.gg/pnYVdut) where you can snag them all.
+If you are **self-hosting** Calypso, you may notice that emojis for certain commands are not displaying. This is because Calypso uses **custom emojis** for a variety of her commands. These emojis will have to be added to your own server, and you will have to change the corresponding IDs in the `emojis.json` util if you would like to use them. Or, you can replace the emojis in `emojis.json` with ones you already have access to. If you would like to use Calypso's original custom emojis, hop into the [Calypso Support Server](https://discord.gg/pnYVdut) where you can snag them all.
 
 ### Colors
 
 Upon being invited to a server, Calypso will automatically create **6** predefined colors for your server to enjoy. To add more, use the provided `createcolor` command to quickly and easily create new colors.
 
-To add colors manually, first create a few empty roles at the bottom of your server's role hierarchy. The names of these roles must begin with the character `#`, for example, `#Red` or `#Blue`. Then change the color of that role to your desired hex, and that's it! After they are set up, the members of your server can then change their color by using Calypso's color commands! Credit to [Threebow](https://github.com/Threebow) for the idea.
+To add colors manually, first create a few empty roles at the bottom of your server's role hierarchy. The names of these roles must begin with a hastag (`#`), for example, `#Red` or `#Blue`. Then change the color of that role to your desired color, and that's it! After they are set up, the members of your server can then change their color by using Calypso's color commands! Credits to [Threebow](https://github.com/Threebow) for the idea.
 
 ![](https://i.imgur.com/SLJCN6y.gif)
 
 ## To-Do
 
-Calypso is in a continuous state of development. New features/updates may come at any time. Some pending ideas are:
+Calypso is in a continuous state of development. New features or updates may come at any time. Some pending ideas are:
 
 - Music
 - Automod
