@@ -188,7 +188,7 @@ const users = {
 
   // Selects
   selectRow: db.prepare('SELECT * FROM users WHERE user_id = ? AND guild_id = ?;'),
-  selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? AND current_member = 1 ORDER BY points DESC;'),
+  selectLeaderboard: db.prepare('SELECT * FROM users WHERE guild_id = ? AND current_member = 1 AND bot = 0 ORDER BY points DESC;'),
   selectPoints: db.prepare('SELECT points FROM users WHERE user_id = ? AND guild_id = ?;'),
   selectTotalPoints: db.prepare('SELECT total_points FROM users WHERE user_id = ? AND guild_id = ?;'),
   selectWarns: db.prepare('SELECT warns FROM users WHERE user_id = ? AND guild_id = ?;'),
