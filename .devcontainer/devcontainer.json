@@ -1,0 +1,19 @@
+{
+  "name": "CalypsoBot Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "18-bullseye"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  },
+  "remoteUser": "node",
+  "features": {
+    "docker-in-docker": "20.10",
+    "git": "latest"
+  }
+}
