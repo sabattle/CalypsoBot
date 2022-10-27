@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "CommonJS",
-    "lib": ["ESNext"],
+    "target": "es2021",
+    "module": "es2022",
+    "lib": ["es2021"],
     "declaration": true,
     "sourceMap": false,
     "outDir": "dist",

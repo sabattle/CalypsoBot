@@ -1,4 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-exec < /dev/tty && node_modules/.bin/cz --hook || true
+if [ -z "${2-}" ]; then
+  exec < /dev/tty && node_modules/.bin/cz --hook
+fi
