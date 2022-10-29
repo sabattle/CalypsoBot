@@ -15,7 +15,11 @@ import { promisify } from 'util'
 
 const glob_ = promisify(glob)
 
-interface ModuleType {
+interface CommandModule {
+  default: Command
+}
+
+interface EventModule {
   default: Event<keyof ClientEvents>
 }
 
@@ -23,6 +27,13 @@ interface ClientConfig {
   clientId: Snowflake
   token: string
   guildId: Snowflake
+}
+
+const styling: Table.TableConstructorOptions = {
+  chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
+  style: {
+    head: ['yellow'],
+  },
 }
 
 export default class Client extends DiscordClient {
@@ -35,46 +46,92 @@ export default class Client extends DiscordClient {
     this.#token = config.token
   }
 
-  async #registerEvents(): Promise<void> {
-    logger.info('Loading events...')
+  #registerError(err: Error | unknown, name: string): void {
+    if (err instanceof Error) {
+      logger.error(err.message)
+      logger.error(`${name} failed to load`)
+    } else {
+      logger.error(err)
+    }
+  }
 
-    const files = await glob_(`${__dirname}/../events/*{.ts,.js}`)
-    if (files.length === 0) logger.warn('No events found')
-    let count = 0
+  async #registerCommands(): Promise<void> {
+    logger.info('Registering commands...')
+
+    const files = await glob_(`${__dirname}/../commands/*/*{.ts,.js}`)
+    if (files.length === 0) {
+      logger.warn('No commands found')
+      return
+    }
 
     const table = new Table({
-      head: ['File', 'Name', 'Status'],
-      chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
-      style: {
-        head: ['yellow'],
-      },
+      head: ['File', 'Name', 'Aliases', 'Type', 'Status'],
+      ...styling,
     })
 
+    let count = 0
+
     for (const f of files) {
-      const name = f.split('/').pop() || ''
+      const name = f.split('.').at(-2) || ''
       try {
-        const event: Event<keyof ClientEvents> = (
-          (await import(f)) as ModuleType
-        ).default
-        this.on(event.event, event.run)
-        table.push([f, name, chalk['green']('pass')])
-        count++
+        const command = ((await import(f)) as CommandModule).default
+        const { aliases, type } = command
+        if (command.name) {
+          this.commands.set(command.name, command)
+          table.push([
+            f,
+            name,
+            aliases.join(', '),
+            type,
+            chalk['green']('pass'),
+          ])
+          count++
+        } else throw Error(`Command name not set: ${name}`)
       } catch (err) {
-        if (err instanceof Error) {
-          logger.error(err.message)
-          logger.error(`${name} failed to load`)
-          table.push([f, name, chalk['red']('fail')])
-        } else {
-          logger.error(err)
-        }
+        this.#registerError(err, name)
+        table.push([f, name, '', '', chalk['red']('fail')])
       }
     }
 
     logger.info(`\n${table.toString()}`)
-    logger.info(`Loaded ${count} event(s)`)
+    logger.info(`Registered ${count} commands(s)`)
+  }
+
+  async #registerEvents(): Promise<void> {
+    logger.info('Registering events...')
+
+    const files = await glob_(`${__dirname}/../events/*{.ts,.js}`)
+    if (files.length === 0) {
+      logger.warn('No events found')
+      return
+    }
+
+    const table = new Table({
+      head: ['File', 'Name', 'Status'],
+      ...styling,
+    })
+
+    let count = 0
+
+    for (const f of files) {
+      const name = f.split('.').at(-2) || ''
+      try {
+        const event = ((await import(f)) as EventModule).default
+        this.on(event.event, event.run)
+        table.push([f, name, chalk['green']('pass')])
+        count++
+      } catch (err) {
+        this.#registerError(err, name)
+        table.push([f, name, chalk['red']('fail')])
+      }
+    }
+
+    logger.info(`\n${table.toString()}`)
+    logger.info(`Registered ${count} event(s)`)
   }
 
   async init(): Promise<void> {
+    await this.#registerCommands()
     await this.#registerEvents()
     await this.login(this.#token)
   }
