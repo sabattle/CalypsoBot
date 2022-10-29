@@ -10,7 +10,8 @@
     "@types/glob": "^8.0.0",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.1",
-    "glob": "^8.0.3"
+    "glob": "^8.0.3",
+    "winston": "^3.8.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
@@ -32,9 +33,9 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "start": "ts-node src/app.ts",
-    "start:dev": "ts-node-dev -r tsconfig-paths/register src/app.ts",
-    "start:prod": "node dist/app.ts",
+    "start": "NODE_ENV=development ts-node src/app.ts",
+    "start:dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts",
+    "start:prod": "NODE_ENV=production node dist/app.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint --ext .js,.ts src",
@@ -54,8 +55,8 @@
   },
   "homepage": "https://github.com/sabattle/CalypsoBot#readme",
   "lint-staged": {
-    "**/*.{js,ts}": "npm run lint",
-    "**/*.{js,ts,json,md}": "npm run format"
+    "**/*.{js,ts}": "eslint --ext .js,.ts",
+    "**/*.{js,ts,json,md}": "prettier --ignore-path .gitignore --write"
   },
   "config": {
     "commitizen": {

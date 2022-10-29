@@ -3,6 +3,7 @@ import {
   Client as DiscordClient,
   ClientEvents,
   Collection,
+  type Snowflake,
   type ClientOptions,
 } from 'discord.js'
 import { promisify } from 'util'
@@ -16,21 +17,19 @@ interface ModuleType {
 }
 
 interface ClientConfig {
+  clientId: Snowflake
   token: string
-  name: string
+  guildId: Snowflake
 }
 
 export default class Client extends DiscordClient {
   #token: string
-  public name: string
   public commands: Collection<string, Command> = new Collection()
 
   public constructor(config: ClientConfig, options: ClientOptions) {
     super(options)
 
     this.#token = config.token
-
-    this.name = config.name
   }
 
   async #registerEvents(): Promise<void> {
