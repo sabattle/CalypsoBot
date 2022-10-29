@@ -3,9 +3,14 @@
   "version": "0.0.1",
   "description": "A fully customizable bot built with discord.js",
   "main": "app.ts",
+  "engines": {
+    "node": ">=18.12.0"
+  },
   "dependencies": {
+    "@types/glob": "^8.0.0",
     "discord.js": "^14.6.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "glob": "^8.0.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

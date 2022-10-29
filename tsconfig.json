@@ -17,7 +17,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "noImplicitAny": true
   },
   "include": ["src/**/*"],
   "exclude": ["dist", "node_modules"]

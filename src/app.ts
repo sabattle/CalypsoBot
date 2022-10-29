@@ -1,12 +1,9 @@
-import { Events } from 'discord.js'
+import { Events, GatewayIntentBits } from 'discord.js'
 import config from 'config'
-import { Client } from 'Client'
+import Client from 'structures/Client'
 
-const { token, intents } = config
-const client = new Client({ intents })
+const client = new Client(config, { intents: [GatewayIntentBits.Guilds] })
 
 client.once(Events.ClientReady, () => {
   console.log('Ready!')
 })
-
-client.login(token)
