@@ -1,20 +1,31 @@
-interface CommandOptions {
-  name: string
-  aliases: string[]
-  type: string
-  description: string
+import { CommandInteraction, type SlashCommandBuilder } from 'discord.js'
+import Client from 'structures/Client'
+
+export enum CommandType {
+  Info = 'info',
 }
 
-export default class Command {
-  public name: string
-  public aliases: string[]
-  public type: string
-  public description: string
+type RunFunction = (
+  client: Client,
+  interaction: CommandInteraction,
+) => Promise<void> | void
 
-  public constructor({ name, aliases, type, description }: CommandOptions) {
-    this.name = name
-    this.aliases = aliases
+interface CommandOptions {
+  data: SlashCommandBuilder
+  type: CommandType
+  run: RunFunction
+}
+
+type ICommand = CommandOptions
+
+export default class Command implements ICommand {
+  public data: SlashCommandBuilder
+  public type: CommandType
+  public run: RunFunction
+
+  public constructor({ data, type, run }: CommandOptions) {
+    this.data = data
     this.type = type
-    this.description = description
+    this.run = run
   }
 }
