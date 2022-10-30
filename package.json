@@ -23,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "commitizen": "^4.2.5",
+    "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
@@ -39,9 +40,9 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "start": "NODE_ENV=development ts-node src/app.ts",
-    "start:dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts",
-    "start:prod": "NODE_ENV=production node dist/app.ts",
+    "start": "cross-env NODE_ENV=development ts-node src/app.ts",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts",
+    "start:prod": "cross-env NODE_ENV=production node dist/app.ts",
     "build": "tsc",
     "watch": "tsc -w",
     "lint": "eslint --ext .js,.ts src",
