@@ -16,7 +16,7 @@ import { promisify } from 'util'
 
 const glob_ = promisify(glob)
 
-interface CommandModule {
+export interface CommandModule {
   default: Command
 }
 
@@ -77,9 +77,7 @@ export default class Client extends DiscordClient {
           logger.error(`Command failed to register: ${name}`)
           logger.error(err.message)
           table.push([f, name, '', '', chalk['red']('fail')])
-        } else {
-          logger.error(err)
-        }
+        } else logger.error(err)
       }
     }
 
@@ -115,9 +113,7 @@ export default class Client extends DiscordClient {
           logger.error(`Event failed to register: ${name}`)
           logger.error(err.message)
           table.push([f, name, '', '', chalk['red']('fail')])
-        } else {
-          logger.error(err)
-        }
+        } else logger.error(err)
         table.push([f, name, chalk['red']('fail')])
       }
     }

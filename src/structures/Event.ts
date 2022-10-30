@@ -15,6 +15,6 @@ export default class Event<K extends keyof ClientEvents> {
      *
      * @param args - List of arguments for the event
      */
-    public run: (...args: ClientEvents[K]) => void,
+    public run: (...args: ClientEvents[K]) => Promise<void> | void,
   ) {}
 }

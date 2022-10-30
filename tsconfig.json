@@ -20,6 +20,6 @@
     "baseUrl": "src",
     "noImplicitAny": true
   },
-  "include": ["src"],
+  "include": ["deploy.ts", "src"],
   "exclude": ["dist", "node_modules"]
 }
