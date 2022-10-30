@@ -5,5 +5,7 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "cSpell.enabled": true,
+  "cSpell.words": ["unvalidated"]
 }
