@@ -1,3 +1,13 @@
+/**
+ * Ensures an environment variable exists or throws an error.
+ *
+ * @remarks
+ * Provides a type safe way to load environment variables.
+ * Should only be used when creating the bot config.
+ *
+ * @param unvalidatedEnvironmentVariable - The initial environment variable before it has been type-checked
+ * @returns Validated environment variable
+ */
 const getEnvironmentVariable = (
   unvalidatedEnvironmentVariable: string,
 ): string => {

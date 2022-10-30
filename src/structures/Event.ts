@@ -1,8 +1,20 @@
 import { ClientEvents } from 'discord.js'
 
-export default class Event<Key extends keyof ClientEvents> {
+/**
+ * Generic Event class which provides the structure for all events.
+ *
+ * @typeParam K - Key which must be one of the following event types: {@link https://discord.js.org/#/docs/discord.js/main/typedef/Events}
+ */
+export default class Event<K extends keyof ClientEvents> {
   public constructor(
-    public event: Key,
-    public run: (...args: ClientEvents[Key]) => void,
+    /** The event type */
+    public event: K,
+
+    /**
+     * Handles all logic relating to event execution.
+     *
+     * @param args - List of arguments for the event
+     */
+    public run: (...args: ClientEvents[K]) => void,
   ) {}
 }
