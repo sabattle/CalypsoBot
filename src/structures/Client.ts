@@ -25,8 +25,8 @@ interface EventModule {
 }
 
 interface ClientConfig {
-  clientId: Snowflake
   token: string
+  clientId: Snowflake
   guildId: Snowflake
 }
 
@@ -41,10 +41,10 @@ export default class Client extends DiscordClient {
   #token: string
   public commands: Collection<string, Command> = new Collection()
 
-  public constructor(config: ClientConfig, options: ClientOptions) {
+  public constructor({ token }: ClientConfig, options: ClientOptions) {
     super(options)
 
-    this.#token = config.token
+    this.#token = token
   }
 
   async #registerCommands(): Promise<void> {
