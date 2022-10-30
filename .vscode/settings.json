@@ -7,5 +7,11 @@
     "source.fixAll.eslint": true
   },
   "cSpell.enabled": true,
-  "cSpell.words": ["unvalidated"]
+  "cSpell.words": [
+    "commitlint",
+    "discordjs",
+    "precommit",
+    "tsdoc",
+    "unvalidated"
+  ]
 }
