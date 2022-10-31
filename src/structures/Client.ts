@@ -16,14 +16,23 @@ import { promisify } from 'util'
 
 const glob_ = promisify(glob)
 
+/**
+ * Interface representing a Command import.
+ */
 export interface CommandModule {
   default: Command
 }
 
+/**
+ * Interface representing an Event import.
+ */
 interface EventModule {
   default: Event<keyof ClientEvents>
 }
 
+/**
+ * Interface of all available options used by the client for its config.
+ */
 interface ClientConfig {
   token: string
   clientId: Snowflake
@@ -38,7 +47,14 @@ const styling: Table.TableConstructorOptions = {
 }
 
 export default class Client extends DiscordClient {
+  /** The client token. */
   #token: string
+
+  /**
+   * Collection of all commands mapped by their name.
+   *
+   * @defaultValue `new Collection()`
+   */
   public commands: Collection<string, Command> = new Collection()
 
   public constructor({ token }: ClientConfig, options: ClientOptions) {
@@ -47,6 +63,9 @@ export default class Client extends DiscordClient {
     this.#token = token
   }
 
+  /**
+   * Handles loading commands and mapping them in the commands collection.
+   */
   async #registerCommands(): Promise<void> {
     logger.info('Registering commands...')
 
@@ -85,6 +104,9 @@ export default class Client extends DiscordClient {
     logger.info(`Registered ${count} command(s)`)
   }
 
+  /**
+   * Loads all events and registers them to the client.
+   */
   async #registerEvents(): Promise<void> {
     logger.info('Registering events...')
 
@@ -122,6 +144,9 @@ export default class Client extends DiscordClient {
     logger.info(`Registered ${count} event(s)`)
   }
 
+  /**
+   * Initializes the client.
+   */
   async init(): Promise<void> {
     await this.#registerCommands()
     await this.#registerEvents()

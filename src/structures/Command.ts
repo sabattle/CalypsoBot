@@ -1,4 +1,7 @@
-import { CommandInteraction, type SlashCommandBuilder } from 'discord.js'
+import {
+  type ChatInputCommandInteraction,
+  type SlashCommandBuilder,
+} from 'discord.js'
 import Client from 'structures/Client'
 
 /**
@@ -6,6 +9,7 @@ import Client from 'structures/Client'
  */
 export enum CommandType {
   Info = 'info',
+  Misc = 'misc',
 }
 
 /**
@@ -16,7 +20,7 @@ export enum CommandType {
  */
 type RunFunction = (
   client: Client,
-  interaction: CommandInteraction,
+  interaction: ChatInputCommandInteraction,
 ) => Promise<void> | void
 
 /**
@@ -24,11 +28,16 @@ type RunFunction = (
  */
 interface CommandOptions {
   data: SlashCommandBuilder
-  type: CommandType
+  type?: CommandType
   run: RunFunction
 }
 
-type ICommand = CommandOptions
+/**
+ * Interface implemented by the Command class.
+ */
+interface ICommand extends CommandOptions {
+  type: CommandType
+}
 
 /**
  * The Command class provides the structure for all bot commands.
@@ -37,13 +46,15 @@ export default class Command implements ICommand {
   /** Data representing a slash command which will be sent to the Discord API. */
   public data: SlashCommandBuilder
 
-  /** The command type. */
+  /** The command type.
+   * @defaultValue `CommandType.Misc`
+   */
   public type: CommandType
 
   /** Handles all logic relating to command execution. */
   public run: RunFunction
 
-  public constructor({ data, type, run }: CommandOptions) {
+  public constructor({ data, type = CommandType.Misc, run }: CommandOptions) {
     this.data = data
     this.type = type
     this.run = run

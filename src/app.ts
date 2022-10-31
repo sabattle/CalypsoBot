@@ -6,5 +6,5 @@ export const client = new Client(config, {
   intents: [GatewayIntentBits.Guilds],
 })
 
-// Initializes the bot
+// Initialize bot
 ;(async (): Promise<void> => await client.init())()
