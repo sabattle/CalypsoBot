@@ -1,5 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import Command, { CommandType } from 'structures/Command'
+import Command from 'structures/Command'
+import { CommandType, Emoji } from 'structures/enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -32,7 +33,7 @@ export default new Command({
     )}ms ]\`\`\``
 
     embed
-      .setTitle('Pong')
+      .setTitle(`Pong  ${Emoji.Pong}`)
       .setDescription(null)
       .addFields(
         { name: 'Heartbeat', value: heartbeat, inline: true },

@@ -2,7 +2,8 @@ import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import Command, { CommandType } from 'structures/Command'
+import Command from 'structures/Command'
+import { CommandType } from 'structures/enums'
 
 /* eslint-disable import/no-named-as-default-member */
 dayjs.extend(duration)

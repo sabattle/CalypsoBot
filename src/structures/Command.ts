@@ -3,14 +3,7 @@ import {
   type SlashCommandBuilder,
 } from 'discord.js'
 import Client from 'structures/Client'
-
-/**
- * Enum representing all possible command types.
- */
-export enum CommandType {
-  Info = 'info',
-  Misc = 'misc',
-}
+import { CommandType } from 'structures/enums'
 
 /**
  * Type definition of a command's run function.
