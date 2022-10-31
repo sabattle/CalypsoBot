@@ -46,6 +46,12 @@ const styling: Table.TableConstructorOptions = {
   },
 }
 
+/**
+ * The Client class provides the structure for the bot itself.
+ *
+ * @remarks
+ * This should only ever be instantiated once.
+ */
 export default class Client extends DiscordClient {
   /** The client token. */
   #token: string
