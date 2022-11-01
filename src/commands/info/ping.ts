@@ -8,19 +8,14 @@ export default new Command({
     .setDescription('Gets bots current ping.'),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
-    if (!interaction.inCachedGuild()) return
-
-    const {
-      guild: {
-        members: { me },
-      },
-      member,
-      createdTimestamp,
-    } = interaction
+    const { user, guild, createdTimestamp } = interaction
+    const member = interaction.inCachedGuild() ? interaction.member : undefined
 
     const embed = new EmbedBuilder()
       .setDescription('`Pinging...`')
-      .setColor(me?.displayHexColor || null)
+      .setColor(
+        guild?.members.me?.displayHexColor || user.hexAccentColor || null,
+      )
 
     const message = await interaction.reply({
       embeds: [embed],
@@ -40,8 +35,8 @@ export default new Command({
         { name: 'API Latency', value: latency, inline: true },
       )
       .setFooter({
-        text: member.displayName,
-        iconURL: member.displayAvatarURL(),
+        text: member?.displayName || user.username,
+        iconURL: user.displayAvatarURL(),
       })
       .setTimestamp()
     await interaction.editReply({ embeds: [embed] })

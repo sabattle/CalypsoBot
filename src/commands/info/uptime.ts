@@ -16,14 +16,8 @@ export default new Command({
     .setDescription('Gets bots current uptime.'),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
-    if (!interaction.inCachedGuild()) return
-
-    const {
-      guild: {
-        members: { me },
-      },
-      member,
-    } = interaction
+    const { user, guild } = interaction
+    const member = interaction.inCachedGuild() ? interaction.member : undefined
 
     const d = dayjs.duration(client.uptime || 0)
     const days = `${d.days()} day${d.days() == 1 ? '' : 's'}`
@@ -33,17 +27,21 @@ export default new Command({
     const date = dayjs().subtract(d.days(), 'day').format('dddd, MMMM Do YYYY')
 
     const embed = new EmbedBuilder()
-      .setTitle(`${me?.displayName || ''}'s Uptime`)
+      .setTitle(
+        `${
+          guild?.members.me?.displayName || client.user?.username || ''
+        }'s Uptime`,
+      )
       .setDescription(
         `\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``,
       )
       .setFields({ name: 'Date Launched', value: date, inline: true })
       .setFooter({
-        text: member.displayName,
-        iconURL: member.displayAvatarURL(),
+        text: member?.displayName || user.username,
+        iconURL: user.displayAvatarURL(),
       })
       .setTimestamp()
-      .setColor(me?.displayHexColor || null)
+      .setColor(guild?.members.me?.displayHexColor || null)
     await interaction.reply({ embeds: [embed] })
   },
 })
