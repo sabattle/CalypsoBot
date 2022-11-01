@@ -23,6 +23,7 @@
       "error",
       { "ignoreIIFE": true }
     ],
+    "@typescript-eslint/restrict-template-expressions": "off",
     "import/no-named-as-default": "off",
     "sort-imports": [
       "error",
