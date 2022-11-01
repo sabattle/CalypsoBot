@@ -15,11 +15,13 @@
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.1",
     "glob": "^8.0.3",
+    "lodash.startcase": "^4.4.0",
     "winston": "^3.8.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@types/lodash.startcase": "^4.4.7",
     "@types/node": "^18.0.4",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
