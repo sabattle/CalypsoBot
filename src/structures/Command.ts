@@ -1,5 +1,6 @@
 import {
   type ChatInputCommandInteraction,
+  PermissionsBitField,
   type SlashCommandBuilder,
 } from 'discord.js'
 import Client from 'structures/Client'
@@ -24,12 +25,17 @@ type SlashCommand =
   | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 
 /**
+ * Type definition of a command's list of permissions.
+ */
+type Permissions = bigint[]
+
+/**
  * Interface of all available options used for command creation.
  */
 interface CommandOptions {
   data: SlashCommand
-
   type?: CommandType
+  permissions?: Permissions
   run: RunFunction
 }
 
@@ -38,6 +44,7 @@ interface CommandOptions {
  */
 interface ICommand extends CommandOptions {
   type: CommandType
+  permissions: Permissions
 }
 
 /**
@@ -52,12 +59,27 @@ export default class Command implements ICommand {
    */
   public type: CommandType
 
+  /**
+   * List of client permissions needed to run the command.
+   * @defaultValue `[PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages]`
+   */
+  public permissions: Permissions
+
   /** Handles all logic relating to command execution. */
   public run: RunFunction
 
-  public constructor({ data, type = CommandType.Misc, run }: CommandOptions) {
+  public constructor({
+    data,
+    type = CommandType.Misc,
+    permissions = [
+      PermissionsBitField.Flags.SendMessages,
+      PermissionsBitField.Flags.ViewChannel,
+    ],
+    run,
+  }: CommandOptions) {
     this.data = data
     this.type = type
+    this.permissions = permissions
     this.run = run
   }
 }

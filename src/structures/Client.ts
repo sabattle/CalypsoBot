@@ -58,7 +58,6 @@ export default class Client extends DiscordClient {
 
   /**
    * Collection of all commands mapped by their name.
-   *
    * @defaultValue `new Collection()`
    */
   public commands: Collection<string, Command> = new Collection()

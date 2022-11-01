@@ -15,4 +15,12 @@ export enum CommandType {
  */
 export enum Emoji {
   Pong = '<:pong:747295268201824307>',
+  Fail = '<:fail:736449226120233031>',
+}
+
+/**
+ * Enum representing all color hexes used throughout the codebase.
+ */
+export enum Color {
+  Red = '#FF0000',
 }
