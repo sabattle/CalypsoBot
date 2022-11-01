@@ -17,10 +17,18 @@ type RunFunction = (
 ) => Promise<void> | void
 
 /**
+ * Type definition of a slash command.
+ */
+type SlashCommand =
+  | SlashCommandBuilder
+  | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
+
+/**
  * Interface of all available options used for command creation.
  */
 interface CommandOptions {
-  data: SlashCommandBuilder
+  data: SlashCommand
+
   type?: CommandType
   run: RunFunction
 }
@@ -37,7 +45,7 @@ interface ICommand extends CommandOptions {
  */
 export default class Command implements ICommand {
   /** Data representing a slash command which will be sent to the Discord API. */
-  public data: SlashCommandBuilder
+  public data: SlashCommand
 
   /** The command type.
    * @defaultValue `CommandType.Misc`
