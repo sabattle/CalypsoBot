@@ -36,8 +36,8 @@ export default new Event(Events.InteractionCreate, async (interaction) => {
                 )}\`\`\``,
               )
               .setFooter({
-                text: member?.displayName || user.username,
-                iconURL: user.displayAvatarURL(),
+                text: member.displayName || user.username,
+                iconURL: member.displayAvatarURL(),
               })
               .setColor(Color.Red)
               .setTimestamp(),
