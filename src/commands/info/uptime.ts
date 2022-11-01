@@ -28,9 +28,7 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle(
-        `${
-          guild?.members.me?.displayName || client.user?.username || ''
-        }'s Uptime`,
+        `${guild?.members.me?.displayName || client.user?.username}'s Uptime`,
       )
       .setDescription(
         `\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``,
