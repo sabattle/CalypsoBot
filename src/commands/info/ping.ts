@@ -5,17 +5,19 @@ import { CommandType, Emoji } from 'structures/enums'
 export default new Command({
   data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('Gets bots current ping.'),
+    .setDescription("Gets the bot's current ping."),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild, createdTimestamp } = interaction
     const member = interaction.inCachedGuild() ? interaction.member : undefined
 
     const embed = new EmbedBuilder()
-      .setDescription('`Pinging...`')
       .setColor(
-        guild?.members.me?.displayHexColor || user.hexAccentColor || null,
+        guild?.members.me?.displayHexColor ||
+          client.user?.hexAccentColor ||
+          null,
       )
+      .setDescription('`Pinging...`')
 
     const message = await interaction.reply({
       embeds: [embed],

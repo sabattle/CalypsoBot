@@ -23,8 +23,8 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle(`${member?.displayName || user.username}'s Avatar`)
+      .setColor(member?.displayHexColor || user.hexAccentColor || null)
       .setImage(user.displayAvatarURL({ size: 512 }))
-      .setColor(member?.displayHexColor || null)
       .setFooter({
         text: interaction.inCachedGuild()
           ? interaction.member.displayName

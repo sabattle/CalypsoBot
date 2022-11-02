@@ -3,7 +3,7 @@ import duration from 'dayjs/plugin/duration'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Command from 'structures/Command'
-import { CommandType } from 'structures/enums'
+import { CommandType, Image } from 'structures/enums'
 
 /* eslint-disable import/no-named-as-default-member */
 dayjs.extend(duration)
@@ -13,7 +13,7 @@ dayjs.extend(advancedFormat)
 export default new Command({
   data: new SlashCommandBuilder()
     .setName('uptime')
-    .setDescription('Gets bots current uptime.'),
+    .setDescription("Gets the bot's current uptime."),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
@@ -30,6 +30,12 @@ export default new Command({
       .setTitle(
         `${guild?.members.me?.displayName || client.user?.username}'s Uptime`,
       )
+      .setThumbnail(Image.Calypso)
+      .setColor(
+        guild?.members.me?.displayHexColor ||
+          client.user?.hexAccentColor ||
+          null,
+      )
       .setDescription(
         `\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``,
       )
@@ -38,8 +44,8 @@ export default new Command({
         text: member?.displayName || user.username,
         iconURL: user.displayAvatarURL(),
       })
+
       .setTimestamp()
-      .setColor(guild?.members.me?.displayHexColor || null)
     await interaction.reply({ embeds: [embed] })
   },
 })

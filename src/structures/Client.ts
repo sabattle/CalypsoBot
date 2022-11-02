@@ -5,7 +5,6 @@ import {
   type ClientOptions,
   Collection,
   Client as DiscordClient,
-  type Snowflake,
 } from 'discord.js'
 import glob from 'glob'
 import logger from 'logger'
@@ -35,8 +34,6 @@ interface EventModule {
  */
 interface ClientConfig {
   token: string
-  clientId: Snowflake
-  guildId: Snowflake
 }
 
 const styling: Table.TableConstructorOptions = {
@@ -54,7 +51,7 @@ const styling: Table.TableConstructorOptions = {
  */
 export default class Client extends DiscordClient {
   /** The client token. */
-  #token: string
+  readonly #token: string
 
   /**
    * Collection of all commands mapped by their name.
