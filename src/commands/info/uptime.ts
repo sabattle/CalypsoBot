@@ -46,6 +46,7 @@ export default new Command({
       })
 
       .setTimestamp()
+
     await interaction.reply({ embeds: [embed] })
   },
 })

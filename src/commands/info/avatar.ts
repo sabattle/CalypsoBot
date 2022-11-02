@@ -32,6 +32,7 @@ export default new Command({
         iconURL: interaction.user.displayAvatarURL(),
       })
       .setTimestamp()
+
     await interaction.reply({ embeds: [embed] })
   },
 })
