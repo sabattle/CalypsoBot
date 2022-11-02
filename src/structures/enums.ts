@@ -24,3 +24,21 @@ export enum Emoji {
 export enum Color {
   Red = '#FF0000',
 }
+
+/**
+ * Enum representing all Calypso images used in commands.
+ */
+export enum Image {
+  Calypso = 'https://raw.githubusercontent.com/sabattle/CalypsoBot/main/images/Calypso.png',
+  CalypsoTitle = 'https://raw.githubusercontent.com/sabattle/CalypsoBot/main/images/CalypsoTitle.png',
+}
+
+/**
+ * Enum representing all URLs relating to Calypso.
+ */
+export enum Url {
+  Invite = 'https://discord.com/api/oauth2/authorize?client_id=416451977380364288&permissions=1099914374230&scope=applications.commands%20bot',
+  SupportServer = 'https://discord.gg/9SpsSG5VWh',
+  GithubRepository = 'https://github.com/sabattle/CalypsoBot',
+  Donate = 'https://github.com/sabattle/CalypsoBot',
+}
