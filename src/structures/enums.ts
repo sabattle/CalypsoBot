@@ -40,5 +40,5 @@ export enum Url {
   Invite = 'https://discord.com/api/oauth2/authorize?client_id=416451977380364288&permissions=1099914374230&scope=applications.commands%20bot',
   SupportServer = 'https://discord.gg/9SpsSG5VWh',
   GithubRepository = 'https://github.com/sabattle/CalypsoBot',
-  Donate = 'https://github.com/sabattle/CalypsoBot',
+  Donate = 'https://www.paypal.com/paypalme/sebastianabattle',
 }
