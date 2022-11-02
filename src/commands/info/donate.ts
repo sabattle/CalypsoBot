@@ -7,6 +7,7 @@ import {
 } from 'discord.js'
 import Command from 'structures/Command'
 import { CommandType, Image, Url } from 'structures/enums'
+import { stripIndents } from 'common-tags'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -26,7 +27,7 @@ export default new Command({
           null,
       )
       .setDescription(
-        `Click [here](${Url.Donate}) to donate!
+        stripIndents`Click [here](${Url.Donate}) to donate!
         Thank you for helping to keep me running!`,
       )
       .setFooter({
@@ -43,7 +44,7 @@ export default new Command({
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.SupportServer)
-        .setLabel('Support Server'),
+        .setLabel('Server'),
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.GithubRepository)

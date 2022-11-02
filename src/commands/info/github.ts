@@ -1,3 +1,4 @@
+import { stripIndents } from 'common-tags'
 import {
   ActionRowBuilder,
   ButtonBuilder,
@@ -26,7 +27,7 @@ export default new Command({
           null,
       )
       .setDescription(
-        `Click [here](${Url.GithubRepository}) to visit my GitHub repository!
+        stripIndents`Click [here](${Url.GithubRepository}) to visit my GitHub repository!
         Please support me by starring ⭐ my repo!`,
       )
       .setFooter({
@@ -43,7 +44,7 @@ export default new Command({
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.SupportServer)
-        .setLabel('Support Server'),
+        .setLabel('Server'),
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.Donate)

@@ -58,6 +58,7 @@ export default class Client extends DiscordClient {
 
   /**
    * Collection of all commands mapped by their name.
+   *
    * @defaultValue `new Collection()`
    */
   public commands: Collection<string, Command> = new Collection()
@@ -149,7 +150,7 @@ export default class Client extends DiscordClient {
     logger.info(`Registered ${count} event(s)`)
   }
 
-  async replyWithError(
+  public async replyWithError(
     interaction: ChatInputCommandInteraction,
     type: ErrorType,
     message: string,
@@ -180,7 +181,7 @@ export default class Client extends DiscordClient {
   /**
    * Initializes the client.
    */
-  async init(): Promise<void> {
+  public async init(): Promise<void> {
     await this.#registerCommands()
     await this.#registerEvents()
     await this.login(this.#token)

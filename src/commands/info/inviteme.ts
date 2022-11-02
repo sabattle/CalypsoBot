@@ -25,9 +25,7 @@ export default new Command({
           client.user?.hexAccentColor ||
           null,
       )
-      .setDescription(
-        `Click [here](${Url.Invite}) to invite me to your server!`,
-      )
+      .setDescription(`Click [here](${Url.Invite}) to invite me!`)
       .setFooter({
         text: member?.displayName || user.username,
         iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
@@ -38,7 +36,7 @@ export default new Command({
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.SupportServer)
-        .setLabel('Support Server'),
+        .setLabel('Support'),
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.GithubRepository)
