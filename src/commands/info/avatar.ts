@@ -21,8 +21,8 @@ export default new Command({
     if (interaction.inCachedGuild()) {
       member = interaction.member
       targetMember =
-        guild?.members.cache.get(user.id) ||
-        (await guild?.members.fetch(user.id))
+        guild?.members.cache.get(targetUser.id) ||
+        (await guild?.members.fetch(targetUser.id))
     }
 
     const embed = new EmbedBuilder()
@@ -31,8 +31,8 @@ export default new Command({
         targetMember?.displayHexColor || targetUser.hexAccentColor || null,
       )
       .setImage(
-        member?.displayAvatarURL({ size: 512 }) ||
-          user.displayAvatarURL({ size: 512 }),
+        targetMember?.displayAvatarURL({ size: 512 }) ||
+          targetUser.displayAvatarURL({ size: 512 }),
       )
       .setFooter({
         text: member?.displayName || user.username,
