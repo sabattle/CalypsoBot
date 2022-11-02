@@ -31,7 +31,7 @@ export default new Command({
       )
       .setFooter({
         text: member?.displayName || user.username,
-        iconURL: user.displayAvatarURL(),
+        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
       })
       .setTimestamp()
 

@@ -1,4 +1,4 @@
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import { EmbedBuilder, GuildMember, SlashCommandBuilder } from 'discord.js'
 import Command from 'structures/Command'
 import { CommandType } from 'structures/enums'
 
@@ -14,22 +14,29 @@ export default new Command({
     ),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
-    const { guild, options } = interaction
-    const user = options.getUser('user') || interaction.user
-    const member = interaction.inCachedGuild()
-      ? guild?.members.cache.get(user.id) ||
+    const { user, guild, options } = interaction
+    let member: GuildMember | undefined
+    const targetUser = options.getUser('user') || user
+    let targetMember: GuildMember | undefined
+    if (interaction.inCachedGuild()) {
+      member = interaction.member
+      targetMember =
+        guild?.members.cache.get(user.id) ||
         (await guild?.members.fetch(user.id))
-      : undefined
+    }
 
     const embed = new EmbedBuilder()
-      .setTitle(`${member?.displayName || user.username}'s Avatar`)
-      .setColor(member?.displayHexColor || user.hexAccentColor || null)
-      .setImage(user.displayAvatarURL({ size: 512 }))
+      .setTitle(`${targetMember?.displayName || targetUser.username}'s Avatar`)
+      .setColor(
+        targetMember?.displayHexColor || targetUser.hexAccentColor || null,
+      )
+      .setImage(
+        member?.displayAvatarURL({ size: 512 }) ||
+          user.displayAvatarURL({ size: 512 }),
+      )
       .setFooter({
-        text: interaction.inCachedGuild()
-          ? interaction.member.displayName
-          : interaction.user.username,
-        iconURL: interaction.user.displayAvatarURL(),
+        text: member?.displayName || user.username,
+        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
       })
       .setTimestamp()
 

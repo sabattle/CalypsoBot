@@ -42,7 +42,7 @@ export default new Command({
       .setFields({ name: 'Date Launched', value: date, inline: true })
       .setFooter({
         text: member?.displayName || user.username,
-        iconURL: user.displayAvatarURL(),
+        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
       })
 
       .setTimestamp()
