@@ -16,6 +16,7 @@
     "dotenv": "^16.0.1",
     "glob": "^8.0.3",
     "lodash.startcase": "^4.4.0",
+    "node-fetch": "^2.6.7",
     "winston": "^3.8.2"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@commitlint/config-conventional": "^17.0.3",
     "@types/lodash.startcase": "^4.4.7",
     "@types/node": "^18.0.4",
+    "@types/node-fetch": "^2.6.2",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "commitizen": "^4.2.5",
@@ -45,7 +47,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node src/app.ts",
     "start:dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts",
-    "start:prod": "cross-env NODE_ENV=production node dist/app.ts",
+    "start:prod": "cross-env NODE_ENV=production TS_NODE_BASEURL=dist/src node -r tsconfig-paths/register dist/src/app.js",
     "deploy": "cross-env NODE_ENV=development ts-node deploy.ts",
     "deploy:dev": "npm run deploy",
     "deploy:prod": "cross-env NODE_ENV=production ts-node deploy.ts",
