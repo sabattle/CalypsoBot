@@ -2,8 +2,17 @@
  * Enum representing all possible command types.
  */
 export enum CommandType {
+  Fun = 'fun',
   Info = 'info',
   Misc = 'misc',
+}
+
+/**
+ * List of all possible error types.
+ */
+export enum ErrorType {
+  MissingPermissions = 'Missing Permissions',
+  CommandFailure = 'Command Failure',
 }
 
 /**
