@@ -11,8 +11,10 @@
     "commitlint",
     "discordjs",
     "IIFE",
+    "inviteme",
     "precommit",
     "startcase",
+    "supportserver",
     "tsdoc",
     "unvalidated"
   ]
