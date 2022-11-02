@@ -6,7 +6,6 @@
     "target": "ESNext",
     "module": "CommonJS",
     "lib": ["ESNext"],
-    "declaration": true,
     "sourceMap": false,
     "outDir": "dist",
     "strict": true,
