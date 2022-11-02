@@ -11,6 +11,7 @@
     "@types/glob": "^8.0.0",
     "chalk": "^4.1.2",
     "cli-table3": "^0.6.3",
+    "common-tags": "^1.8.2",
     "dayjs": "^1.11.6",
     "discord.js": "^14.6.0",
     "dotenv": "^16.0.1",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
     "@commitlint/config-conventional": "^17.0.3",
+    "@types/common-tags": "^1.8.1",
     "@types/lodash.startcase": "^4.4.7",
     "@types/node": "^18.0.4",
     "@types/node-fetch": "^2.6.2",
