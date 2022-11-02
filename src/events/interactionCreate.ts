@@ -1,8 +1,8 @@
-import { EmbedBuilder, Events, PermissionsBitField } from 'discord.js'
+import { Events, PermissionsBitField } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 import { client } from 'app'
-import { Color, Emoji } from 'structures/enums'
+import { ErrorType } from 'structures/enums'
 import startCase from 'lodash.startcase'
 
 export default new Event(Events.InteractionCreate, async (interaction) => {
@@ -23,27 +23,15 @@ export default new Event(Events.InteractionCreate, async (interaction) => {
       []
     if (permissions.length != 0) {
       try {
-        const { user } = client
-        const { member } = interaction
-        await interaction.reply({
-          embeds: [
-            new EmbedBuilder()
-              .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
-              .setTitle(`${Emoji.Fail}  Error: \`Missing Permissions\``)
-              .setDescription(
-                `Sorry ${member}, I need the following permissions for this command:\n \`\`\`diff\n- ${permissions?.join(
-                  '\n- ',
-                )}\`\`\``,
-              )
-              .setFooter({
-                text: member.displayName || user.username,
-                iconURL: member.displayAvatarURL(),
-              })
-              .setColor(Color.Red)
-              .setTimestamp(),
-          ],
-          ephemeral: true,
-        })
+        await client.replyWithError(
+          interaction,
+          ErrorType.MissingPermissions,
+          `Sorry ${
+            interaction.member
+          }, I need the following permissions for this command:\n \`\`\`diff\n- ${permissions.join(
+            '\n- ',
+          )}\`\`\``,
+        )
       } catch (err) {
         if (err instanceof Error) logger.error(err.message)
         else logger.error(err)

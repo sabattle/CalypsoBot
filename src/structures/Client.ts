@@ -1,10 +1,12 @@
 import chalk from 'chalk'
 import Table from 'cli-table3'
 import {
-  ClientEvents,
+  type ChatInputCommandInteraction,
+  type ClientEvents,
   type ClientOptions,
   Collection,
   Client as DiscordClient,
+  EmbedBuilder,
 } from 'discord.js'
 import glob from 'glob'
 import logger from 'logger'
@@ -12,6 +14,7 @@ import { basename } from 'path'
 import Command from 'structures/Command'
 import type Event from 'structures/Event'
 import { promisify } from 'util'
+import { Color, Emoji, type ErrorType } from './enums'
 
 const glob_ = promisify(glob)
 
@@ -144,6 +147,34 @@ export default class Client extends DiscordClient {
 
     logger.info(`\n${table.toString()}`)
     logger.info(`Registered ${count} event(s)`)
+  }
+
+  async replyWithError(
+    interaction: ChatInputCommandInteraction,
+    type: ErrorType,
+    message: string,
+  ): Promise<void> {
+    if (!this.isReady()) return
+    const { user } = interaction
+    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setAuthor({
+            name: this.user.tag,
+            iconURL: this.user.displayAvatarURL(),
+          })
+          .setTitle(`${Emoji.Fail}  Error: \`${type}\``)
+          .setDescription(message)
+          .setFooter({
+            text: member?.displayName || user.username,
+            iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          })
+          .setColor(Color.Red)
+          .setTimestamp(),
+      ],
+      ephemeral: true,
+    })
   }
 
   /**
