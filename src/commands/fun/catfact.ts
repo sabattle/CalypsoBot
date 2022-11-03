@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('https://catfact.ninja/fact')
       const fact = ((await res.json()) as { fact: string }).fact
+
       const embed = new EmbedBuilder()
         .setTitle('🐱  Cat Fact  🐱')
         .setColor(

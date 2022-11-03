@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('https://dog-api.kinduff.com/api/facts')
       const fact = ((await res.json()) as { facts: string[] }).facts[0]
+
       const embed = new EmbedBuilder()
         .setTitle('🐶  Dog Fact  🐶')
         .setColor(

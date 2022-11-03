@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('http://shibe.online/api/shibes')
       const image = ((await res.json()) as string[0])[0]
+
       const embed = new EmbedBuilder()
         .setTitle('🐶  Woof!  🐶')
         .setColor(

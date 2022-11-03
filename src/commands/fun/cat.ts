@@ -17,6 +17,7 @@ export default new Command({
       const res = await fetch(`${api}?json=true`)
       const id = ((await res.json()) as { _id: string })._id
       const image = api + '/' + id
+
       const embed = new EmbedBuilder()
         .setTitle('🐱  Meow!  🐱')
         .setColor(

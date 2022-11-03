@@ -3,7 +3,7 @@ import logger from 'logger'
 import Event from 'structures/Event'
 import { client } from 'app'
 import { ErrorType } from 'structures/enums'
-import startCase from 'lodash.startcase'
+import startCase from 'lodash/startCase'
 
 export default new Event(Events.InteractionCreate, async (interaction) => {
   if (!client.isReady() || !interaction.isChatInputCommand()) return

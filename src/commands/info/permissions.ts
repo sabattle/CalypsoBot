@@ -3,7 +3,7 @@ import {
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from 'discord.js'
-import startCase from 'lodash.startcase'
+import startCase from 'lodash/startCase'
 import Command from 'structures/Command'
 import { CommandType } from 'structures/enums'
 

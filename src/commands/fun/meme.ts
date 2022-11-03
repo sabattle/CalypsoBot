@@ -20,6 +20,7 @@ export default new Command({
         title: string
         url: string
       }
+
       const embed = new EmbedBuilder()
         .setTitle(title)
         .setColor(

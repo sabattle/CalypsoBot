@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('https://randomfox.ca/floof/')
       const image = ((await res.json()) as { image: string }).image
+
       const embed = new EmbedBuilder()
         .setTitle('🦊  What does the fox say?  🦊')
         .setColor(

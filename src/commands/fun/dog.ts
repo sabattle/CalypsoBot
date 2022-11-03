@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('https://dog.ceo/api/breeds/image/random')
       const image = ((await res.json()) as { message: string }).message
+
       const embed = new EmbedBuilder()
         .setTitle('🐶  Woof!  🐶')
         .setColor(

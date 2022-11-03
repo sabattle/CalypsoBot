@@ -15,6 +15,7 @@ export default new Command({
     try {
       const res = await fetch('https://random-d.uk/api/v2/random')
       const image = ((await res.json()) as { url: string }).url
+
       const embed = new EmbedBuilder()
         .setTitle('🦆  Quack!  🦆')
         .setColor(
