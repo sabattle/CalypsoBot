@@ -1,0 +1,43 @@
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
+import Command from 'structures/Command'
+import { CommandType, ErrorType } from 'structures/enums'
+import fetch from 'node-fetch'
+
+export default new Command({
+  data: new SlashCommandBuilder()
+    .setName('cat')
+    .setDescription('Displays a random cat.'),
+  type: CommandType.Fun,
+  run: async (client, interaction): Promise<void> => {
+    const { user, guild } = interaction
+    const member = interaction.inCachedGuild() ? interaction.member : undefined
+
+    try {
+      const api = 'https://cataas.com/cat'
+      const res = await fetch(`${api}?json=true`)
+      const id = ((await res.json()) as { _id: string })._id
+      const image = api + '/' + id
+      const embed = new EmbedBuilder()
+        .setTitle('🐱  Meow!  🐱')
+        .setColor(
+          guild?.members.me?.displayHexColor ||
+            client.user?.hexAccentColor ||
+            null,
+        )
+        .setImage(image)
+        .setFooter({
+          text: member?.displayName || user.username,
+          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        })
+        .setTimestamp()
+
+      await interaction.reply({ embeds: [embed] })
+    } catch (err) {
+      await client.replyWithError(
+        interaction,
+        ErrorType.CommandFailure,
+        `Sorry ${member}, please try again later.`,
+      )
+    }
+  },
+})
