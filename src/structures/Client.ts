@@ -1,20 +1,30 @@
 import chalk from 'chalk'
 import Table from 'cli-table3'
 import {
+  BaseGuildTextChannel,
+  type BooleanCache,
+  type CacheType,
   type ChatInputCommandInteraction,
   type ClientEvents,
   type ClientOptions,
   Collection,
   Client as DiscordClient,
   EmbedBuilder,
+  type InteractionReplyOptions,
+  type InteractionResponse,
+  type Message,
+  type MessagePayload,
+  PermissionFlagsBits,
+  type TextBasedChannel,
 } from 'discord.js'
 import glob from 'glob'
 import logger from 'logger'
 import { basename } from 'path'
-import Command from 'structures/Command'
+import type Command from 'structures/Command'
 import type Event from 'structures/Event'
 import { promisify } from 'util'
-import { Color, Emoji, type ErrorType } from './enums'
+import { Color, Emoji, ErrorType } from 'structures/enums'
+import { client } from 'app'
 
 const glob_ = promisify(glob)
 
@@ -53,7 +63,9 @@ const styling: Table.TableConstructorOptions = {
  * @remarks
  * This should only ever be instantiated once.
  */
-export default class Client extends DiscordClient {
+export default class Client<
+  Cached extends CacheType = CacheType,
+> extends DiscordClient {
   /** The client token. */
   readonly #token: string
 
@@ -146,9 +158,8 @@ export default class Client extends DiscordClient {
         if (err instanceof Error) {
           logger.error(`Event failed to register: ${name}`)
           logger.error(err.message)
-          table.push([f, name, '', '', chalk['red']('fail')])
+          table.push([f, name, chalk['red']('fail')])
         } else logger.error(err)
-        table.push([f, name, chalk['red']('fail')])
       }
     }
 
@@ -156,6 +167,58 @@ export default class Client extends DiscordClient {
     logger.info(`Registered ${count} event(s)`)
   }
 
+  /**
+   * Checks if the bot is allowed to respond in a channel.
+   *
+   * @param channel - The channel that should be checked
+   * @returns true or false
+   */
+  public isAllowed(channel: TextBasedChannel): boolean {
+    if (
+      channel instanceof BaseGuildTextChannel &&
+      (!channel.guild.members.me ||
+        !channel.viewable ||
+        !channel
+          .permissionsFor(channel.guild.members.me)
+          .has(
+            PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages,
+          ))
+    )
+      return false
+    else return true
+  }
+
+  // Steal the overloads \o/
+  public reply(
+    interaction: ChatInputCommandInteraction,
+    options: InteractionReplyOptions & { fetchReply: true },
+  ): Promise<Message<BooleanCache<Cached>>>
+  public reply(
+    interaction: ChatInputCommandInteraction,
+    options: string | MessagePayload | InteractionReplyOptions,
+  ): Promise<InteractionResponse<BooleanCache<Cached>>>
+
+  /**
+   *
+   * @param options - Options for configuring the interaction reply
+   * @returns The message if `fetchReply` is true, otherwise the interaction response
+   */
+  public async reply(
+    interaction: ChatInputCommandInteraction,
+    options: string | MessagePayload | InteractionReplyOptions,
+  ): Promise<Message | InteractionResponse | void> {
+    const { channel } = interaction
+    if (!interaction.inCachedGuild() || !channel || !client.isAllowed(channel))
+      return
+    return interaction.reply(options)
+  }
+
+  /**
+   * Helper function to provide a standardized way of responding to the user with an error message.
+   *
+   * @param type - The type of error
+   * @param message - The error message to be sent to the user
+   */
   public async replyWithError(
     interaction: ChatInputCommandInteraction,
     type: ErrorType,
@@ -164,7 +227,7 @@ export default class Client extends DiscordClient {
     if (!this.isReady()) return
     const { user } = interaction
     const member = interaction.inCachedGuild() ? interaction.member : undefined
-    await interaction.reply({
+    await this.reply(interaction, {
       embeds: [
         new EmbedBuilder()
           .setAuthor({

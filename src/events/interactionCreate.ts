@@ -22,20 +22,15 @@ export default new Event(Events.InteractionCreate, async (interaction) => {
         .map((p) => startCase(String(new PermissionsBitField(p).toArray()))) ||
       []
     if (permissions.length != 0) {
-      try {
-        await client.replyWithError(
-          interaction,
-          ErrorType.MissingPermissions,
-          `Sorry ${
-            interaction.member
-          }, I need the following permissions for this command:\n \`\`\`diff\n- ${permissions.join(
-            '\n- ',
-          )}\`\`\``,
-        )
-      } catch (err) {
-        if (err instanceof Error) logger.error(err.message)
-        else logger.error(err)
-      }
+      await client.replyWithError(
+        interaction,
+        ErrorType.MissingPermissions,
+        `Sorry ${
+          interaction.member
+        }, I need the following permissions for this command:\n \`\`\`diff\n- ${permissions.join(
+          '\n- ',
+        )}\`\`\``,
+      )
       return
     }
   }

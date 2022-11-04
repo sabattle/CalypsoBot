@@ -1,8 +1,10 @@
+import { client } from 'app'
 import { ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 
-export default new Event(Events.ClientReady, (client) => {
+export default new Event(Events.ClientReady, () => {
+  if (!client.isReady()) return
   const { user, guilds } = client
 
   const activities: ActivitiesOptions[][] = [
@@ -24,7 +26,7 @@ export default new Event(Events.ClientReady, (client) => {
       },
     ] // Update server count
     if (activity > 2) activity = 0
-    client.user.setActivity(activities[activity][0])
+    user.setActivity(activities[activity][0])
     activity++
   }, 30000)
 

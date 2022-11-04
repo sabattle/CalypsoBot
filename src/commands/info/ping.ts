@@ -19,7 +19,7 @@ export default new Command({
       )
       .setDescription('`Pinging...`')
 
-    const message = await interaction.reply({
+    const message = await client.reply(interaction, {
       embeds: [embed],
       fetchReply: true,
     })

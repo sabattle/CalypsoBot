@@ -51,6 +51,6 @@ export default new Command({
         .setLabel('GitHub'),
     )
 
-    await interaction.reply({ embeds: [embed], components: [row] })
+    await client.reply(interaction, { embeds: [embed], components: [row] })
   },
 })
