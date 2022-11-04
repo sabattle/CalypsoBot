@@ -171,7 +171,7 @@ export default class Client<
    * Checks if the bot is allowed to respond in a channel.
    *
    * @param channel - The channel that should be checked
-   * @returns true or false
+   * @returns `true` or `false`
    */
   public isAllowed(channel: TextBasedChannel): boolean {
     if (
@@ -199,6 +199,7 @@ export default class Client<
   ): Promise<InteractionResponse<BooleanCache<Cached>>>
 
   /**
+   * Replies safely by checking channel permissions before sending the response.
    *
    * @param options - Options for configuring the interaction reply
    * @returns The message if `fetchReply` is true, otherwise the interaction response
