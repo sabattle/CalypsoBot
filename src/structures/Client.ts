@@ -37,6 +37,7 @@ interface EventModule {
  */
 interface ClientConfig {
   token: string
+  debug: boolean
 }
 
 const styling: Table.TableConstructorOptions = {
@@ -56,6 +57,9 @@ export default class Client extends DiscordClient {
   /** The client token. */
   readonly #token: string
 
+  /** Whether or not debug mode is enabled. */
+  public readonly debug: boolean
+
   /**
    * Collection of all commands mapped by their name.
    *
@@ -63,10 +67,11 @@ export default class Client extends DiscordClient {
    */
   public commands: Collection<string, Command> = new Collection()
 
-  public constructor({ token }: ClientConfig, options: ClientOptions) {
+  public constructor({ token, debug }: ClientConfig, options: ClientOptions) {
     super(options)
 
     this.#token = token
+    this.debug = debug
   }
 
   /**
@@ -131,6 +136,7 @@ export default class Client extends DiscordClient {
 
     for (const f of files) {
       const name = basename(f, '.ts')
+      if (name === 'debug' && !this.debug) continue
       try {
         const event = ((await import(f)) as EventModule).default
         this.on(event.event, event.run)
