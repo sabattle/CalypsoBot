@@ -99,24 +99,14 @@ export default class Command implements ICommand {
    * @param interaction - The interaction that spawned the command
    * @returns An object containing the target member and original member
    */
-  public static async getTargetMemberOrSelf(
-    interaction: ChatInputCommandInteraction,
-  ): Promise<{
-    targetMember: GuildMember | undefined
-    member: GuildMember | undefined
-  }> {
+  public static getMember(interaction: ChatInputCommandInteraction): {
+    targetMember: GuildMember | null
+    member: GuildMember | null
+  } {
     if (!interaction.inCachedGuild())
-      return { targetMember: undefined, member: undefined }
-    const {
-      guild: { members },
-      member,
-      options,
-    } = interaction
-    const user = options.getUser('user')
-    const targetMember = user
-      ? members.cache.get(user.id) || (await members.fetch(user.id))
-      : interaction.member
-
+      return { targetMember: null, member: null }
+    const { member, options } = interaction
+    const targetMember = options.getMember('user') || member
     return { targetMember, member }
   }
 
@@ -125,31 +115,21 @@ export default class Command implements ICommand {
    * If no user was given as a command argument, then the original user becomes the target.
    *
    * @remarks
-   * `targetUser` and `targetMember` should be used anywhere requiring the interaction option user.
-   * `user` and `member` reference the original user who created the interaction.
+   * `targetMember` and `targetUser` should be used anywhere requiring the interaction option user.
+   * `member` and `user` reference the original user who created the interaction.
    *
    * @param interaction - The interaction that spawned the command
-   * @returns An object containing the target user, target member, original user, and original member
+   * @returns An object containing the target member, original member, target user, and original user
    */
-  public static async getTargetUserOrMemberOrSelf(
-    interaction: ChatInputCommandInteraction,
-  ): Promise<{
+  public static getMemberAndUser(interaction: ChatInputCommandInteraction): {
+    targetMember: GuildMember | null
+    member: GuildMember | null
     targetUser: User
-    targetMember: GuildMember | undefined
     user: User
-    member: GuildMember | undefined
-  }> {
+  } {
     const { user, options } = interaction
-    let member: GuildMember | undefined
     const targetUser = options.getUser('user') || user
-    let targetMember: GuildMember | undefined
-    if (interaction.inCachedGuild()) {
-      const { guild } = interaction
-      ;({ member } = interaction)
-      targetMember =
-        guild.members.cache.get(targetUser.id) ||
-        (await guild.members.fetch(targetUser.id))
-    }
-    return { targetUser, targetMember, user, member }
+    const { targetMember, member } = this.getMember(interaction)
+    return { targetMember, member, targetUser, user }
   }
 }

@@ -16,8 +16,8 @@ export default new Command({
   type: CommandType.Fun,
   run: async (client, interaction): Promise<void> => {
     const { guild } = interaction
-    const { targetUser, targetMember, user, member } =
-      await Command.getTargetUserOrMemberOrSelf(interaction)
+    const { targetMember, member, targetUser, user } =
+      Command.getMemberAndUser(interaction)
 
     try {
       const res = await fetch('http://quandyfactory.com/insult/json/')

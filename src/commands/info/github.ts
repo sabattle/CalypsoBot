@@ -12,11 +12,11 @@ import { CommandType, Image, Url } from 'structures/enums'
 export default new Command({
   data: new SlashCommandBuilder()
     .setName('github')
-    .setDescription("Provides a link to bot's GitHub repository."),
+    .setDescription("Provides a link to the bot's GitHub repository."),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
       .setTitle('GitHub Repository')
@@ -27,8 +27,10 @@ export default new Command({
           null,
       )
       .setDescription(
-        stripIndents`Click [here](${Url.GithubRepository}) to visit my GitHub repository!
-        Please support me by starring ⭐ my repo!`,
+        stripIndents`
+          Click [here](${Url.GithubRepository}) to visit my GitHub repository!
+          Please support me by starring ⭐ my repo!
+        `,
       )
       .setFooter({
         text: member?.displayName || user.username,

@@ -16,7 +16,7 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
       .setTitle('Donate')
@@ -27,8 +27,10 @@ export default new Command({
           null,
       )
       .setDescription(
-        stripIndents`Click [here](${Url.Donate}) to donate!
-        Thank you for helping to keep me running!`,
+        stripIndents`
+          Click [here](${Url.Donate}) to donate!
+          Thank you for helping to keep me running!
+        `,
       )
       .setFooter({
         text: member?.displayName || user.username,

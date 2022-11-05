@@ -15,7 +15,7 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
       .setTitle('Invite Me!')
@@ -36,7 +36,7 @@ export default new Command({
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.SupportServer)
-        .setLabel('Support'),
+        .setLabel('Server'),
       new ButtonBuilder()
         .setStyle(ButtonStyle.Link)
         .setURL(Url.GithubRepository)

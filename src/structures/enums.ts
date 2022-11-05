@@ -25,6 +25,7 @@ export enum ErrorType {
 export enum Emoji {
   Pong = '<:pong:747295268201824307>',
   Fail = '<:fail:736449226120233031>',
+  Owner = '<:owner:735338114230255616>',
 }
 
 /**
@@ -39,7 +40,7 @@ export enum Color {
  */
 export enum Image {
   Calypso = 'https://raw.githubusercontent.com/sabattle/CalypsoBot/main/images/Calypso.png',
-  CalypsoTitle = 'https://raw.githubusercontent.com/sabattle/CalypsoBot/main/images/CalypsoTitle.png',
+  CalypsoTitle = 'https://raw.githubusercontent.com/sabattle/CalypsoBot/main/images/Calypso_Title.png',
 }
 
 /**

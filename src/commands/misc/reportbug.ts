@@ -19,7 +19,7 @@ export default new Command({
   type: CommandType.Misc,
   run: async (client, interaction): Promise<void> => {
     const { user, guild, options } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     // Get bug report channel
     const bugReportChannel = client.channels.cache.get(
@@ -64,9 +64,9 @@ export default new Command({
           )
           .setDescription(
             stripIndents`
-        Your bug report was successfully sent!
-        Please join the [Calypso Support Server](${Url.SupportServer}) for further discussion.
-      `,
+              Your bug report was successfully sent!
+              Please join the [Calypso Support Server](${Url.SupportServer}) for further discussion.
+            `,
           )
           .setFooter({
             text: member?.displayName || user.username,

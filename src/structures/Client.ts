@@ -16,6 +16,7 @@ import {
   type MessageCreateOptions,
   type MessagePayload,
   PermissionFlagsBits,
+  type Snowflake,
   type TextBasedChannel,
 } from 'discord.js'
 import glob from 'glob'
@@ -48,8 +49,9 @@ interface EventModule {
  */
 interface ClientConfig {
   token: string
-  feedbackChannelId: string
-  bugReportChannelId: string
+  ownerIds: Snowflake[]
+  feedbackChannelId: Snowflake
+  bugReportChannelId: Snowflake
   debug: boolean
 }
 
@@ -72,11 +74,14 @@ export default class Client<
   /** The client token. */
   readonly #token: string
 
+  /** List of owner IDs. */
+  public readonly ownerIds: Snowflake[]
+
   /** The feedback channel ID. */
-  public readonly feedbackChannelId: string
+  public readonly feedbackChannelId: Snowflake
 
   /** The bug report channel ID. */
-  public readonly bugReportChannelId: string
+  public readonly bugReportChannelId: Snowflake
 
   /** Whether or not debug mode is enabled. */
   public readonly debug: boolean
@@ -89,12 +94,19 @@ export default class Client<
   public commands: Collection<string, Command> = new Collection()
 
   public constructor(
-    { token, feedbackChannelId, bugReportChannelId, debug }: ClientConfig,
+    {
+      token,
+      ownerIds,
+      feedbackChannelId,
+      bugReportChannelId,
+      debug,
+    }: ClientConfig,
     options: ClientOptions,
   ) {
     super(options)
 
     this.#token = token
+    this.ownerIds = ownerIds
     this.feedbackChannelId = feedbackChannelId
     this.bugReportChannelId = bugReportChannelId
     this.debug = debug
@@ -120,7 +132,9 @@ export default class Client<
     let count = 0
 
     for (const f of files) {
-      const name = basename(f, '.ts')
+      let name = basename(f)
+      name = name.substring(0, name.lastIndexOf('.')) || name
+
       try {
         const command = ((await import(f)) as CommandModule).default
         if (command.data.name) {
@@ -161,8 +175,10 @@ export default class Client<
     let count = 0
 
     for (const f of files) {
-      const name = basename(f, '.ts')
+      let name = basename(f)
+      name = name.substring(0, name.lastIndexOf('.')) || name
       if (name === 'debug' && !this.debug) continue
+
       try {
         const event = ((await import(f)) as EventModule).default
         this.on(event.event, event.run)
@@ -256,7 +272,7 @@ export default class Client<
   ): Promise<void> {
     if (!this.isReady()) return
     const { user } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const member = interaction.inCachedGuild() ? interaction.member : null
     await this.reply(interaction, {
       embeds: [
         new EmbedBuilder()

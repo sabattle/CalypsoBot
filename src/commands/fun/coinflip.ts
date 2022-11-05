@@ -9,7 +9,7 @@ export default new Command({
   type: CommandType.Fun,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
       .setTitle('🪙  Coinflip  🪙')

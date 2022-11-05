@@ -17,7 +17,7 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    const member = interaction.inCachedGuild() ? interaction.member : undefined
+    const { member } = Command.getMember(interaction)
 
     const d = dayjs.duration(client.uptime || 0)
     const days = `${d.days()} day${d.days() == 1 ? '' : 's'}`

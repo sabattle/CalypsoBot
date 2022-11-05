@@ -14,8 +14,8 @@ export default new Command({
     ),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
-    const { targetUser, targetMember, user, member } =
-      await Command.getTargetUserOrMemberOrSelf(interaction)
+    const { targetMember, member, targetUser, user } =
+      Command.getMemberAndUser(interaction)
 
     const embed = new EmbedBuilder()
       .setTitle(`${targetMember?.displayName || targetUser.username}'s Avatar`)

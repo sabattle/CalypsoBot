@@ -1,11 +1,7 @@
-import {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  SlashCommandBuilder,
-} from 'discord.js'
-import startCase from 'lodash/startCase'
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Command from 'structures/Command'
 import { CommandType } from 'structures/enums'
+import { getPermissions } from 'utils'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -20,20 +16,10 @@ export default new Command({
     .setDMPermission(false),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
-    const { targetMember, member } = await Command.getTargetMemberOrSelf(
-      interaction,
-    )
+    const { targetMember, member } = Command.getMember(interaction)
     if (!targetMember || !member) return
 
-    // Get member permissions
-    const memberPermissions = targetMember.permissions.toArray() as string[]
-    const allPermissions = Object.keys(PermissionFlagsBits)
-    const permissions = []
-    for (const permission of allPermissions) {
-      if (memberPermissions.includes(permission))
-        permissions.push(`+ ${startCase(permission)}`)
-      else permissions.push(`- ${startCase(permission)}`)
-    }
+    const permissions = getPermissions(targetMember)
 
     const embed = new EmbedBuilder()
       .setTitle(`${targetMember.displayName}'s Permissions`)
