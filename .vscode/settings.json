@@ -8,6 +8,7 @@
   },
   "cSpell.enabled": true,
   "cSpell.words": [
+    "bugreport",
     "catfact",
     "coinflip",
     "commitlint",
@@ -17,6 +18,7 @@
     "IIFE",
     "inviteme",
     "precommit",
+    "reportbug",
     "servericon",
     "Shiba",
     "shibe",
