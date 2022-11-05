@@ -13,6 +13,7 @@ import {
   type InteractionReplyOptions,
   type InteractionResponse,
   type Message,
+  type MessageCreateOptions,
   type MessagePayload,
   PermissionFlagsBits,
   type TextBasedChannel,
@@ -47,6 +48,8 @@ interface EventModule {
  */
 interface ClientConfig {
   token: string
+  feedbackChannelId: string
+  bugReportChannelId: string
   debug: boolean
 }
 
@@ -69,6 +72,12 @@ export default class Client<
   /** The client token. */
   readonly #token: string
 
+  /** The feedback channel ID. */
+  public readonly feedbackChannelId: string
+
+  /** The bug report channel ID. */
+  public readonly bugReportChannelId: string
+
   /** Whether or not debug mode is enabled. */
   public readonly debug: boolean
 
@@ -79,10 +88,15 @@ export default class Client<
    */
   public commands: Collection<string, Command> = new Collection()
 
-  public constructor({ token, debug }: ClientConfig, options: ClientOptions) {
+  public constructor(
+    { token, feedbackChannelId, bugReportChannelId, debug }: ClientConfig,
+    options: ClientOptions,
+  ) {
     super(options)
 
     this.#token = token
+    this.feedbackChannelId = feedbackChannelId
+    this.bugReportChannelId = bugReportChannelId
     this.debug = debug
   }
 
@@ -118,7 +132,7 @@ export default class Client<
         if (err instanceof Error) {
           logger.error(`Command failed to register: ${name}`)
           logger.error(err.message)
-          table.push([f, name, '', '', chalk['red']('fail')])
+          table.push([f, name, '', chalk['red']('fail')])
         } else logger.error(err)
       }
     }
@@ -188,6 +202,21 @@ export default class Client<
     else return true
   }
 
+  /**
+   * Sends a message safely by checking channel permissions before sending the message.
+   *
+   * @param channel - The channel to send the message in
+   * @param options - Options for configuring the message
+   * @returns The message sent or nothing
+   */
+  public async send(
+    channel: TextBasedChannel,
+    options: string | MessagePayload | MessageCreateOptions,
+  ): Promise<Message | void> {
+    if (!this.isAllowed(channel)) return
+    return await channel.send(options)
+  }
+
   // Steal the overloads \o/
   public reply(
     interaction: ChatInputCommandInteraction,
@@ -202,7 +231,7 @@ export default class Client<
    * Replies safely by checking channel permissions before sending the response.
    *
    * @param options - Options for configuring the interaction reply
-   * @returns The message if `fetchReply` is true, otherwise the interaction response
+   * @returns The message if `fetchReply` is true, otherwise the interaction response or nothing
    */
   public async reply(
     interaction: ChatInputCommandInteraction,

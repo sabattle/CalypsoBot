@@ -18,5 +18,7 @@ export default {
   token: getEnvironmentVariable('TOKEN'),
   clientId: getEnvironmentVariable('CLIENT_ID'),
   guildId: getEnvironmentVariable('GUILD_ID'),
+  feedbackChannelId: getEnvironmentVariable('FEEDBACK_CHANNEL_ID'),
+  bugReportChannelId: getEnvironmentVariable('BUG_REPORT_CHANNEL_ID'),
   debug: argv.debug,
 }
