@@ -1,10 +1,4 @@
-import {
-  EmbedBuilder,
-  GuildMember,
-  Role,
-  SlashCommandBuilder,
-  User,
-} from 'discord.js'
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import Command from 'structures/Command'
 import { CommandType } from 'structures/enums'
 
@@ -17,21 +11,15 @@ export default new Command({
         .setName('target')
         .setDescription('The target to find the ID of.')
         .setRequired(true),
-    ),
+    )
+    .setDMPermission(false),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
+    if (!interaction.inCachedGuild()) return
     const { user, guild, options } = interaction
     const { member } = Command.getMember(interaction)
     const target = options.getMentionable('target')
-
-    if (
-      !(
-        target instanceof User ||
-        target instanceof GuildMember ||
-        target instanceof Role
-      )
-    )
-      return
+    if (!target) return
 
     const embed = new EmbedBuilder()
       .setTitle('Find ID')
