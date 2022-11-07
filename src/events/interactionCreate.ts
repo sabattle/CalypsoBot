@@ -12,6 +12,14 @@ import type SelectMenu from 'structures/SelectMenu'
 import type Command from 'structures/Command'
 import type Client from 'structures/Client'
 
+/**
+ * Utility function to check if the client is missing any necessary permissions.
+ *
+ * @param client - The instantiated client
+ * @param interaction - The interaction that spawned the event
+ * @param object - The struct that is being executed
+ * @returns A list of all missing permissions as strings
+ */
 const checkClientPermissions = (
   client: Client<true>,
   interaction:
