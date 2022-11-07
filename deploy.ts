@@ -30,7 +30,7 @@ const _loadCommands = async (): Promise<
     } catch (err) {
       if (err instanceof Error) {
         logger.error(`Command failed to import: ${name}`)
-        logger.error(err.message)
+        logger.error(err.stack)
       } else logger.error(err)
     }
   }
