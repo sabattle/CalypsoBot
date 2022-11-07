@@ -1,16 +1,16 @@
 import {
-  ChatInputCommandInteraction,
+  type ChatInputCommandInteraction,
   Events,
   PermissionsBitField,
-  SelectMenuInteraction,
+  type SelectMenuInteraction,
 } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 import { ErrorType } from 'structures/enums'
 import startCase from 'lodash/startCase'
-import SelectMenu from 'structures/SelectMenu'
-import Command from 'structures/Command'
-import Client from 'structures/Client'
+import type SelectMenu from 'structures/SelectMenu'
+import type Command from 'structures/Command'
+import type Client from 'structures/Client'
 
 const checkClientPermissions = (
   client: Client<true>,
