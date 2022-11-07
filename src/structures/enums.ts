@@ -2,8 +2,8 @@
  * Enum representing all possible command types.
  */
 export enum CommandType {
-  Fun = 'fun',
   Info = 'info',
+  Fun = 'fun',
   Misc = 'misc',
 }
 

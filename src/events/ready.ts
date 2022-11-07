@@ -1,9 +1,8 @@
-import { client } from 'app'
 import { ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 
-export default new Event(Events.ClientReady, () => {
+export default new Event(Events.ClientReady, (client) => {
   if (!client.isReady()) return
   const { user, guilds } = client
 

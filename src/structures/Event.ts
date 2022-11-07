@@ -1,4 +1,5 @@
 import { ClientEvents } from 'discord.js'
+import Client from 'structures/Client'
 
 /**
  * Generic Event class which provides the structure for all events.
@@ -13,8 +14,12 @@ export default class Event<K extends keyof ClientEvents> {
     /**
      * Handles all logic relating to event execution.
      *
+     * @param client - The client to bind to the event
      * @param args - List of arguments for the event
      */
-    public run: (...args: ClientEvents[K]) => Promise<void> | void,
+    public run: (
+      client: Client<boolean>,
+      ...args: ClientEvents[K]
+    ) => Promise<void> | void,
   ) {}
 }

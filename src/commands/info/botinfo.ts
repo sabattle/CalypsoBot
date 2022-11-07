@@ -18,7 +18,6 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
-    if (!client.isReady()) return
     const {
       users,
       user: { id },

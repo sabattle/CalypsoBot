@@ -42,6 +42,6 @@ export default new Command({
       })
       .setTimestamp()
 
-    await interaction.editReply({ embeds: [embed] })
+    await client.editReply(interaction, { embeds: [embed] })
   },
 })

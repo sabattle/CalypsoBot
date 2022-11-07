@@ -15,7 +15,7 @@ import { CommandType } from 'structures/enums'
  * @param interaction - The interaction that prompted the command
  */
 type RunFunction = (
-  client: Client,
+  client: Client<true>,
   interaction: ChatInputCommandInteraction,
 ) => Promise<void> | void
 
@@ -42,17 +42,9 @@ interface CommandOptions {
 }
 
 /**
- * Interface implemented by the Command class.
- */
-interface ICommand extends CommandOptions {
-  type: CommandType
-  permissions: Permissions
-}
-
-/**
  * The Command class provides the structure for all bot commands.
  */
-export default class Command implements ICommand {
+export default class Command {
   /** Data representing a slash command which will be sent to the Discord API. */
   public data: SlashCommand
 

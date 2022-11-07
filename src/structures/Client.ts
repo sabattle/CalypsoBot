@@ -12,12 +12,16 @@ import {
   EmbedBuilder,
   type InteractionReplyOptions,
   type InteractionResponse,
+  type InteractionUpdateOptions,
   type Message,
+  type MessageComponentInteraction,
   type MessageCreateOptions,
   type MessagePayload,
   PermissionFlagsBits,
+  type SelectMenuInteraction,
   type Snowflake,
   type TextBasedChannel,
+  type WebhookEditMessageOptions,
 } from 'discord.js'
 import glob from 'glob'
 import logger from 'logger'
@@ -26,7 +30,7 @@ import type Command from 'structures/Command'
 import type Event from 'structures/Event'
 import { promisify } from 'util'
 import { Color, Emoji, ErrorType } from 'structures/enums'
-import { client } from 'app'
+import SelectMenu from 'structures/SelectMenu'
 
 const glob_ = promisify(glob)
 
@@ -35,6 +39,13 @@ const glob_ = promisify(glob)
  */
 export interface CommandModule {
   default: Command
+}
+
+/**
+ * Interface representing a Command import.
+ */
+export interface SelectMenuModule {
+  default: SelectMenu
 }
 
 /**
@@ -69,8 +80,9 @@ const styling: Table.TableConstructorOptions = {
  * This should only ever be instantiated once.
  */
 export default class Client<
+  Ready extends boolean = boolean,
   Cached extends CacheType = CacheType,
-> extends DiscordClient {
+> extends DiscordClient<Ready> {
   /** The client token. */
   readonly #token: string
 
@@ -92,6 +104,12 @@ export default class Client<
    * @defaultValue `new Collection()`
    */
   public commands: Collection<string, Command> = new Collection()
+
+  /**
+   * Collection of all select menus mapped by their custom ID.
+   *
+   * @defaultValue `new Collection()`
+   */ public selectMenus: Collection<string, SelectMenu> = new Collection()
 
   public constructor(
     {
@@ -145,7 +163,7 @@ export default class Client<
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Command failed to register: ${name}`)
-          logger.error(err.message)
+          logger.error(err.stack)
           table.push([f, name, '', chalk['red']('fail')])
         } else logger.error(err)
       }
@@ -153,6 +171,50 @@ export default class Client<
 
     logger.info(`\n${table.toString()}`)
     logger.info(`Registered ${count} command(s)`)
+  }
+
+  /**
+   * Handles loading select menus and mapping them in the select menus collection.
+   */
+  async #registerSelectMenus(): Promise<void> {
+    logger.info('Registering select menus...')
+
+    const files = await glob_(`${__dirname}/../selectmenus/*{.ts,.js}`)
+    if (files.length === 0) {
+      logger.warn('No select menus found')
+      return
+    }
+
+    const table = new Table({
+      head: ['File', 'Name', 'Status'],
+      ...styling,
+    })
+
+    let count = 0
+
+    for (const f of files) {
+      let name = basename(f)
+      name = name.substring(0, name.lastIndexOf('.')) || name
+
+      try {
+        const selectMenu = ((await import(f)) as SelectMenuModule).default
+        const { customId } = selectMenu
+        if (customId) {
+          this.selectMenus.set(customId, selectMenu)
+          table.push([f, name, chalk['green']('pass')])
+          count++
+        } else throw Error(`Select menu custom ID not set: ${name}`)
+      } catch (err) {
+        if (err instanceof Error) {
+          logger.error(`Select menu failed to register: ${name}`)
+          logger.error(err.stack)
+          table.push([f, name, chalk['red']('fail')])
+        } else logger.error(err)
+      }
+    }
+
+    logger.info(`\n${table.toString()}`)
+    logger.info(`Registered ${count} select menus(s)`)
   }
 
   /**
@@ -181,13 +243,13 @@ export default class Client<
 
       try {
         const event = ((await import(f)) as EventModule).default
-        this.on(event.event, event.run)
+        this.on(event.event, event.run.bind(null, this))
         table.push([f, name, chalk['green']('pass')])
         count++
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Event failed to register: ${name}`)
-          logger.error(err.message)
+          logger.error(err.stack)
           table.push([f, name, chalk['red']('fail')])
         } else logger.error(err)
       }
@@ -230,16 +292,16 @@ export default class Client<
     options: string | MessagePayload | MessageCreateOptions,
   ): Promise<Message | void> {
     if (!this.isAllowed(channel)) return
-    return await channel.send(options)
+    return channel.send(options)
   }
 
   // Steal the overloads \o/
   public reply(
-    interaction: ChatInputCommandInteraction,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     options: InteractionReplyOptions & { fetchReply: true },
   ): Promise<Message<BooleanCache<Cached>>>
   public reply(
-    interaction: ChatInputCommandInteraction,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
   ): Promise<InteractionResponse<BooleanCache<Cached>>>
 
@@ -247,16 +309,58 @@ export default class Client<
    * Replies safely by checking channel permissions before sending the response.
    *
    * @param options - Options for configuring the interaction reply
-   * @returns The message if `fetchReply` is true, otherwise the interaction response or nothing
+   * @returns The message or interaction response
    */
   public async reply(
-    interaction: ChatInputCommandInteraction,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
-  ): Promise<Message | InteractionResponse | void> {
+  ): Promise<Message<boolean> | InteractionResponse<boolean> | void> {
     const { channel } = interaction
-    if (!interaction.inCachedGuild() || !channel || !client.isAllowed(channel))
+    if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
       return
     return interaction.reply(options)
+  }
+
+  /**
+   * Edits the reply safely by checking channel permissions before editing.
+   *
+   * @param options - Options for configuring the interaction edit
+   * @returns The edited message
+   */
+  public async editReply(
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    options: string | MessagePayload | WebhookEditMessageOptions,
+  ): Promise<Message<boolean> | undefined> {
+    const { channel } = interaction
+    if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
+      return
+    return interaction.editReply(options)
+  }
+
+  // Steal the overloads again \o/ \o/
+  public update(
+    interaction: MessageComponentInteraction,
+    options: InteractionUpdateOptions & { fetchReply: true },
+  ): Promise<Message<BooleanCache<Cached>>>
+  public update(
+    interaction: MessageComponentInteraction,
+    options: string | MessagePayload | InteractionUpdateOptions,
+  ): Promise<InteractionResponse<BooleanCache<Cached>>>
+
+  /**
+   * Updates the interaction safely by checking channel permissions before updating.
+   *
+   * @param options - Options for configuring the interaction update
+   * @returns The updated message or interaction response
+   */
+  public async update(
+    interaction: MessageComponentInteraction,
+    options: string | MessagePayload | InteractionUpdateOptions,
+  ): Promise<Message<boolean> | InteractionResponse<boolean> | void> {
+    const { channel } = interaction
+    if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
+      return
+    return interaction.update(options)
   }
 
   /**
@@ -266,7 +370,7 @@ export default class Client<
    * @param message - The error message to be sent to the user
    */
   public async replyWithError(
-    interaction: ChatInputCommandInteraction,
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     type: ErrorType,
     message: string,
   ): Promise<void> {
@@ -298,6 +402,7 @@ export default class Client<
    */
   public async init(): Promise<void> {
     await this.#registerCommands()
+    await this.#registerSelectMenus()
     await this.#registerEvents()
     await this.login(this.#token)
   }

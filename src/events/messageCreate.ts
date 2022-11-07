@@ -1,9 +1,8 @@
-import { client } from 'app'
 import { EmbedBuilder, Events } from 'discord.js'
 import { Image } from 'structures/enums'
 import Event from 'structures/Event'
 
-export default new Event(Events.MessageCreate, async (message) => {
+export default new Event(Events.MessageCreate, async (client, message) => {
   const { guild, channel, author, content } = message
 
   if (!client.isReady() || author.bot) return
