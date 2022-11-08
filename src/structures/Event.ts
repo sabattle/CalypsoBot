@@ -1,5 +1,5 @@
-import { ClientEvents } from 'discord.js'
-import Client from 'structures/Client'
+import type { ClientEvents } from 'discord.js'
+import type Client from 'structures/Client'
 
 /**
  * Generic Event class which provides the structure for all events.
@@ -18,7 +18,7 @@ export default class Event<K extends keyof ClientEvents> {
      * @param args - List of arguments for the event
      */
     public run: (
-      client: Client<boolean>,
+      client: Client,
       ...args: ClientEvents[K]
     ) => Promise<void> | void,
   ) {}

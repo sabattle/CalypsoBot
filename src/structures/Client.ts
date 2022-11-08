@@ -2,8 +2,6 @@ import chalk from 'chalk'
 import Table from 'cli-table3'
 import {
   BaseGuildTextChannel,
-  type BooleanCache,
-  type CacheType,
   type ChatInputCommandInteraction,
   type ClientEvents,
   type ClientOptions,
@@ -29,30 +27,18 @@ import { basename } from 'path'
 import type Command from 'structures/Command'
 import type Event from 'structures/Event'
 import { promisify } from 'util'
-import { Color, Emoji, ErrorType } from 'structures/enums'
-import SelectMenu from 'structures/SelectMenu'
+import { Color, Emoji, type ErrorType } from 'structures/enums'
+import type SelectMenu from 'structures/SelectMenu'
 
 const glob_ = promisify(glob)
 
 /**
- * Interface representing a Command import.
+ * Generic interface representing a structure import.
  */
-export interface CommandModule {
-  default: Command
-}
-
-/**
- * Interface representing a Command import.
- */
-export interface SelectMenuModule {
-  default: SelectMenu
-}
-
-/**
- * Interface representing an Event import.
- */
-interface EventModule {
-  default: Event<keyof ClientEvents>
+export interface StructureModule<
+  Structure extends Command | SelectMenu | Event<keyof ClientEvents>,
+> {
+  default: Structure
 }
 
 /**
@@ -81,7 +67,6 @@ const styling: Table.TableConstructorOptions = {
  */
 export default class Client<
   Ready extends boolean = boolean,
-  Cached extends CacheType = CacheType,
 > extends DiscordClient<Ready> {
   /** The client token. */
   readonly #token: string
@@ -154,17 +139,17 @@ export default class Client<
       name = name.substring(0, name.lastIndexOf('.')) || name
 
       try {
-        const command = ((await import(f)) as CommandModule).default
+        const command = ((await import(f)) as StructureModule<Command>).default
         if (command.data.name) {
           this.commands.set(command.data.name, command)
-          table.push([f, name, command.type, chalk['green']('pass')])
+          table.push([f, name, command.type, chalk.green('pass')])
           count++
         } else throw Error(`Command name not set: ${name}`)
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Command failed to register: ${name}`)
           logger.error(err.stack)
-          table.push([f, name, '', chalk['red']('fail')])
+          table.push([f, name, '', chalk.red('fail')])
         } else logger.error(err)
       }
     }
@@ -197,18 +182,19 @@ export default class Client<
       name = name.substring(0, name.lastIndexOf('.')) || name
 
       try {
-        const selectMenu = ((await import(f)) as SelectMenuModule).default
+        const selectMenu = ((await import(f)) as StructureModule<SelectMenu>)
+          .default
         const { customId } = selectMenu
         if (customId) {
           this.selectMenus.set(customId, selectMenu)
-          table.push([f, name, chalk['green']('pass')])
+          table.push([f, name, chalk.green('pass')])
           count++
         } else throw Error(`Select menu custom ID not set: ${name}`)
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Select menu failed to register: ${name}`)
           logger.error(err.stack)
-          table.push([f, name, chalk['red']('fail')])
+          table.push([f, name, chalk.red('fail')])
         } else logger.error(err)
       }
     }
@@ -242,15 +228,17 @@ export default class Client<
       if (name === 'debug' && !this.debug) continue
 
       try {
-        const event = ((await import(f)) as EventModule).default
+        const event = (
+          (await import(f)) as StructureModule<Event<keyof ClientEvents>>
+        ).default
         this.on(event.event, event.run.bind(null, this))
-        table.push([f, name, chalk['green']('pass')])
+        table.push([f, name, chalk.green('pass')])
         count++
       } catch (err) {
         if (err instanceof Error) {
           logger.error(`Event failed to register: ${name}`)
           logger.error(err.stack)
-          table.push([f, name, chalk['red']('fail')])
+          table.push([f, name, chalk.red('fail')])
         } else logger.error(err)
       }
     }
@@ -285,25 +273,15 @@ export default class Client<
    *
    * @param channel - The channel to send the message in
    * @param options - Options for configuring the message
-   * @returns The message sent or nothing
+   * @returns The message sent
    */
   public async send(
     channel: TextBasedChannel,
     options: string | MessagePayload | MessageCreateOptions,
-  ): Promise<Message | void> {
+  ): Promise<Message | undefined> {
     if (!this.isAllowed(channel)) return
     return channel.send(options)
   }
-
-  // Steal the overloads \o/
-  public reply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
-    options: InteractionReplyOptions & { fetchReply: true },
-  ): Promise<Message<BooleanCache<Cached>>>
-  public reply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
-    options: string | MessagePayload | InteractionReplyOptions,
-  ): Promise<InteractionResponse<BooleanCache<Cached>>>
 
   /**
    * Replies safely by checking channel permissions before sending the response.
@@ -311,10 +289,19 @@ export default class Client<
    * @param options - Options for configuring the interaction reply
    * @returns The message or interaction response
    */
+  // Steal the overloads \o/
+  public reply(
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    options: InteractionReplyOptions & { fetchReply: true },
+  ): Promise<Message>
+  public reply(
+    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    options: string | MessagePayload | InteractionReplyOptions,
+  ): Promise<InteractionResponse>
   public async reply(
     interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
-  ): Promise<Message<boolean> | InteractionResponse<boolean> | void> {
+  ): Promise<Message | InteractionResponse | undefined> {
     const { channel } = interaction
     if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
       return
@@ -330,22 +317,12 @@ export default class Client<
   public async editReply(
     interaction: ChatInputCommandInteraction | SelectMenuInteraction,
     options: string | MessagePayload | WebhookEditMessageOptions,
-  ): Promise<Message<boolean> | undefined> {
+  ): Promise<Message | undefined> {
     const { channel } = interaction
     if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
       return
     return interaction.editReply(options)
   }
-
-  // Steal the overloads again \o/ \o/
-  public update(
-    interaction: MessageComponentInteraction,
-    options: InteractionUpdateOptions & { fetchReply: true },
-  ): Promise<Message<BooleanCache<Cached>>>
-  public update(
-    interaction: MessageComponentInteraction,
-    options: string | MessagePayload | InteractionUpdateOptions,
-  ): Promise<InteractionResponse<BooleanCache<Cached>>>
 
   /**
    * Updates the interaction safely by checking channel permissions before updating.
@@ -353,10 +330,19 @@ export default class Client<
    * @param options - Options for configuring the interaction update
    * @returns The updated message or interaction response
    */
+  // Steal the overloads again \o/ \o/
+  public update(
+    interaction: MessageComponentInteraction,
+    options: InteractionUpdateOptions & { fetchReply: true },
+  ): Promise<Message>
+  public update(
+    interaction: MessageComponentInteraction,
+    options: string | MessagePayload | InteractionUpdateOptions,
+  ): Promise<InteractionResponse>
   public async update(
     interaction: MessageComponentInteraction,
     options: string | MessagePayload | InteractionUpdateOptions,
-  ): Promise<Message<boolean> | InteractionResponse<boolean> | void> {
+  ): Promise<Message | InteractionResponse | undefined> {
     const { channel } = interaction
     if (interaction.inCachedGuild() && channel && !this.isAllowed(channel))
       return
@@ -387,8 +373,8 @@ export default class Client<
           .setTitle(`${Emoji.Fail}  Error: \`${type}\``)
           .setDescription(message)
           .setFooter({
-            text: member?.displayName || user.username,
-            iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+            text: member?.displayName ?? user.username,
+            iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
           })
           .setColor(Color.Red)
           .setTimestamp(),

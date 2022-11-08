@@ -5,7 +5,7 @@ import {
   type SlashCommandBuilder,
   type User,
 } from 'discord.js'
-import Client from 'structures/Client'
+import type Client from 'structures/Client'
 import { CommandType } from 'structures/enums'
 
 /**
@@ -91,6 +91,14 @@ export default class Command {
    * @param interaction - The interaction that spawned the command
    * @returns An object containing the target member and original member
    */
+  public static getMember(interaction: ChatInputCommandInteraction<'cached'>): {
+    targetMember: GuildMember
+    member: GuildMember
+  }
+  public static getMember(interaction: ChatInputCommandInteraction): {
+    targetMember: GuildMember | null
+    member: GuildMember | null
+  }
   public static getMember(interaction: ChatInputCommandInteraction): {
     targetMember: GuildMember | null
     member: GuildMember | null
@@ -98,7 +106,7 @@ export default class Command {
     if (!interaction.inCachedGuild())
       return { targetMember: null, member: null }
     const { member, options } = interaction
-    const targetMember = options.getMember('user') || member
+    const targetMember = options.getMember('user') ?? member
     return { targetMember, member }
   }
 
@@ -120,7 +128,7 @@ export default class Command {
     user: User
   } {
     const { user, options } = interaction
-    const targetUser = options.getUser('user') || user
+    const targetUser = options.getUser('user') ?? user
     const { targetMember, member } = this.getMember(interaction)
     return { targetMember, member, targetUser, user }
   }

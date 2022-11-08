@@ -1,5 +1,5 @@
 import { PermissionsBitField, type SelectMenuInteraction } from 'discord.js'
-import Client from 'structures/Client'
+import type Client from 'structures/Client'
 
 /**
  * Type definition of a select menu's run function.
