@@ -13,8 +13,8 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription('`Pinging...`')
@@ -37,8 +37,8 @@ export default new Command({
         { name: 'API Latency', value: latency, inline: true },
       )
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

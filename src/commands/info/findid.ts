@@ -24,9 +24,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Find ID')
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
-          null,
+        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
       )
       .setFields([
         { name: 'Target', value: `${target}`, inline: true },
@@ -37,8 +35,8 @@ export default new Command({
         },
       ])
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member.displayName || user.username,
+        iconURL: member.displayAvatarURL() || user.displayAvatarURL(),
       })
       .setTimestamp()
 

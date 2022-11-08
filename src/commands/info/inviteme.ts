@@ -21,14 +21,14 @@ export default new Command({
       .setTitle('Invite Me!')
       .setThumbnail(Image.Calypso)
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(`Click [here](${Url.Invite}) to invite me!`)
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

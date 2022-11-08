@@ -21,20 +21,20 @@ export default new Command({
 
     try {
       const res = await fetch('http://quandyfactory.com/insult/json/')
-      let insult = ((await res.json()) as { insult: string }).insult
+      let { insult } = (await res.json()) as { insult: string }
       insult = insult.charAt(0).toLowerCase() + insult.slice(1)
 
       const embed = new EmbedBuilder()
         .setTitle('🎭  Thou Art  🎭')
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
-        .setDescription(`${targetMember || targetUser}, ${insult}`)
+        .setDescription(`${targetMember ?? targetUser}, ${insult}`)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

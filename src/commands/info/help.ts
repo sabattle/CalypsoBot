@@ -1,6 +1,6 @@
 import { oneLine } from 'common-tags'
 import {
-  APIApplicationCommandOptionChoice,
+  type APIApplicationCommandOptionChoice,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
@@ -38,16 +38,18 @@ export default new Command({
     const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
-      .setTitle('Help Menu')
+      .setTitle(
+        `${guild?.members.me?.displayName ?? client.user.username}'s Commands`,
+      )
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setImage(Image.CalypsoTitle)
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 
@@ -72,7 +74,7 @@ export default new Command({
       }
 
       client.commands.forEach((command) => {
-        commands[command.type]?.push(`\`${command.data.name}\``)
+        commands[command.type].push(`\`${command.data.name}\``)
       })
 
       for (const [key, value] of Object.entries(commands)) {

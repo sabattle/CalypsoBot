@@ -14,19 +14,19 @@ export default new Command({
 
     try {
       const res = await fetch('https://catfact.ninja/fact')
-      const fact = ((await res.json()) as { fact: string }).fact
+      const { fact } = (await res.json()) as { fact: string }
 
       const embed = new EmbedBuilder()
         .setTitle('🐱  Cat Fact  🐱')
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
         .setDescription(fact)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

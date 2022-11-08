@@ -31,7 +31,7 @@ const checkClientPermissions = (
     interaction.channel
       ?.permissionsFor(client.user)
       ?.missing(object.permissions)
-      .map((p) => startCase(String(new PermissionsBitField(p).toArray()))) || []
+      .map((p) => startCase(String(new PermissionsBitField(p).toArray()))) ?? []
   return permissions
 }
 

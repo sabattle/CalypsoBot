@@ -13,13 +13,13 @@ export default new Event(Events.MessageCreate, async (client, message) => {
     const embed = new EmbedBuilder()
       .setTitle(
         `Hi, I'm ${
-          guild?.members.me?.displayName || client.user.username
+          guild?.members.me?.displayName ?? client.user.username
         }. Need help?`,
       )
       .setThumbnail(Image.Calypso)
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(
@@ -29,6 +29,6 @@ export default new Event(Events.MessageCreate, async (client, message) => {
         text: 'DM Nettles#8880 to speak directly with the developer!',
       })
 
-    await channel.send({ embeds: [embed] })
+    await client.send(channel, { embeds: [embed] })
   }
 })

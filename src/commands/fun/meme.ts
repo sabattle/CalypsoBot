@@ -24,14 +24,14 @@ export default new Command({
       const embed = new EmbedBuilder()
         .setTitle(title)
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
         .setImage(url)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

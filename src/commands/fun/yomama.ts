@@ -21,7 +21,7 @@ export default new Command({
 
     try {
       const res = await fetch('https://api.yomomma.info')
-      let joke = ((await res.json()) as { joke: string }).joke
+      let { joke } = (await res.json()) as { joke: string }
       joke = joke.charAt(0).toLowerCase() + joke.slice(1)
       if (!joke.endsWith('!') && !joke.endsWith('.') && !joke.endsWith('"'))
         joke += '!' // Cleanup joke
@@ -29,14 +29,14 @@ export default new Command({
       const embed = new EmbedBuilder()
         .setTitle('👩  Yo Mama  👩')
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
-        .setDescription(`${targetMember || targetUser}, ${joke}`)
+        .setDescription(`${targetMember ?? targetUser}, ${joke}`)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

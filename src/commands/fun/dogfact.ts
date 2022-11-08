@@ -19,14 +19,14 @@ export default new Command({
       const embed = new EmbedBuilder()
         .setTitle('🐶  Dog Fact  🐶')
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
         .setDescription(fact)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

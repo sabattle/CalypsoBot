@@ -1,4 +1,4 @@
-import { ActivitiesOptions, ActivityType, Events } from 'discord.js'
+import { type ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 

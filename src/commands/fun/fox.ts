@@ -14,19 +14,19 @@ export default new Command({
 
     try {
       const res = await fetch('https://randomfox.ca/floof/')
-      const image = ((await res.json()) as { image: string }).image
+      const { image } = (await res.json()) as { image: string }
 
       const embed = new EmbedBuilder()
         .setTitle('🦊  What does the fox say?  🦊')
         .setColor(
-          guild?.members.me?.displayHexColor ||
-            client.user?.hexAccentColor ||
+          guild?.members.me?.displayHexColor ??
+            client.user.hexAccentColor ??
             null,
         )
         .setImage(image)
         .setFooter({
-          text: member?.displayName || user.username,
-          iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+          text: member?.displayName ?? user.username,
+          iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
         })
         .setTimestamp()
 

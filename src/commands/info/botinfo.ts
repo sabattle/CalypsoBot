@@ -27,14 +27,18 @@ export default new Command({
 
     const botOwners: User[] = []
     for (const id of ownerIds) {
-      botOwners.push(users.cache.get(id) || (await users.fetch(id)))
+      botOwners.push(users.cache.get(id) ?? (await users.fetch(id)))
     }
 
     const embed = new EmbedBuilder()
-      .setTitle('Bot Information')
+      .setTitle(
+        `${
+          guild?.members.me?.displayName ?? client.user.username
+        }'s Information`,
+      )
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(
@@ -57,7 +61,7 @@ export default new Command({
           value: stripIndents`\`\`\`asciidoc
             Version     :: ${version}
             Library     :: Discord.js v${
-              dependencies['discord.js']?.substring(1) || ''
+              dependencies['discord.js'].substring(1) || ''
             }
             Environment :: Node.js ${process.version}
             Database    :: MongoDB
@@ -66,8 +70,8 @@ export default new Command({
       ])
       .setImage(Image.CalypsoTitle)
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

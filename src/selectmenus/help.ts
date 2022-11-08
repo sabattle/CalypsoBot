@@ -1,9 +1,9 @@
 import {
   ActionRowBuilder,
-  ButtonBuilder,
+  type ButtonBuilder,
   EmbedBuilder,
   SelectMenuBuilder,
-  SelectMenuComponent,
+  type SelectMenuComponent,
 } from 'discord.js'
 import capitalize from 'lodash/capitalize'
 import { CommandType } from 'structures/enums'

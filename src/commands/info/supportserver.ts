@@ -21,16 +21,16 @@ export default new Command({
       .setTitle('Support Server')
       .setThumbnail(Image.Calypso)
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(
         `Click [here](${Url.SupportServer}) to join my support server!`,
       )
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

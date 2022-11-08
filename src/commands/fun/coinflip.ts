@@ -14,8 +14,8 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('🪙  Coinflip  🪙')
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(
@@ -24,8 +24,8 @@ export default new Command({
         }**.`,
       )
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

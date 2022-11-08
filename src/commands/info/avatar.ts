@@ -18,17 +18,17 @@ export default new Command({
       Command.getMemberAndUser(interaction)
 
     const embed = new EmbedBuilder()
-      .setTitle(`${targetMember?.displayName || targetUser.username}'s Avatar`)
+      .setTitle(`${targetMember?.displayName ?? targetUser.username}'s Avatar`)
       .setColor(
-        targetMember?.displayHexColor || targetUser.hexAccentColor || null,
+        targetMember?.displayHexColor ?? targetUser.hexAccentColor ?? null,
       )
       .setImage(
-        targetMember?.displayAvatarURL({ size: 512 }) ||
+        targetMember?.displayAvatarURL({ size: 512 }) ??
           targetUser.displayAvatarURL({ size: 512 }),
       )
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

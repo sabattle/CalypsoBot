@@ -39,9 +39,7 @@ export default new Command({
       .setTitle(`Member Status [${members.cache.size}]`)
       .setThumbnail(guild.iconURL())
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
-          null,
+        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
       )
       .setDescription(
         stripIndents`
@@ -52,8 +50,8 @@ export default new Command({
       `,
       )
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member.displayName || user.username,
+        iconURL: member.displayAvatarURL() || user.displayAvatarURL(),
       })
       .setTimestamp()
 

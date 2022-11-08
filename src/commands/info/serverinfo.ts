@@ -21,7 +21,7 @@ const premiumTiers = ['`None`', '`Tier 1`', '`Tier 2`', '`Tier 3`']
 export default new Command({
   data: new SlashCommandBuilder()
     .setName('serverinfo')
-    .setDescription('Displays information and statistics about the server.')
+    .setDescription('Displays server information and statistics.')
     .setDMPermission(false),
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
@@ -96,9 +96,7 @@ export default new Command({
       .setTitle(`${guild.name}'s Information`)
       .setThumbnail(guild.iconURL())
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
-          null,
+        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
       )
       .setFields([
         {
@@ -173,8 +171,8 @@ export default new Command({
         },
       ])
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member.displayName || user.username,
+        iconURL: member.displayAvatarURL() || user.displayAvatarURL(),
       })
       .setTimestamp()
 

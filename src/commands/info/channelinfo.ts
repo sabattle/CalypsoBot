@@ -33,7 +33,7 @@ export default new Command({
 
     await guild.members.fetch() // Fetch before snagging channel
 
-    const channel = options.getChannel('channel') || interaction.channel
+    const channel = options.getChannel('channel') ?? interaction.channel
     if (!channel) return
 
     const { id, type, createdAt, members } = channel
@@ -52,9 +52,7 @@ export default new Command({
       .setTitle('Channel Information')
       .setThumbnail(guild.iconURL())
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
-          null,
+        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
       )
       .setFields([
         { name: 'Channel', value: `${channel}`, inline: true },

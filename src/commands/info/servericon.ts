@@ -14,9 +14,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`${guild.name}'s Icon`)
       .setColor(
-        guild.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
-          null,
+        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
       )
       .setImage(guild.iconURL({ size: 512 }))
       .setFooter({

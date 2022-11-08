@@ -34,8 +34,8 @@ export default new Command({
       .setTitle('Feedback')
       .setThumbnail(Image.Calypso)
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(options.getString('feedback'))
@@ -43,7 +43,7 @@ export default new Command({
         { name: 'User', value: user.tag, inline: true },
         {
           name: 'Server',
-          value: interaction.guild?.name || 'N/A',
+          value: interaction.guild?.name ?? 'N/A',
           inline: true,
         },
       ])
@@ -56,8 +56,8 @@ export default new Command({
           .setTitle('Feedback Sent')
           .setThumbnail(Image.Calypso)
           .setColor(
-            guild?.members.me?.displayHexColor ||
-              client.user?.hexAccentColor ||
+            guild?.members.me?.displayHexColor ??
+              client.user.hexAccentColor ??
               null,
           )
           .setDescription(
@@ -67,8 +67,8 @@ export default new Command({
             `,
           )
           .setFooter({
-            text: member?.displayName || user.username,
-            iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+            text: member?.displayName ?? user.username,
+            iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
           })
           .setTimestamp(),
       ],

@@ -19,7 +19,7 @@ export default new Command({
     const { user, guild } = interaction
     const { member } = Command.getMember(interaction)
 
-    const d = dayjs.duration(client.uptime || 0)
+    const d = dayjs.duration(client.uptime)
     const days = `${d.days()} day${d.days() == 1 ? '' : 's'}`
     const hours = `${d.hours()} hour${d.hours() == 1 ? '' : 's'}`
     const minutes = `${d.minutes()} minute${d.minutes() == 1 ? '' : 's'}`
@@ -28,12 +28,12 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle(
-        `${guild?.members.me?.displayName || client.user?.username}'s Uptime`,
+        `${guild?.members.me?.displayName ?? client.user.username}'s Uptime`,
       )
       .setThumbnail(Image.Calypso)
       .setColor(
-        guild?.members.me?.displayHexColor ||
-          client.user?.hexAccentColor ||
+        guild?.members.me?.displayHexColor ??
+          client.user.hexAccentColor ??
           null,
       )
       .setDescription(
@@ -41,8 +41,8 @@ export default new Command({
       )
       .setFields({ name: 'Date Launched', value: date, inline: true })
       .setFooter({
-        text: member?.displayName || user.username,
-        iconURL: member?.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
 
       .setTimestamp()
