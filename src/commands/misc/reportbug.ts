@@ -13,7 +13,6 @@ export default new Command({
       option
         .setName('bugreport')
         .setDescription('The bug to report.')
-        .setMaxLength(4096)
         .setRequired(true),
     ),
   type: CommandType.Misc,

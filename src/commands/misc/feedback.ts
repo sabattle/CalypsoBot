@@ -13,7 +13,6 @@ export default new Command({
       option
         .setName('feedback')
         .setDescription('The feedback to send.')
-        .setMaxLength(4096)
         .setRequired(true),
     ),
   type: CommandType.Misc,
