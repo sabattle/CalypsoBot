@@ -19,7 +19,7 @@ export default {
   clientId: getEnvironmentVariable('CLIENT_ID'),
   guildId: getEnvironmentVariable('GUILD_ID'),
   ownerIds: getEnvironmentVariable('OWNER_IDS').split(','),
-  feedbackChannelId: getEnvironmentVariable('FEEDBACK_CHANNEL_ID'),
-  bugReportChannelId: getEnvironmentVariable('BUG_REPORT_CHANNEL_ID'),
+  feedbackChannelId: process.env.FEEDBACK_CHANNEL_ID ?? '',
+  bugReportChannelId: process.env.BUG_REPORT_CHANNEL_ID ?? '',
   debug: argv.debug,
 }
