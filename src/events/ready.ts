@@ -1,8 +1,9 @@
+import database from 'database'
 import { type ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
 
-export default new Event(Events.ClientReady, (client) => {
+export default new Event(Events.ClientReady, async (client) => {
   if (!client.isReady()) return
   const { user, guilds } = client
 
@@ -20,7 +21,7 @@ export default new Event(Events.ClientReady, (client) => {
   setInterval(() => {
     activities[2] = [
       {
-        name: `${client.guilds.cache.size} servers`,
+        name: `${guilds.cache.size} servers`,
         type: ActivityType.Watching,
       },
     ] // Update server count
@@ -28,6 +29,24 @@ export default new Event(Events.ClientReady, (client) => {
     user.setActivity(activities[activity][0])
     activity++
   }, 30000)
+
+  // Update guilds
+  logger.info('Updating guilds...')
+  for (const guild of guilds.cache.values()) {
+    const { id: guildId, name } = guild
+    await database.guild.upsert({
+      where: {
+        guildId,
+      },
+      update: {
+        name,
+      },
+      create: {
+        guildId,
+        name,
+      },
+    })
+  }
 
   logger.info(`${user.username} is now online`)
   logger.info(`${user.username} is running on ${guilds.cache.size} server(s)`)
