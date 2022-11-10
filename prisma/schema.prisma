@@ -11,6 +11,11 @@ model Guild {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
   guildId String @unique
   name    String
+  config  Config
 
   @@map("guilds")
+}
+
+type Config {
+  colorRolePrefix String @default("#")
 }

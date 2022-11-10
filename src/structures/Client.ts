@@ -29,6 +29,7 @@ import type Event from 'structures/Event'
 import { promisify } from 'util'
 import { Color, Emoji, type ErrorType } from 'structures/enums'
 import type SelectMenu from 'structures/SelectMenu'
+import ConfigCache from 'structures/ConfigCache'
 
 const glob_ = promisify(glob)
 
@@ -84,6 +85,13 @@ export default class Client<
   public readonly debug: boolean
 
   /**
+   * Collection of all guild configs mapped by their guild ID.
+   *
+   * @defaultValue `new ConfigCache()`
+   */
+  public configs: ConfigCache = new ConfigCache()
+
+  /**
    * Collection of all commands mapped by their name.
    *
    * @defaultValue `new Collection()`
@@ -94,7 +102,8 @@ export default class Client<
    * Collection of all select menus mapped by their custom ID.
    *
    * @defaultValue `new Collection()`
-   */ public selectMenus: Collection<string, SelectMenu> = new Collection()
+   */
+  public selectMenus: Collection<string, SelectMenu> = new Collection()
 
   public constructor(
     {

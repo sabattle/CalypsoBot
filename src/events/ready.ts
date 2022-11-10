@@ -1,4 +1,4 @@
-import database from 'database'
+import prisma from 'prisma'
 import { type ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
 import Event from 'structures/Event'
@@ -34,7 +34,7 @@ export default new Event(Events.ClientReady, async (client) => {
   logger.info('Updating guilds...')
   for (const guild of guilds.cache.values()) {
     const { id: guildId, name } = guild
-    await database.guild.upsert({
+    await prisma.guild.upsert({
       where: {
         guildId,
       },
@@ -44,6 +44,7 @@ export default new Event(Events.ClientReady, async (client) => {
       create: {
         guildId,
         name,
+        config: {},
       },
     })
   }
