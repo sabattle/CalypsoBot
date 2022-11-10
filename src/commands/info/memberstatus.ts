@@ -13,9 +13,8 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     if (!interaction.inCachedGuild()) return
-    const { user, guild } = interaction
+    const { user, guild, member } = interaction
     const { members } = guild
-    const { member } = Command.getMember(interaction)
 
     await members.fetch()
 

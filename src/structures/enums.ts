@@ -4,6 +4,7 @@
 export enum CommandType {
   Info = 'info',
   Fun = 'fun',
+  Color = 'color',
   Misc = 'misc',
 }
 

@@ -16,8 +16,7 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     if (!interaction.inCachedGuild()) return
-    const { user, guild, options } = interaction
-    const { member } = Command.getMember(interaction)
+    const { user, guild, member, options } = interaction
     const target = options.getMentionable('target')
     if (!target) return
 

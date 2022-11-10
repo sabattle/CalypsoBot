@@ -70,6 +70,7 @@ export default new Command({
       const commands: { [key in CommandType]: string[] } = {
         [CommandType.Info]: [],
         [CommandType.Fun]: [],
+        [CommandType.Color]: [],
         [CommandType.Misc]: [],
       }
 

@@ -18,7 +18,7 @@ export default new Command({
   type: CommandType.Info,
   run: async (client, interaction): Promise<void> => {
     if (!interaction.inCachedGuild()) return
-    const { member, guild, options } = interaction
+    const { guild, member, options } = interaction
 
     await guild.members.fetch() // Fetch before snagging role
 
