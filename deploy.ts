@@ -2,7 +2,7 @@ import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v10'
 import logger from 'logger'
 import config from 'config'
-import { basename } from 'path'
+import { basename, join } from 'path/posix'
 import { promisify } from 'util'
 import glob from 'glob'
 import { type StructureModule } from 'structures/Client'
@@ -17,7 +17,7 @@ const _loadCommands = async (): Promise<
   RESTPostAPIChatInputApplicationCommandsJSONBody[]
 > => {
   const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
-  const files = await glob_(`${__dirname}/src/commands/*/*{.ts,.js}`)
+  const files = await glob_(join(__dirname, 'src/commands/*/*{.ts,.js}'))
   if (files.length === 0) {
     logger.warn('No commands found')
     return commands
