@@ -18,7 +18,8 @@
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.7",
     "winston": "^3.8.2",
-    "yargs": "^17.6.2"
+    "yargs": "^17.6.2",
+    "husky": "^8.0.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",
