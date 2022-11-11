@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { REST } from '@discordjs/rest'
 import { Routes } from 'discord-api-types/v10'
 import logger from 'logger'
 import config from 'config'
-import { basename } from 'path'
+import { basename, join, resolve } from 'path'
 import { promisify } from 'util'
 import glob from 'glob'
 import { type StructureModule } from 'structures/Client'
 import { type RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js'
 import type Command from 'structures/Command'
-
 const { token, clientId, guildId } = config
 
 const glob_ = promisify(glob)
@@ -17,7 +17,10 @@ const _loadCommands = async (): Promise<
   RESTPostAPIChatInputApplicationCommandsJSONBody[]
 > => {
   const commands: RESTPostAPIChatInputApplicationCommandsJSONBody[] = []
-  const files = await glob_(`${__dirname}/src/commands/*/*{.ts,.js}`)
+  console.log(__dirname);
+  console.log(`${__dirname}/src/commands/*/*{.ts,.js}`);
+  const files = await glob_(`${resolve(join(__dirname, './src/commands'))}/*/*{.ts,.js}`)
+
   if (files.length === 0) {
     logger.warn('No commands found')
     return commands
@@ -51,10 +54,12 @@ const applicationCommands =
 ;(async (): Promise<void> => {
   try {
     const commands = await _loadCommands()
-    await rest.put(applicationCommands, { body: commands })
+    console.log(commands);
+    //await rest.put(applicationCommands, { body: commands })
     logger.info(`Commands successfully deployed`)
   } catch (err) {
     if (err instanceof Error) logger.error(err.stack)
     else logger.error(err)
   }
 })()
+

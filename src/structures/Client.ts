@@ -121,7 +121,7 @@ export default class Client<
   async #registerCommands(): Promise<void> {
     logger.info('Registering commands...')
 
-    const files = await glob_(`${__dirname}/../commands/*/*{.ts,.js}`)
+    const files = await glob_(`./src/commands/*/*{.ts,.js}`)
     if (files.length === 0) {
       logger.warn('No commands found')
       return
@@ -133,13 +133,16 @@ export default class Client<
     })
 
     let count = 0
+    //./src/commands/e/e.js
 
     for (const f of files) {
+      const fileName = f.split('/').slice(3).join('/')
+      const filePath = `../commands/${fileName}`;
       let name = basename(f)
       name = name.substring(0, name.lastIndexOf('.')) || name
 
       try {
-        const command = ((await import(f)) as StructureModule<Command>).default
+        const command = ((await import(filePath)) as StructureModule<Command>).default
         if (command.data.name) {
           this.commands.set(command.data.name, command)
           table.push([f, name, command.type, chalk.green('pass')])
@@ -164,7 +167,7 @@ export default class Client<
   async #registerSelectMenus(): Promise<void> {
     logger.info('Registering select menus...')
 
-    const files = await glob_(`${__dirname}/../selectmenus/*{.ts,.js}`)
+    const files = await glob_(`./src/selectmenus/*{.ts,.js}`)
     if (files.length === 0) {
       logger.warn('No select menus found')
       return
@@ -180,9 +183,10 @@ export default class Client<
     for (const f of files) {
       let name = basename(f)
       name = name.substring(0, name.lastIndexOf('.')) || name
-
+      const fileName = f.split('/').slice(3).join('/')
+      const filePath = `../selectmenus/${fileName}`;
       try {
-        const selectMenu = ((await import(f)) as StructureModule<SelectMenu>)
+        const selectMenu = ((await import(filePath)) as StructureModule<SelectMenu>)
           .default
         const { customId } = selectMenu
         if (customId) {
@@ -209,7 +213,7 @@ export default class Client<
   async #registerEvents(): Promise<void> {
     logger.info('Registering events...')
 
-    const files = await glob_(`${__dirname}/../events/*{.ts,.js}`)
+    const files = await glob_(`./src/events/*{.ts,.js}`)
     if (files.length === 0) {
       logger.warn('No events found')
       return
@@ -224,12 +228,14 @@ export default class Client<
 
     for (const f of files) {
       let name = basename(f)
+      const fileName = f.split('/').slice(3).join('/')
+      const filePath = `../events/${fileName}`;
       name = name.substring(0, name.lastIndexOf('.')) || name
       if (name === 'debug' && !this.debug) continue
 
       try {
         const event = (
-          (await import(f)) as StructureModule<Event<keyof ClientEvents>>
+          (await import(filePath)) as StructureModule<Event<keyof ClientEvents>>
         ).default
         this.on(event.event, event.run.bind(null, this))
         table.push([f, name, chalk.green('pass')])
