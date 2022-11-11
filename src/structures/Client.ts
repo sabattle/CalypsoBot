@@ -23,7 +23,7 @@ import {
 } from 'discord.js'
 import glob from 'glob'
 import logger from 'logger'
-import { basename } from 'path'
+import { basename, join } from 'path/posix'
 import type Command from 'structures/Command'
 import type Event from 'structures/Event'
 import { promisify } from 'util'
@@ -130,7 +130,7 @@ export default class Client<
   async #registerCommands(): Promise<void> {
     logger.info('Registering commands...')
 
-    const files = await glob_(`${__dirname}/../commands/*/*{.ts,.js}`)
+    const files = await glob_(join(__dirname, '../commands/*/*{.ts,.js}'))
     if (files.length === 0) {
       logger.warn('No commands found')
       return
@@ -173,7 +173,7 @@ export default class Client<
   async #registerSelectMenus(): Promise<void> {
     logger.info('Registering select menus...')
 
-    const files = await glob_(`${__dirname}/../selectmenus/*{.ts,.js}`)
+    const files = await glob_(join(__dirname, '../selectmenus/*{.ts,.js}'))
     if (files.length === 0) {
       logger.warn('No select menus found')
       return
@@ -218,7 +218,7 @@ export default class Client<
   async #registerEvents(): Promise<void> {
     logger.info('Registering events...')
 
-    const files = await glob_(`${__dirname}/../events/*{.ts,.js}`)
+    const files = await glob_(join(__dirname, '../events/*{.ts,.js}'))
     if (files.length === 0) {
       logger.warn('No events found')
       return
