@@ -412,7 +412,7 @@ export class Client<
             text: member?.displayName ?? user.username,
             iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
           })
-          .setColor(Color.Red)
+          .setColor(Color.Error)
           .setTimestamp(),
       ],
       ephemeral: true,

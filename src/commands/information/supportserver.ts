@@ -20,7 +20,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Support Server')
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         `Click [here](${Url.SupportServer}) to join my support server!`,
       )

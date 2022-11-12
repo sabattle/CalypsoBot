@@ -50,7 +50,7 @@ export default new Command({
       .setTitle(
         `${guild?.members.me?.displayName ?? client.user.username}'s Commands`,
       )
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setImage(Image.CalypsoTitle)
       .setFooter({
         text: member?.displayName ?? user.username,

@@ -23,7 +23,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle(title)
-        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
         .setImage(url)
         .setFooter({
           text: member?.displayName ?? user.username,

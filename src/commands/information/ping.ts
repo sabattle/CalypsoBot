@@ -12,7 +12,7 @@ export default new Command({
     const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription('`Pinging...`')
 
     const message = await client.reply(interaction, {

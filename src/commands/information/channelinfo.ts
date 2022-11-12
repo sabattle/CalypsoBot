@@ -51,7 +51,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Channel Information')
       .setThumbnail(guild.iconURL())
-      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild.members.me?.displayHexColor ?? Color.Default)
       .setFields([
         { name: 'Channel', value: `${channel}`, inline: true },
         {

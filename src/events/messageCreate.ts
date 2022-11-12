@@ -17,7 +17,7 @@ export default new Event(Events.MessageCreate, async (client, message) => {
         }. Need help?`,
       )
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         'You can see everything I can do by using the `/help` command.',
       )

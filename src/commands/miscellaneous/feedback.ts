@@ -32,7 +32,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Feedback')
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(options.getString('feedback'))
       .setFields([
         { name: 'User', value: user.tag, inline: true },
@@ -50,7 +50,7 @@ export default new Command({
         new EmbedBuilder()
           .setTitle('Feedback Sent')
           .setThumbnail(Image.Calypso)
-          .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+          .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
           .setDescription(
             stripIndents`
               Your feedback was successfully sent!

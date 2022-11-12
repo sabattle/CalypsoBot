@@ -94,7 +94,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`${guild.name}'s Information`)
       .setThumbnail(guild.iconURL())
-      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild.members.me?.displayHexColor ?? Color.Default)
       .setFields([
         {
           name: 'ID',

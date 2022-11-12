@@ -34,7 +34,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Bug Report')
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(options.getString('bugreport'))
       .setFields([
         { name: 'User', value: user.tag, inline: true },
@@ -52,7 +52,7 @@ export default new Command({
         new EmbedBuilder()
           .setTitle('Bug Report Sent')
           .setThumbnail(Image.Calypso)
-          .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+          .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
           .setDescription(
             stripIndents`
               Your bug report was successfully sent!

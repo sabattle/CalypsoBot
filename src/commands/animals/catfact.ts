@@ -18,7 +18,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle('🐱  Cat Fact  🐱')
-        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
         .setDescription(fact)
         .setFooter({
           text: member?.displayName ?? user.username,

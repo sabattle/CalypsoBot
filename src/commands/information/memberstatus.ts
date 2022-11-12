@@ -37,7 +37,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`Member Status [${members.cache.size}]`)
       .setThumbnail(guild.iconURL())
-      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         stripIndents`
         ${Emoji.Online} **Online:** \`${online}\` members

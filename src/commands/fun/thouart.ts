@@ -26,7 +26,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle('🎭  Thou Art  🎭')
-        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
         .setDescription(`${targetMember ?? targetUser}, ${insult}`)
         .setFooter({
           text: member?.displayName ?? user.username,

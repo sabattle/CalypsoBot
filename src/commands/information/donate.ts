@@ -21,7 +21,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Donate')
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         stripIndents`
           Click [here](${Url.Donate}) to donate!

@@ -20,7 +20,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Invite Me!')
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(`Click [here](${Url.Invite}) to invite me!`)
       .setFooter({
         text: member?.displayName ?? user.username,

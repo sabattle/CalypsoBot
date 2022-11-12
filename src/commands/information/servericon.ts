@@ -13,7 +13,7 @@ export default new Command({
     const { guild, member } = interaction
     const embed = new EmbedBuilder()
       .setTitle(`${guild.name}'s Icon`)
-      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild.members.me?.displayHexColor ?? Color.Default)
       .setImage(guild.iconURL({ size: 512 }))
       .setFooter({
         text: member.displayName,

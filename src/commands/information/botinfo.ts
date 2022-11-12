@@ -36,7 +36,7 @@ export default new Command({
           guild?.members.me?.displayName ?? client.user.username
         }'s Information`,
       )
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         oneLine`
           Calypso is an open source, fully customizable Discord bot that is constantly growing.

@@ -13,7 +13,7 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle('🪙  Coinflip  🪙')
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         `I flipped a coin for you, ${member}! It was **${
           Math.round(Math.random()) ? 'heads' : 'tails'

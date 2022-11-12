@@ -28,7 +28,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle('👩  Yo Mama  👩')
-        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
         .setDescription(`${targetMember ?? targetUser}, ${joke}`)
         .setFooter({
           text: member?.displayName ?? user.username,

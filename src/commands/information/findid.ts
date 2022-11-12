@@ -22,7 +22,7 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle('Find ID')
-      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild.members.me?.displayHexColor ?? Color.Default)
       .setFields([
         { name: 'Target', value: `${target}`, inline: true },
         {

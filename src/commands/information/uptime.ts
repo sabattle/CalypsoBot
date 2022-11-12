@@ -31,7 +31,7 @@ export default new Command({
         `${guild?.members.me?.displayName ?? client.user.username}'s Uptime`,
       )
       .setThumbnail(Image.Calypso)
-      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Default)
       .setDescription(
         `\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``,
       )
