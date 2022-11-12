@@ -52,7 +52,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=development ts-node src/app.ts",
-    "start:dev": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts",
+    "start:dev": "cross-env NODE_ENV=development ts-node-dev --exit-child -r tsconfig-paths/register src/app.ts",
     "start:debug": "cross-env NODE_ENV=development ts-node-dev -r tsconfig-paths/register src/app.ts --debug",
     "start:prod": "cross-env NODE_ENV=production TS_NODE_BASEURL=dist/src node -r tsconfig-paths/register dist/src/app.js",
     "deploy": "cross-env NODE_ENV=development ts-node deploy.ts",
