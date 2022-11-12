@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, ErrorType } from 'enums'
+import { Color, CommandType, ErrorType } from 'enums'
 import fetch from 'node-fetch'
 import capitalize from 'lodash/capitalize'
 
@@ -29,11 +29,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle(title)
-        .setColor(
-          guild?.members.me?.displayHexColor ??
-            client.user.hexAccentColor ??
-            null,
-        )
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
         .setImage(image)
         .setFooter({
           text: member?.displayName ?? user.username,

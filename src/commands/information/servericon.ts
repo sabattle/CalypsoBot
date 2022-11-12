@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType } from 'enums'
+import { Color, CommandType } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -13,9 +13,7 @@ export default new Command({
     const { guild, member } = interaction
     const embed = new EmbedBuilder()
       .setTitle(`${guild.name}'s Icon`)
-      .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
-      )
+      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
       .setImage(guild.iconURL({ size: 512 }))
       .setFooter({
         text: member.displayName,

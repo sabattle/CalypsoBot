@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, ErrorType } from 'enums'
+import { Color, CommandType, ErrorType } from 'enums'
 import fetch from 'node-fetch'
 
 export default new Command({
@@ -26,11 +26,7 @@ export default new Command({
 
       const embed = new EmbedBuilder()
         .setTitle('🎭  Thou Art  🎭')
-        .setColor(
-          guild?.members.me?.displayHexColor ??
-            client.user.hexAccentColor ??
-            null,
-        )
+        .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
         .setDescription(`${targetMember ?? targetUser}, ${insult}`)
         .setFooter({
           text: member?.displayName ?? user.username,

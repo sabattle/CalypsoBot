@@ -7,7 +7,7 @@ import {
   SlashCommandBuilder,
 } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Image, Url } from 'enums'
+import { Color, CommandType, Image, Url } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -21,11 +21,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('GitHub Repository')
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         stripIndents`
           Click [here](${Url.GithubRepository}) to visit my GitHub repository!

@@ -15,7 +15,6 @@ export default new Command({
     .setDescription('Displays bot statistics.'),
   type: CommandType.Information,
   run: async (client, interaction): Promise<void> => {
-    if (!interaction.inCachedGuild()) return
     const { user, guild } = interaction
     const { member } = Command.getMember(interaction)
     const { guilds, channels, ws, uptime, commands } = client
@@ -51,10 +50,14 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle(
-        `${guild.members.me?.displayName ?? client.user.username}'s Statistics`,
+        `${
+          guild?.members.me?.displayName ?? client.user.username
+        }'s Statistics`,
       )
       .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
+        guild?.members.me?.displayHexColor ??
+          (await client.user.fetch(true)).hexAccentColor ??
+          null,
       )
       .addFields([
         {
@@ -74,8 +77,8 @@ export default new Command({
         { name: 'Host Stats', value: `\`\`\`asciidoc\n${serverStats}\`\`\`` },
       ])
       .setFooter({
-        text: member.displayName || user.username,
-        iconURL: member.displayAvatarURL() || user.displayAvatarURL(),
+        text: member?.displayName ?? user.username,
+        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
       })
       .setTimestamp()
 

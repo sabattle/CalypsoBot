@@ -8,7 +8,7 @@ import {
   type User,
 } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Emoji, Image, Url } from 'enums'
+import { Color, CommandType, Emoji, Image, Url } from 'enums'
 import { dependencies, version } from '../../../package.json'
 
 export default new Command({
@@ -36,11 +36,7 @@ export default new Command({
           guild?.members.me?.displayName ?? client.user.username
         }'s Information`,
       )
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         oneLine`
           Calypso is an open source, fully customizable Discord bot that is constantly growing.
@@ -95,5 +91,6 @@ export default new Command({
     )
 
     await client.reply(interaction, { embeds: [embed], components: [row] })
+    await guild?.commands.set([])
   },
 })

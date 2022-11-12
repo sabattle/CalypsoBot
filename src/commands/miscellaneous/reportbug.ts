@@ -1,7 +1,7 @@
 import { stripIndents } from 'common-tags'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, ErrorType, Image, Url } from 'enums'
+import { Color, CommandType, ErrorType, Image, Url } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -34,17 +34,13 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Bug Report')
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(options.getString('bugreport'))
       .setFields([
         { name: 'User', value: user.tag, inline: true },
         {
           name: 'Server',
-          value: interaction.guild?.name ?? 'N/A',
+          value: interaction.guild?.name ?? '`none`',
           inline: true,
         },
       ])
@@ -56,11 +52,7 @@ export default new Command({
         new EmbedBuilder()
           .setTitle('Bug Report Sent')
           .setThumbnail(Image.Calypso)
-          .setColor(
-            guild?.members.me?.displayHexColor ??
-              client.user.hexAccentColor ??
-              null,
-          )
+          .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
           .setDescription(
             stripIndents`
               Your bug report was successfully sent!

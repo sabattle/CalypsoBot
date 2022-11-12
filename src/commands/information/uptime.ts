@@ -3,7 +3,7 @@ import duration from 'dayjs/plugin/duration'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Image } from 'enums'
+import { Color, CommandType, Image } from 'enums'
 
 /* eslint-disable import/no-named-as-default-member */
 dayjs.extend(duration)
@@ -31,11 +31,7 @@ export default new Command({
         `${guild?.members.me?.displayName ?? client.user.username}'s Uptime`,
       )
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         `\`\`\`prolog\n${days}, ${hours}, ${minutes}, and ${seconds}\`\`\``,
       )

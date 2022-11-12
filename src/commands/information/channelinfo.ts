@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { Collection, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType } from 'enums'
+import { Color, CommandType } from 'enums'
 
 const channelTypes = {
   0: 'Text',
@@ -51,9 +51,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Channel Information')
       .setThumbnail(guild.iconURL())
-      .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
-      )
+      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
       .setFields([
         { name: 'Channel', value: `${channel}`, inline: true },
         {

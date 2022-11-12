@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Emoji } from 'enums'
+import { Color, CommandType, Emoji } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -12,11 +12,7 @@ export default new Command({
     const { member } = Command.getMember(interaction)
 
     const embed = new EmbedBuilder()
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription('`Pinging...`')
 
     const message = await client.reply(interaction, {

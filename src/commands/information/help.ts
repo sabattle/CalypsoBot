@@ -10,7 +10,7 @@ import {
 } from 'discord.js'
 import capitalize from 'lodash/capitalize'
 import { Command } from '@structures'
-import { CommandType, Image, Url } from 'enums'
+import { Color, CommandType, Image, Url } from 'enums'
 
 export const descriptions = {
   [CommandType.Information]: 'Commands that provide various information.',
@@ -50,11 +50,7 @@ export default new Command({
       .setTitle(
         `${guild?.members.me?.displayName ?? client.user.username}'s Commands`,
       )
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setImage(Image.CalypsoTitle)
       .setFooter({
         text: member?.displayName ?? user.username,

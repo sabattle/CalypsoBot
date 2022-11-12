@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType } from 'enums'
+import { Color, CommandType } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -13,11 +13,7 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle('🪙  Coinflip  🪙')
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         `I flipped a coin for you, ${member}! It was **${
           Math.round(Math.random()) ? 'heads' : 'tails'

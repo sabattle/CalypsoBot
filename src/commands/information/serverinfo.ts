@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import { ChannelType, EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Emoji } from 'enums'
+import { Color, CommandType, Emoji } from 'enums'
 
 // eslint-disable-next-line import/no-named-as-default-member
 dayjs.extend(duration)
@@ -94,9 +94,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`${guild.name}'s Information`)
       .setThumbnail(guild.iconURL())
-      .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
-      )
+      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
       .setFields([
         {
           name: 'ID',

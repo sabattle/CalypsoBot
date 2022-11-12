@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType } from 'enums'
+import { Color, CommandType } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -22,9 +22,7 @@ export default new Command({
 
     const embed = new EmbedBuilder()
       .setTitle('Find ID')
-      .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
-      )
+      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
       .setFields([
         { name: 'Target', value: `${target}`, inline: true },
         {

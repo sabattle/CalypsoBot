@@ -6,7 +6,7 @@ import {
   SlashCommandBuilder,
 } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Image, Url } from 'enums'
+import { Color, CommandType, Image, Url } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -20,11 +20,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Invite Me!')
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(`Click [here](${Url.Invite}) to invite me!`)
       .setFooter({
         text: member?.displayName ?? user.username,

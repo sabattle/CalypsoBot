@@ -6,7 +6,7 @@ import {
   SlashCommandBuilder,
 } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Image, Url } from 'enums'
+import { Color, CommandType, Image, Url } from 'enums'
 import { stripIndents } from 'common-tags'
 
 export default new Command({
@@ -21,11 +21,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle('Donate')
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         stripIndents`
           Click [here](${Url.Donate}) to donate!

@@ -1,7 +1,7 @@
 import { stripIndents } from 'common-tags'
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
 import { Command } from '@structures'
-import { CommandType, Emoji } from 'enums'
+import { Color, CommandType, Emoji } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()
@@ -37,9 +37,7 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`Member Status [${members.cache.size}]`)
       .setThumbnail(guild.iconURL())
-      .setColor(
-        guild.members.me?.displayHexColor ?? client.user.hexAccentColor ?? null,
-      )
+      .setColor(guild.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         stripIndents`
         ${Emoji.Online} **Online:** \`${online}\` members

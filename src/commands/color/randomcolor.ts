@@ -22,8 +22,7 @@ export default new Command({
     const { guild, member } = interaction
 
     // Get colors
-    const { colorRolePrefix } =
-      (await client.configs.getOrFetch(guild.id)) ?? {}
+    const { colorRolePrefix } = (await client.configs.fetch(guild.id)) ?? {}
     if (!colorRolePrefix) return
     const colors = guild.roles.cache.filter((role) =>
       role.name.startsWith(colorRolePrefix),

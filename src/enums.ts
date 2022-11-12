@@ -50,6 +50,7 @@ export enum Emoji {
  * Enum representing all color hexes used throughout the codebase.
  */
 export enum Color {
+  Seagrass = '#1C5B4B',
   Red = '#FF0000',
 }
 

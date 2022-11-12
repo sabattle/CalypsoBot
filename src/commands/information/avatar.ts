@@ -20,7 +20,9 @@ export default new Command({
     const embed = new EmbedBuilder()
       .setTitle(`${targetMember?.displayName ?? targetUser.username}'s Avatar`)
       .setColor(
-        targetMember?.displayHexColor ?? targetUser.hexAccentColor ?? null,
+        targetMember?.displayHexColor ??
+          (await targetUser.fetch(true)).hexAccentColor ??
+          null,
       )
       .setImage(
         targetMember?.displayAvatarURL({ size: 512 }) ??

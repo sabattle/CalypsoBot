@@ -1,6 +1,6 @@
 import { Event } from '@structures'
 import { EmbedBuilder, Events } from 'discord.js'
-import { Image } from 'enums'
+import { Color, Image } from 'enums'
 
 export default new Event(Events.MessageCreate, async (client, message) => {
   const { guild, channel, author, content } = message
@@ -17,11 +17,7 @@ export default new Event(Events.MessageCreate, async (client, message) => {
         }. Need help?`,
       )
       .setThumbnail(Image.Calypso)
-      .setColor(
-        guild?.members.me?.displayHexColor ??
-          client.user.hexAccentColor ??
-          null,
-      )
+      .setColor(guild?.members.me?.displayHexColor ?? Color.Seagrass)
       .setDescription(
         'You can see everything I can do by using the `/help` command.',
       )
