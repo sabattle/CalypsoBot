@@ -91,6 +91,5 @@ export default new Command({
     )
 
     await client.reply(interaction, { embeds: [embed], components: [row] })
-    await guild?.commands.set([])
   },
 })
