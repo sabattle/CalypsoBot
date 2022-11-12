@@ -5,9 +5,9 @@ import config from 'config'
 import { basename, sep } from 'path'
 import { promisify } from 'util'
 import glob from 'glob'
-import { type StructureModule } from 'structures/Client'
 import { type RESTPostAPIChatInputApplicationCommandsJSONBody } from 'discord.js'
-import type Command from 'structures/Command'
+import type { StructureImport } from 'types'
+import type { Command } from '@structures'
 
 const { token, clientId, guildId } = config
 
@@ -28,7 +28,7 @@ const _loadCommands = async (): Promise<
   for (const f of files) {
     const name = basename(f, '.ts')
     try {
-      const command = ((await import(f)) as StructureModule<Command>).default
+      const command = ((await import(f)) as StructureImport<Command>).default
       commands.push(command.data.toJSON())
     } catch (err) {
       if (err instanceof Error) {
