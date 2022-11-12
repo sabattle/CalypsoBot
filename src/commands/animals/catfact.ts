@@ -5,32 +5,25 @@ import fetch from 'node-fetch'
 
 export default new Command({
   data: new SlashCommandBuilder()
-    .setName('wholesomememe')
-    .setDescription(
-      'Displays a random meme from the "wholesomememes" subreddit.',
-    ),
-  type: CommandType.Fun,
+    .setName('catfact')
+    .setDescription('Gets a random cat fact.'),
+  type: CommandType.Animals,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
     const { member } = Command.getMember(interaction)
 
     try {
-      const res = await fetch(
-        'https://meme-api.herokuapp.com/gimme/wholesomememes',
-      )
-      const { title, url } = (await res.json()) as {
-        title: string
-        url: string
-      }
+      const res = await fetch('https://catfact.ninja/fact')
+      const { fact } = (await res.json()) as { fact: string }
 
       const embed = new EmbedBuilder()
-        .setTitle(title)
+        .setTitle('🐱  Cat Fact  🐱')
         .setColor(
           guild?.members.me?.displayHexColor ??
             client.user.hexAccentColor ??
             null,
         )
-        .setImage(url)
+        .setDescription(fact)
         .setFooter({
           text: member?.displayName ?? user.username,
           iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),

@@ -1,6 +1,6 @@
+import { Client } from '@structures'
 import config from 'config'
 import { GatewayIntentBits, Partials } from 'discord.js'
-import Client from 'structures/Client'
 
 const client = new Client(config, {
   intents: [

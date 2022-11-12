@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import Command from 'structures/Command'
-import { CommandType } from 'structures/enums'
+import { Command } from '@structures'
+import { CommandType } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()

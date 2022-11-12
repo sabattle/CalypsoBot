@@ -1,38 +1,53 @@
 import {
+  type ButtonInteraction,
   type ChatInputCommandInteraction,
   Events,
   PermissionsBitField,
   type SelectMenuInteraction,
 } from 'discord.js'
 import logger from 'logger'
-import Event from 'structures/Event'
-import { ErrorType } from 'structures/enums'
+import { ErrorType } from 'enums'
 import startCase from 'lodash/startCase'
-import type SelectMenu from 'structures/SelectMenu'
-import type Command from 'structures/Command'
-import type Client from 'structures/Client'
+import { type Client, type Command, type Component, Event } from '@structures'
 
 /**
  * Utility function to check if the client is missing any necessary permissions.
  *
  * @param client - The instantiated client
  * @param interaction - The interaction that spawned the event
- * @param object - The struct that is being executed
- * @returns A list of all missing permissions as strings
+ * @param structure - The structure that is being executed
+ * @returns `true` or `false`
  */
-const checkClientPermissions = (
+const hasPermission = async (
   client: Client<true>,
   interaction:
-    | ChatInputCommandInteraction<'cached'>
-    | SelectMenuInteraction<'cached'>,
-  object: Command | SelectMenu,
-): string[] => {
+    | ChatInputCommandInteraction
+    | ButtonInteraction
+    | SelectMenuInteraction,
+  structure:
+    | Command
+    | Component<ButtonInteraction>
+    | Component<SelectMenuInteraction>,
+): Promise<boolean> => {
+  if (!interaction.inCachedGuild()) return true
   const permissions: string[] =
     interaction.channel
       ?.permissionsFor(client.user)
-      ?.missing(object.permissions)
+      ?.missing(structure.permissions)
       .map((p) => startCase(String(new PermissionsBitField(p).toArray()))) ?? []
-  return permissions
+  if (permissions.length != 0) {
+    await client.replyWithError(
+      interaction,
+      ErrorType.MissingPermissions,
+      `Sorry ${
+        interaction.member
+      }, I need the following permissions:\n \`\`\`diff\n- ${permissions.join(
+        '\n- ',
+      )}\`\`\``,
+    )
+    return false
+  }
+  return true
 }
 
 export default new Event(
@@ -43,25 +58,8 @@ export default new Event(
     if (interaction.isChatInputCommand()) {
       const command = client.commands.get(interaction.commandName)
 
-      // Return if no command
-      if (!command) return
-
-      // Reply with error if missing permissions and return
-      if (interaction.inCachedGuild()) {
-        const permissions = checkClientPermissions(client, interaction, command)
-        if (permissions.length != 0) {
-          await client.replyWithError(
-            interaction,
-            ErrorType.MissingPermissions,
-            `Sorry ${
-              interaction.member
-            }, I need the following permissions for this command:\n \`\`\`diff\n- ${permissions.join(
-              '\n- ',
-            )}\`\`\``,
-          )
-          return
-        }
-      }
+      if (!command || !(await hasPermission(client, interaction, command)))
+        return
 
       // Run command
       try {
@@ -73,31 +71,13 @@ export default new Event(
     } else if (interaction.isSelectMenu()) {
       const selectMenu = client.selectMenus.get(interaction.customId)
 
-      // Return if no select menu
-      if (!selectMenu) return
+      if (
+        !selectMenu ||
+        !(await hasPermission(client, interaction, selectMenu))
+      )
+        return
 
-      // Reply with error if missing permissions and return
-      if (interaction.inCachedGuild()) {
-        const permissions = checkClientPermissions(
-          client,
-          interaction,
-          selectMenu,
-        )
-        if (permissions.length != 0) {
-          await client.replyWithError(
-            interaction,
-            ErrorType.MissingPermissions,
-            `Sorry ${
-              interaction.member
-            }, I need the following permissions for this select menu:\n \`\`\`diff\n- ${permissions.join(
-              '\n- ',
-            )}\`\`\``,
-          )
-          return
-        }
-      }
-
-      // Handle select menu update
+      // Run select menu
       try {
         await selectMenu.run(client, interaction)
       } catch (err) {

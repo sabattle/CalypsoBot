@@ -3,8 +3,8 @@ import {
   PermissionFlagsBits,
   SlashCommandBuilder,
 } from 'discord.js'
-import Command from 'structures/Command'
-import { CommandType, ErrorType } from 'structures/enums'
+import { Command } from '@structures'
+import { CommandType, ErrorType } from 'enums'
 
 export default new Command({
   data: new SlashCommandBuilder()

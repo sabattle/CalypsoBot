@@ -1,6 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import Command from 'structures/Command'
-import { CommandType, ErrorType } from 'structures/enums'
+import { Command } from '@structures'
+import { CommandType, ErrorType } from 'enums'
 import fetch from 'node-fetch'
 
 export default new Command({

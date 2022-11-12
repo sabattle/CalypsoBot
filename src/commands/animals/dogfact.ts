@@ -5,32 +5,25 @@ import fetch from 'node-fetch'
 
 export default new Command({
   data: new SlashCommandBuilder()
-    .setName('wholesomememe')
-    .setDescription(
-      'Displays a random meme from the "wholesomememes" subreddit.',
-    ),
-  type: CommandType.Fun,
+    .setName('dogfact')
+    .setDescription('Gets a random dog fact.'),
+  type: CommandType.Animals,
   run: async (client, interaction): Promise<void> => {
     const { user, guild } = interaction
     const { member } = Command.getMember(interaction)
 
     try {
-      const res = await fetch(
-        'https://meme-api.herokuapp.com/gimme/wholesomememes',
-      )
-      const { title, url } = (await res.json()) as {
-        title: string
-        url: string
-      }
+      const res = await fetch('https://dog-api.kinduff.com/api/facts')
+      const fact = ((await res.json()) as { facts: string[] }).facts[0]
 
       const embed = new EmbedBuilder()
-        .setTitle(title)
+        .setTitle('🐶  Dog Fact  🐶')
         .setColor(
           guild?.members.me?.displayHexColor ??
             client.user.hexAccentColor ??
             null,
         )
-        .setImage(url)
+        .setDescription(fact)
         .setFooter({
           text: member?.displayName ?? user.username,
           iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),

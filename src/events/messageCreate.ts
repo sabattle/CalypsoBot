@@ -1,6 +1,6 @@
+import { Event } from '@structures'
 import { EmbedBuilder, Events } from 'discord.js'
-import { Image } from 'structures/enums'
-import Event from 'structures/Event'
+import { Image } from 'enums'
 
 export default new Event(Events.MessageCreate, async (client, message) => {
   const { guild, channel, author, content } = message

@@ -1,7 +1,7 @@
 import prisma from 'prisma'
 import { type ActivitiesOptions, ActivityType, Events } from 'discord.js'
 import logger from 'logger'
-import Event from 'structures/Event'
+import { Event } from '@structures'
 
 export default new Event(Events.ClientReady, async (client) => {
   if (!client.isReady()) return
