@@ -4,7 +4,7 @@ import prisma from 'prisma'
 
 export class ConfigCache extends Collection<Snowflake, Config | undefined> {
   /**
-   * Gets a cached guild config, or fetches it from the database if not present.
+   * Gets a cached guild config or fetches it from the database if not present.
    *
    * @param guildId - The ID of the guild to get or fetch
    * @returns The cached config

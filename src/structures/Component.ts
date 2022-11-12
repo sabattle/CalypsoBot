@@ -16,7 +16,7 @@ export interface ComponentOptions<
 }
 
 /**
- * The abstract Component class provides the contract for all inheriting components.
+ * The generic Component class provides the structure for all components.
  */
 export class Component<TInteraction extends MessageComponentInteraction> {
   public readonly customId: string
