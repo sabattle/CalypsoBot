@@ -17,6 +17,11 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "baseUrl": "src",
+    "paths": {
+      "@structures": ["structures"],
+      "@structures/*": ["structures/*"],
+      "@commands/*": ["commands/*"]
+    },
     "noImplicitAny": true,
     "resolveJsonModule": true
   },
