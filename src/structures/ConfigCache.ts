@@ -9,7 +9,7 @@ export class ConfigCache extends Collection<Snowflake, Config | undefined> {
    * @param guildId - The ID of the guild to get or fetch
    * @returns The cached config
    */
-  public async getOrFetch(guildId: Snowflake): Promise<Config | undefined> {
+  public async fetch(guildId: Snowflake): Promise<Config | undefined> {
     if (!this.has(guildId)) {
       super.set(
         guildId,
@@ -31,7 +31,7 @@ export class ConfigCache extends Collection<Snowflake, Config | undefined> {
     field: keyof Config,
     value: Config[K],
   ): Promise<void> {
-    const config = await this.getOrFetch(guildId)
+    const config = await this.fetch(guildId)
     if (!config)
       throw new Error(
         `Unable to find guild in cache or database with guild ID: ${guildId}`,
