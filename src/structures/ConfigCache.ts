@@ -1,13 +1,10 @@
-import type { Snowflake } from 'discord.js'
-import { Collection } from 'discord.js'
-import { type Config } from '@prisma/client'
+import { Collection, type Snowflake } from 'discord.js'
+import type { Config } from '@prisma/client'
 import prisma from 'prisma'
 
-export default class ConfigCache extends Collection<
-  Snowflake,
-  Config | undefined
-> {
+export class ConfigCache extends Collection<Snowflake, Config | undefined> {
   /**
+   * Gets a cached guild config, or fetches it from the database if not present.
    *
    * @param guildId - The ID of the guild to get or fetch
    * @returns The cached config

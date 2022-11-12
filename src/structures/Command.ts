@@ -5,19 +5,8 @@ import {
   type SlashCommandBuilder,
   type User,
 } from 'discord.js'
-import type Client from 'structures/Client'
-import { CommandType } from 'structures/enums'
-
-/**
- * Type definition of a command's run function.
- *
- * @param Client - The instantiated client
- * @param interaction - The interaction that prompted the command
- */
-type RunFunction = (
-  client: Client<true>,
-  interaction: ChatInputCommandInteraction,
-) => Promise<void> | void
+import { CommandType } from 'enums'
+import type { Permissions, RunFunction } from 'types'
 
 /**
  * Type definition of a slash command.
@@ -27,47 +16,42 @@ type SlashCommand =
   | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>
 
 /**
- * Type definition of a command's list of permissions.
- */
-type Permissions = bigint[]
-
-/**
  * Interface of all available options used for command creation.
  */
 interface CommandOptions {
   data: SlashCommand
   type?: CommandType
   permissions?: Permissions
-  run: RunFunction
+  run: RunFunction<ChatInputCommandInteraction>
 }
 
 /**
  * The Command class provides the structure for all bot commands.
  */
-export default class Command {
+export class Command {
   /** Data representing a slash command which will be sent to the Discord API. */
-  public data: SlashCommand
+  public readonly data: SlashCommand
 
   /**
    * The command type.
    *
-   * @defaultValue `CommandType.Misc`
+   * @defaultValue `CommandType.Miscellaneous`
    */
-  public type: CommandType
+  public readonly type: CommandType
 
   /**
    * List of client permissions needed to run the command.
    *
    * @defaultValue `[PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages]`
    */
-  public permissions: Permissions
+  public readonly permissions: Permissions
 
   /** Handles all logic relating to command execution. */
-  public run: RunFunction
+  public run: RunFunction<ChatInputCommandInteraction>
 
   public constructor({
     data,
-    type = CommandType.Misc,
+    type = CommandType.Miscellaneous,
     permissions = [
       PermissionsBitField.Flags.SendMessages,
       PermissionsBitField.Flags.ViewChannel,

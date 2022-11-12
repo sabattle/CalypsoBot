@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import Table from 'cli-table3'
 import {
   BaseGuildTextChannel,
+  type ButtonInteraction,
   type ChatInputCommandInteraction,
   type ClientEvents,
   type ClientOptions,
@@ -24,23 +25,15 @@ import {
 import glob from 'glob'
 import logger from 'logger'
 import { basename, sep } from 'path'
-import type Command from 'structures/Command'
-import type Event from 'structures/Event'
 import { promisify } from 'util'
-import { Color, Emoji, type ErrorType } from 'structures/enums'
-import type SelectMenu from 'structures/SelectMenu'
-import ConfigCache from 'structures/ConfigCache'
+import { Color, Emoji, type ErrorType } from 'enums'
+import type { Event } from '@structures/Event'
+import type { Command } from '@structures/Command'
+import type { Component } from '@structures/Component'
+import { ConfigCache } from '@structures/ConfigCache'
+import type { StructureImport } from 'types'
 
 const glob_ = promisify(glob)
-
-/**
- * Generic interface representing a structure import.
- */
-export interface StructureModule<
-  Structure extends Command | SelectMenu | Event<keyof ClientEvents>,
-> {
-  default: Structure
-}
 
 /**
  * Interface of all available options used by the client for its config.
@@ -66,7 +59,7 @@ const styling: Table.TableConstructorOptions = {
  * @remarks
  * This should only ever be instantiated once.
  */
-export default class Client<
+export class Client<
   Ready extends boolean = boolean,
 > extends DiscordClient<Ready> {
   /** The client token. */
@@ -99,11 +92,20 @@ export default class Client<
   public commands: Collection<string, Command> = new Collection()
 
   /**
+   * Collection of all buttons mapped by their custom ID.
+   *
+   * @defaultValue `new Collection()`
+   */
+  public buttons: Collection<string, Component<ButtonInteraction>> =
+    new Collection()
+
+  /**
    * Collection of all select menus mapped by their custom ID.
    *
    * @defaultValue `new Collection()`
    */
-  public selectMenus: Collection<string, SelectMenu> = new Collection()
+  public selectMenus: Collection<string, Component<SelectMenuInteraction>> =
+    new Collection()
 
   public constructor(
     {
@@ -122,98 +124,6 @@ export default class Client<
     this.feedbackChannelId = feedbackChannelId
     this.bugReportChannelId = bugReportChannelId
     this.debug = debug
-  }
-
-  /**
-   * Handles loading commands and mapping them in the commands collection.
-   */
-  async #registerCommands(): Promise<void> {
-    logger.info('Registering commands...')
-
-    const files = await glob_(
-      `${__dirname.split(sep).join('/')}/../commands/*/*{.ts,.js}`,
-    )
-    if (files.length === 0) {
-      logger.warn('No commands found')
-      return
-    }
-
-    const table = new Table({
-      head: ['File', 'Name', 'Type', 'Status'],
-      ...styling,
-    })
-
-    let count = 0
-
-    for (const f of files) {
-      let name = basename(f)
-      name = name.substring(0, name.lastIndexOf('.')) || name
-
-      try {
-        const command = ((await import(f)) as StructureModule<Command>).default
-        if (command.data.name) {
-          this.commands.set(command.data.name, command)
-          table.push([f, name, command.type, chalk.green('pass')])
-          count++
-        } else throw Error(`Command name not set: ${name}`)
-      } catch (err) {
-        if (err instanceof Error) {
-          logger.error(`Command failed to register: ${name}`)
-          logger.error(err.stack)
-          table.push([f, name, '', chalk.red('fail')])
-        } else logger.error(err)
-      }
-    }
-
-    logger.info(`\n${table.toString()}`)
-    logger.info(`Registered ${count} command(s)`)
-  }
-
-  /**
-   * Handles loading select menus and mapping them in the select menus collection.
-   */
-  async #registerSelectMenus(): Promise<void> {
-    logger.info('Registering select menus...')
-
-    const files = await glob_(
-      `${__dirname.split(sep).join('/')}/../selectmenus/*{.ts,.js}`,
-    )
-    if (files.length === 0) {
-      logger.warn('No select menus found')
-      return
-    }
-
-    const table = new Table({
-      head: ['File', 'Name', 'Status'],
-      ...styling,
-    })
-
-    let count = 0
-
-    for (const f of files) {
-      let name = basename(f)
-      name = name.substring(0, name.lastIndexOf('.')) || name
-
-      try {
-        const selectMenu = ((await import(f)) as StructureModule<SelectMenu>)
-          .default
-        const { customId } = selectMenu
-        if (customId) {
-          this.selectMenus.set(customId, selectMenu)
-          table.push([f, name, chalk.green('pass')])
-          count++
-        } else throw Error(`Select menu custom ID not set: ${name}`)
-      } catch (err) {
-        if (err instanceof Error) {
-          logger.error(`Select menu failed to register: ${name}`)
-          logger.error(err.stack)
-          table.push([f, name, chalk.red('fail')])
-        } else logger.error(err)
-      }
-    }
-
-    logger.info(`\n${table.toString()}`)
-    logger.info(`Registered ${count} select menus(s)`)
   }
 
   /**
@@ -244,7 +154,7 @@ export default class Client<
 
       try {
         const event = (
-          (await import(f)) as StructureModule<Event<keyof ClientEvents>>
+          (await import(f)) as StructureImport<Event<keyof ClientEvents>>
         ).default
         this.on(event.event, event.run.bind(null, this))
         table.push([f, name, chalk.green('pass')])
@@ -260,6 +170,102 @@ export default class Client<
 
     logger.info(`\n${table.toString()}`)
     logger.info(`Registered ${count} event(s)`)
+  }
+
+  /**
+   * Handles loading commands and mapping them in the commands collection.
+   */
+  async #registerCommands(): Promise<void> {
+    logger.info('Registering commands...')
+
+    const files = await glob_(
+      `${__dirname.split(sep).join('/')}/../commands/*/*{.ts,.js}`,
+    )
+    if (files.length === 0) {
+      logger.warn('No commands found')
+      return
+    }
+
+    const table = new Table({
+      head: ['File', 'Name', 'Type', 'Status'],
+      ...styling,
+    })
+
+    let count = 0
+
+    for (const f of files) {
+      let name = basename(f)
+      name = name.substring(0, name.lastIndexOf('.')) || name
+
+      try {
+        const command = ((await import(f)) as StructureImport<Command>).default
+        if (command.data.name) {
+          this.commands.set(command.data.name, command)
+          table.push([f, name, command.type, chalk.green('pass')])
+          count++
+        } else throw Error(`Command name not set: ${name}`)
+      } catch (err) {
+        if (err instanceof Error) {
+          logger.error(`Command failed to register: ${name}`)
+          logger.error(err.stack)
+          table.push([f, name, '', chalk.red('fail')])
+        } else logger.error(err)
+      }
+    }
+
+    logger.info(`\n${table.toString()}`)
+    logger.info(`Registered ${count} command(s)`)
+  }
+
+  /**
+   * Handles loading components and mapping them in their respective collection.
+   */
+  async #registerComponents(): Promise<void> {
+    logger.info('Registering components...')
+
+    const files = await glob_(
+      `${__dirname.split(sep).join('/')}/../components/*/*{.ts,.js}`,
+    )
+    if (files.length === 0) {
+      logger.warn('No components found')
+      return
+    }
+
+    const table = new Table({
+      head: ['File', 'Name', 'Type', 'Status'],
+      ...styling,
+    })
+
+    let count = 0
+
+    for (const f of files) {
+      let name = basename(f)
+      name = name.substring(0, name.lastIndexOf('.')) || name
+      const type = f.split('/').at(-2) as 'buttons' | 'selectMenus'
+
+      try {
+        const component = (
+          (await import(f)) as StructureImport<
+            Component<MessageComponentInteraction>
+          >
+        ).default
+        const { customId } = component
+        if (customId) {
+          this[type].set(customId, component)
+          table.push([f, name, type, chalk.green('pass')])
+          count++
+        } else throw Error(`Component custom ID not set: ${name}`)
+      } catch (err) {
+        if (err instanceof Error) {
+          logger.error(`Component failed to register: ${name}`)
+          logger.error(err.stack)
+          table.push([f, name, type, chalk.red('fail')])
+        } else logger.error(err)
+      }
+    }
+
+    logger.info(`\n${table.toString()}`)
+    logger.info(`Registered ${count} component(s)`)
   }
 
   /**
@@ -306,15 +312,24 @@ export default class Client<
    */
   // Steal the overloads \o/
   public reply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    interaction:
+      | ChatInputCommandInteraction
+      | ButtonInteraction
+      | SelectMenuInteraction,
     options: InteractionReplyOptions & { fetchReply: true },
   ): Promise<Message>
   public reply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    interaction:
+      | ChatInputCommandInteraction
+      | ButtonInteraction
+      | SelectMenuInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
   ): Promise<InteractionResponse>
   public async reply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    interaction:
+      | ChatInputCommandInteraction
+      | ButtonInteraction
+      | SelectMenuInteraction,
     options: string | MessagePayload | InteractionReplyOptions,
   ): Promise<Message | InteractionResponse | undefined> {
     const { channel } = interaction
@@ -330,7 +345,10 @@ export default class Client<
    * @returns The edited message
    */
   public async editReply(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    interaction:
+      | ChatInputCommandInteraction
+      | ButtonInteraction
+      | SelectMenuInteraction,
     options: string | MessagePayload | WebhookEditMessageOptions,
   ): Promise<Message | undefined> {
     const { channel } = interaction
@@ -371,7 +389,10 @@ export default class Client<
    * @param message - The error message to be sent to the user
    */
   public async replyWithError(
-    interaction: ChatInputCommandInteraction | SelectMenuInteraction,
+    interaction:
+      | ChatInputCommandInteraction
+      | ButtonInteraction
+      | SelectMenuInteraction,
     type: ErrorType,
     message: string,
   ): Promise<void> {
@@ -402,9 +423,9 @@ export default class Client<
    * Initializes the client.
    */
   public async init(): Promise<void> {
-    await this.#registerCommands()
-    await this.#registerSelectMenus()
     await this.#registerEvents()
+    await this.#registerCommands()
+    await this.#registerComponents()
     await this.login(this.#token)
   }
 }
