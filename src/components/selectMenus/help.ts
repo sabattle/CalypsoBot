@@ -49,6 +49,7 @@ export default new Component<SelectMenuInteraction>({
       ) as ActionRowBuilder<SelectMenuBuilder>,
       ActionRowBuilder.from(components[1]) as ActionRowBuilder<ButtonBuilder>,
     ]
-    await interaction.update({ embeds: [embed], components: [...rows] })
+
+    await client.update(interaction, { embeds: [embed], components: [...rows] })
   },
 })
