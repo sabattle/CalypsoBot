@@ -1,39 +1,54 @@
-import { EmbedBuilder, SlashCommandBuilder } from 'discord.js'
-import { Command } from '@structures'
-import { CommandType } from 'enums'
+import { EmbedFieldData, MessageEmbedOptions, User } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
+import { Command } from '@structures/Command';
 
 export default new Command({
-  data: new SlashCommandBuilder()
-    .setName('avatar')
-    .setDescription("Displays a user's avatar.")
-    .addUserOption((option) =>
-      option
-        .setName('user')
-        .setDescription('The user to get the avatar of.')
-        .setRequired(false),
-    ),
-  type: CommandType.Information,
-  run: async (client, interaction): Promise<void> => {
-    const { targetMember, member, targetUser, user } =
-      Command.getMemberAndUser(interaction)
-
-    const embed = new EmbedBuilder()
-      .setTitle(`${targetMember?.displayName ?? targetUser.username}'s Avatar`)
-      .setColor(
-        targetMember?.displayHexColor ??
-          (await targetUser.fetch(true)).hexAccentColor ??
-          null,
-      )
-      .setImage(
-        targetMember?.displayAvatarURL({ size: 512 }) ??
-          targetUser.displayAvatarURL({ size: 512 }),
-      )
-      .setFooter({
-        text: member?.displayName ?? user.username,
-        iconURL: member?.displayAvatarURL() ?? user.displayAvatarURL(),
-      })
-      .setTimestamp()
-
-    await client.reply(interaction, { embeds: [embed] })
+  data: {
+    name: 'avatar',
+    description: "Displays a user's avatar.",
+    options: [
+      {
+        name: 'user',
+        type: 'USER',
+        description: 'The user to get the avatar of.',
+        required: false,
+      },
+    ],
   },
-})
+  run: async (client, interaction: CommandInteraction): Promise<void> => {
+    const targetUser = interaction.options.getUser('user') ?? interaction.user;
+
+    const embedOptions: MessageEmbedOptions = {
+      title: `${targetUser.username}'s Avatar`,
+      image: {
+        url: targetUser.displayAvatarURL({ size: 512, dynamic: true }),
+      },
+      footer: {
+        text: interaction.user.username,
+        iconURL: interaction.user.displayAvatarURL({ dynamic: true }),
+      },
+      timestamp: new Date(),
+    };
+
+    const color = await getColor(targetUser);
+    if (color) {
+      embedOptions.color = color;
+    }
+
+    await interaction.reply({ embeds: [embedOptions] });
+  },
+});
+
+async function getColor(user: User): Promise<number | undefined> {
+  try {
+    const guilds = user.client.guilds.cache.filter((guild) => guild.members.cache.has(user.id));
+    for (const guild of guilds.values()) {
+      const member = await guild.members.fetch(user.id);
+      if (member.displayHexColor !== '#000000') {
+        return member.displayColor;
+      }
+    }
+  } catch (error) {
+    console.error(`Failed to get color for user ${user.id}:`, error);
+  }
+}
